@@ -29,7 +29,7 @@ twitter_username: victorfu14
 github_username:  victorfu14
 
 # Build settings
-theme: jekyll-theme-leap-day
+theme: minima
 plugins:
   - jekyll-feed
 
