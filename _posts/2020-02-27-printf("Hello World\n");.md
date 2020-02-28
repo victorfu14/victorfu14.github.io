@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  printf("Hello World\n");
-date:		2020-02-27 11:45:00 -0600
+date:		2020-02-27 23:45:00 -0600
 categories: random thoughts
 ---
 
@@ -23,7 +23,7 @@ printf("What you see is %lf, but computer's struggling with %lx", val.decimal, v
 
 {% endhighlight %}
 
-Well, that is how you the representation will change when you change from base 10 to base 2. So is life.
+Well, that is how the representation will change when you change from base 10 to base 2. So is life.
 
 If you change a perspective, you'll probably get a entirely different experience. Sometimes you would struggle, sometimes you would be grateful.
 
