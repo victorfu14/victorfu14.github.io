@@ -1,0 +1,40 @@
+---
+layout: post
+title:  printf("Hello World\n");
+date:		2020-02-27 11:45:00 -0600
+categories: random thoughts
+---
+
+{% highlight C %}
+
+union {
+
+​	double decimal;
+
+​	unsigned long binary;
+
+} val;
+
+val.decimal = (double) 0.1;
+
+printf("What you see is %lf, but computer's struggling with %lx", val.decimal, val.binary);
+
+#=> prints "What you see is 0.10000, but computer is struggling with 0x3fb999999999999a"
+
+{% endhighlight %}
+
+Well, that is how you the representation will change when you change from base 10 to base 2. So is life.
+
+If you change a perspective, you'll probably get a entirely different experience. Sometimes you would struggle, sometimes you would be grateful.
+
+Here's to my first personal website.
+
+And some LaTeX testing:
+
+$$ e^{i\pi} + 1 = 0$$
+
+$$E=\sqrt{(pc)^{2}+(m_0c^2)^2}$$
+
+$$\Delta G = \Delta H - T\cdot\Delta S$$
+
+Here's to life, science and human's passion in exploring.
