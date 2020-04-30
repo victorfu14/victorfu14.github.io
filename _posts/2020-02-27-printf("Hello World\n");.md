@@ -33,8 +33,8 @@ And some LaTeX testing:
 
 $$ e^{i\pi} + 1 = 0$$
 
-$$E=\sqrt{(pc)^{2}+(m_0c^2)^2}$$
+$$ E=\sqrt{(pc)^{2}+(m_0c^2)^2} $$
 
-$$\Delta G = \Delta H - T\cdot\Delta S$$
+$$ \Delta G = \Delta H - T \cdot \Delta S $$
 
 Here's to life, science and human's passion in exploring.
