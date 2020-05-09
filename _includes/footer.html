@@ -18,13 +18,16 @@
             <li class="p-name">{{ site.author.name | escape }}</li>
           {% endif -%}
           {% if site.author.email -%}
-            <li><a class="u-email" href="mailto:{{ site.author.email }}">{{ site.author.email }}</a></li>
+            <li><a class="u-email" href="mailto:{{ site.author.email }}">{{ site.author.email | replace: "@", " AT " }}</a></li>
+          {%- endif %}
+          {% if site.author.site -%}
+            <li><a class="u-site" href="http://{{ site.author.site }}">{{ site.author.site }}</a></li>
           {%- endif %}
         </ul>
       {%- endif %}
       </div>
       <div class="footer-col">
-        <p>{{ site.description | escape }}</p>
+        <p style="text-align:right;">{{ site.description | escape }}</p>
       </div>
     </div>
 
