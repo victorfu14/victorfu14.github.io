@@ -12,11 +12,11 @@ Another huge thing is that - I'm bidding my farewell to chemistry (or chemical e
 
 I always had a love-hate relationship with chemistry. It remains fascinating to me while I always stumbled upon perform experiments. And a still mysterious world of organic chemistry makes the mechanisms sounds somewhat like magic - interesting but, well, I like something that can be reasoned out very rigorously rather than tested in a lab. But anyway, I think I would still come back to chemistry one day - maybe using some computational scientific methods.
 
-There were more strange moments that made me both sad and motivated at the same time, and sometimes, depressed. But it has been a pretty semester. Some people I met during these times, they are going to remain in my heart. Thanks all of the people who loved me and supported me in the first two decades of my life. I may not be a good example in high school nor did I transferred into a top 20 private school or CS@CMU, but I would always love exploring and experiencing new stuff. Although I kinda miss my family and friends back home. This year has been wild, and I am not going back home for summer...
+There were more strange moments that made me both sad and motivated at the same time, and sometimes, depressed. But it has been a pretty semester. Some people I met during these times are going to remain in my heart. Thank all of the people who loved me and supported me in the first two decades of my life. I may not be a good example in high school nor did I transferred into a top 20 private school or CS@CMU, but I would always love exploring and experiencing new stuff. Although I kinda miss my family and friends back home. This year has been wild, and I am not going back home for summer...
 
 Keep Calm and Carry On.
 
 On a calm night after a weekend's storm, May 18.
 
-[![Huge Love to My Quarantine Friends](../../../../assets/images/5-18/mymosaic-0.5.png "Huge Love and Thanks to My Quarantine Friends, Daniel Zhang and Kary Wang")](https://www.instagram.com/p/B_GP3c0p1cF/?utm_source=ig_web_copy_link)
-Huge Love and Thanks to My Quarantine Friends, [Daniel Zhang](https://www.danielz.ch/) and Kary Wang
+[![Huge Love and Thanks to My Quarantine Squad Buddies](../../../../assets/images/5-18/mymosaic-0.5.png "Huge Love and Thanks to My Quarantine Squad Buddies, Daniel Zhang and Kary Wang")](https://www.instagram.com/p/B_GP3c0p1cF/?utm_source=ig_web_copy_link)
+Huge Love and Thanks to My Quarantine Squad Buddies, [Daniel Zhang](https://www.danielz.ch/) and Kary Wang
