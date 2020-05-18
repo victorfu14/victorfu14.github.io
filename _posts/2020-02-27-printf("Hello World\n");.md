@@ -2,8 +2,8 @@
 layout: post
 title:  printf("Hello World\n");
 date:		2020-02-27 23:45:00 -0600
-categories: random thoughts
-comments: true
+categories: random
+comments: false
 ---
 
 {% highlight C %}

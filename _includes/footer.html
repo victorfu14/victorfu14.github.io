@@ -18,7 +18,7 @@
             <li class="p-name">{{ site.author.name | escape }}</li>
           {% endif -%}
           {% if site.author.email -%}
-            <li><a class="u-email" href="mailto:{{ site.author.email }}">{{ site.author.email | replace: "@", " AT " }}</a></li>
+            <li><a class="u-email">{{ site.author.email | replace: "@", " AT " }}</a></li>
           {%- endif %}
           {% if site.author.site -%}
             <li><a class="u-site" href="http://{{ site.author.site }}">{{ site.author.site }}</a></li>
