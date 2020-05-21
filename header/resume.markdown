@@ -1,4 +1,4 @@
 ---
-title: Resume
+title: Resume/CV
 ---
-[Here's a pdf version](../assets/resume.pdf)
+[Here's a pdf version of my resume](../assets/resume.pdf)

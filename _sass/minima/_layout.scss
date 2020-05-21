@@ -232,6 +232,13 @@
   @include relative-font-size(1.5);
 }
 
+.post-excerpt {
+  color: #998;
+  text-align: right;
+  margin-top: -1em;
+  margin-bottom: -1em;
+}
+
 
 
 /**

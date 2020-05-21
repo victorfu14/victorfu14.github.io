@@ -33,6 +33,14 @@ social_links:
   linkedin: yiwei-victor-fu-729027193
 disqus:
   shortname: victorfu14-github-io
+show_excerpts: true
+defaults:
+  -
+    scope:
+      path: "_posts"
+      type: "posts"
+    values:
+      excerpt: ""
 
 
 # Build settings
