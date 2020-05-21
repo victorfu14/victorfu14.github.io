@@ -16,15 +16,3 @@ Alright, we are all naive children in front of the universe of thoughts.
 <script>
     document.write('<a href="' + document.referrer + '">I think you would like to go back</a>');
 </script>
-<br>
-<br>
-
----
-
-<br>
-<br>
-<br>
-<br>
-<br>
-Actually, here is my face.
-![myFace](../assets/images/about/myFace.jpg)

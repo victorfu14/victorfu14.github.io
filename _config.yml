@@ -23,8 +23,11 @@ author:
   name: Victor Fu 洑亦唯
   email: yiwei_fuscz@outlook.com
   site: victorfu.com
-description: >- # this means to ignore newlines until "baseurl:"
-  printf("Hello World\n");
+description:
+  left: |
+    Math & CS at some uni in the world<br>Keyboard agnosticism
+  right: |
+    printf("Hello World\n");
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://victorfu14.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 social_links:

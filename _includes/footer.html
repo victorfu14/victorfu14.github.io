@@ -21,13 +21,15 @@
             <li><a class="u-email">{{ site.author.email | replace: "@", " AT " }}</a></li>
           {%- endif %}
           {% if site.author.site -%}
-            <li><a class="u-site" href="http://{{ site.author.site }}">{{ site.author.site }}</a></li>
+            <li><a class="u-site" href="//{{ site.author.site }}">{{ site.author.site }}</a></li>
           {%- endif %}
+          <li>{{ site.description.left }}</li>
         </ul>
       {%- endif %}
       </div>
       <div class="footer-col">
-        <p style="text-align:right;">{{ site.description | escape }}</p>
+        <img class="avater" src="/assets/images/about/myFace.jpg" style="width: 24%; border-radius: 50%; margin-bottom: 0.5em;">
+        <p>{{ site.description.right | escape }}</p>
       </div>
     </div>
 
