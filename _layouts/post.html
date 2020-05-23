@@ -30,6 +30,15 @@ layout: default
     {{ content }}
   </div>
 
+  <script type="text/javascript">
+    $(document).ready( function() {
+      $('a[href*="#"]').click( function() {
+        console.log($(this).attr("href"));
+        $($(this).attr("href")).toggle("highlight");
+      });
+    });
+  </script>
+
   {%- if site.disqus.shortname -%}
     {%- include disqus_comments.html -%}
   {%- endif -%}

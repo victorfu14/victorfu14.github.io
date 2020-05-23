@@ -1,5 +1,6 @@
 html {
   font-size: $base-font-size;
+  scroll-behavior: smooth;
 }
 
 /**
@@ -141,15 +142,15 @@ blockquote {
   color: $brand-color;
   border-left: 4px solid $brand-color-light;
   padding-left: $spacing-unit / 2;
-  @include relative-font-size(1.125);
-  font-style: italic;
+  // @include relative-font-size(1.125);
+  // font-style: italic;
 
   > :last-child {
     margin-bottom: 0;
   }
 
   i, em {
-    font-style: normal;
+    font-style: italic;
   }
 }
 
