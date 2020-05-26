@@ -34,7 +34,7 @@ layout: default
     $(document).ready( function() {
       $('a[href*="#"]').click( function() {
         console.log($(this).attr("href"));
-        $($(this).attr("href")).toggle("highlight");
+        $($(this).attr("href")).effect("highlight", {}, 1500);
       });
     });
   </script>

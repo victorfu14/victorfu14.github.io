@@ -23,13 +23,13 @@
           {% if site.author.site -%}
             <li><a class="u-site" href="//{{ site.author.site }}">{{ site.author.site }}</a></li>
           {%- endif %}
-          <li>{{ site.description.left }}</li>
+          <li>{{ site.descriptions.left }}</li>
         </ul>
       {%- endif %}
       </div>
       <div class="footer-col">
         <img class="avater" src="/assets/images/about/myFace.jpg" style="width: 24%; border-radius: 50%; margin-bottom: 0.5em;">
-        <p>{{ site.description.right | escape }}</p>
+        <p>{{ site.descriptions.right | escape }}</p>
       </div>
     </div>
 

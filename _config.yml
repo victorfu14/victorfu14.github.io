@@ -23,7 +23,9 @@ author:
   name: Victor Fu 洑亦唯
   email: yiwei_fuscz@outlook.com
   site: victorfu.com
-description:
+description: >-
+  error[E0382]: use of moved value
+descriptions:
   left: |
     Math & CS at some uni in the world<br>Keyboard agnosticism
   right: |
