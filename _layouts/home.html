@@ -33,7 +33,7 @@ layout: default
         </h3>
         {%- if site.show_excerpts -%}
           {%- if post.excerpt != "" -%}
-            <div class="post-excerpt">{{ "⸺ " | append: post.excerpt | escape | markdownify }}</div>
+            <div class="post-excerpt">{{ "--- " | append: post.excerpt | escape | markdownify }}</div>
           {%- endif -%}
         {%- endif -%}
       </li>
