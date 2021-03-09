@@ -5,6 +5,9 @@ var $container = $('#outputarea'),
     width = $container.width() * 0.5,
     height = width;
 
+if (data.length > 50) { width = width * 2 }
+if (data.length > 100) { width = width * 1.5 }
+
 // append the svg object to the body of the page
 var chart = d3.select("#chart")
 .append("svg")
@@ -12,7 +15,7 @@ var chart = d3.select("#chart")
     .attr("height", height + margin * 2)
 .append("g")
     .attr("transform",
-        "translate(" + margin + "," + margin + ")");
+        "translate(" + margin * 2 + "," + margin + ")");
 
 
 const yScale = d3.scaleLinear()
@@ -38,5 +41,5 @@ chart.selectAll()
     .attr('y', (item, index) => yScale(item/total))
     .attr('height', (item, index) => height - yScale(item/total))
     .attr('width', xScale.bandwidth())
-
+    .attr('fill', "#5a6978")
 }
