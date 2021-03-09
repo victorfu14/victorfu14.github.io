@@ -1,0 +1,19 @@
+#inputarea {
+    width: 25%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+}
+
+#outputarea {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+    text-align: center;
+}
+
+#chart {
+    margin-left: auto;
+    margin-right: auto;
+}

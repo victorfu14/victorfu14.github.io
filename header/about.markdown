@@ -3,7 +3,7 @@ layout: page
 title: About
 permalink: /about/
 ---
-I'm Victor, currently an undergraduate at University of Illinois at Urbana-Champaign. Although I'm currently a Chemical and Biomolecular Engineering major, I have vast interest in both arts and sciences, especially in math, physics, and chemistry.
+I'm Yiwei (YEE-WAY), a student majoring in Mathematics and Computer Science at University of Michigan.
 
 This is very likely to be a random blog where I wrote some naive stuff to record my studying or amateur research in some field. The real showcase should be [my personal website](//www.victorfu.com) which is still under construction. If you like this blog I would be more than honored.
 
