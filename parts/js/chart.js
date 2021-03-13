@@ -1,8 +1,8 @@
 function getChart(data, total) {
 // set the dimensions and margins of the graph
 var margin = 20;
-var $container = $('#outputarea'),
-    width = $container.width() * 0.5,
+var $container = $('.outputarea'),
+    width = $container.width(),
     height = width;
 
 if (data.length > 50) { width = width * 2 }

@@ -17,9 +17,9 @@ var polyGenus;
                 {
                     const poly = new polyGenus.polygon(numSides);
                     freq[poly.genus()]++;
-                }
-                ;
+                };
             }
+            console.log(freq);
             return freq;
         }
     }

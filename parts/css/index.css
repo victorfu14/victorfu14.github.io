@@ -1,12 +1,14 @@
-#inputarea {
-    width: 25%;
+.inputarea {
+    max-width: 300px;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 1em;
 }
 
-#outputarea {
-    width: 50%;
+.outputarea {
+    max-width: 500px;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 1em;
@@ -16,4 +18,13 @@
 #chart {
     margin-left: auto;
     margin-right: auto;
+}
+
+.display-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#genusOut {
+    max-width: 300px;
 }
