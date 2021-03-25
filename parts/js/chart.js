@@ -42,4 +42,23 @@ chart.selectAll()
     .attr('height', (item, index) => height - yScale(item/total))
     .attr('width', xScale.bandwidth())
     .attr('fill', "#5a6978")
+
+chart.selectAll()
+    .data(data)
+    .enter()
+    .append("text")
+    .text((item, index) => item)
+    .attr("x", (item, index) => xScale(index) + xScale.bandwidth() / 2)
+    .attr("y", (item, index) => yScale(item/total) - 5)
+    .attr("font-family" , "sans-serif")
+    .attr("font-size" , "14px")
+    .attr("fill" , "black")
+    .attr("text-anchor", "middle");
+
+d3.selectAll("rect").on("mouseover", function(){
+    d3.select(this).attr("opacity", .5)
+}).on("mouseout", function(){
+    d3.select(this).attr("opacity", 1)
+});
+
 }

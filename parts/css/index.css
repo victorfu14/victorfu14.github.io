@@ -28,3 +28,11 @@
 #genusOut {
     max-width: 300px;
 }
+
+.content {
+    width: 80%;
+    max-width: 800px;
+    margin-top: 2em;
+    margin-left: auto;
+    margin-right: auto;
+}
