@@ -5,3 +5,9 @@ _site
 vendor
 .DS_Store
 .vscode
+Thumbs.db
+db.json
+*.log
+node_modules/
+public/
+.deploy*/
