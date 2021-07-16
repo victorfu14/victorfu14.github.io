@@ -5,7 +5,7 @@ permalink: /about/
 ---
 I'm Yiwei (YEE-WAY), a student majoring in Mathematics and Computer Science at University of Michigan.
 
-This is very likely to be a random blog where I wrote some naive stuff to record my studying or amateur research in some field. The real showcase should be [my personal website](//www.victorfu.com) which is still under construction. If you like this blog I would be more than honored.
+This is very likely to be a random blog where I wrote some naive stuff to record my studying or amateur research in some field. If you like this blog I would be more than honored.
 
 ![someFunnyComic](../assets/images/about/fieldPurity.png)
 
