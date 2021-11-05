@@ -3,6 +3,7 @@ layout: post
 title:  Something for the Semester, 2020 Spring
 categories: Random
 excerpt: "*Don't look back in anger, I heard you say.*"
+published: true
 ---
 It's been a semester on roller coaster. Dealing with an overload schedule, I seems to finish the semester strong with a relatively poor middle sector performance. Only issues is that I still cannot give up my dumb idealism to become a Renaissance man - which is quite hard to achieve if you don't have a elite background and outstanding intelligence and determination. I'm still hesitating on where I would end up next semester. And I'm making a plan for my summer - math, CS, and literature review is my initial goal.
 

@@ -1,9 +1,9 @@
 ---
 layout: post
-title: 世界上最emo的时间
+title: 世界上最Emotional的时间
 categories: Random
-excerpt:
-published: false 
+excerpt: 飞机上
+published: true 
 ---
 没有什么时间比越（太平）洋航班更让人emo了。
 

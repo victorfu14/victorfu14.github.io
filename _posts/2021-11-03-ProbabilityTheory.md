@@ -2,12 +2,15 @@
 layout: post
 title:  Math 525, Probability Theory
 categories: Maths
-excerpt: Notes
+excerpt: No measure theory here
+published: true 
 ---
-This is the course I took in 2021 Fall semester, and the instructor is Prof. Daniel Burns. The textbook is [*Probability and Random Processes*](https://www.amazon.com/dp/0198847599/ref=cm_sw_em_r_mt_dp_NCN7PHW26G51WKCGGB15) by Geoffrey Grimmett and David Stirzaker.
+This is the course I took in 2021 Fall semester, and the instructor is Daniel Burns. The textbook is [*Probability and Random Processes*](https://www.amazon.com/dp/0198847599/ref=cm_sw_em_r_mt_dp_NCN7PHW26G51WKCGGB15) by Geoffrey Grimmett and David Stirzaker.
+
+No measure theory is covered in this course.
 
 Here are the (incomplete) notes I typesetted in $\LaTeX$: (most of the notes before the first midterm is VERY incomplete, 
-most of the notes after mid October is examined to a certain extent, but there may still be mistakes and typos.)
+most of the notes after mid October is examined to a certain extent, but there may still be mistakes and typos.) Feedbacks welcome!
 
 - [Sep. 1](../../../../parts/probability/0901.pdf)
 - [Sep. 3](../../../../parts/probability/0903.pdf)
