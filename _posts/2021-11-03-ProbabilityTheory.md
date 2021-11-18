@@ -26,3 +26,4 @@ most of the notes after mid October is examined to a certain extent, but there m
 - [Oct. 27, generating function](../../../../parts/probability/1027.pdf)
 - [Oct. 29, generating function & application to random walk](../../../../parts/probability/1029.pdf)
 - [Nov. 3, order statistics](../../../../parts/probability/1103.pdf)
+- [Nov. 8, characteristic functions](../../../../parts/probability/1108.pdf)
