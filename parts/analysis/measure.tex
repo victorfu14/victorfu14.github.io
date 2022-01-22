@@ -1,0 +1,759 @@
+\documentclass{report}
+\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb}
+\usepackage{mathtools}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\setlength{\topmargin}{0.5in}
+\usepackage[margin=4cm]{geometry}
+\usepackage{enumerate}
+
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\setlength{\parskip}{0.5em}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+
+% useful characters/operators
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\matP}{\mathbb{P}}
+\newcommand{\matS}{\mathbb{S}}
+\newcommand{\matH}{\mathbb{H}}
+\newcommand{\matT}{\mathbb{T}}
+\newcommand{\st}{\ s.t.\ }
+\newcommand{\ie}{\ i.e.\ }
+\newcommand{\eg}{\ e.g.\ }
+\def \diam {\operatorname{diam}}
+\def \Hom {\operatorname{Hom}}
+\def \id {\operatorname{id}}
+\def \tr {\operatorname{tr}}
+\def \dist {\operatorname{dist}}
+\def \intr {\operatorname{int}}
+\def \sgn {\operatorname{sgn}}
+\def \im {\operatorname{Im}}
+\def \re {\operatorname{Re}}
+\def \curl {\operatorname{curl}}
+\def \divg {\operatorname{div}}
+\def \GL {\operatorname{GL}}
+\newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
+\newcommand{\df}{\text{d}}
+\newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
+
+% arrows and :=, =:
+\makeatletter
+\providecommand*{\twoheadrightarrowfill@}{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow
+}
+\providecommand*{\twoheadleftarrowfill@}{%
+  \arrowfill@\twoheadleftarrow\relbar\relbar
+}
+\providecommand*{\xtwoheadrightarrow}[2][]{%
+  \ext@arrow 0579\twoheadrightarrowfill@{#1}{#2}%
+}
+\providecommand*{\xtwoheadleftarrow}[2][]{%
+  \ext@arrow 5097\twoheadleftarrowfill@{#1}{#2}%
+}
+\makeatother
+
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\mathrel{\mathop:}}
+
+% integral for measure theory
+\newcommand{\lowerint}{\underline{\int_{\R^d}}}
+\newcommand{\upperint}{\overline{\int_{\R^d}}}
+\newcommand{\lint}[1]{\underline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\uint}[1]{\overline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\sint}[1]{\simp{\int_{\R^d} #1 (x)dx}}
+\newcommand{\lesint}[1]{\int_{\R^d} #1 (x)dx}
+
+% note taking
+\newcommand{\fancyem}[1]{\underline{\textsc{#1}}}
+
+% theorem style
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% for clearer reference
+\usepackage{hyperref}
+\newcommand{\corollaryautorefname}{Corollary}
+\newcommand{\lemmaautorefname}{Lemma}
+\newcommand{\definitionautorefname}{Definition}
+\newcommand{\exampleautorefname}{Example}
+\newcommand{\conjectureautorefname}{Conjecture}
+\renewcommand{\subsectionautorefname}{Section}
+
+% other styling
+\usepackage{fancyvrb, fancyhdr}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+
+\pagestyle{fancy}
+\fancyhead[LO,L]{\leftmark}
+\fancyhead[RO,R]{Yiwei Fu}
+\fancyfoot[CO,C]{\thepage}
+\renewcommand{\sectionmark}[1]{\markboth{#1}{#1}}
+
+\begin{document}
+\pagenumbering{gobble}
+\clearpage
+\thispagestyle{empty}
+% \renewcommand{\ref}[1]{\autoref{#1}}
+\title{Notes for Math 597 -- Real Analysis}
+\author{Yiwei Fu}
+\date{WN 2022}
+\maketitle
+
+\tableofcontents
+Office hour is Mon 12:30 - 1:30, Tue 12:30 - 1:30 in person EH 5838, Th 1 - 2 online.
+
+\clearpage
+\pagenumbering{arabic}
+\chapter{Abstract Measure}
+
+\section{$\sigma$-Algebra}
+\begin{definition}
+Let $X$ be a set. A collection $\mathcal{M}$ of subsets of $X$ is called a $\sigma$-algebra on $X$ if
+\begin{itemize}
+\item
+	$\emptyset \in \mathcal{M}.$
+\item
+	$\mathcal{M}$ is closed under \underline{complements}: $E \in \mathcal{M} \implies E^c \in \mathcal{M}.$
+\item
+	$\mathcal{M}$ is closed under \underline{countable unions}: $E_1, E_2, \ldots \in \mathcal{M} \implies \bigcup_{i=1}^\infty E_i \in \mathcal{M}.$
+\end{itemize}
+\end{definition}
+\fancyem{Simple properties:}
+\begin{itemize}
+\item
+	$X = \emptyset^c \in \mathcal{M}.$
+\item
+	$\bigcap_{i=1}^\infty E_i = \left(\bigcup_{i=1}^n E_i^c\right)^c \in \mathcal{M}.$ It is closed under countable intersections.
+\item
+	$\bigcup_{i=1}^N E_i = E_i \cup \ldots \cup E_n \cup \emptyset \cup \ldots.$ It is closed under finite unions (similarly, intersections).
+\item
+	$E \setminus F = E \cap F^c \in \mathcal{M}, E \triangle F = (E \cap F^c) \cup (F \cap E^c) \in \mathcal{M}.$
+\end{itemize}
+
+\begin{example}
+\begin{enumerate}[(a)]
+\item $\mathcal{A} = \mathcal{P}(X)$ power algebra.
+\item $\mathcal{A} = \{\emptyset, X\}$ trivial algebra.
+\item Let $B \subset X, B \neq \emptyset, B \neq X. \mathcal{A} = \{\emptyset, B, B^c, X\}.$
+\end{enumerate}
+\end{example}
+
+\begin{lemma}(An intersection of $\sigma$-algebras is a $\sigma$-algebra)
+Let $\mathcal{A}_\alpha, \alpha \in I,$ be a family a $\sigma$-algebras of $X$. Then $\bigcap_{\alpha \in I} A_\alpha$ is a $\sigma$-algebra. ($I$ can be uncountable.)
+\end{lemma}
+\begin{proof}
+DIY
+\end{proof}
+
+\begin{definition}
+For $\mathcal{E} \subset \mathcal{P}(X)$ (not necessarily a $\sigma$-algebra), let $\langle \mathcal{E}\rangle$ be the intersection of all $\sigma$-algebras on $X$ that contains $\mathcal{E}.$ Call it the $\sigma$-algebra generated by $\mathcal{E}.$
+\end{definition}
+\begin{itemize}
+\item $\langle \mathcal{E}\rangle$ is the \underline{smallest} $\sigma$-algebra containing $\mathcal{E}$ and is \underline{unique}.
+\item $\{\emptyset, B, B^c, X\} = \langle \{B\} \rangle = \langle \{B^c\}\rangle = \langle \{\emptyset, B\}\rangle.$
+\end{itemize}
+
+The above definition gives us (potentially) lots of examples of $\sigma$-algebra on a set $X$
+
+\begin{lemma}\label{le:1.5}
+\begin{enumerate}[(a)]
+\item
+	Suppose $\mathcal{E} \subset \mathcal{P}(X), \mathcal{A}$ a $\sigma$-algebra on $X$. $\mathcal{E} \in \mathcal{A} \implies \langle\mathcal{E}\rangle \in \mathcal{A}.$
+\item
+	$E \subset F \subset \mathcal{P}(X) \implies \langle \mathcal{E} \rangle \subset \langle\mathcal{F}\rangle.$
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+
+\end{proof}
+
+\begin{definition}
+For a topological space $X$, \underline{the Borel $\sigma$-algebra} $\mathcal{B}(X)$ is the $\sigma$-algebra generated by the collection of open sets.
+\end{definition}
+
+\begin{example}($X = \R$)
+$\mathcal{B}(\R)$ contains the following collections
+\[\mathcal{E}_1 = \{(a, b) \mid a < b\}, \quad \mathcal{E}_2 = \{[a, b] \mid a < b\},\]
+\[\mathcal{E}_3 = \{(a, b] \mid a < b\}, \quad \mathcal{E}_4 = \{[a, b) \mid a < b\},\]
+\[\mathcal{E}_5 = \{(a, \infty) \mid a \in \R\}, \quad \mathcal{E}_6 = \{[a, \infty) \mid a \in \R \},\]
+\[\mathcal{E}_7 = \{(-\infty, a) \mid a \in \R\}, \quad \mathcal{E}_8 = \{(-\infty, a] \mid a < b\}\]
+\end{example}
+
+\begin{proposition}
+$\mathcal{B}(\R) = \langle\mathcal{E}_i\rangle$ for each $i = 1, \ldots, 8.$ 
+\end{proposition}
+\begin{proof}
+\ref{le:1.5}.
+\end{proof}
+
+\begin{definition}
+$(X, \mathcal{A})$ is called a measurable space.
+\end{definition}
+
+
+\section{Measures}
+\begin{definition}
+A measure on $(X, \mathcal{A})$ is a function $\mu: \mathcal{A} \to [0, \infty] \st$
+\begin{enumerate}
+\item $\mu(\emptyset) = 0$
+\item (countable additive) For $A_1, A_2, \ldots \in \mathcal{A}$ disjoint we have
+\[
+\mu\left(\bigcup_1^\infty A_i \right) = \sum_{i=1}^\infty \mu(A_i).
+\]
+\end{enumerate}
+$(X,  \mathcal{A}, \mu)$ is then called a measure space.
+\end{definition}
+
+\begin{example}
+\begin{enumerate}
+\item For any $(X, \mathcal{A}), \mu(A) = \#A$ counting measure.
+\item For any $(X, \mathcal{A}),$ let $x_0 \in X.$ The Dirac measure at $x_0$ is
+\[
+\mu(A) = \begin{cases}
+1 & x_0 \in A, \\
+0 & x_0 \notin A.
+\end{cases}
+\]
+\item For $(\N, \mathcal{P}(\N)),$ let $a_1, a_2, \ldots \in [0, \infty).$ $\mu(A) = \sum_{i \in A} a_i$ is a measure.
+\end{enumerate}
+\end{example}
+
+$(X,  \mathcal{A})$ measurable space
+
+$(X,  \mathcal{A}, \mu)$ measure space
+
+$\mu: \mathcal{A} \to [0, \infty] \st \mu(\emptyset) = 0, $ countable additivity.
+
+\fancyem{Note}: $A, B \in \mathcal{A}, A \subset B, $ then $ \mu(B \setminus A) + \mu(A) = \mu(B) \implies \mu(B \setminus A) = \mu(B) - \mu(A)$ if $\mu(A) < \infty.$
+
+\setcounter{theorem}{12}
+\begin{theorem}
+$(X,  \mathcal{A}, \mu)$ measure space
+\begin{enumerate}
+\item(monotonicity)
+\[A, B \in \mathcal{A}, A \subset B \implies \mu(A) \leq \mu(B).\]
+\item(countable subadditivity)
+	\[A_1, A_2, \ldots, \in \mathcal{A}, \implies \mu\left(\bigcup_i^\infty A_i\right) \leq \sum_i^\infty \mu(A_i).\]
+\item(continuity from below/(MCT) from sets)
+	\[A_1, A_2, \ldots \in \mathcal{A}, A_1 \subset A_2 \subset A_3 \subset \ldots \implies \mu\left(\bigcup_i^\infty A_i\right) = \lim_{n \to \infty} \mu(A_n).\]
+\item(continuity from above)
+	\[A_1, A_2, \ldots \in \mathcal{A}, A_1 \supset A_2 \supset A_3 \supset \ldots, \mu(A_1) < \infty \implies \mu\left(\bigcap_i^\infty A_i\right) = \lim_{n \to \infty} \mu(A_n).\]
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+1, 2, DIY.
+
+For 3, let $B_1 = A_1, B_i = A_i \setminus A_{i-1}, i \geq 2. B_i \in \mathcal{A}$ and are disjoint.
+\begin{align*}
+& \bigcup_i^\infty A_i = \bigcup_i^\infty B_i \\
+\implies\ & \mu\left(\bigcup_i^\infty A_i\right) = \mu\left(\bigcup_i^\infty B_i\right) = \sum_{i}^\infty \mu(B_i) = \lim_{n \to \infty} \sum_{i}^n \mu(B_i) = \lim_{n \to \infty} \mu(A_n).
+\end{align*}
+
+
+For 4, let $E_i = A_1 \setminus A_i.$ Hence $E_i \in \mathcal{A}, E_1 \subset E_2 \subset \ldots$
+We have
+\[
+\bigcup_i^\infty E_i = \bigcup_i^\infty (A_1 \setminus A_i) = A_1 \setminus \left(\bigcap_1^\infty A_i\right) \implies \bigcap_1^\infty A_i = A_1 \setminus \left(\bigcup_1^\infty E_i\right).
+\]
+Hence
+\[
+\mu\left(\bigcap_1^\infty A_i \right) = \mu(A_1) - \mu\left(\bigcup_1^\infty E_i\right) = \mu(A_1) - \lim_{n\to \infty}\mu(E_n) = \mu(A_1) - \lim_{n\to \infty} \mu(A_1) - \mu(A_n). \qedhere
+\]
+\end{proof}
+
+\fancyem{Note:} the condition that $\mu(A_1) < \infty$ cannot be dropped. \\
+For example,
+in $(\N, \mathcal{P}(N), \text{counting measure})$, let $A_n = \{n, n+1, n+2\}, A_1 \supset A_2 \supset A_3 \supset \ldots$ We have $\bigcap_1^\infty = \emptyset \implies \mu\left(\bigcap_1^\infty A_i \right) = 0.$
+
+\begin{definition}
+For $(X,  \mathcal{A}, \mu)$ measure space,
+\begin{itemize}
+\item
+$A \subset X$ is a $\mu$-null set if $A \in \mathcal{A}, \mu(A)= 0.$
+\item
+$A \subset X$ is a $\mu$-subnull set if $\exists B, \mu$-null set $A \subset B.$
+\item
+$(X,  \mathcal{A}, \mu)$ is a complete measure space if every $\mu$-subnull set is $\mathcal{A}$-measurable.
+\end{itemize}
+\end{definition}
+
+\begin{definition}$(X,  \mathcal{A}, \mu)$ measure space.
+A statement $P(x), x \in X$ holds $\mu$-almost everywhere (a.e.) if the set $\{x \in X \mid P(x) \text{does not hold}\}$ is $\mu$-null.
+\end{definition}
+
+\begin{definition}$(X,  \mathcal{A}, \mu)$ measure space.
+\begin{itemize}
+\item
+	$\mu$ is a \underline{finite measure} is $\mu(X) < \infty.$
+\item
+	$\mu$ is a \underline{$\sigma$-finite measure} if $X = \bigcup_1^\infty X_n, X_n \in \mathcal{A}, \mu(X_n) < \infty.$
+\end{itemize}
+\end{definition}
+HW: every measure space can be "completed."
+
+\section{Outer measures}
+\begin{definition}
+An \underline{outer measure} on $X$ is $\mu^*: \mathcal{P}(X) \to [0, \infty] \st$
+\begin{itemize}
+\item
+	$\mu^*(\emptyset) = 0$
+\item(monotonicity)
+	$\mu^*(A) \leq \mu^*(B)$ if $A \subset B.$
+\item(countable subadditivity)
+	\[\forall A_1, A_2, \ldots \in X, \mu^*\left(\bigcup_i^\infty A_i\right) \leq \sum_i^\infty \mu^*(A_i).\]
+\end{itemize}
+\end{definition}
+\begin{example}
+	For $A \subset \R$,
+	\[\mu^*(A) = \inf\left\{\sum_{i=1}^\infty(b_i - a_i) \ \biggr\rvert\ \bigcup_1^\infty (a_i, b_i) \supset A\right\}.\]
+	is an outer measure due to the next proposition.
+\end{example}
+\begin{proposition}(1.19)
+Let $\mathcal{E} \in \mathcal{P}(X) \st \emptyset, X \in \mathcal{E}.$
+Let $\rho: \mathcal{E} \to [0, \infty] \st \rho(\emptyset) = 0.$
+Then
+\[
+\mu^*(A) = \inf\left\{\sum_{i=1}^\infty \rho(E_i) \ \biggr\rvert\ E_i \in \mathcal{E}, \forall i \in N, \bigcup_1^\infty E_i \supset A\right\}\]
+is an outer measure on $X$.
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+	\item
+	$\mu^*$ is well-defined (inf is taken over non-empty set.)
+	\item
+	$\mu^*(\emptyset) = 0$
+	\item
+	$A \subset B \implies \mu^*(A) \leq \mu^*(B).$
+\end{enumerate}
+We check the countable subadditivity.
+
+Let $A_1, A_2, \ldots \subset X.$ If one of $\mu^*(A_i) = \infty,$ then the result holds. Suppose $\mu^*(A_n) < \infty, \forall n \in \N.$
+
+"Give your self a room of epsilon":\\
+Fix $\varepsilon > 0.$ We will show \[\mu^*\left(\bigcup_1^\infty A_n\right) \leq \sum_1^\infty \mu^*(A_i) + \varepsilon.\]
+
+For each $n \in \N, \exists E_{n,1}, E_{n,2}, \ldots \in \mathcal{E} \st$ \[\bigcup_{k=1}^\infty E_{n, k} \supset A_n \quad \text{and} \quad \mu^*(A_n) + \frac{\varepsilon}{2^n}\geq \sum_{k=1}^\infty \rho(E_{n, k}).\]
+
+Then, \[
+\bigcup_1^\infty A_n \subset \bigcup_{n=1}^\infty \bigcup_{k=1}^\infty E_{n, k} = \bigcup_{(n, k) \in \N^2} E_{n, k}.
+\]
+
+\fancyem{Recall:} Tonelli's thm for series.
+If $a_{ij} \in [0, \infty], \forall i, j \in \N, $ then
+\[
+\sum_{(i, j) \in \N^2} a_{ij} = \sum_{i=1}^\infty\sum_{j=1^\infty} a_{ij} = \sum_{j=1}^\infty\sum_{i=1}^\infty a_ij.
+\]
+Hence 
+\begin{align*}
+\mu^*\left(\bigcup_{n=1}^\infty A_n\right) \leq \sum_{n=1}^\infty \rho(E_{k, n}) = \sum_{n=1}^\infty \sum_{k=1}^\infty \rho(E_{k, n}) \leq \sum_{n=1}^\infty\left(\mu^*(A_n) + \frac{\varepsilon}{2^n}\right) = \sum_{n=1}^\infty \mu^*(A_n) + \varepsilon.
+\end{align*}
+We have shown countable subadditivity.
+\end{proof}
+
+Outer measure is very close to a measure. Here the textbooks diverge.
+
+Tao: introduce Lebesgue measure on $\R$ using topological qualities of subsets of $\R.$\\
+Folland: introduce abstract method by Carathéodory and Kolomogorov.
+
+\begin{definition}
+Let $\mu^*$ be an outer measure on $X$. We say $A \subset X$ is Carathéodory measurable with respect to $\mu^*$ if $\forall E \subset X, \mu^*(E) = \mu^*(E \setminus A) + \mu^*(E \cap A).$ 
+\end{definition}
+\begin{lemma}
+Let $\mu^*$ be an outer measure on $X$. Suppose $B_1, B_2, \ldots, B_N$ are disjoint $C$-measurable sets. Then,
+\[
+\forall E \subset X, \mu^*\left(E \cap \left(\bigcup_{1}^N B_i\right)\right) = \sum_{i=1}^n \mu^*(E \cap B_i)
+\]
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\mu^*\left(E \cap \left(\bigcup_1^N B_i\right)\right) = \mu^*(E \cap B_1) +  \mu^*\left(E \cap \left(\bigcup_2^N B_i\right)\right)
+\end{align*}
+because $B_1$ is $C$-measurable.
+Then, iterate.
+\end{proof}
+
+Improved version: 
+
+$B_1, B_2, \ldots$ $C$-measurable and \underline{disjoint} $\implies \mu^*\left(E \cap \bigcup_1^\infty B_n\right) = \sum_1^\infty \mu^*\left(E \cap B_n\right), \forall E \subset X.$
+\begin{proof}
+\begin{align*}
+\sum_1^\infty \mu^*(E \cap B_n) & \geq \mu^*\left(E \cap \bigcup_1^\infty B_n\right) \\
+& \geq \mu^*\left(E \cap \bigcup_1^N B_n \right) = \sum_1^N \mu^*(E \cap B_n.)
+\end{align*}
+Take $N \to \infty$ or note that $N \in \N$ is arbitrary we get the result.
+\end{proof}
+
+
+First big theorem:
+\begin{theorem}[Carathéodory extension theorem]
+Let $\mu^*$ be an outer measure on $X.$ Let $\mathcal{A}$ be the collection of $C$-measurable sets with respect to $\mu^*.$ Then
+\begin{enumerate}
+\item
+	$\mathcal{A}$ us a $\sigma$-algebra on $X$.
+\item
+	$\mu = \mu^*|_{\mathcal{A}}$ is a measure on $(X, \mathcal{A}).$
+\item
+	$(X, \mathcal{A}, \mu)$ is a complete measure space.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+\begin{enumerate}
+\item
+	\begin{enumerate}
+	\item
+		$\emptyset \in \mathcal{A}.$
+	\item
+		$\mathcal{A}$ is closed under complements.
+	\item
+		To show $\mathcal{A}$ closed under countable unions.
+		\begin{itemize}
+		\item(finite union)\\
+		\fancyem{Claim} $A, B \in \mathcal{A} \implies A \cup B \in \mathcal{A}.$
+		
+		\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}
+		\draw (0,2) circle (1.5) node[left] {$A$};
+		\draw (2,2) circle (1.5) node[right] {$B$};
+		\draw (-0.5,1.5) rectangle (2.5,0) node[above left] {$E$};
+		\node[text width=0.5] at (0, 1.0) {$1$};
+		\node[text width=0.5] at (0.925, 1.2) {$2$};
+		\node[text width=0.5] at (2, 1.0) {$3$};
+		\node[text width=0.5] at (0.925, 0.3) {$4$};
+		\end{tikzpicture}
+		\label{fig:AB}
+		\caption{Venn diagram of $A, B, E$}
+		\end{figure}
+		
+		Fix arbitrary $E \subset X$. We need to show 
+		\[
+			\mu^*(E) = \mu^*(E \cap (A \cup B)) + \mu^*(E \setminus (A \cup B)).		
+		\]
+		\ie
+		\[
+			\mu^*(1 \cup 2 \cup 3 \cup 4) = \mu^*(1 \cup 2 \cup 3) + \mu^*(4)
+		\]
+		Since $A$ is $C$-measurable, we have
+		\[
+			\mu^*(1 \cup 2 \cup 3 \cup 4) = \mu^*(1 \cup 2) + \mu^*(3 \cup 4)
+		\]
+		\[
+			\mu^*(1 \cup 2 \cup 3) = \mu^*(1 \cup 2) + \mu^*(3)
+		\]
+		Similarly since $B$ is $C$-measurable, we have
+		\[
+			\mu^*(3 \cup 4) = \mu^*(3) + \mu^*(4)
+		\]
+		Hence
+		\begin{align*}
+		\mu^*(1 \cup 2 \cup 3 \cup 4)
+		& = \mu^*(1 \cup 2) + \mu^*(3 \cup 4) \\
+		& = \mu^*(1 \cup 2 \cup 3) - \mu^*(3) + \mu^*(3) + \mu^*(4) \\
+		& = \mu^*(1 \cup 2 \cup 3) + \mu^*(4).
+		\end{align*}
+		\item(countable disjoint unions)\\
+		Let $A_1, A_2, \ldots \in \mathcal{A}$ and \underline{disjoint}.
+		
+		Fix $E \subset X$ arbitrary.
+		Since $\mu^*$ is countably subadditive, 
+		\[
+		\mu^*(E) \leq \mu^*\left(E \cap \bigcup_1^\infty\right) + \mu^*\left(E \setminus \bigcup_1^\infty A_n\right)
+		\]
+		Fix $n \in \N.$
+		\begin{align*}
+		& \implies \bigcup_1^N A_n \in \mathcal{A} \\
+		& \implies \mu^*(E) = \mu^*\left(E \cap \bigcup_1^N\right) + \mu^*\left(E \setminus \bigcup_1^N A_n\right) \\
+		& \geq \sum_{1}^N \mu^*(E \cap A_n) + \mu^*\left(E \setminus \bigcup_1^\infty A_n\right) \text{ by lemma}.
+		\end{align*}
+		Take $n \to \infty.$
+		\item
+		(countable unions)\\
+		Let $A_1, A_2, \ldots \in \mathcal{A}.$ Take $E_1 = A_1, E_n = A_n \setminus \left(\bigcup_1^{n-1} A_i\right)$ for $n \geq 2.$ Then $\bigcup A_n = \bigcup E_n$ and $E_n$'s are disjoint.
+		\end{itemize}
+	\end{enumerate}
+	\item
+	Firstly we have $\mu(\emptyset) = \mu^*(\emptyset) = 0.$
+	
+	Countable additvity of $\mu^*$ on $\mathcal{A}$ follows from the improved lemma with $E = X$.	
+	
+	\item
+	HW. \qedhere
+\end{enumerate}
+\end{proof}
+
+\section{Hahn-Kolmogorov Theorem}
+\fancyem{Recall} Prop 1.19 Let $\mathcal{E} \subset \mathcal{P}(X) \st \emptyset, X \in \mathcal{E}.$ Let $\rho: \mathcal{E} \to [0, \infty] \st \rho(\emptyset) = 0$
+
+\[
+(\mathcal{E}, \rho) \xrightarrow[1.19]{} (\mathcal{P}(X), \mu^*) \xrightarrow[\text{C-theorem}]{} (A, \mu)
+\] 
+\fancyem{Question} $\mathcal{E} \subset \mathcal{A}$ and $\mu|_\mathcal{E} = \rho$? No!
+\begin{definition}
+Let $\mathcal{A}_0$ be an algebra on $X$. We say $\mu_0: \mathcal{A}_0 \to [0, \infty]$ is a \underline{pre-measure} if 
+\begin{enumerate}
+\item $\mu_0(\emptyset) = 0.$
+\item (finite additivity)
+\[
+\mu_0\left(\bigcup_1^N A_i1\right) = \sum_1^N \mu_0(A_i) \text{ if } A_1, \ldots, A_N \in \mathcal{A}_0 \text{ are disjoint.}
+\]
+\item (countable additivity within the algebra) If $A \in \mathcal{A}_0$ and 
+\[
+A = \bigcup_1^\infty A_n, A_n \in \mathcal{A}_0 \text{ and are disjoint, then } \mu_0(A) = \sum_1^\infty \mu_0(A_n)
+\]
+\end{enumerate}
+\end{definition}
+
+\fancyem{Notation:} Folland uses $\mathcal{M}$ for $\sigma$-algebra and $\mathcal{A}$ for algebra. (Jinho) uses $\mathcal{A}$ for $\sigma$-algebra and $\mathcal{A}_0$ for alegbra.
+
+\begin{example}
+$\mathcal{A}_0$ finite disjoint unions of $(a, b].$
+\[
+\mu_0\left( \bigcup_1^\infty (a_i, b_i]\right) = \sum_1^\infty (b_i - a_i) \text{ or $b_i^n - a_i^n, e^{b_i} - e^{a_i},$ etc.}
+\]
+\end{example}
+
+\begin{lemma}
+\begin{itemize}
+\item 1 + 3 $\implies$ 2.
+\item $\mu_0$ is monotone.
+\end{itemize}
+\end{lemma}
+
+\begin{theorem}[Hahn-Kolmogorov Theorem]
+Let $\mu_0$ be a pre-measure on algebra $\mathcal{A}_0$ on $X$. Let $\mu^*$ be the outer measure induced by $(\mathcal{A}_0, \mu_0)$ in Prop 1.19. Let $\mathcal{A}$ and $\mu$ be the Carathéodory $\sigma$-algebra and measure for $\mu^* \implies (\mathcal{A}, \mu)$ extends $(\mathcal{A}_0, \mu_0) \ie \mathcal{A} \supset \mathcal{A}_0, \mu|_{\mathcal{A}_0} = \mu_0.$ 
+\end{theorem}
+\begin{proof}
+\begin{enumerate}
+\item ($\mathcal{A} \supset \mathcal{A}_0$)
+Let $A \in \mathcal{A}_0$. 
+
+Question: $A \in \mathcal{A}$? i.e. is $A$ $C$-measurable? i.e. $\mu^*(E) = \mu^*(E \cap A) + \mu^*(E \cap A^c), \forall E \subset X.$
+
+Fix $E \subset X.$
+\begin{itemize}
+\item (countable) subadditivity of $\mu^* \implies \mu^*(E) \leq \mu^*(E \cap A) + \mu^*(E \cap A^c).$
+\item If $\mu^*(E) = \infty$ then $\mu^*(E) = \infty \geq \mu^*(E \cap A) + \mu^*(E \cap A^c).$
+\item If $\mu^*(E) < \infty.$
+
+Fix $\varepsilon > 0.$ By the definition of $\mu^*, \exists B_1, B_2, \ldots \in \mathcal{A}_0 \st \bigcup_1^\infty B_n \supset E$ and \[\mu^*(E) + \varepsilon \geq \sum_1^\infty \mu_0(B_n) = \sum_1^\infty \left(\mu_0(B_n \cap A) + \mu_0\left(B_n \cap A^c\right))\right).\]
+
+Note that \[
+\bigcup_1^\infty (B_n \cap A) \supset E \cap A, \quad \bigcup_1^\infty \left(B_n \cap A^c\right) \supset E \cap A^c \implies \geq
+\]
+\end{itemize}
+
+\item
+Let $A \in \mathcal{A}_0$. We want to show that $\mu(A) = \mu_0(A).$
+
+By definition, $\mu(A) = \mu^*(A).$
+\begin{itemize}
+\item
+Let $B_i = \begin{cases}
+A & i = 1, \\
+\emptyset & i = 2
+\end{cases} \in \mathcal{A}_0$ and $\bigcup_{1}^\infty B_i \supset A.$
+
+Hence $\mu^*(A) \leq \sum_1^\infty \mu_0(B_i) = \mu_0(A).$
+
+\item
+Let $B_i \in \mathcal{A}_0, \bigcup_{1}^\infty B_i \supset A$ an arbitrary collection of sets.
+
+Let $C_1 = A \cap B_1, C_i = A \cap B_i \setminus \left(\bigcup_{j=1}^{i-1} B_j\right).$ Then $A = \bigcup_1^\infty$ is a disjoint countable union. By countable additivitiy we have
+\[
+\mu_0(A) = \sum_1^\infty \mu_0(C_i) \implies \mu_0(A) \leq \sum_1^\infty \mu_0(B_i).
+\]
+\end{itemize}
+Hence we have $\mu_0(A) = \mu^*(A) = \mu(A)$. We have completed our proof. \qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{definition}
+Such $(\mathcal{A}, \mu)$ is called the \underline{Hahn-Kolmogorov extension} of $(\mathcal{A}_0, \mu_0)$, and is also called the \underline{Carathéodory $\sigma$-algebra} for $(\mathcal{A}_0, \mu_0)$.
+\end{definition}
+
+\begin{theorem}[uniqueness of HK extension]\label{th:hkunique}
+Let $\mathcal{A}_0$ be an algebra on $X$, $\mu_0$ be a pre-measure on $\mathcal{A}_0$, $(\mathcal{A}, \mu)$ be the Hahn-Kolmogorov extension of $(\mathcal{A}_0, \mu_0)$.
+And let $(\mathcal{A}', \mu')$ be another extension of $(\mathcal{A}_0, \mu_0)$.
+
+If $\mu_0$ is \underline{$\sigma$-finite}, then $\mu = \mu' = \mathcal{A} \cap \mathcal{A}'.$
+\end{theorem}
+
+\fancyem{Note} $\sigma$-finite means
+\[\forall X, X = \bigcup_1^\infty X_n, X_n \in \mathcal{A}_0, \mu_0(X_n) < \infty.\]
+
+\begin{corollary}
+Let $\mu_0$ be a pre-measure on algebra $\mathcal{A}_0$ on $X$. Suppose $\mu_0$ is $\sigma$-finite, then $\exists!$ mreasure $\mu$ on $\langle \mathcal{A}_0 \rangle$ that extends $\mathcal{A}_0$. Furthermore, 
+\begin{enumerate}
+\item the completion of $(X, \langle \mathcal{A}_0 \rangle, \mu)$ is the HK extension of $(\mathcal{A}_0, \mu_0).$
+\item 
+\[
+\mu(A) = \inf \left\{\sum_{i=1}^\infty \mu_0(B_i) \mid B_i \subset A_0, \forall i \in \N, \bigcup_1^\infty B_i \supset A\right\}, \forall A \in \overline{\langle \mathcal{A}_0\rangle}.
+\]
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}[Proof of \ref{th:hkunique}]
+Let $A \in \mathcal{A} \cap \mathcal{A}'$. We need to show $\mu(A) = \mu^*(A) = \mu'(A).$
+\begin{itemize}
+\item
+$\mu^*(A) \geq \mu'(A)$ (HW)
+
+\item
+$\mu(A) \leq \mu'(A)$:
+\begin{enumerate}[(i)]
+\item Assume $\mu(A) < \infty.$ Fix $\varepsilon > 0$. Then $\exists B_i \in \mathcal{A}_0, \forall i \in \N, \bigcup_1^\infty B_i \supset A \st$
+\[
+\mu(A) + \varepsilon = \mu^*(A) + \varepsilon \geq \sum_1^\infty \mu_0(B_i) = \sum_1^\infty \mu(B_i) \geq \mu \left(\bigcup_1^\infty B_i\right) = \mu(B)
+\]
+Hence $\mu(B \setminus A) = \mu(B) - \mu(A) \leq \varepsilon.$
+
+On the other hand, 
+\[
+\mu(B) = \lim_{N \to \infty} \mu\left(\bigcup_1^N B_i\right) = \lim_{N \to \infty} \mu'\left(\bigcup_1^N B_i\right) = \mu'(B)
+\]
+by continuity of measure from below.
+
+\[
+\mu(A) \leq \mu(B) = \mu'(B) = \mu'(A) + \mu'(B \setminus A) \leq \mu'(A) = \varepsilon.
+\]
+\item
+Assume $\mu(A) = \infty.$
+
+Since $\mu_0$ is $\sigma$-finite, $X = \bigcup_1^\infty X_n, X_n \in \mathcal{A}_0, \mu_0(X_0) < \infty.$
+Replacing $X_n$ by $X_1 \cup \ldots \cup X_n$, we may assume $X_1 \subset X_2 \subset \ldots$.
+
+\[\forall n \in N, \mu(A \cap X_n) < \infty \implies \mu(A \cap X_n) \leq \mu'(A \cap X)n).\]
+
+Hence
+\[
+\mu(A) = \lim_{N \to \infty} \mu(A \cap X_n) \leq \lim_{N \to \infty} \mu'(A \cap X_n) = \mu'(A). \qedhere
+\]
+\end{enumerate}
+\end{itemize}
+\end{proof}
+
+\section{Borel Measures on $\R$}
+\begin{definition}
+$F: \R \to \R$ is an \underline{increasing} function if $F(x) \leq F(y)$ for $x < y$.
+$F: \R \to \R$ is increasing and right-continuous $\implies F$ is distribution function. 
+\end{definition}
+
+\begin{example}
+\begin{itemize}
+\item
+\[
+F(x) = \begin{cases}
+1, & x \geq 0 \\
+0, & x < 0.
+\end{cases}
+\]
+\item
+$\Q = \{r_1, r_2, \ldots\}, F_n(x) = \begin{cases}
+1 & x \geq r_n \\
+0 & x < r_n.
+\end{cases}$
+\[
+F(x) = \sum_{n=1}^\infty \frac{F_n(x)}{2^n} \text{ is a distribution function.}
+\]
+\end{itemize}
+\end{example}
+
+\fancyem{Note} If $F$ is increasing, $F(\infty) \defeq \lim_{x \to \infty} F(x), F(-\infty) \defeq \lim_{x \to -\infty} F(x)$ exists in $[-\infty, \infty]$.
+
+In probability theory, cumulative distribution function (CDF) is a distribution function with $F(\infty) = 0$ and $F(-\infty) = 0$.
+
+There are distributions [Folland, Ch9], but these are different from \underline{distribution} functions.
+
+\begin{definition}
+Suppose $X$ a topological space. $\mu$ on $(X, \mathcal{B}(X))$ is called \underline{locally finite} is $\mu(K) < \infty$ for any compact set $K \subset X$.
+\end{definition}
+
+\begin{lemma}
+Let $\mu$ be a locally finite Borel measure on $\R \implies$
+\[
+F_\mu(x) = \begin{cases}
+\mu((0, x]), & x > 0 \\
+0, & x = 0 \\
+- \mu((x, 0]), & x < 0
+\end{cases} \text{ is a distribution function.}
+\]
+\end{lemma}
+\begin{proof}
+DIY. Use continuity of measure.
+\end{proof}
+
+\begin{definition}
+$h$-intervals are $\emptyset, (a, b], (a, \infty), (-\infty, b], (\infty, \infty)$.
+\end{definition}
+
+\begin{lemma}
+Let $\mathcal{H}$ be the collections of finite disjoint unions of $h$-intervals. Then $\mathcal{H}$ is an algebra on $\R$.
+\end{lemma}
+\begin{proof}
+DIY.
+\end{proof}
+
+\begin{proposition}[Distribution function defines a pre-measure]
+Let $F: \R \to \R$ be a distribution function. For an $h$-interval $I$, define
+\[
+\ell(I) = \ell_F(I) = \begin{cases}
+0,  & I = \emptyset \\
+F(b) - F(a), & I = (a, b] \\
+F(\infty) - F(a), & I = (a, \infty) \\
+F(b) - F(\infty), & I = (-\infty, b] \\
+F(\infty) - F(-\infty), & I = (-\infty, \infty). 
+\end{cases}
+\]
+Define $\mu_0 = \mu_{0, F}: \mathcal{H} \to [0, \infty]$ by
+\[
+\mu_0(A) \defeq \sum_{k=1}^N \ell(I_k) \quad \text{if } A = \bigcup_{k=1}^N I_k, \text{ finite disjoint union of $h$-invervals.}
+\]
+Then $\mu_0$ is a pre-measure.
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+\item $\mu_0$ is well-defined.
+\item $\mu_0$ is finite additive.
+\item $\mu_0$ is countable additive within $\mathcal{H}$.
+
+Suppose $A \in \mathcal{H}$ and $A = \bigcup_1^\infty A_i$ a disjoint union, $A_i \in \mathcal{H}$. It is enough to consider the case $A = I, A_k = I_k$ all $h$-intervals. (Why?)
+
+Focus on the case $I = (a, b]$: (HW: check other cases)\\
+We have
+\[(a, b] = \bigcup_1^\infty(a_n, b_n], \text{ a disjoint union}.\]
+Check
+\[F(b) - F(a) ?= \sum_1^\infty(F(b_n) - F(a_n))\]
+$(a, b] \supset \bigcup_1^N (a_n, b_n] \implies F(b) - F(a) \geq \sum_1^N F(b_n) - F(a_n), \forall N \in \N$. (Arranging them in decreasing order) Take $N \to \infty$ we have
+\[F(b) - F(a) \geq \sum_1^\infty(F(b_n) - F(a_n)).\]
+
+Since $F$ is right-continuous, $\exists a' > a \st F(a') - F(a) < \varepsilon$.
+For each $n \in \N$, $\exists b'_n > b_n \st F(b'_n) - F(b_n) < \frac{\varepsilon}{2^n}$ 
+
+$\implies [a', b] \subset \bigcup_1^\infty(a_n, b'_n)$
+$\implies \exists N \in \N \st [a', b] \subset \bigcup_1^n (a_n, b'_n)$
+$\implies F(b) - F(a') \leq \sum_1^N F(b'_n) - F(a_n)$
+$\implies F(b) - F(a) \leq F(b) - F(a') + \varepsilon \leq \sum_1^\infty(F(b'_n)-F(a_n)) + \varepsilon \leq \sum_1^\infty(F(b_n)-F(a_n) + \frac{\varepsilon}{2^n}) + \varepsilon$
+
+\end{enumerate}
+\end{proof}
+
+
+\end{document}
