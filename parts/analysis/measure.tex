@@ -107,6 +107,9 @@
 \fancyfoot[CO,C]{\thepage}
 \renewcommand{\sectionmark}[1]{\markboth{#1}{#1}}
 
+\newcommand{\fnl}{\parbox[t]{0\linewidth}{}}
+\newcommand*\ttlmath[2]{\texorpdfstring{$\boldsymbol{#1}$}{#2}}
+
 \begin{document}
 \pagenumbering{gobble}
 \clearpage
@@ -124,7 +127,7 @@ Office hour is Mon 12:30 - 1:30, Tue 12:30 - 1:30 in person EH 5838, Th 1 - 2 on
 \pagenumbering{arabic}
 \chapter{Abstract Measure}
 
-\section{$\sigma$-Algebra}
+\section{\ttlmath{\sigma}{sigma}-Algebra}
 \begin{definition}
 Let $X$ be a set. A collection $\mathcal{M}$ of subsets of $X$ is called a $\sigma$-algebra on $X$ if
 \begin{itemize}
@@ -144,7 +147,7 @@ Let $X$ be a set. A collection $\mathcal{M}$ of subsets of $X$ is called a $\sig
 	$\bigcap_{i=1}^\infty E_i = \left(\bigcup_{i=1}^n E_i^c\right)^c \in \mathcal{M}.$ It is closed under countable intersections.
 \item
 	$\bigcup_{i=1}^N E_i = E_i \cup \ldots \cup E_n \cup \emptyset \cup \ldots.$ It is closed under finite unions (similarly, intersections).
-\item
+sigma\item
 	$E \setminus F = E \cap F^c \in \mathcal{M}, E \triangle F = (E \cap F^c) \cup (F \cap E^c) \in \mathcal{M}.$
 \end{itemize}
 
@@ -434,10 +437,10 @@ Let $\mu^*$ be an outer measure on $X.$ Let $\mathcal{A}$ be the collection of $
 		\draw (0,2) circle (1.5) node[left] {$A$};
 		\draw (2,2) circle (1.5) node[right] {$B$};
 		\draw (-0.5,1.5) rectangle (2.5,0) node[above left] {$E$};
-		\node[text width=0.5] at (0, 1.0) {$1$};
-		\node[text width=0.5] at (0.925, 1.2) {$2$};
-		\node[text width=0.5] at (2, 1.0) {$3$};
-		\node[text width=0.5] at (0.925, 0.3) {$4$};
+		\node[] at (0, 1.0) {$1$};
+		\node[] at (1, 1.2) {$2$};
+		\node[] at (2, 1.0) {$3$};
+		\node[] at (1, 0.3) {$4$};
 		\end{tikzpicture}
 		\label{fig:AB}
 		\caption{Venn diagram of $A, B, E$}
@@ -650,7 +653,7 @@ Hence
 \end{itemize}
 \end{proof}
 
-\section{Borel Measures on $\R$}
+\section{Borel Measures on \ttlmath{\R}{Reals}}
 \begin{definition}
 $F: \R \to \R$ is an \underline{increasing} function if $F(x) \leq F(y)$ for $x < y$.
 $F: \R \to \R$ is increasing and right-continuous $\implies F$ is distribution function. 
@@ -745,15 +748,95 @@ $(a, b] \supset \bigcup_1^N (a_n, b_n] \implies F(b) - F(a) \geq \sum_1^N F(b_n)
 \[F(b) - F(a) \geq \sum_1^\infty(F(b_n) - F(a_n)).\]
 
 Since $F$ is right-continuous, $\exists a' > a \st F(a') - F(a) < \varepsilon$.
-For each $n \in \N$, $\exists b'_n > b_n \st F(b'_n) - F(b_n) < \frac{\varepsilon}{2^n}$ 
-
-$\implies [a', b] \subset \bigcup_1^\infty(a_n, b'_n)$
-$\implies \exists N \in \N \st [a', b] \subset \bigcup_1^n (a_n, b'_n)$
-$\implies F(b) - F(a') \leq \sum_1^N F(b'_n) - F(a_n)$
-$\implies F(b) - F(a) \leq F(b) - F(a') + \varepsilon \leq \sum_1^\infty(F(b'_n)-F(a_n)) + \varepsilon \leq \sum_1^\infty(F(b_n)-F(a_n) + \frac{\varepsilon}{2^n}) + \varepsilon$
-
+For each $n \in \N$, $\exists b'_n > b_n \st F(b'_n) - F(b_n) < \frac{\varepsilon}{2^n}$. 
+\begin{align*}
+& \implies [a', b] \subset \bigcup_1^\infty(a_n, b'_n) \\
+& \implies \exists N \in \N \st [a', b] \subset \bigcup_1^n (a_n, b'_n)\\
+& \implies F(b) - F(a') \leq \sum_1^N F(b'_n) - F(a_n) \\
+& \implies F(b) - F(a) \leq F(b) - F(a') + \varepsilon \leq \sum_1^\infty(F(b'_n)-F(a_n)) + \varepsilon \\
+& \quad \quad \leq \sum_1^\infty\left(F(b_n)-F(a_n) + \frac{\varepsilon}{2^n}\right) + \varepsilon \qedhere
+\end{align*}
 \end{enumerate}
 \end{proof}
+
+Once we have this pre-measure, HK theorem allows us to extended it to a measure.
+
+\begin{theorem}[Locally finite Borel measures on $\R$]\fnl
+\begin{enumerate}
+\item $F: \R \to \R$ is a distribution function $\implies \exists!$ locally finite Borel measure $\mu_F$ on $\R$ satisfying $\mu_F((a, b]) = F(b) - F(a), \forall a, b, a < b$.
+\item Suppose $F, G: \R \to \R$ are distribution functions. Then, $\mu_F = \mu_G$ on $\mathcal{B}(\R)$ if and only if $F - G$ is a constant function.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+HW
+\end{proof}
+
+\section{Lebesgue-Stieltjes measures on \ttlmath{\R}{Reals}}
+$F$ distribution function  $\implies \mu_F$ on Carathéodory $\sigma$-algebra $\mathcal{A}_{\mu_F}$.\\
+Actually (HW3) $(\mathcal{A}_{\mu_F}, \mu_F) = (\mathcal{B}(\R), \mu_F)$.
+
+\begin{definition}
+\begin{itemize}
+\item $\mu_F$ on $\mathcal{A}_{\mu_F}$ is called the Lebesgue-Stieltjes measure corresponding to $F$.
+\item Special case: $F(x) = x \implies$ Lebesgue measure $(\mathcal{B}, m)$.
+\end{itemize}
+\end{definition} 
+
+\begin{example}
+\begin{enumerate}
+\item $\mu_F((a, b]) = F(b) - F(a)$. $F$ is right-continuous and increasing $\implies F(x_-) \leq F(x) = F(x_+)$.
+
+(HW) $\mu_F(\{a\}) = F(a) - F(a_-), \mu_F([a, b]) = F(b) - F(a_-), \mu_F((a, b)) = F(b_-) - F(a).$
+
+\item
+\[F(x) = \begin{cases}
+1 & x \leq 0 \\ 0 & x < 0
+\end{cases} \implies \mu_F(\{0\}) = 1, \mu_F(\R) = 1, \mu_F(\R \setminus \{0\}) = 0.
+\]
+$\mu_F$ is the Dirac measure at $0$.
+
+\item
+\begin{multline*}
+\Q = \{r_1, r_2, \ldots\},\ F(x) = \sum_{n=1}^\infty \frac{F_n(x)}{2^n},\ F_n(x) = \begin{cases}
+1 & x \leq r_n \\ 0 & x < r_n
+\end{cases} \\
+\implies \mu_F(\{v\}) > 0, \forall v \in \Q,\ \mu_F(\R \setminus \Q) = 0.
+\end{multline*}
+
+\item
+$F(x) = x \implies m((a, b])) = m((a, b)) = m([a, b]) = b - a.$
+
+\item
+$F(x) = e^x, \implies \mu_F((a, b]) = \mu_F((a, b)) = e^b - e^a$
+\end{enumerate}
+1, 2 are examples of discrete measure. \\
+If $F$ is continuous at $a, \mu_F(\{a\}) = 0$.
+\end{example}
+
+\begin{example}
+[Middle thirds Cantor set $\mathcal{C} = \bigcup_{n=1}^\infty K_n$]\fnl
+
+$\mathcal{C}$ is uncountable set, with $m(\mathcal{C}) = 0.$\\
+$x \in \mathcal{C} \implies x = \sum_{n=1}^\infty \frac{a_n}{3^n}, a_n \in \{0, 2\}$
+
+We are interested in the Cantor function $F$.
+\end{example}
+
+\begin{example}
+Cantor function $F$ is continuous and increasing.
+This defines the Cantor measure $\mu_F(\R \setminus \mathcal{C}) = 0, \mu_F(\mathcal{C}) = 1, \mu_F(\{a\}) = 0.$ Compare with Lebesgue measure $m(\R \setminus \mathcal{C}) = \infty > 0, \mu(\mathcal{C}) = 0, m(\{a\}) = 0$.
+\end{example}
+
+\section{Regularity Properties of Lebesgue-Stieltjes Measures}
+\begin{lemma}
+$\mu$ is LS measure on $\R \implies$ 
+\begin{align*}
+    \mu(A) & = \inf\left\{\sum_1^\infty((a_i, b_i]) \mid \bigcup_1^\infty(a_i, b_i] \supset A\right\} \\
+           & =\inf\left\{
+\sum_1^\infty((a_i, b_i)) \mid \bigcup_1^\infty(a_i, b_i) \supset A\right\}
+\end{align*}
+using the continuity of measure.
+\end{lemma}
 
 
 \end{document}

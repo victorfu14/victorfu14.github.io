@@ -11,3 +11,12 @@ db.json
 node_modules/
 public/
 .deploy*/
+
+# latex
+*.synctex.gz
+*.toc
+*.log
+*.out
+*.aux
+*.fls
+*.fdb_latexmk

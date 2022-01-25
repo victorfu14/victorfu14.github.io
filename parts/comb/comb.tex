@@ -1,5 +1,5 @@
 \documentclass{report}
-\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb, nccmath}
+\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb,nccmath}
 \usepackage{mathtools}
 \renewcommand{\qedsymbol}{$\blacksquare$}
 
@@ -107,6 +107,7 @@
 \pagestyle{fancy}
 \fancyhead[LO,L]{\leftmark}
 \fancyhead[RO,R]{Yiwei Fu}
+% \fancyhead[C]{MATH 566}
 \fancyfoot[CO,C]{\thepage}
 \renewcommand{\sectionmark}[1]{\markboth{#1}{#1}}
 
@@ -270,7 +271,7 @@ and the claim follows
 
 So now we are equipped to compute the eigenvalue of bipartite graphs.
 \begin{example}
-Suppose $G = K_{n, m}, B^TB$ is $m \times m$ matrix with all entries being $n = nJ_m.$
+Suppose $G = K_{n, m}, B^TB$ is $m \times m$ matrix with all entries being $n$.
 So the eigenvalues of $B^TB = nm, 0, 0, \ldots.$ So eigenvalues of $A(G)$ is $\sqrt{mn}, -\sqrt{mn}, 0, 0, \ldots$
 \end{example}
 
@@ -376,8 +377,8 @@ Walk in $G \times H \xleftrightarrow[]{1-1}$ a \underline{shuffle} of marked clo
 
 \begin{align*}
 & \# \text{ of closed walks of length $\ell$ in $G \times H$} \\
-= & \sum_{k} {\ell \choose k} \sum_i \lambda_i^k\sum_j \mu_j^{\ell - k} \\
-= & \sum_i \sum_j \sum_k {\ell \choose k} \lambda_i^{k} \mu_j^{\ell - k} \\
+= & \sum_{k} \binom{\ell}{k} \sum_i \lambda_i^k\sum_j \mu_j^{\ell - k} \\
+= & \sum_i \sum_j \sum_k \binom{\ell}{k} \lambda_i^{k} \mu_j^{\ell - k} \\
 = & \sum_{i, j} (\lambda_i + \mu_j)^\ell
 \end{align*}
 This set of numbers are unique by problem in lecture 1, so they must be the eigenvalues of $G \times H.$
@@ -425,8 +426,8 @@ $K_2$ has adjacency matrix $A(K_2) = \begin{bmatrix}
 \]
 
 \begin{proposition}
-The eigenvalues of $(K_2)^n$ are of the form $n - 2k$ where $k = 0, 1, \ldots, n,$ each with multiplicities ${n \choose k} \ie$the number of marked closed walks of length $\ell$ in the $n-$cube graph is
-\[\sum_{k = 0}^n {n \choose k} (n - 2k)^\ell\]
+The eigenvalues of $(K_2)^n$ are of the form $n - 2k$ where $k = 0, 1, \ldots, n,$ each with multiplicities $\binom{n}{k} \ie$the number of marked closed walks of length $\ell$ in the $n-$cube graph is
+\[\sum_{k = 0}^n \binom{n}{k} (n - 2k)^\ell\]
 which is $0$ when $\ell$ is odd.
 \end{proposition}
 
@@ -440,8 +441,9 @@ $G = (K_2)^n$ is regular with $d = n.$
 A \underline{simple random walk} on $G$ originating at a vertex $v$ is a random walk with equal probabilities for each adjacent vertices.
 
 \begin{align*}
-\matP\left(\text{walk is back at $v$ after $\ell$ steps}\right) & = \frac{1}{d^\ell} \#\{\text{marked closed walks of length $\ell$ orginiating from $v$}\} \\
-& = d^{-\ell} p^{-1} \sum_1^p \lambda_i^\ell.
+    & \matP\left(\text{walk is back at $v$ after $\ell$ steps}\right) \\
+    =\ & \frac{1}{d^\ell} \#\{\text{marked closed walks of length $\ell$ orginiating from $v$}\} \\
+    =\ & d^{-\ell} p^{-1} \sum_1^p \lambda_i^\ell.
 \end{align*}
 assuming that $\Aut(G)$ acts transitively on vertices.
 
@@ -450,7 +452,7 @@ Notice that an arbitrary regular $G$ does not necessarily have that condition, b
 \begin{example}
 The probability that a simple random walk on $(K_2)^n$ returns to its origin after $\ell $ steps is
 \[
-\frac{1}{n^\ell 2^n} \sum_{k = 0}^n {n \choose k} (n - 2k)^\ell
+\frac{1}{n^\ell 2^n} \sum_{k = 0}^n \binom{n}{k} (n - 2k)^\ell
 \]
 \end{example}
 
@@ -494,7 +496,7 @@ The probability that a simple random walk on $(K_2)^n$ returns to its origin aft
 \node[shape=circle, fill=black, scale = 0.3] (A16) at (2, 2.5) {};
 
 \path[-, thick, cyan] (A1) edge (A2);\path[-] (A2) edge (A3);\path[-, thick, cyan] (A3) edge (A4);\path[-] (A4) edge (A5);
-\path[-] (A6) edge (A7);\path[-] (A7) edge (A8);\path[-] (A8) edge (A9);\path[-] (A9) edge (A10);
+\path[-, thick, cyan] (A6) edge (A7);\path[-] (A7) edge (A8);\path[-, thick, cyan] (A8) edge (A9);\path[-] (A9) edge (A10);
 \path[-, thick, cyan] (A11) edge (A12);\path[-] (A12) edge (A13);\path[-, thick, cyan] (A13) edge (A14);
 \path[-, thick, cyan] (A15) edge (A16);
 
@@ -559,6 +561,7 @@ It means swapping two diagonal entries, thus change the sign of permutation, but
 \end{proof}
 
 Now we can use some linear algebra to calculate the determinant.
+
 Denote $\tilde{M} = \begin{bmatrix}
 0 & \tilde{B} \\
 \tilde{B}^T & 0
@@ -595,7 +598,7 @@ with the convention that $u_0 = u_{n+1} = 0$.
 
 
 A divine revelation:
-recall that \[sin\alpha + \sin\beta = 2\cos\frac{\beta - \alpha}{2}\sin\frac{\alpha+\beta}{2}.\]
+recall that \[\sin\alpha + \sin\beta = 2\cos\frac{\beta - \alpha}{2}\sin\frac{\alpha+\beta}{2}.\]
 This suggest taking
 \[
 u_j = \sin\left(\frac{\pi k j}{n + 1}\right) \quad \text{for } j = 1, \ldots, n.
@@ -649,11 +652,124 @@ Notice that the right hand side is a Riemann sum of the function $\ln(4\cos^2x+4
 \]
 where $K$ is Catalan's constant. As of today, it is not known whether it is irrational, nor transcendental.
 
-So we have $T(n, n) \approx 1.34n^2.$
+So we have $T(n, n) \approx 1.34^{n^2}.$
 
 Another way to define Catalan's constant:
 \[
 K = \beta(2) = \sum_{i=0}^\infty \frac{(-1)^n}{(2n+1)^2} = \frac{1}{1^2} - \frac{1}{3^2} + \frac{1}{5^2} - \frac{1}{7^2} + \ldots.
 \]
+
+\section{Spanning Tree in Grid Graphs}
+Suppose a grid graph $G$:
+\[\begin{tikzpicture}
+\draw[step=0.5cm,gray,very thin] (-1.5, 1) grid (1, -0.5);
+\end{tikzpicture}\]
+We can keep some edges and discard others to obtain a connected acyclic subgraph of $G$ (which is a spanning tree).
+\[\begin{tikzpicture}
+\draw[step=0.5cm,gray,very thin] (-1.5, 1) grid (1, -0.5);
+\draw[red, thick] (-1.5, 1) -- (-1, 1);
+\draw[red, thick] (-1.5, 1) -- (-1.5, 0.5);
+\draw[red, thick] (-1, 1) -- (-0.5, 1);
+\draw[red, thick] (-1.5, 0.5) -- (-1, 0.5);
+\draw[red, thick] (-1.5, 0.5) -- (-1.5, 0);
+\draw[red, thick] (-1, 0.5) -- (-1, 0);
+\draw[red, thick] (-1.5, -0.5) -- (-1, -0.5);
+\end{tikzpicture}\]
+
+\begin{theorem}[H.N.V. Temperley, 1974]
+    Consider a rectangular board of odd size $(2k - 1 \times 2\ell - 1)$ with one corner removed. The number of domino tilings of the board is equal to the number of spanning trees in the $k \times \ell$ grid.
+\end{theorem}
+\begin{proof}
+    Find a bijection between domino tilings and spanning trees
+    \[
+    \begin{tikzpicture}
+        \draw[step = 0.5cm, gray, very thin, dashed] (0, 0) grid (3.5, 3.5);
+        \draw[black, thick] (0, 0) rectangle (1, 0.5);
+        \draw[black, thick] (0, 0.5) rectangle (0.5, 1.5); 
+        \draw[black, thick] (1, 0) rectangle (2, 0.5);
+        \draw[black, thick] (2, 0) rectangle (2.5, 1);
+        \draw[black, thick] (2.5, 0) rectangle (3, 1);
+        \draw[black, thick] (3, 0) rectangle (3.5, 1);
+        \draw[black, thick] (0.5, 0.5) rectangle (1.5, 1);
+        \draw[black, thick] (1.5, 0.5) rectangle (2, 1.5);
+        \draw[black, thick] (0, 0.5) rectangle (0.5, 1.5);
+        \draw[black, thick] (2, 1) rectangle (3, 1.5);
+        \draw[black, thick] (3, 1) rectangle (3.5, 2);
+        \draw[black, thick] (0.5, 1) rectangle (1, 2);
+        \draw[black, thick] (1, 1) rectangle (1.5, 2);
+        \draw[black, thick] (0.5, 1) rectangle (1, 2);
+        \draw[black, thick] (0, 1.5) rectangle (0.5, 2.5);
+        \draw[black, thick] (0, 2.5) rectangle (0.5, 3.5);
+        \draw[black, thick] (0.5, 2) rectangle (1.5, 2.5);
+        \draw[black, thick] (0.5, 2.5) rectangle (1, 3.5);
+        \draw[black, thick] (1, 2.5) rectangle (2, 3);
+        \draw[black, thick] (1, 3) rectangle (2, 3.5);
+        \draw[black, thick] (0.5, 1) rectangle (1, 2);
+        \draw[black, thick] (0.5, 1) rectangle (1, 2);
+        \draw[black, thick] (0.5, 1) rectangle (1, 2);
+        \draw[black, thick] (0.5, 1) rectangle (1, 2);
+    \end{tikzpicture}
+    \]
+\fancyem{Problem} Prove that Temperley's map produces a tree.
+
+Now we have a formard map. We also need to obtain the inverse map from spanning trees to domino tiling.
+\end{proof}
+
+\begin{corollary}
+    \[
+        \# \text{ of spanning trees in a $k \times \ell$ grid} \approx \left(e^\frac{4K}{\pi}\right)^{k\ell} \approx 3.21^{k\ell}.
+    \]
+\end{corollary}
+
+\fancyem{Problem} Prove that the number of domino tilings (if exist) of an odd-by-odd rectangle with a boundary box removed doesn't depende of which box we removed.
+
+\section{Spanning Trees of Planar Graphs}
+Suppose $P$ is a polygon, $G$ a polygonal subdivision of $P$. Define $H$ by adding midpoints and extra vertex in each bounded face and adding edges to connect them.
+
+\fancyem{Problem} Show that the number of spanning trees in $G$ is equal to the number of perfect matchings in $H$ with one vertex that are also in $P$ removed.
+
+\begin{example}
+    \[
+        G = \begin{tikzpicture}
+\node[shape=circle, fill=black, scale = 0.3] (A1) at (0.5, 1.5) {};
+\node[shape=circle, fill=black, scale = 0.3] (A2) at (0, 0) {};
+\node[shape=circle, fill=black, scale = 0.3] (A3) at (1, 0) {};
+\node[shape=circle, fill=black, scale = 0.3] (A4) at (0, 1) {};
+\node[shape=circle, fill=black, scale = 0.3] (A5) at (1, 1) {};
+        \end{tikzpicture}
+    \]
+    The number of spanning trees $= 4 + 4 + 3 = 11$.
+    \[
+        H - \{v\} = \begin{tikzpicture}
+            \draw[step = 0.5cm, gray, thin] (0, 0) grid (1, 1.5);
+        \end{tikzpicture} 
+    \]
+\end{example}
+
+\section{The Diamond Lemma}
+\begin{definition}
+    A \underline{one-player game} is define by:
+    \begin{itemize}
+        \item the set of positions $\mathcal{S}$
+        \item for each $s \in \mathcal{S}$ a set of positions $s' \neq s$ into which the player can from from from $s$. Denote as $s \rightsquigarrow s'$.
+    \end{itemize}
+    If the latter set is empty, then $S$ is called \underline{terminal}.
+
+    A \underline{play sequence} is a sequence
+    \[s \rightsquigarrow s' \rightsquigarrow s'' \rightsquigarrow \ldots\]
+
+    A game is \underline{terminating} is $\nexists$ infinite play sequences.
+
+    A game is \underline{confluent} is its outcome is uniquely determined by initial position.
+\end{definition}
+
+\begin{lemma}[The Diamond Lemma for terminating games]
+    For a one-player game, assume that
+    \begin{itemize}
+        \item the game is terminating 
+        \item[$\diamond$](diamond condition) $\forall s \in \mathcal{S}$, $\forall s \rightsquigarrow s'$, $s \rightsquigarrow s''$, $\exists$ some position that can be reach from both $s'$ and $s''$. (You never say goodbye forever!)
+    \end{itemize}
+    Then the game is confluent.
+\end{lemma}
 
 \end{document}
