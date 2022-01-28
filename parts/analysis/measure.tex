@@ -6,6 +6,8 @@
 \setlength{\topmargin}{0.5in}
 \usepackage[margin=4cm]{geometry}
 \usepackage{enumerate}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\renewcommand{\labelenumii}{(\arabic{enumii})}
 
 \usepackage{setspace}
 \onehalfspacing
@@ -27,6 +29,12 @@
 \newcommand{\st}{\ s.t.\ }
 \newcommand{\ie}{\ i.e.\ }
 \newcommand{\eg}{\ e.g.\ }
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cM}{\mathcal{M}
+\newcommand{\cF}{\mathcal{F}}}
 \def \diam {\operatorname{diam}}
 \def \Hom {\operatorname{Hom}}
 \def \id {\operatorname{id}}
@@ -39,10 +47,12 @@
 \def \curl {\operatorname{curl}}
 \def \divg {\operatorname{div}}
 \def \GL {\operatorname{GL}}
+\def \supp {\operatorname{supp}}
 \newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
 \newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
 \newcommand{\df}{\text{d}}
 \newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
+\newcommand{\gen}[1]{\left\langle #1 \right\rangle}
 
 % arrows and :=, =:
 \makeatletter
@@ -176,7 +186,7 @@ For $\mathcal{E} \subset \mathcal{P}(X)$ (not necessarily a $\sigma$-algebra), l
 
 The above definition gives us (potentially) lots of examples of $\sigma$-algebra on a set $X$
 
-\begin{lemma}\label{le:1.5}
+\begin{lemma}\label{le:alg}
 \begin{enumerate}[(a)]
 \item
 	Suppose $\mathcal{E} \subset \mathcal{P}(X), \mathcal{A}$ a $\sigma$-algebra on $X$. $\mathcal{E} \in \mathcal{A} \implies \langle\mathcal{E}\rangle \in \mathcal{A}.$
@@ -204,7 +214,7 @@ $\mathcal{B}(\R)$ contains the following collections
 $\mathcal{B}(\R) = \langle\mathcal{E}_i\rangle$ for each $i = 1, \ldots, 8.$ 
 \end{proposition}
 \begin{proof}
-\ref{le:1.5}.
+Use \ref{le:alg}.
 \end{proof}
 
 \begin{definition}
@@ -262,16 +272,16 @@ $(X,  \mathcal{A}, \mu)$ measure space
 \end{enumerate}
 \end{theorem}
 \begin{proof}
-1, 2, DIY.
+    (a), (b), DIY.
 
-For 3, let $B_1 = A_1, B_i = A_i \setminus A_{i-1}, i \geq 2. B_i \in \mathcal{A}$ and are disjoint.
-\begin{align*}
-& \bigcup_i^\infty A_i = \bigcup_i^\infty B_i \\
-\implies\ & \mu\left(\bigcup_i^\infty A_i\right) = \mu\left(\bigcup_i^\infty B_i\right) = \sum_{i}^\infty \mu(B_i) = \lim_{n \to \infty} \sum_{i}^n \mu(B_i) = \lim_{n \to \infty} \mu(A_n).
-\end{align*}
+    For (c), let $B_1 = A_1, B_i = A_i \setminus A_{i-1}, i \geq 2. B_i \in \mathcal{A}$ and are disjoint.
+    \begin{align*}
+        & \bigcup_i^\infty A_i = \bigcup_i^\infty B_i \\
+        \implies\ & \mu\left(\bigcup_i^\infty A_i\right) = \mu\left(\bigcup_i^\infty B_i\right) = \sum_{i}^\infty \mu(B_i) = \lim_{n \to \infty} \sum_{i}^n \mu(B_i) = \lim_{n \to \infty} \mu(A_n).
+    \end{align*}
 
 
-For 4, let $E_i = A_1 \setminus A_i.$ Hence $E_i \in \mathcal{A}, E_1 \subset E_2 \subset \ldots$
+For (d), let $E_i = A_1 \setminus A_i.$ Hence $E_i \in \mathcal{A}, E_1 \subset E_2 \subset \ldots$
 We have
 \[
 \bigcup_i^\infty E_i = \bigcup_i^\infty (A_1 \setminus A_i) = A_1 \setminus \left(\bigcap_1^\infty A_i\right) \implies \bigcap_1^\infty A_i = A_1 \setminus \left(\bigcup_1^\infty E_i\right).
@@ -312,7 +322,7 @@ A statement $P(x), x \in X$ holds $\mu$-almost everywhere (a.e.) if the set $\{x
 \end{definition}
 HW: every measure space can be "completed."
 
-\section{Outer measures}
+\section{Outer Measures}
 \begin{definition}
 An \underline{outer measure} on $X$ is $\mu^*: \mathcal{P}(X) \to [0, \infty] \st$
 \begin{itemize}
@@ -329,7 +339,7 @@ An \underline{outer measure} on $X$ is $\mu^*: \mathcal{P}(X) \to [0, \infty] \s
 	\[\mu^*(A) = \inf\left\{\sum_{i=1}^\infty(b_i - a_i) \ \biggr\rvert\ \bigcup_1^\infty (a_i, b_i) \supset A\right\}.\]
 	is an outer measure due to the next proposition.
 \end{example}
-\begin{proposition}(1.19)
+\begin{proposition}\label{prop:induce}(1.19)
 Let $\mathcal{E} \in \mathcal{P}(X) \st \emptyset, X \in \mathcal{E}.$
 Let $\rho: \mathcal{E} \to [0, \infty] \st \rho(\emptyset) = 0.$
 Then
@@ -350,7 +360,8 @@ We check the countable subadditivity.
 
 Let $A_1, A_2, \ldots \subset X.$ If one of $\mu^*(A_i) = \infty,$ then the result holds. Suppose $\mu^*(A_n) < \infty, \forall n \in \N.$
 
-"Give your self a room of epsilon":\\
+"Give your self a room of epsilon":
+
 Fix $\varepsilon > 0.$ We will show \[\mu^*\left(\bigcup_1^\infty A_n\right) \leq \sum_1^\infty \mu^*(A_i) + \varepsilon.\]
 
 For each $n \in \N, \exists E_{n,1}, E_{n,2}, \ldots \in \mathcal{E} \st$ \[\bigcup_{k=1}^\infty E_{n, k} \supset A_n \quad \text{and} \quad \mu^*(A_n) + \frac{\varepsilon}{2^n}\geq \sum_{k=1}^\infty \rho(E_{n, k}).\]
@@ -503,7 +514,7 @@ Let $\mu^*$ be an outer measure on $X.$ Let $\mathcal{A}$ be the collection of $
 \end{proof}
 
 \section{Hahn-Kolmogorov Theorem}
-\fancyem{Recall} Prop 1.19 Let $\mathcal{E} \subset \mathcal{P}(X) \st \emptyset, X \in \mathcal{E}.$ Let $\rho: \mathcal{E} \to [0, \infty] \st \rho(\emptyset) = 0$
+\fancyem{Recall} \ref{prop:induce} Let $\mathcal{E} \subset \mathcal{P}(X) \st \emptyset, X \in \mathcal{E}.$ Let $\rho: \mathcal{E} \to [0, \infty] \st \rho(\emptyset) = 0$
 
 \[
 (\mathcal{E}, \rho) \xrightarrow[1.19]{} (\mathcal{P}(X), \mu^*) \xrightarrow[\text{C-theorem}]{} (A, \mu)
@@ -535,13 +546,13 @@ $\mathcal{A}_0$ finite disjoint unions of $(a, b].$
 
 \begin{lemma}
 \begin{itemize}
-\item 1 + 3 $\implies$ 2.
+\item (a) + (c) $\implies$ (b).
 \item $\mu_0$ is monotone.
 \end{itemize}
 \end{lemma}
 
 \begin{theorem}[Hahn-Kolmogorov Theorem]
-Let $\mu_0$ be a pre-measure on algebra $\mathcal{A}_0$ on $X$. Let $\mu^*$ be the outer measure induced by $(\mathcal{A}_0, \mu_0)$ in Prop 1.19. Let $\mathcal{A}$ and $\mu$ be the Carathéodory $\sigma$-algebra and measure for $\mu^* \implies (\mathcal{A}, \mu)$ extends $(\mathcal{A}_0, \mu_0) \ie \mathcal{A} \supset \mathcal{A}_0, \mu|_{\mathcal{A}_0} = \mu_0.$ 
+Let $\mu_0$ be a pre-measure on algebra $\mathcal{A}_0$ on $X$. Let $\mu^*$ be the outer measure induced by $(\mathcal{A}_0, \mu_0)$ in \ref{prop:induce}. Let $\mathcal{A}$ and $\mu$ be the Carathéodory $\sigma$-algebra and measure for $\mu^* \implies (\mathcal{A}, \mu)$ extends $(\mathcal{A}_0, \mu_0) \ie \mathcal{A} \supset \mathcal{A}_0, \mu|_{\mathcal{A}_0} = \mu_0.$ 
 \end{theorem}
 \begin{proof}
 \begin{enumerate}
@@ -596,14 +607,14 @@ Such $(\mathcal{A}, \mu)$ is called the \underline{Hahn-Kolmogorov extension} of
 Let $\mathcal{A}_0$ be an algebra on $X$, $\mu_0$ be a pre-measure on $\mathcal{A}_0$, $(\mathcal{A}, \mu)$ be the Hahn-Kolmogorov extension of $(\mathcal{A}_0, \mu_0)$.
 And let $(\mathcal{A}', \mu')$ be another extension of $(\mathcal{A}_0, \mu_0)$.
 
-If $\mu_0$ is \underline{$\sigma$-finite}, then $\mu = \mu' = \mathcal{A} \cap \mathcal{A}'.$
+If $\mu_0$ is \underline{$\sigma$-finite}, then $\mu \mid_{\mathcal{A} \cap \mathcal{A}'} = \mu' \mid_{\mathcal{A} \cap \mathcal{A}'}$.
 \end{theorem}
 
 \fancyem{Note} $\sigma$-finite means
 \[\forall X, X = \bigcup_1^\infty X_n, X_n \in \mathcal{A}_0, \mu_0(X_n) < \infty.\]
 
 \begin{corollary}
-Let $\mu_0$ be a pre-measure on algebra $\mathcal{A}_0$ on $X$. Suppose $\mu_0$ is $\sigma$-finite, then $\exists!$ mreasure $\mu$ on $\langle \mathcal{A}_0 \rangle$ that extends $\mathcal{A}_0$. Furthermore, 
+Let $\mu_0$ be a pre-measure on algebra $\mathcal{A}_0$ on $X$. Suppose $\mu_0$ is $\sigma$-finite, then $\exists!$ measure $\mu$ on $\langle \mathcal{A}_0 \rangle$ that extends $\mathcal{A}_0$. Furthermore, 
 \begin{enumerate}
 \item the completion of $(X, \langle \mathcal{A}_0 \rangle, \mu)$ is the HK extension of $(\mathcal{A}_0, \mu_0).$
 \item 
@@ -643,7 +654,7 @@ Assume $\mu(A) = \infty.$
 Since $\mu_0$ is $\sigma$-finite, $X = \bigcup_1^\infty X_n, X_n \in \mathcal{A}_0, \mu_0(X_0) < \infty.$
 Replacing $X_n$ by $X_1 \cup \ldots \cup X_n$, we may assume $X_1 \subset X_2 \subset \ldots$.
 
-\[\forall n \in N, \mu(A \cap X_n) < \infty \implies \mu(A \cap X_n) \leq \mu'(A \cap X)n).\]
+\[\forall n \in N, \mu(A \cap X_n) < \infty \implies \mu(A \cap X_n) \leq \mu'(A \cap X_n).\]
 
 Hence
 \[
@@ -727,7 +738,7 @@ F(\infty) - F(-\infty), & I = (-\infty, \infty).
 \]
 Define $\mu_0 = \mu_{0, F}: \mathcal{H} \to [0, \infty]$ by
 \[
-\mu_0(A) \defeq \sum_{k=1}^N \ell(I_k) \quad \text{if } A = \bigcup_{k=1}^N I_k, \text{ finite disjoint union of $h$-invervals.}
+\mu_0(A) \defeq \sum_{k=1}^N \ell(I_k) \quad \text{if } A = \bigcup_{k=1}^N I_k, \text{ finite disjoint union of $h$-intervals.}
 \]
 Then $\mu_0$ is a pre-measure.
 \end{proposition}
@@ -743,7 +754,7 @@ Focus on the case $I = (a, b]$: (HW: check other cases)\\
 We have
 \[(a, b] = \bigcup_1^\infty(a_n, b_n], \text{ a disjoint union}.\]
 Check
-\[F(b) - F(a) ?= \sum_1^\infty(F(b_n) - F(a_n))\]
+\[F(b) - F(a) \stackrel{\text{?}}{=} \sum_1^\infty(F(b_n) - F(a_n))\]
 $(a, b] \supset \bigcup_1^N (a_n, b_n] \implies F(b) - F(a) \geq \sum_1^N F(b_n) - F(a_n), \forall N \in \N$. (Arranging them in decreasing order) Take $N \to \infty$ we have
 \[F(b) - F(a) \geq \sum_1^\infty(F(b_n) - F(a_n)).\]
 
@@ -771,9 +782,9 @@ Once we have this pre-measure, HK theorem allows us to extended it to a measure.
 HW
 \end{proof}
 
-\section{Lebesgue-Stieltjes measures on \ttlmath{\R}{Reals}}
+\section{Lebesgue-Stieltjes Measures on \ttlmath{\R}{Reals}}
 $F$ distribution function  $\implies \mu_F$ on Carathéodory $\sigma$-algebra $\mathcal{A}_{\mu_F}$.\\
-Actually (HW3) $(\mathcal{A}_{\mu_F}, \mu_F) = (\mathcal{B}(\R), \mu_F)$.
+Actually $(\mathcal{A}_{\mu_F}, \mu_F) = (\mathcal{B}(\R), \mu_F)$ (HW3).
 
 \begin{definition}
 \begin{itemize}
@@ -803,21 +814,23 @@ $\mu_F$ is the Dirac measure at $0$.
 \implies \mu_F(\{v\}) > 0, \forall v \in \Q,\ \mu_F(\R \setminus \Q) = 0.
 \end{multline*}
 
+\item 
+If $F$ is continuous at $a, \mu_F(\{a\}) = 0$.
+
 \item
 $F(x) = x \implies m((a, b])) = m((a, b)) = m([a, b]) = b - a.$
 
 \item
 $F(x) = e^x, \implies \mu_F((a, b]) = \mu_F((a, b)) = e^b - e^a$
 \end{enumerate}
-1, 2 are examples of discrete measure. \\
-If $F$ is continuous at $a, \mu_F(\{a\}) = 0$.
+(a), (b) are examples of discrete measure.
 \end{example}
 
 \begin{example}
 [Middle thirds Cantor set $\mathcal{C} = \bigcup_{n=1}^\infty K_n$]\fnl
 
-$\mathcal{C}$ is uncountable set, with $m(\mathcal{C}) = 0.$\\
-$x \in \mathcal{C} \implies x = \sum_{n=1}^\infty \frac{a_n}{3^n}, a_n \in \{0, 2\}$
+$\mathcal{C}$ is uncountable set with $m(\mathcal{C}) = 0.$
+\[x \in \mathcal{C} \implies x = \sum_{n=1}^\infty \frac{a_n}{3^n}, a_n \in \{0, 2\}.\]
 
 We are interested in the Cantor function $F$.
 \end{example}
@@ -828,15 +841,242 @@ This defines the Cantor measure $\mu_F(\R \setminus \mathcal{C}) = 0, \mu_F(\mat
 \end{example}
 
 \section{Regularity Properties of Lebesgue-Stieltjes Measures}
-\begin{lemma}
-$\mu$ is LS measure on $\R \implies$ 
+\begin{lemma}\label{le:LSreal}
+$\mu$ is Lebesgue-Stieltjes measure on $\R \implies$ 
 \begin{align*}
-    \mu(A) & = \inf\left\{\sum_1^\infty((a_i, b_i]) \mid \bigcup_1^\infty(a_i, b_i] \supset A\right\} \\
+    \mu(A) & = \inf\left\{\sum_1^\infty((a_i, b_i])\ \biggr\vert\ \bigcup_1^\infty(a_i, b_i] \supset A\right\} \\
            & =\inf\left\{
-\sum_1^\infty((a_i, b_i)) \mid \bigcup_1^\infty(a_i, b_i) \supset A\right\}
+\sum_1^\infty((a_i, b_i))\ \biggr\vert\ \bigcup_1^\infty(a_i, b_i) \supset A\right\}
 \end{align*}
-using the continuity of measure.
 \end{lemma}
+\begin{proof}
+	Using the continuity of measure.
+\end{proof}
+
+\begin{theorem}
+	$\mu$ is a Lebesgue-Stieltjes measure. Then $\forall A \in \mathcal{A}_\mu$,
+	\begin{enumerate}
+		\item (outer regularity) \[
+			\mu(A) = \inf\{\mu(O) \mid \text{open } O \supset A\}.	
+		\]
+		\item (inner regularity) \[
+			\mu(A) = \sup\{\mu(K) \mid \text{compact } K \subset A\}.
+		\]
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	\begin{enumerate}
+		\item Followed from \ref{le:LSreal}.
+		\item Let $s = \sup\{\ldots\}$. 
+		Monotonicity $\implies \mu(A) \geq s$.
+		\begin{itemize}
+			\item ($A$ bounded)
+			$\overline{A} \in \mathcal{B}(\R) \subset \mathcal{A}_\mu, \overline{A}$ bounded $\implies \mu(\overline{A}) < \infty$.
+
+			Fix $\varepsilon > 0$. By 1, $\exists$ open $O \supset \overline{A} \setminus A, \mu(O) - \mu(\overline{A} \setminus A) = \mu(O \setminus (\overline{A} \setminus A))\leq \varepsilon$.
+
+			Let $K = \underbrace{A \setminus O}_{K \subset A} = \underbrace{\overline{A} \setminus O}_{\text{compact}}$. Show that $\mu(K) \geq \mu(A) - \varepsilon$.
+
+			\item ($A$ unbounded but $\mu(A) < \infty$)
+			We have
+			\[
+				A = \bigcup_1^\infty A_n,\ A_n = A \cap [-n, n],\ A_1 \subset A_2 \subset \ldots	
+			\]
+			Hence \[
+				\lim_{n \to \infty} \mu(A_n) = \mu(A) < \infty.
+			\]
+
+			\item ($\mu(A) = \infty$)
+			\[
+				\lim_{n \to \infty} \mu(A_n) = \mu(A) = \infty.
+			\]
+			Fix $L > 0$. $\exists N \st \mu(A_N) \geq L$. \qedhere
+		\end{itemize}
+	\end{enumerate}
+\end{proof}
+
+\begin{definition}
+	Suppose $X$ a topological space.
+
+	A \underline{$G\sigma$-set} is $\displaystyle G = \bigcup_1^\infty O_i$, $O_i$ open. 
+	An \underline{$F\sigma$-set} is $\displaystyle F = \bigcup_1^\infty F_i$, $F_i$ closed.
+\end{definition}
+\begin{theorem}
+	Suppose $\mu$ a LS measure. Then the following statements are equivalent:
+	\begin{enumerate}
+		\item $A \in \mathcal{A}_\mu$.
+		\item $A = G \setminus M$, $G$ is a $G\sigma$-set, and $M$ is $\mu$-null.
+		\item $A = F \cup N$, $F$ is a $F\sigma$-set, and $N$ is $\mu$-null.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	(b) $\implies$ (a) and (c) $\implies$ (a) are clear.
+
+	\begin{itemize}
+		\item (a) $\implies$ (c) \fnl
+		\begin{enumerate}[(i)]
+			\item Assume $\mu(A) < \infty$. By inner regularity,
+			\[
+				\forall n \in \N, \exists \text{ compact } K_n \subset A \st \mu(K_n) + \frac{1}{n} \geq \mu(A).
+			\]
+			Let $F = \bigcup_1^\infty K_n$. Then $N = A \setminus F$ is $\mu$-null.
+	
+			\item 
+			Assume $\mu(A) = \infty$.
+			We construct
+			\[
+				A = \bigcup_{k \in \Z}A_k, A_k = A \cap (k, k+1].	
+			\]
+			By (i), $\forall k \in \Z, A_k = F_k \cup N_k$. Hence
+			\[
+				A = \underbrace{\left(\bigcup_k F_k\right)}_{F\sigma} \cup \underbrace{\left(\bigcup_k N_k\right)}_{\text{$\mu$-null}}.
+			\]
+		\end{enumerate}
+		
+		\item (a) $\implies$ (b)
+		\[A^c = F \cup N, A = F^c \cup N^c = F^c \setminus N. \qedhere\]
+	\end{itemize}
+\end{proof}
+
+\begin{proposition}
+	Suppose $\mu$ a LS measure, $A \in \mathcal{A}_\mu$, $\mu(A) < \infty$. Then\[
+		\forall \varepsilon > 0, \exists I = \bigcup_1^{N = N(\varepsilon)} I_i, \text{ disjoint open intervals} \st \mu(A \triangle I) \leq \varepsilon.	
+	\]
+\end{proposition}
+\begin{proof}
+	DIY - use outer regularity.
+\end{proof}
+
+Properties of Lebesgue measure
+\begin{theorem}
+	\[A \in \mathcal{L} \implies A + s \in \mathcal{L}, rA \in \mathcal{L}, \forall r, s \in \R.\]
+	In addition, $m(A + r) = m(A)$ and $m(rA) = rm(A)$.
+\end{theorem}
+\begin{proof}
+	DIY.
+\end{proof}
+
+\begin{example}
+	\begin{enumerate}
+		\item $\Q = \{r_1\}_{i=1}^\infty$, which is dense in $\R$.
+		Let $\varepsilon > 0$ and \[
+			O = \bigcup_{i=1}^\infty\left(r_i - \frac{\varepsilon}{2^i}, r_i + \frac{\varepsilon}{2^i}\right).
+		\] $O$ is open and dense in $\R$.
+		We have
+		\[
+			m(O) \leq \sum_{i=1}^\infty \frac{2\varepsilon}{2^i} = 2\varepsilon, \partial O = \overline{O} \setminus O, m(O) = \infty.
+		\]
+
+		\item $\exists$ uncountable set $A$ with $m(A) = 0$.
+		\item $\exists A$ with $m(A) > 0$, but $A$ contains no non-empty open interval.
+		\item $\exists A \notin \mathcal{L}$ that is Vitali set.
+		\item $\exists A \in \mathcal{L} \setminus \mathcal{B}(\R)$. We will deal with that later.
+	\end{enumerate}
+\end{example}
+
+\chapter{Integration}
+\section{Measurable Functions}
+\begin{definition}
+	Suppose $(X, \mathcal{A})$, $(Y, \mathcal{B})$ two measurable spaces. 
+	$f: X \to Y$ is $(\mathcal{A}, \mathcal{B})$-measurable if 
+	\[\forall B \in \mathcal{B}, f^{-1}(B) \in \mathcal{A}.\] 
+\end{definition}
+
+\begin{lemma}\label{le:clever}
+	Suppose $\mathcal{B} = \langle\mathcal{E}\rangle$. Then \[f: X \to Y \text{ is }(\mathcal{A}, \mathcal{B}) \text{-measurable } \iff \forall E \in \mathcal{E}, f^{-1}(E) \in \mathcal{A}.\]
+\end{lemma}
+\begin{proof}
+	\begin{itemize}
+		\item [$\implies$] clear
+		\item [$\impliedby$] Let $\mathcal{D} = \{E \subset Y \mid f^{-1}(E) \in \mathcal{A}\}$. We have $\mathcal{E} \subset \mathcal{D}$ by assumption. In addition $\mathcal{D}$ is a $\sigma$-algebra $\implies \langle\mathcal{E}\rangle \subset \mathcal{D}$.\qedhere
+	\end{itemize} 
+\end{proof}
+
+\begin{definition}
+	Suppose $(X, \mathcal{A})$ a measurable space.
+	\[
+	\left.\begin{array}{l}
+		f: X \to \R \\
+		f: X \to \overline{\R} = [-\infty, \infty] \\
+		f: X \to \C
+	\end{array}	\right\rbrace \text{ is $\mathcal{A}$-measurable if }
+	\left\lbrace\begin{array}{l}
+		f \text{ is $(\mathcal{A}, \mathcal{B}(\R))$-measurable} \\
+		f \text{ is $(\mathcal{A}, \mathcal{B}(\overline{\R}))$-measurable} \\
+		\Re f, \Im f: X \to \R \text{are $\mathcal{A}$-measurable.}
+	\end{array}\right.
+	\]
+	Here $\mathcal{B}(\overline{\R}) = \{E \subset \overline{\R} \mid E \cap R \in \mathcal{B}(\R)\}$.
+\end{definition}
+
+\begin{lemma}
+	Suppose $f: X \to \R$. Then the followings are equivalent:
+	\begin{enumerate}
+		\item $f$ is $\mathcal{A}$-measurable
+		\item $\forall a \in \R, f^{-1}((a, \infty)) \in \mathcal{A}$.
+		\item $\forall a \in \R, f^{-1}([a, \infty)) \in \mathcal{A}$.
+		\item $\forall a \in \R, f^{-1}((-\infty, a)) \in \mathcal{A}$.
+		\item $\forall a \in \R, f^{-1}((-\infty, a]) \in \mathcal{A}$.
+	\end{enumerate}
+	For $f: X \to \overline{\R}$, change the interval to include $-\infty$ and $\infty$.
+\end{lemma}
+\begin{proof}
+	By \ref{le:clever}.
+\end{proof}
+
+
+
+\begin{example}
+	$\mathcal{A} = \mathcal{P}(X) \implies$ every function is $\mathcal{A}$ measurable.
+
+	$\mathcal{A} = \{\emptyset, X\} \implies$ only $\mathcal{A}$ functions are constant functions.
+\end{example}
+
+\fancyem{Properties} Suppose $f, g: X \to \R$, $\mathcal{A}$-measurable functions.
+\begin{enumerate}
+	\item $\phi: \R \to \R$, $\mathcal{B}(\R)$ measurable (i.e. Borel measurable) $\implies \phi \circ f: X \to \R$ is $\mathcal{A}$-measurable.
+	\item $-f, 3f, f^2, |f|$ are $\mathcal{A}$-measurable, $\frac{1}{f}$ is $\mathcal{A}$-measurable if $f(x) = 0, \forall x \in X$.
+	\item $f + g$ is $\mathcal{A}$-measurable
+	\[
+		(f + g)^{-1}((a, \infty)) = \bigcup_{r \in \Q}\left(f^{-1}((r, \infty)) \cap g^{-1}((a-r,\infty))\right).
+	\]
+	\item $fg$ is $\mathcal{A}$-measurable \[
+		f(x)g(x) = \frac{1}{2}\left((f(x)+g(x))^2 - f(x)^2 - g(x)^2\right).
+	\]
+	\item $(f \wedge g)(x) = \min\{f(x), g(x)\}$, $(f \vee g)(x) = \max\{f(x), g(x)\}$ are $\mathcal{A}$-measurable.
+	\item $f_n: X \to \overline{\R}$ are a sequence of $\mathcal{A}$-measurable functions $\implies$
+	\[
+		\sup f_n, \inf f_n, \limsup_{n \to \infty} f_n, \liminf_{n \to \infty} f_n \text{ are $\mathcal{A}$-measurable.}
+	\]
+	\item If $f(x) = \lim_{n \to \infty}f_n(x)$ converges for every $x \in X$, then $f$ is measurable.
+\end{enumerate}
+
+\begin{example}
+	Suppose $f: \R \to \R$ is continuous. Then $f$ is Borel measurable $\implies f$ is Lebesgue measurable. (Preimage of an open set of a continuous function is open.)
+\end{example}
+\begin{definition}
+	For $f: X \to \overline{\R}$, let $f^+ = f \vee 0$, $f^- = (-f) \vee 0$.
+\end{definition}
+\fancyem{Note} $\supp f^+ \cap \supp f^- = \emptyset$.
+$f(x) = f^+(x) - f^-(x)$. $f$ is $\mathcal{A}$-measurable $\iff f^+, f^-$ measurable.
+
+\begin{definition}
+	For $E \subset X$, characteristic (indicator) funtion of $E$
+	\[
+		\chi_E(x) = 1_E(x) = \begin{cases}
+			1 & x \in E \\
+			0 & x \in E^c.
+		\end{cases}	
+	\]
+	$1_E$ is $\mathcal{A}$-measurable $\iff E \in \mathcal{A}$.
+\end{definition}
+
+\begin{definition}
+	Suppose $(X, \mathcal{A})$ a measurable space. A \underline{simple function} $\phi: X \to \C$ that is $\mathcal{A}$-measurable and takes only finitely many values.
+\end{definition}
+\[
+	\phi(X) = \{c_1, \ldots, c_N\}, c_i \neq \pm \infty, E_i = \phi^{-1}(c_i) \in \cA \implies \phi = \sum_{i=1}^N c_i 1_{E_i}.
+\]
 
 
 \end{document}

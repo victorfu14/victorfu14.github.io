@@ -15,3 +15,4 @@ This course is taught by [Sergey Fomin](http://www.math.lsa.umich.edu/~fomin/). 
 - [Jan. 18, random walks, domino tilings](../../../../parts/comb/comb.pdf#section.1.8)
 - [Jan. 20, domino tilings](../../../../parts/comb/comb.pdf#section.2.1)
 - [Jan. 25, spanning trees, diamond lemma](../../../../parts/comb/comb.pdf#section.2.2)
+- [Jan. 27, diamond lemma with application in several games](../../../../parts/comb/comb.pdf#section.2.4)
