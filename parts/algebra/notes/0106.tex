@@ -1,0 +1,184 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb}
+\usepackage{mathtools}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\setlength{\topmargin}{0.5in}
+\usepackage[margin=4cm]{geometry}
+\usepackage{enumerate}
+
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\setlength{\parskip}{0.5em}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+
+% useful characters/operators
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\matP}{\mathbb{P}}
+\newcommand{\matS}{\mathbb{S}}
+\newcommand{\matH}{\mathbb{H}}
+\newcommand{\matT}{\mathbb{T}}
+\newcommand{\st}{\ s.t.\ }
+\newcommand{\ie}{\ i.e.\ }
+\newcommand{\eg}{\ e.g.\ }
+\def \diam {\operatorname{diam}}
+\def \Hom {\operatorname{Hom}}
+\def \id {\operatorname{id}}
+\def \tr {\operatorname{tr}}
+\def \dist {\operatorname{dist}}
+\def \intr {\operatorname{int}}
+\def \sgn {\operatorname{sgn}}
+\def \im {\operatorname{Im}}
+\def \re {\operatorname{Re}}
+\def \curl {\operatorname{curl}}
+\def \divg {\operatorname{div}}
+\def \GL {\operatorname{GL}}
+\def \End {\operatorname{End}}
+\def \Aut {\operatorname{Aut}}
+\newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
+\newcommand{\df}{\text{d}}
+\newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
+
+% arrows and :=, =:
+\makeatletter
+\providecommand*{\twoheadrightarrowfill@}{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow
+}
+\providecommand*{\twoheadleftarrowfill@}{%
+  \arrowfill@\twoheadleftarrow\relbar\relbar
+}
+\providecommand*{\xtwoheadrightarrow}[2][]{%
+  \ext@arrow 0579\twoheadrightarrowfill@{#1}{#2}%
+}
+\providecommand*{\xtwoheadleftarrow}[2][]{%
+  \ext@arrow 5097\twoheadleftarrowfill@{#1}{#2}%
+}
+\makeatother
+
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\mathrel{\mathop:}}
+
+% integral for measure theory
+\newcommand{\lowerint}{\underline{\int_{\R^d}}}
+\newcommand{\upperint}{\overline{\int_{\R^d}}}
+\newcommand{\lint}[1]{\underline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\uint}[1]{\overline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\sint}[1]{\simp{\int_{\R^d} #1 (x)dx}}
+\newcommand{\lesint}[1]{\int_{\R^d} #1 (x)dx}
+
+% note taking
+\newcommand{\fancyem}[1]{\underline{\textsc{#1}}}
+
+% theorem style
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{conjecture}{Conjecture}
+\newtheorem*{proposition}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{example}{Example}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% for clearer reference
+\usepackage{hyperref}
+\newcommand{\corollaryautorefname}{Corollary}
+\newcommand{\lemmaautorefname}{Lemma}
+\newcommand{\definitionautorefname}{Definition}
+\newcommand{\exampleautorefname}{Example}
+\newcommand{\conjectureautorefname}{Conjecture}
+\renewcommand{\subsectionautorefname}{Section}
+
+% other styling
+\usepackage{fancyvrb, fancyhdr}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+
+\usepackage{tikz-cd}
+
+\begin{document}
+\renewcommand{\ref}[1]{\autoref{#1}}
+\title{Math 494}
+\author{Yiwei Fu}
+\date{Jan 6, 2022}
+\maketitle
+
+\section*{Introduction and Administration}
+Two highlights of the course:
+\begin{enumerate}
+  \item
+  For a quadratic equation $ax^2 + bx + c = 0 (a \neq 0)$ there are roots
+  \[
+  x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}.
+  \]
+  There is similar formulas for polynomials of degree $3$ and $4$, but not degree $5$ or higher.
+
+  \item
+  $x^2 + 3 = y^3$ has only integer solutions $x = \pm 5, y = 3$. 
+  Important and powerful methods behind simple problems.
+\end{enumerate}
+
+\begin{itemize}
+  \item HW due Monday midnight
+  \item Office hours: Sunday 2 - 3:30 p.m., Friday 7 - 8:30 p.m.
+\end{itemize}
+
+\section*{Rings}
+\subsection*{Review}
+\begin{definition}
+  A group $(G, *)$ is a set $G$ equipped with function $*:G \times G \to G$ and element $1_G \in G \st$
+  \begin{itemize}
+    \item $*$ is associative
+    \item $1_G$ is the identity element (hence unique)
+    \item $\forall g \in G, \exists h \in G \st gh = hg = 1_G.$
+  \end{itemize}
+\end{definition}
+Note that the identity and inverse elements are unique.
+
+We say $G$ is abelian if $ab = ba, \forall a, b \in G$.
+
+\begin{definition}
+  Group homomorphism
+\end{definition}
+
+\begin{lemma}
+  If $G,H$ are groups and $H$ is abelian, then $\Hom(G,H)$ is an abelian group under the operation
+  \[
+  \varphi + \psi: G \to H, g \mapsto \varphi(g) + \psi(g).  
+  \]
+\end{lemma}
+
+\begin{definition}
+A \underline{ring} is a set $R$ with two functions $+, \cdot: R \times R \to R \st$:
+\begin{itemize}
+\item $(R,+)$ is an abelian group (identity $0 \in R$, inverse element $-r$ for every $r \in R$).
+\item $(R, \cdot)$ is associative with an identity $1.$
+\item Distribution laws hold
+\[
+a\cdot(b+c) = a\cdot b + a \cdot c,\quad (b+c) \cdot a = b \cdot a + c \cdot a.
+\]
+\end{itemize}
+\end{definition}
+
+Hence if $G$ is an abelian group, then $\End(G)$ is a ring.
+
+\begin{definition}
+Let $R, S$ be rings. A \underline{ring homomorphism} is a function $f: R \to S$ which preserves $+, \cdot, 0, 1,$ additive inverses. (In fact it suffices to preserve $+, \cdot, 1$ since $f$ preserves $+$ implies it preserves $0$ and inverses.)
+\begin{align*}
+f(r +_R r') & = f(r) +_S f(r') \\
+f(r \cdot_R r') & = f(r) \cdot_S f(r') \\
+f(1_R) & = 1_S.
+\end{align*}
+\end{definition}
+
+
+\end{document}

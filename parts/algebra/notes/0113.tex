@@ -1,0 +1,224 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb}
+\usepackage{mathtools}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\setlength{\topmargin}{0.5in}
+\usepackage[margin=4cm]{geometry}
+\usepackage{enumerate}
+
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\setlength{\parskip}{0.5em}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+
+% useful characters/operators
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\matP}{\mathbb{P}}
+\newcommand{\matS}{\mathbb{S}}
+\newcommand{\matH}{\mathbb{H}}
+\newcommand{\matT}{\mathbb{T}}
+\newcommand{\st}{\ s.t.\ }
+\newcommand{\ie}{\ i.e.\ }
+\newcommand{\eg}{\ e.g.\ }
+\def \diam {\operatorname{diam}}
+\def \Hom {\operatorname{Hom}}
+\def \id {\operatorname{id}}
+\def \tr {\operatorname{tr}}
+\def \dist {\operatorname{dist}}
+\def \intr {\operatorname{int}}
+\def \sgn {\operatorname{sgn}}
+\def \im {\operatorname{Im}}
+\def \re {\operatorname{Re}}
+\def \curl {\operatorname{curl}}
+\def \divg {\operatorname{div}}
+\def \GL {\operatorname{GL}}
+\def \End {\operatorname{End}}
+\def \Aut {\operatorname{Aut}}
+\newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
+\newcommand{\df}{\text{d}}
+\newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
+
+% arrows and :=, =:
+\makeatletter
+\providecommand*{\twoheadrightarrowfill@}{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow
+}
+\providecommand*{\twoheadleftarrowfill@}{%
+  \arrowfill@\twoheadleftarrow\relbar\relbar
+}
+\providecommand*{\xtwoheadrightarrow}[2][]{%
+  \ext@arrow 0579\twoheadrightarrowfill@{#1}{#2}%
+}
+\providecommand*{\xtwoheadleftarrow}[2][]{%
+  \ext@arrow 5097\twoheadleftarrowfill@{#1}{#2}%
+}
+\makeatother
+
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\mathrel{\mathop:}}
+
+% integral for measure theory
+\newcommand{\lowerint}{\underline{\int_{\R^d}}}
+\newcommand{\upperint}{\overline{\int_{\R^d}}}
+\newcommand{\lint}[1]{\underline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\uint}[1]{\overline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\sint}[1]{\simp{\int_{\R^d} #1 (x)dx}}
+\newcommand{\lesint}[1]{\int_{\R^d} #1 (x)dx}
+
+% note taking
+\newcommand{\fancyem}[1]{\underline{\textsc{#1}}}
+
+% theorem style
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{conjecture}{Conjecture}[section]
+\newtheorem{proposition}{Proposition}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% for clearer reference
+\usepackage{hyperref}
+\newcommand{\corollaryautorefname}{Corollary}
+\newcommand{\lemmaautorefname}{Lemma}
+\newcommand{\definitionautorefname}{Definition}
+\newcommand{\exampleautorefname}{Example}
+\newcommand{\conjectureautorefname}{Conjecture}
+\renewcommand{\subsectionautorefname}{Section}
+
+% other styling
+\usepackage{fancyvrb, fancyhdr}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+
+\usepackage{tikz-cd}
+
+\begin{document}
+\renewcommand{\ref}[1]{\autoref{#1}}
+\title{Math 494}
+\author{Yiwei Fu}
+\date{Jan 13, 2022}
+\maketitle
+
+\section{}
+\fancyem{Fact:} If $G$ is a finitely generated subgroup of $\C^*$, then $\forall n \in \N$, the equation $x_1 + x_2 + \ldots + x_n = 1$ has only finitely many solutions with $x_1, x_2, \ldots, x_n \in G,$ in which no nonempty subset of $x_i$'s sums to $0$.
+
+Extra credit: does $\exists$ such a $G$ for which $\exists$ solutions as above for infinitely many $n$?
+
+\begin{example}
+$0$ ring: $0 = 1.$
+
+$0$ homomorphism: for any ring $R, f: R \to ``\text{zero ring}", r \mapsto 0.$
+\end{example}
+
+\begin{definition}
+If $f: R \to S$ is a ring homomorphism, then the kernel of $f$ is \[\ker{f} = \{r \in R: f(r) = 0\}.\]
+\end{definition}
+We know $\ker{f}$ is a subgroup of $R$ under $+.$ Also: if $r \in \ker{f}$ and $r' \in R$ then $rr' \in \ker{f}$ since $f(rr') = f(r)f(r') = 0 \cdot f(r') = 0.$ 
+
+\begin{definition}
+Suppose $R$ is a ring. An \underline{ideal} of $R$ is a subgroup of $(R, +)$ which is closed under multiplication by $R.$
+\end{definition}
+Ideals are great.
+
+\textbf{\emph{From NOW ON: ALL rings are commutative.}}
+
+\begin{example}
+Ideals in $\Z$: $n\Z, (n \in \Z_{\geq 0})$
+\end{example}
+\fancyem{Note}: A nonempty subset of $R$ is an ideal $\iff \forall n \geq 0, \forall r_1, \ldots, r_n \in R, i_1, i_2, \ldots, i_n \in I, r_1i_1 + r_2i_2 + \ldots + r_ni_n \in I.$
+
+\begin{definition}
+For $r \in R$ the \underline{principal ideal} $(r)$ (also denoted as $rR$) is $\{rr': r' \in R\}.$
+\end{definition}
+Unit ideal of $R$ is $(1) = 1R = R.$
+Zero ideal of $R$ is $(0) = \{0\}.$
+
+A "proper ideal" of $R$ is an ideal which is not $(0)$ or $(1).$
+
+\fancyem{Note}: If $f: R \to S$ is a homomorphism then $\ker{f}$ is an ideal of $R$.
+$\ker{f} = (1) \iff S = ``0 \text{ ring}", \ker{f} = (0) \iff f$ is injective.
+
+Suppose $R$ is a ring and $I$ is an ideal. Then $R/I$ is a group under addition.
+\begin{proposition}
+$R/I$ is a ring.
+\end{proposition}
+\begin{proof}
+Define $(r + I)(r' + I) \defeq rr' + I.$ Note that if $i, i' \in I$ then $(r + i)(r' + i') = rr' + ri' + ir' + ii' \in rr' + I.$
+
+Rest is easy.
+\end{proof}
+
+\begin{example}
+$R = \Z, I = 3\Z, R/I = \Z/3\Z.$
+
+In general, $\Z/n\Z$ is the quotient of the ring $R$ by the ideal $n\Z.$
+\end{example}
+
+\begin{definition}
+A \underline{field} is a nonzero ring in which every nonzero element has a multiplicative inverse.
+\end{definition}
+
+\begin{example}
+$\Q, \C, \R, \Z/p\Z$ where $p$ is prime.
+\end{example}
+\fancyem{Non-examples:} $\Z, \Z/4\Z.$
+
+\begin{definition}
+An \underline{integral domain} is a nonzero ring $R$ with no zero divisors $(a, b \in R, ab = 0 \implies a = 0 \text{ or } b = 0).$
+\end{definition}
+If $R$ is a field, what are the ideals of $R$?
+
+Only $(0)$ and $(1).$ since if an ideal $I$ contains a nonzero $r \in R$, then $I \ni rr^{-1} = 1 \implies I = (1).$
+
+\begin{proposition}
+If $f: R \to S$ is a ring homomorphism andd $R$ is a field. then either $f$ is injective or $S=``0 \text{ ring}".$
+\end{proposition}
+
+Notation: often $R = $ ring, $I = $ ideal. for $r \in R$ we denote the element $r + I$ of $R/I$ by $\overline{r}.$
+
+\begin{theorem}
+$f: R \to S$ is a ring homomorphism with kernel $K$. Let $I$ be an ideal of $R.$ Let $\pi: R \to R/I$ be the quotient map.
+\begin{enumerate}
+\item
+	If $I \subseteq K$ then $\exists$ a unique homomorphism $\overline{f}: R/I \to S \st \overline{f} \circ \pi = f.$
+	\[\begin{tikzcd}
+	R \arrow[r, "f"] & S  \\
+	& R/I \arrow[ul, leftarrow, "\pi"] \arrow[u, dashrightarrow, "\overline{f}"]
+	\end{tikzcd}\]
+\item
+	If $I = K$ and $f$ is surjective then $\overline{f}$ is $\cong.$
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}(Correspondence Theorem)
+$f: R \to S$ is a surjective ring homomorphism with kernel $K.$ Then the maps
+$I \mapsto f(I)$ and $J \mapsto f^{-1}(J)$ are inverse bijections
+$\{$ideals of $R$ containing $K\}$ $\{$ideals of $S\}.$ 
+\end{theorem}
+\begin{proof}
+We know that these maps induce bijections between subgroups of $(R, +)$ containing $K$ and subgroups between $(S, +).$
+Check:
+\begin{enumerate}
+\item
+$I =$ ideal of $R$ containing $K \implies f(I) =$ ideal of $S$ since every $s \in S$ is $f(r), r \in R,$ so $i \in I \implies s \cdot f(i) = f(r)f(i) = f(ri) \in f(I).$
+\item
+$J =$ ideal of $S$ then (from group result) $f^{-1}(J)$ is a subgroup of $(R, +)$ which contains $K,$ and $f^{-1}(J)$ is an ideal since $r \in J, i \in f^{-1}(J) \implies f(ri) = f(r)f(i) \in SJ = J.$ \qedhere
+\end{enumerate}
+\end{proof}
+
+\fancyem{Supplement:} same notation, $R/I \cong S/f(I).$
+
+\end{document}

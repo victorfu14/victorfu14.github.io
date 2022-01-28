@@ -1,0 +1,209 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb}
+\usepackage{mathtools}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\setlength{\topmargin}{0.5in}
+\usepackage[margin=4cm]{geometry}
+\usepackage{enumerate}
+
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\setlength{\parskip}{0.5em}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+
+% useful characters/operators
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\matP}{\mathbb{P}}
+\newcommand{\matS}{\mathbb{S}}
+\newcommand{\matH}{\mathbb{H}}
+\newcommand{\matT}{\mathbb{T}}
+\newcommand{\st}{\ s.t.\ }
+\newcommand{\ie}{\ i.e.\ }
+\newcommand{\eg}{\ e.g.\ }
+\def \diam {\operatorname{diam}}
+\def \Hom {\operatorname{Hom}}
+\def \id {\operatorname{id}}
+\def \tr {\operatorname{tr}}
+\def \dist {\operatorname{dist}}
+\def \intr {\operatorname{int}}
+\def \sgn {\operatorname{sgn}}
+\def \im {\operatorname{Im}}
+\def \re {\operatorname{Re}}
+\def \curl {\operatorname{curl}}
+\def \divg {\operatorname{div}}
+\def \GL {\operatorname{GL}}
+\def \End {\operatorname{End}}
+\def \Aut {\operatorname{Aut}}
+\newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
+\newcommand{\df}{\text{d}}
+\newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
+
+% arrows and :=, =:
+\makeatletter
+\providecommand*{\twoheadrightarrowfill@}{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow
+}
+\providecommand*{\twoheadleftarrowfill@}{%
+  \arrowfill@\twoheadleftarrow\relbar\relbar
+}
+\providecommand*{\xtwoheadrightarrow}[2][]{%
+  \ext@arrow 0579\twoheadrightarrowfill@{#1}{#2}%
+}
+\providecommand*{\xtwoheadleftarrow}[2][]{%
+  \ext@arrow 5097\twoheadleftarrowfill@{#1}{#2}%
+}
+\makeatother
+
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\mathrel{\mathop:}}
+
+% integral for measure theory
+\newcommand{\lowerint}{\underline{\int_{\R^d}}}
+\newcommand{\upperint}{\overline{\int_{\R^d}}}
+\newcommand{\lint}[1]{\underline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\uint}[1]{\overline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\sint}[1]{\simp{\int_{\R^d} #1 (x)dx}}
+\newcommand{\lesint}[1]{\int_{\R^d} #1 (x)dx}
+
+% note taking
+\newcommand{\fancyem}[1]{\underline{\textsc{#1}}}
+
+% theorem style
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{conjecture}{Conjecture}[section]
+\newtheorem{proposition}{Proposition}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% for clearer reference
+\usepackage{hyperref}
+\newcommand{\corollaryautorefname}{Corollary}
+\newcommand{\lemmaautorefname}{Lemma}
+\newcommand{\definitionautorefname}{Definition}
+\newcommand{\exampleautorefname}{Example}
+\newcommand{\conjectureautorefname}{Conjecture}
+\renewcommand{\subsectionautorefname}{Section}
+
+% other styling
+\usepackage{fancyvrb, fancyhdr}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+
+\begin{document}
+\renewcommand{\ref}[1]{\autoref{#1}}
+\title{Math 494}
+\author{Yiwei Fu}
+\date{}
+\maketitle
+
+\section{}
+Lase time: Defined a ring to be an abelian group under $+$ which has an associative operation $*: R \times R \to R$ with an identity element in $R$ such that the distribution law holds.
+
+\begin{example}
+$G$ is an abelian group under $+ \implies \operatorname{End}(G)$ is a ring under
+\[
+(\phi + \psi)(g) \defeq \phi(g) + \psi(g), \phi * \psi \defeq \phi \circ \psi.
+\]
+\end{example}
+
+\begin{definition}
+Suppose $R, S$ are rings. A function $f: R \to S$ is a ring homomorphism if 
+\[
+f(r_1 + r_2) = f(r_1) + f(r_2), f(r_1 * r_2) = f(r_1) * f(r_2), f(1_R) = f(1_S)
+\]
+\end{definition}
+\begin{lemma}
+If $f: R \to S$ is a ring homomorphism then $f(R)$ is a ring
+\end{lemma}
+
+\begin{definition}
+A \underline{subring} of a ring $R$ is a subset of $R$ which is a ring under $+, *$ from $R$.
+\end{definition}
+\begin{definition}
+Suppose $R, S$ are rings. An \underline{isomorphism} $f: R \to S$ is a bijective homomorphism.
+\end{definition}
+\fancyem{Note}: The set-theoretic inverse $f^{-1}: S \to R$ is then a ring homomorphism.
+
+\begin{lemma}
+$R$ is a ring $\implies r\cdot 0 = 0 \cdot r = 0,\ \forall r \in R.$
+\end{lemma}
+\begin{proof}
+\[0 + 0 = 0 \implies r\cdot(0 + 0) = r \cdot 0. \qedhere
+\]
+\end{proof}
+
+\begin{lemma}
+\[(-1)\cdot r = -r = r \cdot (-1)\]
+\end{lemma}
+\begin{proof}
+\[
+1 + (-1) = 0 \implies (1 + (-1)) \cdot r = 0 \cdot r \implies r + (-1)\cdot r = 0 \qedhere
+\]
+\end{proof}
+It is always to check since we are so used to commutative things but it is not always the case.
+
+\begin{theorem}
+Every ring is isomorphic to a subring of $\operatorname{End}(G)$ for some abelian group $G.$
+\end{theorem}
+\begin{proof}
+Let $G$ be the additive group of $R$. For $r \in R$ define $[r]: G \to G, g \mapsto rg.$ Check:
+\begin{enumerate}
+\item
+	$[r] \in \operatorname{End}(G).$
+	\[[r](g_1 + g_2) \defeq r(g_1 + g_2) = rg_1 + rg_2 = ([r]g_1) + ([r]g_2).\]
+\item
+	$r \mapsto [r]$ is a ring homomorphism $R \to \End(G)$
+	\[
+	[rs](g) = (rs)g = r(sg) = [r](sg) = [r]([s]g)
+	\]
+\item
+	$r \mapsto [r]$ is injective
+\end{enumerate}
+So $\phi: R \to \End(G), r \mapsto [r]$ is an injective ring homomorphism. Hence $\phi(R)$ is a subring of $\End(G)$ and $\phi: R \to \phi(R)$ is an isomorphism.
+\end{proof}
+
+\begin{definition}
+Suppose $R$ is a ring and $r \in R.$ Say $s \in R$ is a inverse of $r$ if $rs = 1 = sr.$ If $r$ has an inverse then say $r$ is a unit in $R$. Write $R^*$ or $R^\times$ for the set of units in $R$. 
+\end{definition}
+
+\fancyem{Note:} if $s$ exists then it is unique:
+\[rs = 1 = tr\implies (rs)s = (tr)s = t(rs) \implies s = t.\]
+So we can denote $s$ as $r^{-1}.$
+
+\fancyem{Note:} $R^*$ is a group under multiplication.
+
+\begin{example}
+If $G$ is a abelian group, then $(\End(G))^* = \Aut(G),$ 
+\[\End(\Z \text{ as a group}) \cong \Z \text{ as a ring},\ \Aut(\Z \text{ as a group}) = \{\pm 1\}.\]
+\[\End(C_m) \cong \Z/m\Z \text{ as a ring},\ \Aut(C_m) = (\Z/m\Z)^* = \{k \bmod m: \gcd(k, m) = 1\}.\]
+\[\Aut(\Z \times \Z \text{ as a group}) \cong \GL_2(\Z)\]
+\end{example}
+
+More rings:
+$\Z[\sqrt{2}] = \{a + b\sqrt{2}: a, b \in \Z\}.$ It turns out that all units are $\pm(1  + \sqrt{2})^n,\ n \in \Z.$
+
+Let $R = $ ring of entire functions on $\C$ (power series which converge everywhere on $\C$). $R^* = \{\text{function in $R$ with no zeros}\} = \{e^{f(x)}: f(x) \in \R\}.$
+
+An old but excellent result.
+\begin{theorem}(Borel, 1893)
+If $f_1, \ldots, f_n \in R^*$ satisfy $f_1 + \ldots + f_n = 0$ but no (non-empty) proper subset of $\{f_1, \ldots, f_n\}$ sums to 0. then $f_i / f_j \in \C^*, \forall i, j.$  
+\end{theorem}
+
+
+
+
+\end{document}

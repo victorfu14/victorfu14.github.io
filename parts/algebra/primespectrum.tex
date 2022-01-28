@@ -1,0 +1,148 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb,nccmath}
+\usepackage{mathtools}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\setlength{\topmargin}{0.5in}
+\usepackage[margin=4cm]{geometry}
+\usepackage{enumerate}
+
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\setlength{\parskip}{0.5em}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+
+% useful characters/operators
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\matP}{\mathbb{P}}
+\newcommand{\matS}{\mathbb{S}}
+\newcommand{\matH}{\mathbb{H}}
+\newcommand{\matT}{\mathbb{T}}
+\newcommand{\st}{\ s.t.\ }
+\newcommand{\ie}{\ i.e.\ }
+\newcommand{\eg}{\ e.g.\ }
+\def \diam {\operatorname{diam}}
+\def \Hom {\operatorname{Hom}}
+\def \id {\operatorname{id}}
+\def \tr {\operatorname{tr}}
+\def \dist {\operatorname{dist}}
+\def \intr {\operatorname{int}}
+\def \sgn {\operatorname{sgn}}
+\def \im {\operatorname{Im}}
+\def \re {\operatorname{Re}}
+\def \curl {\operatorname{curl}}
+\def \divg {\operatorname{div}}
+\def \GL {\operatorname{GL}}
+\def \End {\operatorname{End}}
+\def \Aut {\operatorname{Aut}}
+\def \Spec {\operatorname{Spec}}
+\newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
+\newcommand{\df}{\text{d}}
+\newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
+
+% arrows and :=, =:
+\makeatletter
+\providecommand*{\twoheadrightarrowfill@}{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow
+}
+\providecommand*{\twoheadleftarrowfill@}{%
+  \arrowfill@\twoheadleftarrow\relbar\relbar
+}
+\providecommand*{\xtwoheadrightarrow}[2][]{%
+  \ext@arrow 0579\twoheadrightarrowfill@{#1}{#2}%
+}
+\providecommand*{\xtwoheadleftarrow}[2][]{%
+  \ext@arrow 5097\twoheadleftarrowfill@{#1}{#2}%
+}
+\makeatother
+
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\mathrel{\mathop:}}
+
+% integral for measure theory
+\newcommand{\lowerint}{\underline{\int_{\R^d}}}
+\newcommand{\upperint}{\overline{\int_{\R^d}}}
+\newcommand{\lint}[1]{\underline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\uint}[1]{\overline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\sint}[1]{\simp{\int_{\R^d} #1 (x)dx}}
+\newcommand{\lesint}[1]{\int_{\R^d} #1 (x)dx}
+
+% note taking
+\newcommand{\fancyem}[1]{\underline{\textsc{#1}}}
+
+% theorem style
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{conjecture}{Conjecture}
+\newtheorem*{proposition}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{example}{Example}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% for clearer reference
+\usepackage{hyperref}
+\newcommand{\corollaryautorefname}{Corollary}
+\newcommand{\lemmaautorefname}{Lemma}
+\newcommand{\definitionautorefname}{Definition}
+\newcommand{\exampleautorefname}{Example}
+\newcommand{\conjectureautorefname}{Conjecture}
+\renewcommand{\subsectionautorefname}{Section}
+
+% other styling
+\usepackage{fancyvrb, fancyhdr}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+
+\usepackage{tikz-cd}
+
+\begin{document}
+% \renewcommand{\ref}[1]{\autoref{#1}}
+\title{Math 494}
+\author{Yiwei Fu}
+\date{Jan 28, 2022}
+\maketitle
+
+\begin{proof}
+    \begin{enumerate}
+        \item Fix $P \in \Spec(R)$ and $X - V(E)$ open set containing $P$. We want to show that $\exists f \in R \st P \in X_f \subset X - V(E)$.
+
+        $P \in X - V(E) \implies \exists f \in E \st f \notin P \implies P \in X_f$ and $f \in E,  \forall P \in F(U), X$
+
+        \item We take the basis $\{X_{f_i}\}_{i \in I}$ be a cover of $X$. $\forall P \in \Spec(R), \exists X_{f_i} \ni P \implies f_i \notin P$.
+
+        By lemma in class (every non $(1)$ ideal is contained in a maximal ideal) we have $(\{f_i\}_{i \in I}) = R \ni 1 \implies \exists J \subset I$ finite, $g_i \in R \st \sum_{j \in J} g_jf_j = 1$.
+        
+        So $(\{f_j\}_{j \in I}) = R$. This forms a finite subcover.
+
+        \item Suppose $\{P\}$ is closed $\implies \{P\} = V(E), E \subset R \implies P$ is the only prime containing $E \implies P$ is maximal.
+        
+        Suppose $M$ is a maximal ideal, then $\{M\} = V(M)$, then it is closed by assumption. \qedhere 
+    \end{enumerate}
+
+\end{proof}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Suppose $f, g \in \phi^{-1}(P), a, b \in R, \phi(af + bg) = \phi(a)\phi(f) + \phi(b)\phi(g) \in P$. Preimage is an ideal.
+        
+        To show that it is prime, suppose $fg \in \phi^{-1}(p) \implies \phi(fg) = \phi(f)\phi(g) \in P$. So either $\phi(f) \in P$ or $\phi(g) \in P$.
+
+        \item Say $Q \in Y_{\phi(f)} \iff \phi(f) \notin Q \iff f \notin \phi^{-1}(Q) = \phi^*(Q) \iff \phi^*(Q) \in X_f \iff Q \in \phi^*(X_f)$.
+        
+        \item $f \in (\psi \circ \phi)^*(P) \iff (\psi \circ \phi)(f) \in P \iff \psi(\phi(f)) \in P \iff \phi(f) \in \phi^*(P) \iff f \in (\phi^* \circ \psi^*)(P)$. \qedhere
+    \end{enumerate}
+\end{proof}
+
+
+\end{document}

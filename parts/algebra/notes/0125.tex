@@ -1,0 +1,210 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb,nccmath}
+\usepackage{mathtools}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\setlength{\topmargin}{0.5in}
+\usepackage[margin=4cm]{geometry}
+\usepackage{enumerate}
+
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\setlength{\parskip}{0.5em}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+
+% useful characters/operators
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\matP}{\mathbb{P}}
+\newcommand{\matS}{\mathbb{S}}
+\newcommand{\matH}{\mathbb{H}}
+\newcommand{\matT}{\mathbb{T}}
+\newcommand{\st}{\ s.t.\ }
+\newcommand{\ie}{\ i.e.\ }
+\newcommand{\eg}{\ e.g.\ }
+\def \diam {\operatorname{diam}}
+\def \Hom {\operatorname{Hom}}
+\def \id {\operatorname{id}}
+\def \tr {\operatorname{tr}}
+\def \dist {\operatorname{dist}}
+\def \intr {\operatorname{int}}
+\def \sgn {\operatorname{sgn}}
+\def \im {\operatorname{Im}}
+\def \re {\operatorname{Re}}
+\def \curl {\operatorname{curl}}
+\def \divg {\operatorname{div}}
+\def \GL {\operatorname{GL}}
+\def \End {\operatorname{End}}
+\def \Aut {\operatorname{Aut}}
+\newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
+\newcommand{\df}{\text{d}}
+\newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
+
+% arrows and :=, =:
+\makeatletter
+\providecommand*{\twoheadrightarrowfill@}{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow
+}
+\providecommand*{\twoheadleftarrowfill@}{%
+  \arrowfill@\twoheadleftarrow\relbar\relbar
+}
+\providecommand*{\xtwoheadrightarrow}[2][]{%
+  \ext@arrow 0579\twoheadrightarrowfill@{#1}{#2}%
+}
+\providecommand*{\xtwoheadleftarrow}[2][]{%
+  \ext@arrow 5097\twoheadleftarrowfill@{#1}{#2}%
+}
+\makeatother
+
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\mathrel{\mathop:}}
+
+% integral for measure theory
+\newcommand{\lowerint}{\underline{\int_{\R^d}}}
+\newcommand{\upperint}{\overline{\int_{\R^d}}}
+\newcommand{\lint}[1]{\underline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\uint}[1]{\overline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\sint}[1]{\simp{\int_{\R^d} #1 (x)dx}}
+\newcommand{\lesint}[1]{\int_{\R^d} #1 (x)dx}
+
+% note taking
+\newcommand{\fancyem}[1]{\underline{\textsc{#1}}}
+
+% theorem style
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{conjecture}{Conjecture}
+\newtheorem*{proposition}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{example}{Example}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% for clearer reference
+\usepackage{hyperref}
+\newcommand{\corollaryautorefname}{Corollary}
+\newcommand{\lemmaautorefname}{Lemma}
+\newcommand{\definitionautorefname}{Definition}
+\newcommand{\exampleautorefname}{Example}
+\newcommand{\conjectureautorefname}{Conjecture}
+\renewcommand{\subsectionautorefname}{Section}
+
+% other styling
+\usepackage{fancyvrb, fancyhdr}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+
+\usepackage{tikz-cd}
+
+\begin{document}
+\renewcommand{\ref}[1]{\autoref{#1}}
+\title{Math 494}
+\author{Yiwei Fu}
+\date{Jan 25, 2022}
+\maketitle
+
+$\Z$ is similar to $\Z/p\Z[x]$ and also to $\C[x]$. So there are analytic statements we can prove algebraically, and then apply it to different coefficient brackets.
+
+\begin{theorem}[Integral domain is contained in a field]
+If $R$ is an integral domain, then $\exists$ injective homomorphism $\varphi: R \to K$ for some field $K$.
+\end{theorem}
+\begin{proof}(Analogous to construction of rational numbers)
+Let $\operatorname{Frac}{R} = \{(a, b): a, b \in R. b \neq 0\}$. Write $\mfrac{a}{b}$ for $(a, b)$. Say $\mfrac{a}{b} \sim \mfrac{c}{d}$ if $ad = bc$.
+
+Define $\mfrac{a}{b} + \mfrac{c}{d} \defeq \mfrac{ad + bc}{bd}$ and check that the definition doesn't depend on the choice of representitive for each equivalence class\ie if $\mfrac{a}{b} = \mfrac{A}{B}$ and $\mfrac{c}{d} = \mfrac{C}{D}$ then $\mfrac{ad + bc}{bd} = \mfrac{AD + BC}{BD}$.
+
+In fact $\operatorname{Frac}{R}$ is a ring with $0$ element $\mfrac{0}{1}$ and $1$ element $\mfrac{1}{1}$, $-\left(\mfrac{a}{b}\right) = \mfrac{-a}{b}$.
+
+So there is injection $\R \hookrightarrow \operatorname{Frac}{R}, r \mapsto \mfrac{r}{1}$.
+
+Also $\left(\mfrac{a}{b}\right)^{-1} = \mfrac{b}{a} \implies \operatorname{Frac}{R}$ is a field.
+\end{proof}
+
+$\operatorname{Frac}{R}$ is the "field of fractions" of $R$, or the "fractional field" of $R$. In fact it is the smallest field containing $R$.
+
+"Mapping property":
+If $R$ is integral domain and $K$ is a field. $\varphi: R \to K$ is injective homomorphism. $R \hookrightarrow \operatorname{Frac}{R} \dashrightarrow K, \varphi = \iota \circ \theta$.
+
+\begin{example}
+\begin{itemize}
+\item $\operatorname{Frac}{\Z} = \Q$.
+\item $K = $ field $\implies \operatorname{Frac}(K[x]) = K(X)$.
+\item $\operatorname{Frac}(\Z[x]) = \Q(x)$.
+\end{itemize}
+
+$\C[x, y]/(xy - 1) \cong \C\left[x, \mfrac{1}{x}\right]$.
+
+\end{example}
+
+\begin{definition}
+    A \underline{maximal ideal} $M$ of a ring $R$ is an ideal $M \neq R \st \nexists$ ideal $I$ of $R$ with $M \subsetneq I \subsetneq R$.
+\end{definition}
+
+\begin{example}
+    \begin{itemize}
+        \item $R = \Z$, the maximal ideals are $(p)$ where $p$ is prime.
+        \item $R = \C[x]$, the maximal ideals are $(x - \alpha)$, $\alpha \in \C$.
+    \end{itemize}
+\end{example}
+
+\begin{lemma}
+    If $\varphi: R \to R'$ is a surjective ring homomorphism, then $\ker(\varphi)$ is a maximal ideal if and only if $R'$ is a field.
+\end{lemma}
+
+\begin{proof}
+    Correpondence theorem says that $\ker(\varphi)$ is maximal iff the only ideals of $R$ containing $\ker(\varphi)$ are $(1)$ and $\ker(\varphi)$, and $\ker(\varphi) \neq (1)$ iff the only ideals of $R'$ are $(0)$ and $(1)$, where $(0) \neq (1)$ iff $R'$ is a field.
+\end{proof}
+
+\begin{corollary}
+    An ideal $I$ of $R$ is maximal $\iff R/I$ is a field. 
+\end{corollary}
+\begin{corollary}
+    The ideal $(0)$ of $R$ is maximal $\iff R$ is a field. 
+\end{corollary}
+
+\begin{lemma}
+    Let $K$ be a field.
+    \begin{enumerate}
+        \item The maximal ideals of $K[x]$ are $(f(x))$ with $f(x)$ irreducible.
+        \item If $\varphi: K[x] \to R'$ is a homomorphism to an integral domain $R'$, then $\ker(\varphi)$ is either $(0)$ (which implies the map is injective) or a maximal ideal.
+    \end{enumerate}
+\end{lemma}
+
+$fg \in \ker(\varphi) \implies \varphi(fg) = \varphi(f)\varphi(g) = 0 \implies \varphi(f) = 0$ or $\varphi(g) = 0 \implies f \in \ker(\varphi)$ or $g \in \ker(\varphi)$.
+
+But $\ker(\varphi) = $ ideals of $K[x] = (h)$ for some $h \implies \ker(\varphi) = (0)$ or $(h)$, $h$ irreducible, or $(1)$ (impossible sime $R'$ is integral domain).
+
+\fancyem{Hilbert's Nullstellenstaz}
+The maximal ideals of \[R \defeq \C[x_1, \ldots, x_n]\] are \[(x_1 - \alpha_1, x_2 - \alpha_2, \ldots, x_n - \alpha_n)\] with $\alpha_1, \ldots, \alpha_n \in \C$. (So they are in bijection of $\C^n$.)
+
+Note: this ideal is the kernel of the evaluation homomorphism 
+\[
+\C[x_1, \ldots, x_n] \to \C, \quad f(x_1, \ldots, x_n) \mapsto f(\alpha_1, \ldots, \alpha_n).
+\]
+
+This is maximal since image of a homomorphism is a field.
+
+\begin{proof}
+    Let $M$ be a maximal ideal of $R$. Consider quotient map $\pi: R \to R/M$. We have $M = \ker \pi$. It suffice to show that $M$ contains $x_1 - \alpha_1, \ldots, x_n - \alpha_n$ for some $\alpha_1, \ldots, \alpha_n$. 
+    
+    Restrict this to the subring $\C[x_1] \subseteq R$ to get $\C[x_1] \to R/M$. Since $R/M$ is a field, then the kernel of $\C[x_1] \to R/M$ is either $(0)$ or a maximal ideal of $\C[x_1] \ie (x_1 - \alpha_1)$.
+
+    It cannot be $(0)$ since if it were $(0)$ then it was a injection and we get $\operatorname{Frac}(\C[x_1]) \hookrightarrow R/M$. But these maps are the identity on $\C$, so get injective $\C$-linear map.
+    
+    $R/M$ is a countable dimensional $\C$-vector space since it is spanned by $x_1^{e_1}x_2^{e_2}\ldots x_n^{e_n}$. $\C(x)$ has uncountable dimension as $\C$-vector space since $\frac{1}{x - \alpha}, \alpha \in \C$ are linearly independent.
+    
+    So we obtain a injective map from uncountable dimensinoal $\C$ -vector space to a countable dimensional $\C$-vector space, a contradiction.
+
+    So $M$ has to be $(x_1 - \alpha_1)$. This applies to restriction to any $\C[x_i]$'s.
+\end{proof}
+
+\end{document}

@@ -1,0 +1,186 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb}
+\usepackage{mathtools}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\setlength{\topmargin}{0.5in}
+\usepackage[margin=4cm]{geometry}
+\usepackage{enumerate}
+
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\setlength{\parskip}{0.5em}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+
+% useful characters/operators
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\matP}{\mathbb{P}}
+\newcommand{\matS}{\mathbb{S}}
+\newcommand{\matH}{\mathbb{H}}
+\newcommand{\matT}{\mathbb{T}}
+\newcommand{\st}{\ s.t.\ }
+\newcommand{\ie}{\ i.e.\ }
+\newcommand{\eg}{\ e.g.\ }
+\def \diam {\operatorname{diam}}
+\def \Hom {\operatorname{Hom}}
+\def \id {\operatorname{id}}
+\def \tr {\operatorname{tr}}
+\def \dist {\operatorname{dist}}
+\def \intr {\operatorname{int}}
+\def \sgn {\operatorname{sgn}}
+\def \im {\operatorname{Im}}
+\def \re {\operatorname{Re}}
+\def \curl {\operatorname{curl}}
+\def \divg {\operatorname{div}}
+\def \GL {\operatorname{GL}}
+\def \End {\operatorname{End}}
+\def \Aut {\operatorname{Aut}}
+\newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
+\newcommand{\df}{\text{d}}
+\newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
+
+% arrows and :=, =:
+\makeatletter
+\providecommand*{\twoheadrightarrowfill@}{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow
+}
+\providecommand*{\twoheadleftarrowfill@}{%
+  \arrowfill@\twoheadleftarrow\relbar\relbar
+}
+\providecommand*{\xtwoheadrightarrow}[2][]{%
+  \ext@arrow 0579\twoheadrightarrowfill@{#1}{#2}%
+}
+\providecommand*{\xtwoheadleftarrow}[2][]{%
+  \ext@arrow 5097\twoheadleftarrowfill@{#1}{#2}%
+}
+\makeatother
+
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\mathrel{\mathop:}}
+
+% integral for measure theory
+\newcommand{\lowerint}{\underline{\int_{\R^d}}}
+\newcommand{\upperint}{\overline{\int_{\R^d}}}
+\newcommand{\lint}[1]{\underline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\uint}[1]{\overline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\sint}[1]{\simp{\int_{\R^d} #1 (x)dx}}
+\newcommand{\lesint}[1]{\int_{\R^d} #1 (x)dx}
+
+% note taking
+\newcommand{\fancyem}[1]{\underline{\textsc{#1}}}
+
+% theorem style
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{conjecture}{Conjecture}
+\newtheorem*{proposition}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{example}{Example}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% for clearer reference
+\usepackage{hyperref}
+\newcommand{\corollaryautorefname}{Corollary}
+\newcommand{\lemmaautorefname}{Lemma}
+\newcommand{\definitionautorefname}{Definition}
+\newcommand{\exampleautorefname}{Example}
+\newcommand{\conjectureautorefname}{Conjecture}
+\renewcommand{\subsectionautorefname}{Section}
+
+% other styling
+\usepackage{fancyvrb, fancyhdr}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+
+\usepackage{tikz-cd}
+
+\begin{document}
+\renewcommand{\ref}[1]{\autoref{#1}}
+\title{Math 494}
+\author{Yiwei Fu}
+\date{Jan 20, 2022}
+\maketitle
+
+\fancyem{Last time} $R =$ ring. $f, g \in R[x], g \neq 0$. If the leading coefficient of $g$ is a unit in $R$ then $\exists q, r \in R[x] \st f = gq + r$ and $\deg(r) < \deg(g).$
+\begin{corollary}
+For $\alpha \in R$ and $f(x) \in R[x]$, $\exists q(x) \in R[x] \st f(x) = (x - \alpha)q(x) + c, c \in R$. Evaluate this at $\alpha \implies c = f(\alpha)$.
+\end{corollary}
+
+\begin{example}
+In $\Z[x], 4x^3 + x = (2x)2x^2 + x$. But $4x^3 + x \neq (2x)q(x) + r(x)$ with $\deg(r) < \deg(2x).$ 
+\end{example}
+
+If $K$ is a field, what are the ideals in $K[x]$? 
+
+\fancyem{Answer} Any nonzero ideal in $K[x]$ is $(g(x))$ where $g(x)$ is any nonzero element of $I$ having the smallest possible degree.
+\begin{proof}
+For $f(x) \in I$, $f = gq + r, q,r \in K[x], \deg(r) < \deg(g)$. Bur $r = f - gq \in I$, so the minimality of $\deg(g) \implies r = 0 \implies g \mid f, \ie f \in (g)$.  
+\end{proof}
+
+\begin{definition}
+In a ring $R$, for any $\alpha \in R$, $(\alpha) \defeq \alpha R$ is called a "principal ideal".
+\end{definition}
+
+\fancyem{Note} $(\alpha) = (\alpha u)$ for any $u \in R^*$. If $R =$ integral domain, $\alpha, \beta \in R$, then $(\alpha) = (\beta) \iff \alpha = \beta u, u \in R^*$.
+\begin{proof}
+$\alpha = \beta x, \beta = \alpha y,  x, y \in R$. Then $\alpha = \beta x = (\alpha y) x \implies \alpha(1 - yx) = 0.$
+
+Then $\alpha = \beta = 0$ or $yx = 1 \implies x, y \in R^*$.
+\end{proof}
+
+Units in $R[x]$:
+
+If $R =$ integral domain, $(R[x])^* = R^*$.
+
+If $R = \Z/4\Z, (R[x])^* = 1+2R[x]$. For $y \in R[x], (1 + 2y)^2 = 1 + 4y + 4y^2 = 1.$ If $f, g \in R[x]$ satisfy $fg = 1$ then apply homomorphism: $\varphi: R[x] \to (R/(2))[x]$ to get $\varphi(f) \cdot \varphi(g) = 1$ in $(R/(2))[x] = (\Z/2\Z)[x] \implies \varphi(f) = \varphi(g) = 1 \implies f, g = 1 \pmod{2} \implies f = 1 + 2A, g = 1 + 2B, A, B \in R[x] \implies fg = 1 + 2(A + B) + 4AB = 1 + 2(A + B)$ which is $1$ iff $A = B + 2C \implies f = 1 + 2(B + 2C) = 1 + 2B = g.$
+
+$(\Z/(6)[x])^* = \{\pm 1\}$.
+
+$R, S$ rings, $R \times S$ with coordinate wise addiction and multiplication is a "production ring".
+
+\underline{Ring extensions}
+
+Some examples:
+\[
+\Z[i] = \Z[x]/(x^2 + 1), \Z\left[\frac{1}{2}\right] = \Z[x]/(2x - 1)
+\]
+If $R$ is a ring and $I$ is an ideal of $R[x]$, then $R[x]/I$ is a ring and $\exists f: R \to R[x]/I, r \mapsto r(x) \mapsto r + I$ is a homomorphism but not necessarily injective. 
+
+$(\Z/(4)[x])/(2x - 1).$ Let $u =$ image of $x$ in this ring. Then $2u = 1 \implies 0 = 4u^2 = 1 \implies $ it is a zero ring.
+
+If $f(x)$ is a monic polynomial in $R[x]$ of degree $n$ and $S \defeq R[x]/(f(x))$ then each element of $S$ can be written in exactly one way as $a(x) + (f(x))$ with $\deg(a) < n.$
+
+Since if $g(x) \in R[x]$ then $g = fq + r$ for some unique $q, r \in R[x] \st \deg(r) < n$.
+
+$K =$ field: $K[x]$ is a principal idea domain, so: for $f, g \in K[x]$, the ideal $(f, g) = (h)$ for some $h \in K[x].$
+
+So:
+\begin{align*}
+h & = uf + vg, u, v \in K[x] \\
+f & = hr, g = hs, r, s \in K[x].
+\end{align*}
+
+And if $w \in K[x]$ divides both $f$ and $g$ then $w \mid h$.
+
+If $p(x) \in K[x]$ is irreducible (non-zero, non-unit, and not a product of two non-units) and $p \mid fg$, then $p \mid f$ or $p \mid g$.
+\begin{proof}
+If $p \nmid f$ then $(p, f) = (h)$ where $h \mid p$ and $h \mid f$.
+
+Since $p$ is irreducible, either $h = p \cdot$unit or $h =$ unit. Since $p \nmid f$, $h \neq p \cdot$unit. Hence $h = $ unit and since $(h) = 1$ we have $h = 1$.
+
+Hence $pu + fv = 1$. Multiply both sides by $g$ we have $pug + fvg = g$. By hypothesis $fg$ is divisible by $p$. Hence $p \mid g$.
+\end{proof}
+
+
+\end{document}
