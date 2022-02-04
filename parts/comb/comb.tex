@@ -42,6 +42,7 @@
 \def \GL {\operatorname{GL}}
 \def \Aut {\operatorname{Aut}}
 \def \per {\operatorname{per}}
+\def \LE {\operatorname{LE}}
 \newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
 \newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
 \newcommand{\df}{\text{d}}
@@ -116,6 +117,18 @@
 \numberwithin{equation}{section}
 
 \newcommand{\fnl}{\parbox[t]{0\linewidth}{}}
+
+\usepackage{epigraph}
+
+% \epigraphsize{\small}% Default
+\setlength\epigraphwidth{8cm}
+\setlength\epigraphrule{0pt}
+
+\usepackage{etoolbox}
+
+\makeatletter
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+\makeatother
 
 % combinatorics special
 \usepackage{pgfopts}
@@ -561,7 +574,7 @@ Any two domino tilings of a rectangular board are related to each other via "fli
 \end{figure}
 
 \begin{proof}[Proof of Prop]
-This is equivalent to all nonzero terms terms in $\det(\tilde{B})$ are equal and are $\pm 1.$ The latter claim follows from the former, since since the all-horizontal tiling contributes $\pm 1$.
+This is equivalent to all nonzero terms in $\det(\tilde{B})$ are equal and are $\pm 1.$ The latter claim follows from the former, since the all-horizontal tiling contributes $\pm 1$.
 
 Then it is enough to show that the contributions of two tilings that differ by a flip are equal to each other.
 
@@ -607,7 +620,7 @@ with the convention that $u_0 = u_{n+1} = 0$.
 
 A divine revelation:
 recall that \[\sin\alpha + \sin\beta = 2\cos\frac{\beta - \alpha}{2}\sin\frac{\alpha+\beta}{2}.\]
-This suggest taking
+This suggests taking
 \[
 u_j = \sin\left(\frac{\pi k j}{n + 1}\right) \quad \text{for } j = 1, \ldots, n.
 \]
@@ -654,7 +667,7 @@ We take the natural log of $T(n, n)$:
 \frac{\ln T(n, n)}{n^2} & = \frac{1}{n^2}\sum_{k=1}^{n/2}\sum_{j=1}^{n/2} \ln\left(4\cos^2\frac{\pi k}{n+1} + 4\cos^2\frac{\pi j}{n+1}\right) \\
 & \sim \frac{1}{\pi^2}\sum\sum \left(\frac{\pi}{n+1}\right)^2 \ln\left(4\cos^2\frac{\pi k}{n+1} + 4\cos^2\frac{\pi j}{n+1}\right)
 \end{align*}
-Notice that the right hand side is a Riemann sum of the function $\ln(4\cos^2x+4\cos^2y)$. So the sum approaches to 
+Notice that the right-hand side is a Riemann sum of the function $\ln(4\cos^2x+4\cos^2y)$. So the sum approaches to 
 \[
 \frac{1}{\pi^2} \int_0^{\pi/2}\int_0^{\pi/2} \ln(4\cos^2x+4\cos^2y)dxdy = \frac{K}{\pi}
 \]
@@ -730,7 +743,7 @@ We can keep some edges and discard others to obtain a connected acyclic subgraph
         \draw[black, thick] (2.5, 2) rectangle (3.5, 2.5);
         \draw[black, thick] (2.5, 2.5) rectangle (3.5, 3);
     \end{tikzpicture}
-    \caption{A domino tiling satifying the condition}
+    \caption{A domino tiling satisfying the condition}
     \label{fig:corner}
 \end{figure}
 
@@ -1029,13 +1042,13 @@ Suppose $P$ is a polygon, $G$ a polygonal subdivision of $P$. Define $H$ by addi
             
         \end{tikzpicture}
     \]
-    The number of spanning trees of $= 4 + 4 + 3 = 11$. If we take the vertex $v$ speified above we have:
+    The number of spanning trees of $= 4 + 4 + 3 = 11$. If we take the vertex $v$ specified above we have:
     \[
         H - \{v\} = \begin{tikzpicture}[baseline=(current bounding box.center)]
             \draw[step = 0.5cm, gray, thin] (0, 0) grid (1, 1.5);
         \end{tikzpicture} 
     \]
-    We can vertify that it also has 11 matchings.
+    We can verify that it also has 11 matchings.
 
     \fancyem{Note} Here the for arbitrary vertex $v$ the result would be the same.
 \end{example}
@@ -1068,7 +1081,7 @@ Suppose $P$ is a polygon, $G$ a polygonal subdivision of $P$. Define $H$ by addi
 \begin{proof}
     Color the position:
     \begin{itemize}
-        \item[\textcolor{green}\textbullet] Green is the terminal posiiton reachable from this position is unique.
+        \item[\textcolor{green}\textbullet] Green is the terminal position reachable from this position is unique.
         \item[\textcolor{red}\textbullet] Red otherwise.
     \end{itemize}
     Assume a red position exists. Starts at the red position until no move into red position exists. 
@@ -1086,14 +1099,14 @@ Suppose $P$ is a polygon, $G$ a polygonal subdivision of $P$. Define $H$ by addi
 \end{definition}
 \fancyem{Claim} This game is \underline{confluent}.
 
-Note: the remaining shape would always be a staircase. If we color the blocks black and white alternatively, we can determine the final shape by the differentce between white and black boxs.
+Note: the remaining shape would always be a staircase. If we color the blocks black and white alternatively, we can determine the final shape by the difference between white and black boxes.
 
-\fancyem{Problem} Consider a similar game but we are removing border strips consiting of $p$ boxes ($p \in \N$).s Prove that the game is confluent.
+\fancyem{Problem} Consider a similar game but we are removing border strips consisting of $p$ boxes ($p \in \N$). Prove that the game is confluent.
 
 \begin{definition}[Young tableaux]
     Take a Young diagram and fill it with numbers so that each row and column is in increasing order. Such diagram is called a standard Young tableau (SYT).
 
-    Or take a skew shape where a Young diagram is taken away from the top left corner of another Young diagram. Then filling it the same way we obtain standrd skew tableau (Skew SYT).
+    Or take a skew shape where a Young diagram is taken away from the top left corner of another Young diagram. Then filling it the same way we obtain standard skew tableau (Skew SYT).
 
     \begin{figure}[h]
         \centering
@@ -1190,17 +1203,256 @@ For non-terminating games, the diamond lemma does not necessarily hold:
     \[
         1 \to 2 \to 3 \to 4 \to \ldots, n \to \infty, \forall n.
     \]
-    Then there are two outcome for any given starting position ($\infty$ or non-terminating).
+    Then there are two outcomes for any given starting position ($\infty$ or non-terminating).
 \end{example}
 
 \begin{theorem}[Diamond Lemma for Non-terminating Games]
-    Supppose a one-player game. $\forall s \in \mathcal{S}$, $\forall s \rightsquigarrow s'$, $s \rightsquigarrow s''$, $\exists$ some position that can be reach from both $s'$ and $s''$ in the same number of steps. Then the game is confluent.
+    Suppose a one-player game. $\forall s \in \mathcal{S}$, $\forall s \rightsquigarrow s'$, $s \rightsquigarrow s''$, $\exists$ some position that can be reach from both $s'$ and $s''$ in the same number of steps. Then the game is confluent.
 
     Moreover, if the game terminates for a given initial position, then it does so in a fixed number of steps.
 \end{theorem}
 \begin{proof}
     Left as \fancyem{Problem}.
 \end{proof}
+
+\section{Loop-erased Walks}
+
+\begin{definition}[G.Lawler, 1980]
+    Suppose $G$ a connected graph. Let $\pi$ be a (finite) walk in $G$. $\operatorname{LE}(\pi)$ "loop erasure" of $\pi$ is defined by:
+
+    \fbox{%
+        \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{
+            IF $\pi$ doesn't intersect itself\\
+            THEN $\LE(\pi) \defeq \pi$ \\
+            ELSE remove the $1$st cycle that $\pi$ get $\pi'$;
+                $\LE(\pi) \defeq \LE(\pi')$
+        }%
+    }
+
+\end{definition}
+
+\fancyem{Stacks \& Cycle popping}
+
+Recall: Markov chains.
+
+"Running a Markov chain with stacks": at each state, decide on transition choices \underline{in advance}.
+
+$v$ is a vertex, $u(v) = (u_1, u_2, u_3, \ldots)$ where $u_k$ denotes the vertex we move to after visiting $v$ for the $k$-th time. They are i.i.d RV's.
+
+Assume: the Markov chain arrives with probability $1$ at an absorbing state (where the stack is empty).
+
+Given a collection of partially depleted stacks, we get a graph (A subgraph of $G$, the underlying oriented graph of Markov chain) determined by the top of each stack.  The out degrees of each non-absorbing vertex in the graph is equal to $1$. The removing of cycles from this graph is called \underline{cycle-popping}.
+
+\fancyem{Loop-erased \textbf{random} walk}
+
+% Assume $t$ is a unique absorbing stats. 
+Start at vertex $s$, and stop upon arriving at some absorbing state $t$. 
+
+\fancyem{Observation} LERW is obtained by popping some cycle, leaving a path from $s$ to $t$.
+
+Define a game where positions are collections of stacks of at each vertex and the moves are cycle poppings.
+
+\fancyem{Claim} This game is confluent (by diamond lemma for non-terminating games).
+
+The outcome of the game (after all cycles have been popped) is a rooted forest that is oriented towards absorbing states.
+
+\fancyem{Wilson's algorithm} [D.B. Wilson, 1996]
+
+Input: connected loopless graph $G$.
+Output: random spanning tree $T$ in $G$.
+fix a vertedx in $G$ (a \underline{root}) $T \defeq {r}$.
+
+WHILE $T$ does not cover all vertices in $G$ DO \\
+    pick a vertex $v \notin T$  (using \underline{any} rule) \\
+    run a \underline{simple} random walk $\pi$ from $v$ until it hits $T$.\\
+    $T \leftarrow T \cup \{v: v \in \LE(\pi)\}$.
+
+\begin{theorem}
+    This algorithm outputs a uniformly distributed spanning tree of $G$.
+\end{theorem}
+\begin{proof}
+    Make $r$ an absorbing state. Run Wilson's algorithm with stacks, each time designating the vertices in $T$ as absorbing states. Loop erasure = cycle popping.
+
+    The algorithm terminates with probability $1$, revealing the tree lying underneath all pop-able cycles. 
+
+    Need: the output tree $T$ is uniformly distributed.
+
+    Suppose $H = $ heap of cycles. $\matP(T, H)$ denotes probability of getting $T$ after removing $H$. We have 
+    \[
+        \matP(T, H) = \left(\prod_{v \in T - \{r\}} \deg(v)^{-1}\right)\cdot\left(\prod_{v \in H}\deg(v)^{-1}\right),
+    \]
+    while \[
+        \matP(T) = \sum_{H} \matP(T, H).
+    \]
+    All the expressions above have the same values regardless of $T$, so the distribution is uniform.
+\end{proof}
+
+The art of computer programming, vol 4. (generate random combinatorial objects that satisfies certain distribution)
+
+\fancyem{Problem} Let $a, b$ be two vertices in a connected graph $G$. Show that the following two constructions produce the same distributions on the set of self-avoiding walks from $a$ to $b$.
+\begin{itemize}
+    \item Run a simple random walk $\pi$ that starts at $a$ and stops at $b$. Output $\LE(\pi)$.
+    \item Choose uniformly at random a spanning tree in $G$. Output the walk from $a$ to $b$ in the spanning tree.
+\end{itemize}
+
+\begin{corollary}
+    This distribution does not change if we swap $a$ and $b$.
+\end{corollary}
+\begin{example}
+    $G = \begin{tikzpicture}[baseline=(current bounding box.center)]
+        \node[shape=circle, fill=black, scale = 0.3] (A1) at (0, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A2) at (1, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A3) at (1, 1) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A4) at (0, 1) {};
+
+        \node[above left] at (A4.south east) {$a$};
+        \node[above right] at (A3.south west) {$b$};
+
+        \draw[black] (0, 0) rectangle (1, 1);
+    \end{tikzpicture}$.
+    Using the first method we have
+    \[\matP\left(\begin{tikzpicture}[baseline=(current bounding box.center)]
+        \node[shape=circle, fill=black, scale = 0.3] (A1) at (0, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A2) at (1, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A3) at (1, 1) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A4) at (0, 1) {};
+
+        \draw[] (A4) -- (A3);
+
+        % \node[above left] at (A4.south east) {$a$};
+        % \node[above right] at (A3.south west) {$b$};
+
+        \draw[black, dashed] (0, 0) rectangle (1, 1);
+    \end{tikzpicture} \right) = \frac{1}{2} + \frac{1}{4} = \frac{3}{4}, \ \matP\left(\begin{tikzpicture}[baseline=(current bounding box.center)]
+        \node[shape=circle, fill=black, scale = 0.3] (A1) at (0, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A2) at (1, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A3) at (1, 1) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A4) at (0, 1) {};
+
+        \draw[] (A4) -- (A1) -- (A2) -- (A3);
+
+        % \node[above left] at (A4.south east) {$a$};
+        % \node[above right] at (A3.south west) {$b$};
+
+        \draw[black, dashed] (0, 0) rectangle (1, 1);
+    \end{tikzpicture} \right) = \frac{1}{4}.\]
+    For the spanning tree method, we have these spanning trees:
+    \[\begin{tikzpicture}[baseline=(current bounding box.center)]
+        \node[shape=circle, fill=black, scale = 0.3] (A1) at (0, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A2) at (1, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A3) at (1, 1) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A4) at (0, 1) {};
+        \draw[black, dashed] (0, 0) rectangle (1, 1);
+
+        \draw[thick, green] (A4) -- (A1) -- (A2) -- (A3);
+
+        \node[above left] at (A4.south east) {$a$};
+        \node[above right] at (A3.south west) {$b$};
+
+        
+    \end{tikzpicture},\ \begin{tikzpicture}[baseline=(current bounding box.center)]
+        \node[shape=circle, fill=black, scale = 0.3] (A1) at (0, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A2) at (1, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A3) at (1, 1) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A4) at (0, 1) {};
+        \draw[black, dashed] (0, 0) rectangle (1, 1);
+
+        \draw[thick, red] (A2) -- (A1) -- (A4) -- (A3);
+
+        \node[above left] at (A4.south east) {$a$};
+        \node[above right] at (A3.south west) {$b$};
+
+        
+    \end{tikzpicture}, \ \begin{tikzpicture}[baseline=(current bounding box.center)]
+        \node[shape=circle, fill=black, scale = 0.3] (A1) at (0, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A2) at (1, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A3) at (1, 1) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A4) at (0, 1) {};
+        \draw[black, dashed] (0, 0) rectangle (1, 1);
+
+        \draw[thick, red] (A1) -- (A4) -- (A3) -- (A2);
+
+        \node[above left] at (A4.south east) {$a$};
+        \node[above right] at (A3.south west) {$b$};
+
+    \end{tikzpicture},\ \begin{tikzpicture}[baseline=(current bounding box.center)]
+        \node[shape=circle, fill=black, scale = 0.3] (A1) at (0, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A2) at (1, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A3) at (1, 1) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A4) at (0, 1) {};
+        \draw[black, dashed] (0, 0) rectangle (1, 1);
+
+        \draw[thick, red] (A4) -- (A3) -- (A2) -- (A1);
+
+        \node[above left] at (A4.south east) {$a$};
+        \node[above right] at (A3.south west) {$b$};
+
+    \end{tikzpicture}  \]
+\end{example}
+
+\section{Flows}
+\epigraph{I actually don't drink any alcohol at all.}{--- \textup{Sergey Fomin}}
+\begin{definition}
+    Suppose $G$ is connected loopless graph with $a, b$ designated as \underline{boundary} vertices and all other vertices called \underline{interior} vertices. 
+    
+    A \underline{flow} $f$ assigns a number $f(e, u, v)$ to each edge $e$ with endpoint $u, v$, so that \begin{itemize}
+        \item $f(e, u, v) = -f(e, v, u)$.
+        \item $\forall$ interior vertex $u$, $\displaystyle \sum_{v \in V(G), (u, v) \in E(G)} f(e, u, v) = 0$. ("Conservation of flow")
+    \end{itemize}
+\end{definition}
+It follows that $\exists$ number $|f|$, called the \underline{total flow} from $a$ to $b$, such that \begin{equation}\label{eq:1stkirchhoff}
+\sum_{v \in V(G), (u, v) \in E(G)} f(e, u, v)\begin{cases}
+    0 & u \text{ interior} \\
+    |f| &  u = a \\
+    -|f| & u = b.
+\end{cases}    
+\end{equation}
+
+We basically created a weighted graph in some sense: $w: E(G) \to \R_{>0}$. 
+\begin{definition}
+    For any vertex $u$, $\displaystyle w(u) \defeq \sum_{e = (u, v) \in E(G)} w(e)$.
+\end{definition}
+
+A "weighted version" of a simple random walk is a Markov chain with transition probability from $u$ to $v$ being $\displaystyle \sum_{e = (u, v) \in E(G)} \frac{w(e)}{w(u)}$.
+
+\fancyem{Problem}* Generalize Wilson's algorithm to weighed graphs.
+
+\fancyem{Resistor Networks}
+\begin{definition}
+    Resistor network = weighted graph, conductance = edge weights, conductance = $\dfrac{1}{\text{resistence}}$.
+\end{definition}
+
+\eqref{eq:1stkirchhoff} is the first Kirchhoff law. (conversation of charge/current)
+
+The second Kirchhoff law expresses the conversation of energy: given a cycle \[
+    u_0 \frac{e_1}{} u_1 \frac{e_2}{} u_2 \frac{e_3}{}\ldots \frac{e_k}{} u_k = u_0,  
+\]
+we have
+\begin{equation}\label{eq:2ndkirchhoff}
+    \sum_{i=1}^k \frac{f(e_i, u_{i-1}, u_i)}{w(e_i)} = 0.
+\end{equation}
+
+\eqref{eq:1stkirchhoff} and \eqref{eq:2ndkirchhoff} are a linear system of equations in $f(e, u, v)$.
+
+\begin{theorem}
+    Kirchhoff's equations \eqref{eq:1stkirchhoff} and \eqref{eq:2ndkirchhoff} have a unique solution.
+\end{theorem}
+
+\section{Potentials}
+\begin{definition}
+    Suppose $f$ satisfies \eqref{eq:2ndkirchhoff}. Define the potential $p = p_f$, a function on the vertices of $G$, as follows:
+    \begin{itemize}
+        \item assign an arbitrary value to $p(a)$
+        \item for any walk that starts at $a = u_0 \frac{e_1}{} u_1 \frac{e_2}{} u_2 \frac{e_3}{}\ldots \frac{e_k}{} u_k = u$, set \[
+            p(u) \defeq p(a) + \sum_{i=1}^k \frac{f(e_i, u_{i-1}, u_i)}{w(e_i)}. 
+        \]
+    \end{itemize}
+\end{definition}
+\begin{lemma}
+    The function $u \mapsto p(u)$ is well-defined.
+\end{lemma}
+
+
 
 
 \end{document}

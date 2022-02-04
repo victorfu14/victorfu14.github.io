@@ -1,0 +1,209 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb,nccmath}
+\usepackage{mathtools}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\setlength{\topmargin}{0.5in}
+\usepackage[margin=4cm]{geometry}
+\usepackage{enumerate}
+
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\setlength{\parskip}{0.5em}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+
+% useful characters/operators
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\matP}{\mathbb{P}}
+\newcommand{\matS}{\mathbb{S}}
+\newcommand{\matH}{\mathbb{H}}
+\newcommand{\matT}{\mathbb{T}}
+\newcommand{\st}{\ s.t.\ }
+\newcommand{\ie}{\ i.e.\ }
+\newcommand{\eg}{\ e.g.\ }
+\def \diam {\operatorname{diam}}
+\def \Hom {\operatorname{Hom}}
+\def \id {\operatorname{id}}
+\def \tr {\operatorname{tr}}
+\def \dist {\operatorname{dist}}
+\def \intr {\operatorname{int}}
+\def \sgn {\operatorname{sgn}}
+\def \im {\operatorname{Im}}
+\def \re {\operatorname{Re}}
+\def \curl {\operatorname{curl}}
+\def \divg {\operatorname{div}}
+\def \GL {\operatorname{GL}}
+\def \End {\operatorname{End}}
+\def \Aut {\operatorname{Aut}}
+\newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
+\newcommand{\df}{\text{d}}
+\newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
+
+% arrows and :=, =:
+\makeatletter
+\providecommand*{\twoheadrightarrowfill@}{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow
+}
+\providecommand*{\twoheadleftarrowfill@}{%
+  \arrowfill@\twoheadleftarrow\relbar\relbar
+}
+\providecommand*{\xtwoheadrightarrow}[2][]{%
+  \ext@arrow 0579\twoheadrightarrowfill@{#1}{#2}%
+}
+\providecommand*{\xtwoheadleftarrow}[2][]{%
+  \ext@arrow 5097\twoheadleftarrowfill@{#1}{#2}%
+}
+\makeatother
+
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\mathrel{\mathop:}}
+
+% integral for measure theory
+\newcommand{\lowerint}{\underline{\int_{\R^d}}}
+\newcommand{\upperint}{\overline{\int_{\R^d}}}
+\newcommand{\lint}[1]{\underline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\uint}[1]{\overline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\sint}[1]{\simp{\int_{\R^d} #1 (x)dx}}
+\newcommand{\lesint}[1]{\int_{\R^d} #1 (x)dx}
+
+% note taking
+\newcommand{\fancyem}[1]{\underline{\textsc{#1}}}
+
+% theorem style
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{conjecture}{Conjecture}
+\newtheorem*{proposition}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{example}{Example}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% for clearer reference
+\usepackage{hyperref}
+\newcommand{\corollaryautorefname}{Corollary}
+\newcommand{\lemmaautorefname}{Lemma}
+\newcommand{\definitionautorefname}{Definition}
+\newcommand{\exampleautorefname}{Example}
+\newcommand{\conjectureautorefname}{Conjecture}
+\renewcommand{\subsectionautorefname}{Section}
+
+% other styling
+\usepackage{fancyvrb, fancyhdr}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+
+\usepackage{tikz-cd}
+
+\begin{document}
+% \renewcommand{\ref}[1]{\autoref{#1}}
+\title{Math 494}
+\author{Yiwei Fu}
+\date{Feb 01, 2022}
+\maketitle
+
+Last time:
+\begin{theorem}[Bezout's theorem]
+    If $f(x, y)$ and $g(x, y)$ are polynomials in $\C[x, y]$ with no (non-constant) common factor. Then they only have finitely many common zeros in $\C \times \C$.
+
+    In fact \[\# \text{of zeros} \leq (\text{total deg of } f(x, y)) \cdot (\text{total deg of } g(x, y)).\]
+\end{theorem}
+Note: every nonzero element of $(\C(y))[x]$ can be written as $\frac{a(y)}{b(y)}\cdot H(x, y)$ where $a, b \in \C[y] \setminus \{0\}$ and $H(x, y) \in \C[x, y]$ is note divisible by any nonconstant polynomial in $\C[Y]$.
+
+\begin{proof}
+    In $(\C(y))[x]$, $(f, g) = (h)$ with $h \in \C[x, y], h$ not divisible by any nonconstant polynomial in $\C[y]$.
+
+    $\implies rf + sg = h, r, s \in (\C(y))[x] \implies r_1f + s_1g = hv$, we may assume $u, r_1, s_1 \in \C[x, y]$ have no common factor. 
+
+    If $h = 1$ then $r_1f + s_1g = u$. So any common root $(x_0, y_0)$ of $f$ and $g$ would have $u(y_0) = 0$. ($u \neq 0$) So there are finitely many possibilities for $y_0$. Look at $x_0$, if they sample process also result in $h = 1$, there are finitely many possibilities for $x_0$.
+
+    Now show $h = 1$. Otherwise $h \mid f$ in $(\C(y))[x]$.
+    \[
+        h\frac{a(y)}{b(y)}H(x, y) = f \implies h(x,y)a(y)H(x,y) = f(x, y)b(y)
+    \] where $a, b \in \C[y]$ coprime, $b \neq 0$. $H \in \C[x, y]$ not divisible by any nonconstant polynomial in $\C[y]$.
+
+    If $b(y)$ is nonconstant then it has a root $\beta \in \C$. Evaluate at $y = \beta$ gives
+    \[h(x, \beta) \alpha(\beta) H(x, \beta) = 0\]
+    while all three are nonzero by assumption, which is a contradiction.
+
+    Therefore $b(y)$ is constant $\implies h \mid f$ in $\C[x, y]$. Similarly $h \mid g$ in $\C[x, y]$, a contradiction.
+\end{proof}
+
+
+\section*{Factorization (in an Integral Domain)}
+Suppose $R$ an integral domain.
+\[u \in R^* \iff (u) = (1),\ u = 0 \iff (u) = (0).\]
+$u$ is irreducible ($u$ is nonzero, not a unit, not a product of two nonzero non-units) $\iff (0) \subsetneq (u) \subsetneq (1)$ (there is no principal ideal strictly between $(u)$ and $(1)$.) 
+
+$u$ is reducible $\iff (0) \subsetneq (u) \subsetneq (a) \subsetneq (1)$ for some $a \in R$.
+
+\begin{definition}
+    A "PID" (\underline{principle integral domain}) is an integral domain in which all ideals are principal
+\end{definition}
+
+\begin{definition}
+    $u$ is prime $\iff u \notin R^*, \left[u \mid ab \implies u \mid a \text{ or } u \mid b\right]$.
+\end{definition}
+
+\begin{lemma}
+    If $R$ is an integral domain and $u \in R$ is a non-zero prime then $u$ is irreducible.
+\end{lemma}
+\begin{proof}
+    Otherwise $u$ is reducible $\implies u = ab$, $a, b \neq 0$, $a, b \in R^*$. $u$ is prime $\implies u \mid a \text{ or } u \mid b$. Assume $u \mid a \implies uv = a \implies u = ab = uvb \implies vb = 1 \implies b$ is a unit, a contradiction.
+\end{proof}
+
+\begin{lemma}
+    If $R$ is PID and $u \in R$ is irreducible then $u$ is prime.
+\end{lemma}
+\begin{proof}
+    Suppose $u \mid ab$. Then $(u, a) = (h)$. So $h \mid u$. If $h \notin R^*$ then $u = h \cdot \text{unit} \implies u \mid h, \text{ but } h \mid a \implies u \mid a$.
+
+    If $h \in R^*$ then $\exists x, y \in R \st ux + ay = 1$. Multiply by $b$ we have $uxb + aby = b$. $u \mid uxb, u \mid aby \implies u \mid b$.
+\end{proof}
+Note: If $u \in R$ is prime then $u \mid a_1a_2 \ldots a_k \implies u \mid a_i$ for some $i$ (by induction). If in addition all $a_i$'s are irreducible then $u = a_i \cdot$unit for some $i$.
+
+\begin{lemma}
+    If $R$ is an integral domain where all irreducible elements are prime, then any nonzero element of $R$ has at most one prime factorization. (up to equivalence i.e. if $p_1p_2\ldots p_k = q_1q_2\ldots q_\ell$ with $p_i, q_j$ irreducible in $R$ then $k = \ell$ and $\exists \sigma$ a permutation, $p_i = q_{\sigma(i)} \cdot \text{unit}, \forall i$.)
+\end{lemma}
+\begin{proof}
+    If $p_1\ldots p_k = q_1 \ldots q_\ell, p_i, q_j$ irreducible. Then $p_1 \mid q_1 \ldots q_\ell \implies p_1 = q_j \cdot \text{unit}$ for some $j$.
+
+    Hence \[p_2p_3\ldots p_k = \text{unit} \cdot \prod_{r \neq j} q_r.\]
+    Then induct.
+\end{proof}
+Next time: If $R$ is PID (or more generally, every ideal in $R$ is finitely generated), then every nonzero non-unit in $R$ is a product of primes. ($\implies$ PID's are UFD's)
+
+\begin{definition}
+    An integral domain $R$ is Euclidean if $\exists \phi: R \to \{-\infty\} \cup \Z_{\geq 0} \st \forall a, b \in R$ with $b \neq 0$, $\exists q, r \in R \st a = bq + r$ and $\phi(r) < \phi(b)$.
+\end{definition}
+
+\begin{example}
+    $R = \Z$, $\phi(n) = |n|$.
+    $R = k[x]$, $\phi(f) = \deg(f)$.
+\end{example}
+
+\begin{lemma}
+    $\Z[i]$ is Euclidean with $\phi(x) = |x|^2, a + bi \mapsto a^2 + b^2$.
+\end{lemma}
+Here $\phi$ is multiplicative. 
+\begin{proof}
+    Given $a, b \in \Z[i], b \neq 0$, want $q, r \in \Z[i] \st a = bq + r, |r| < |b|$. Equivalently: \[\frac{a}{b} = q + \frac{r}{b},\ \left|\frac{r}{b}\right| < 1.\]
+    Clearly $\forall \alpha \in \C, \exists q \in \Z[i] \st \alpha - q = u + vi$ ($u, v \in \R, |u|, |v| \leq \frac{1}{2} \implies |u + vi| < 1$).
+    
+    If $\alpha \in \Q[i]$ then $u, v = \Q$. So write $u + vi = \frac{r}{b}$ then $|r| < |b|$ and $a = bq + r$.
+\end{proof}
+
+Fun fact: $x^2 + x + 41$ is prime for $x = 0, 1, \ldots, 39$ and this statement is equivalent to $\Z\left[\frac{1 + \sqrt{-163}}{2}\right]$ being a unique factorization domain.
+
+
+\end{document}

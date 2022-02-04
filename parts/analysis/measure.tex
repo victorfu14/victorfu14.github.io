@@ -844,9 +844,8 @@ This defines the Cantor measure $\mu_F(\R \setminus \mathcal{C}) = 0, \mu_F(\mat
 \begin{lemma}\label{le:LSreal}
 $\mu$ is Lebesgue-Stieltjes measure on $\R \implies$ 
 \begin{align*}
-    \mu(A) & = \inf\left\{\sum_1^\infty((a_i, b_i])\ \biggr\vert\ \bigcup_1^\infty(a_i, b_i] \supset A\right\} \\
-           & =\inf\left\{
-\sum_1^\infty((a_i, b_i))\ \biggr\vert\ \bigcup_1^\infty(a_i, b_i) \supset A\right\}
+    \mu(A) & = \inf\left\{\sum_1^\infty\mu((a_i, b_i])\ \biggr\vert\ \bigcup_1^\infty(a_i, b_i] \supset A\right\} \\
+           & =\inf\left\{\sum_1^\infty\mu((a_i, b_i))\ \biggr\vert\ \bigcup_1^\infty(a_i, b_i) \supset A\right\}
 \end{align*}
 \end{lemma}
 \begin{proof}
@@ -1078,5 +1077,213 @@ $f(x) = f^+(x) - f^-(x)$. $f$ is $\mathcal{A}$-measurable $\iff f^+, f^-$ measur
 	\phi(X) = \{c_1, \ldots, c_N\}, c_i \neq \pm \infty, E_i = \phi^{-1}(c_i) \in \cA \implies \phi = \sum_{i=1}^N c_i 1_{E_i}.
 \]
 
+\begin{theorem}
+	Suppose $(X, \cA)$ a measurable space and $f: X \to [0, \infty]$. Then the followings are equivalent:
+	\begin{enumerate}
+		\item $f$ is $\cA$-measurable.
+		\item $\exists$ simple functions $0 \leq \phi_1(x) \leq \phi_2(x) \leq \ldots \leq f(x)$ such that \[\lim_{n \to \infty} \phi_n(x) = f(x),\ \forall x \in X.\] ($f$ is the pointwise upward limit of simple functions.)
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	\begin{itemize}
+		\item (b) $\implies$ (a) is easy: $\displaystyle f(x) = \sup_{n \in \N} \phi_n(x)$.
+		\item (a) $\implies$ (b): suppose $f$ is $\cA$-measurable.
+		
+		Fix $n \in \N$. Let $F_n = f^{-1}([2^n, \infty]) \in \cA$. For
+		\[0 \leq k \leq 2^{2n} - 1,\ E_{n, k} = f^{-1}\left(\left[\frac{k}{2^n}, \frac{k+1}{2^n}\right]\right) \in \cA.\]
+
+		Let $\displaystyle \phi_n(x) = \sum_{k=0}^{2^{2n} - 1} 1_{E_{n, k}} + 2^n1_{F_n}$.
+
+		We have \[
+			0 \leq \phi_1(x) \leq \phi_2(x) \leq \ldots \leq f(x)\]
+		and 
+		\[
+			\forall x \in X, 0 \leq f(x) - \phi_n(x) \leq \frac{1}{2^n}.\]
+
+	\end{itemize}
+\end{proof}
+
+\begin{corollary}
+	If $f$ is bounded on a set $A \subset \R$ (i.e. $\exists n L > 0 \st |f(x)| \leq L,\ \forall x \in A)$ then $\phi_n \to f$ uniformly on $A$.
+\end{corollary}
+\begin{proof}
+	DIY.
+\end{proof}
+
+\begin{corollary}
+	$f: X \to \C$, measurable function $\iff \exists$ simple functions $\phi_n: X \to \C \st $   
+\end{corollary}
+
+\section{Integration of Nonnegative Functions}
+\begin{definition}\label{def:nonneg}
+	Suppose $(X, \cA, \mu)$ a measure space and $\phi = \sum_{i=1}^N c_i1_{E_i}: X \to [0, \infty]$ a simple function.
+	Let \[
+		\int \phi = \int \phi d\mu = \int_X \phi d\mu = \sum_1^N c_i\mu(E_i).	
+	\]
+\end{definition}
+
+\begin{proposition}
+	Suppose $\phi, \psi \geq 0$ are simple functions. Then, 
+	\begin{itemize}
+		\item \ref{def:nonneg} is well-defined.
+		\item $\displaystyle \int c\phi = c \int \phi, c \in [0, \infty)$.
+		\item $\displaystyle \int (\phi + \psi) = \int \phi + \int \psi$.
+		\item $\displaystyle \phi(x) \geq \psi(x),\ \forall x \implies \int \phi \geq \int \psi$.
+		\item $\displaystyle \nu(A) = \int_A \phi d \mu$ is a measure on $(X, \cA)$.
+	\end{itemize}
+\end{proposition}
+\begin{proof}
+	DIY.
+\end{proof}
+
+\begin{definition}
+	Suppose $(X, \cA, \mu), f: X \to [0, \infty]$ is $\cA$-measurable. 
+
+	Define \[
+		\int f = \int f d\mu = \sup\left\lbrace \int \phi \mid 0 \leq \phi \leq f, \phi \text{ simple} \right\rbrace.	
+	\]
+\end{definition}
+\begin{proposition}
+	\begin{itemize}
+		\item If $f$ is a simple function then two definitions are the same.
+		\item $\displaystyle \int cf = c\int f$.
+		\item $\displaystyle f \geq g \geq 0 \implies \int f \geq \int g$.
+		\item $\displaystyle \int f + g = \int f + \int g$. (A bit harder to check)
+	\end{itemize}
+\end{proposition}
+\begin{theorem}[Monotone convergence theorem]
+	Suppose $(X, \cA, \mu)$ a measure space and \begin{itemize}
+		\item $f: X \to [0, \infty]$ is $\cA$-measurable, $\forall n \in \N$.
+		\item $0 \leq f_1(x) \leq \ldots $.
+		\item $\displaystyle \lim_{n \to \infty} f_n(x) = f(x)$.
+		\item
+	\end{itemize}
+	Then
+	\[
+		\int f = \lim_{n \to \infty} \int f_n.	
+	\]
+\end{theorem}
+\begin{proof}
+	TBC
+\end{proof}
+\begin{corollary}
+	$f, g \geq 0$ measurable $\displaystyle \implies \int f + g = \int f + \int g$. 
+\end{corollary}
+
+\begin{corollary}[Tonelli's theorem for series and integrals]
+	Given $s_n \geq 0, \forall n \in \N$ measurable functions.
+	Then
+	\[
+		\int \sum_{n=1}^\infty	s_n = \sum_{n=1}^\infty \int s_n.
+	\]
+\end{corollary}
+\begin{proof}
+	Let $f_N = \sum_{n=1}^N s_n, 0 \leq f_1 \leq f_2 \leq \ldots$.
+	\[
+		\lim_{N \to \infty}f_N(x) = \sum_{n=1}^\infty s_n(x)\]
+	By MCT, we have \[
+		\lim_{N \to \infty} \sum_1^N s_n = \sum_1^\infty s_n	
+	\]
+\end{proof}
+\begin{theorem}[Fotou's lemma]
+	Suppose $f_n \geq 0$ measurable. Then \[\int \liminf_{n \to \infty} f_n \leq \liminf_{n \to \infty}\int f_n.\]
+\end{theorem}
+Recall that \[
+\liminf_{n \to \infty} f_n \defeq \lim_{k \to \infty} \inf_{n \geq k} f_n = \sum_{k \in \N} \inf_{n \geq k} f_n,
+\]
+and
+\[
+\lim_{n \to \infty} a_n \text{ exists} \iff \limsup_{n \to \infty} a_n = \liminf_{n \to \infty} a_n.
+\]
+\begin{proof}
+	Let $g_k = \inf_{n \geq k} f_n \implies s_k$ measurable and $0 \leq g_1 \leq g_2 \leq \ldots$. By MCT, we have \[
+		\int \liminf_{n \to \infty} = \int\lim_{k \to \infty} s_k = \lim_{k \to \infty} \int s_k = \lim_{k \to \infty} \int \inf_{n \geq k} f_n
+	\]
+	\begin{align*}
+		& \inf_{n \geq k} f_n \leq f_m, \forall m \geq k \\
+		\implies & \int \inf_{n \geq k}f_n \leq \int f_m, \forall m \geq k \\
+		\implies & \int \inf_{n \geq k}f_n \leq \inf_{m \geq k}\int f_m
+	\end{align*}
+
+\end{proof}
+
+\begin{example}
+	Suppose $(\R, \mathcal{L}, m)$
+	\begin{enumerate}
+		\item (escape to horizontal infinity) $f_n = 1_{(n, n+1)}$.
+		
+		We see that $f_n \to 0 = f$ pointwise and $\int f_n = 1, \forall n, \int f = 0$.
+
+		\item (escape to width infinity) $f_n = \frac{1}{n}1_{(0, n)}$.
+		\item (escape to vertical infinity) $f_n = n1_{(0, 1/n)}$.
+	\end{enumerate}	
+\end{example}
+
+\begin{lemma}[Markov's inequality]
+	$f \geq 0$ is measurable $\implies$ \[\forall c \in (0, \infty),\ \mu\left(\left\lbrace x \mid f(x) \geq c \right\rbrace\right) \leq \frac{1}{c}\int f.\]
+\end{lemma}
+\begin{proof}
+	Let $E = \left\lbrace x \mid f(x) \geq c \right\rbrace$. Then \[f(x) \geq c1_{E}(x) \implies \int f \geq c\int 1_E = c \mu(E). \qedhere\] 
+\end{proof}
+\begin{proposition}
+	Suppose $f \geq 0$ measurable. Then $\int f = 0 \iff f = 0$ almost everywhere (a.e.) \[\int f d\mu = \mu(A) = 0,\ A = \{x \mid f(x) > 0\} = f^{-1}((0, \infty])\]
+\end{proposition}
+\begin{proof}
+	\begin{enumerate}
+		\item Assume $f = \phi$ a simple function. We may assume \[\phi = \sum_{i=1}^N c_i1_{E_i},\ c_i \in (0, \infty),\ E_i\text{'s are disjoint.}\]
+		\begin{align*}
+			& \int \phi = \sum_{i=1}^N c_i \mu(E_i) = 0 \\
+		\iff & \mu(E_1) = \ldots = \mu(E_N) = 0 \\
+		\iff & \mu(A) = 0,\ A = \bigcup_{i=1}^N E_i.
+		\end{align*}
+
+		\item General $f \geq 0$. \begin{enumerate}
+			\item Assume $\mu(A) = 0$ (i.e. $f = 0$ a.e.)
+			
+			Let $0 \leq \phi \leq f, \phi$ is simple.
+			\begin{align*}
+				& \implies \phi(x) = 0,\ \forall x \in A^c \\
+				& \implies \phi = 0 \text{ a.e.} \\
+				& \implies \int \phi = 0
+			\end{align*}
+			Then $\int f = 0$ by the definition of $\int f$.
+
+			\item Assume $\inf f = 0$. Let $A_n = f^{-1}\left(\left[\frac{1}{n}, \infty\right]\right)$
+			\begin{align*}
+				\implies & A_1 \subset A_2 \subset \ldots \\
+				& \bigcup_1^\infty A_n = f^{-1}\left(\bigcup_1^\infty\left[\frac{1}{n}, \infty\right]\right) = f^{-1}((0, \infty)) = A \\
+				& \mu(A_n) = \mu\left(\left\lbrace x \mid f(x) \geq \frac{1}{n}\right\rbrace\right) \leq n \int f = 0 \\
+				\implies & \mu(A) = \lim_{n \to \infty} \mu(A_n) = 0
+			\end{align*}
+			by the continuity of measure from below. \qedhere
+		\end{enumerate}
+	\end{enumerate}
+\end{proof}
+
+\begin{corollary}
+	$f, g \geq 0$ are measurable, $f = g$ a.e. $\implies \int f = \int g$.
+\end{corollary}
+\begin{proof}
+	Let $A = \{x \mid f(x) \geq g(x)\}$. $A$ is measurable (why?). By assumption $\mu(A) = 0$. Hence $f1_A = 0$ a.e.
+	\begin{align*}
+		\int f & = \int f(1_A + 1_{A^c}) \\
+		& = \int f1_A + \int f1_{A^c} \\
+		& = \int f1_{A^c} \\
+		& = \int g1_{A^c} = \int g1_{A} + \int g1_{A^c} = \int g. \qedhere
+	\end{align*}
+\end{proof}
+
+\begin{corollary}
+	$f_n \geq 0$ measurable. Then 
+	\begin{enumerate}
+		\item \[\left.\begin{array}{r}
+			0 \leq f_1 \leq f_2 \leq  \ldots \leq f\ a.e. \\
+			\lim_{n \to \infty} f_n = f\ a.e.
+		\end{array}\right\} \implies \lim_{n \to \infty} f_n = \int f.\]
+		\item \[
+			\lim_{n \to \infty} f_n = f\ a.e \implies \int f \leq \liminf_{n \to \infty} \int f_n.	
+		\]
+	\end{enumerate}
+\end{corollary}
 
 \end{document}

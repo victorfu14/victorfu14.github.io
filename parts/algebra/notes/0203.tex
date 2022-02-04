@@ -1,0 +1,200 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb,nccmath}
+\usepackage{mathtools}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\setlength{\topmargin}{0.5in}
+\usepackage[margin=4cm]{geometry}
+\usepackage{enumerate}
+
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\setlength{\parskip}{0.5em}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+
+% useful characters/operators
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\matP}{\mathbb{P}}
+\newcommand{\matS}{\mathbb{S}}
+\newcommand{\matH}{\mathbb{H}}
+\newcommand{\matT}{\mathbb{T}}
+\newcommand{\st}{\ s.t.\ }
+\newcommand{\ie}{\ i.e.\ }
+\newcommand{\eg}{\ e.g.\ }
+\def \diam {\operatorname{diam}}
+\def \Hom {\operatorname{Hom}}
+\def \id {\operatorname{id}}
+\def \tr {\operatorname{tr}}
+\def \dist {\operatorname{dist}}
+\def \intr {\operatorname{int}}
+\def \sgn {\operatorname{sgn}}
+\def \im {\operatorname{Im}}
+\def \re {\operatorname{Re}}
+\def \curl {\operatorname{curl}}
+\def \divg {\operatorname{div}}
+\def \GL {\operatorname{GL}}
+\def \End {\operatorname{End}}
+\def \Aut {\operatorname{Aut}}
+\newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
+\newcommand{\df}{\text{d}}
+\newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
+
+% arrows and :=, =:
+\makeatletter
+\providecommand*{\twoheadrightarrowfill@}{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow
+}
+\providecommand*{\twoheadleftarrowfill@}{%
+  \arrowfill@\twoheadleftarrow\relbar\relbar
+}
+\providecommand*{\xtwoheadrightarrow}[2][]{%
+  \ext@arrow 0579\twoheadrightarrowfill@{#1}{#2}%
+}
+\providecommand*{\xtwoheadleftarrow}[2][]{%
+  \ext@arrow 5097\twoheadleftarrowfill@{#1}{#2}%
+}
+\makeatother
+
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\mathrel{\mathop:}}
+
+% integral for measure theory
+\newcommand{\lowerint}{\underline{\int_{\R^d}}}
+\newcommand{\upperint}{\overline{\int_{\R^d}}}
+\newcommand{\lint}[1]{\underline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\uint}[1]{\overline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\sint}[1]{\simp{\int_{\R^d} #1 (x)dx}}
+\newcommand{\lesint}[1]{\int_{\R^d} #1 (x)dx}
+
+% note taking
+\newcommand{\fancyem}[1]{\underline{\textsc{#1}}}
+
+% theorem style
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{conjecture}{Conjecture}
+\newtheorem*{proposition}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{example}{Example}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% for clearer reference
+\usepackage{hyperref}
+\newcommand{\corollaryautorefname}{Corollary}
+\newcommand{\lemmaautorefname}{Lemma}
+\newcommand{\definitionautorefname}{Definition}
+\newcommand{\exampleautorefname}{Example}
+\newcommand{\conjectureautorefname}{Conjecture}
+\renewcommand{\subsectionautorefname}{Section}
+
+% other styling
+\usepackage{fancyvrb, fancyhdr}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+
+\pagestyle{fancy}
+\fancyhead[LO,L]{Feb 03, 2022}
+\fancyhead[RO,R]{Yiwei Fu}
+\fancyhead[C]{MATH 494}
+\fancyfoot[CO,C]{\thepage}
+
+\usepackage{tikz-cd}
+
+\usepackage{epigraph}
+
+% \epigraphsize{\small}% Default
+\setlength\epigraphwidth{8cm}
+\setlength\epigraphrule{0pt}
+
+\usepackage{etoolbox}
+
+\makeatletter
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+\makeatother
+
+
+\begin{document}
+% \renewcommand{\ref}[1]{\autoref{#1}}
+% \title{Math 494}
+% \author{Yiwei Fu}
+% \date{Feb 03, 2022}
+% \maketitle
+
+\epigraph{Mathematicians are brilliant people. Especially before they have so many fancy tools, all they have is brilliance.}{--- \textup{Micheal Zieve}}
+\bigskip
+
+\begin{lemma}
+    If $R$ is Noetherian (i.e. an integral domain in which every ideal is finitely generated) then every non-zero non-unit in $R$ is product of irreducible elements.
+\end{lemma}
+In general, it is easier for elements to be irreducible than prime.
+
+\begin{proof}
+    Suppose otherwise. Then $\exists x \in R$ non-zero non-unit, not a product of irreducible elements $\implies x$ is reducible, say $x = yz$. At least on of $y$ or $z$ is neither a unit nor a product of irreducibles.
+
+    Hence $x = x_1y_1$, where $x_1$ is not unit or product of irreducibles, $y_1$ is not a unit.
+    Likewise $x_1 = x_2y_2$ where $x_2$ is a not unit or product of irreducibles with $y_2$ is not a unit. $x_n = x_{n+1}y_{n+1}$.
+    \[
+        (x) \subsetneq (x_1) \subsetneq (x_2) \subsetneq 
+        \ldots
+    \]
+    $\bigcup_{n \geq 1}(x_n)$ is an ideal of $R$ which doesn't contain $1$. It is finitely generated $\implies$ all generator is in $x_n$ for some finite $n \implies (x_n) = (x_{n+1})$, a contradiction. 
+\end{proof}
+
+Last time:
+$R = $ PID $\implies$ all irreducible elements in $R$ are prime $\implies$ every element or $R$ has $\leq 1$ factorization into irreducible elements (up to permutation).
+
+On the other hand, $R = $ PID $\implies R$ is Noetherian $\implies$ every nonzero element of $R$ has a factorization into irreducible elements.
+
+These two together shows that $R$ is UFD.
+
+
+
+\begin{lemma}
+    If $R$ is a Euclidean integral domain (i.e. $\exists \phi: R \to \{-\infty\} \cup \Z_{\geq 0} \st \forall a, b \in R$ with $b \neq 0$, $\exists q, r \in R \st a = bq + r$ where $\phi(R) < \phi(b)$) then $R$ is PID.
+\end{lemma}
+\begin{proof}
+    If $I$ is a nonzero ideal of $R$, then $\phi(I) \subset \{-\infty\} \cup \Z_{\geq 0}$. So $\phi(I \setminus \{0\})$ has a smallest element $\phi(b), b \in I, b \neq 0$. Then $I = (b)$, since $(b) \subseteq I$ and also $I \subseteq (b)$ because $a \in I \implies a = bq + r, q, r \in R, \phi(r) < \phi(b)$.
+
+    But $a, b \in I, a = bq + r \implies r \in I$. So the minimalist of $b$ of $\phi(b)$ implies $r = 0$, so $b \mid a \implies a \in (b)$.
+\end{proof}
+\begin{example}
+    $\Z[i]$ Euclidean $\implies$ PID $\implies$ UFD.
+
+    $\phi(a + b \sqrt{3}) \defeq a^2 + 3b^2$ is NOT a Euclidean function on $\Z[\sqrt{-3}]$, since you can't divide $1 + \sqrt{-3}$ by $2$ to get a smaller remainder. 
+    
+    Moreover, $\Z[\sqrt{-3}]$ is not Euclidean, since it is not a UFD: $(1 + \sqrt{-3})(1 - \sqrt{-3}) = 4 = 2 \cdot 2$, all irreducible and they are not unit multiples of each other. 
+\end{example}
+But $\Z\left[\frac{1 + \sqrt{-3}}{2}\right]$ is Euclidean with $\phi$ as Euclidean function.
+
+$\Z[i]$ Euclidean $\implies$ PID $\implies$ UFD. What are the primes in $\Z[i]$?
+
+Define the "norm" $N: \Z[i] \to \Z, a + bi \mapsto a^2+b^2 = |a + bi|^2$. Then $N(xy) = N(x)N(y)$ and $N(x) = x \bar{x}$ where $\overline{a + bi} = a - bi$.
+
+\begin{lemma}
+    $N(x) \geq 0$, $N(x) = 0 \iff x = 0$, $N(x) = 1 \iff x = \pm 1$ or $\pm i$, $N(x) = 1 \iff x$ is a unit in $\Z[i]$.
+\end{lemma}
+\begin{proof}
+    The first $3$ statements are easy. 
+    If $N(x) = 1$ then $x\bar{x} = 1 \implies x = $ unit. If $x = $ unit then $xy = 1, y \in \Z[i] \implies N(xy) = N(x)N(y) = N(1) = 1 \implies N(x) = 1$.
+\end{proof}
+\begin{corollary}
+    If $x \in \Z[i]$ and $N(x)$ is prime in $\Z$ then $x$ is irreducible in $\Z[i]$.
+\end{corollary}
+But there are other irreducibles in $\Z[i]$ too. Given $x \in R$ non-zero non-unit, then $N(x) \in \Z_{\geq 2}$. If $x$ is irreducible then $\bar{x}$ is also irreducible (since complex conjugation is a homomorphism) so $N(x)$ is a product of two irreducibles in $\Z[i]$. But we can write $N(x) = p_1p_2\ldots p_k$ where $p_i$ is prime numbers in $\Z$ and then write each $p_i$ as product of irreducibles in $\Z[i]$, so either $k = 1$ and $p_1 = $ product of two irreducibles in $\Z[i]$ or $k = 2$ and $p_1, p_2$ are two irreducibles in $\Z[i]$ where $x = up_1, \bar{x} = p_2v$, $u, v$ units $\implies p_1 = p_2$.
+
+Remains to show for $p \in \Z$ prime, $p$ is irreducible in $\Z[i] \iff p \equiv 3 \pmod{4}$.
+
+
+
+\end{document}
