@@ -91,6 +91,11 @@
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 
+% pseudocode and algorithms
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{algorithmicx}
+
 % for clearer reference
 \usepackage{hyperref}
 \newcommand{\corollaryautorefname}{Corollary}
@@ -99,6 +104,7 @@
 \newcommand{\exampleautorefname}{Example}
 \newcommand{\conjectureautorefname}{Conjecture}
 \renewcommand{\subsectionautorefname}{Section}
+\newcommand{\algorithmautorefname}{Algorithm}
 
 % other styling
 \usepackage{fancyvrb, fancyhdr}
@@ -205,11 +211,8 @@ There are $(p-1)^\ell + (-1)^\ell(p-1)$ marked closed walks of length $\ell$ in 
 
 \fancyem{Note} This is the number of $(\ell+1)$-letter words in a $p$-letter alphabet in which no two consecutive letters are identical, and which begin and end by the same letter.
 
-
-
 \fancyem{Problem} Show that the number of walks of length $\ell$ between two distinct vertices in $K_p$ differs by $1$ from the number of closed walks of length $\ell$ starting at a given vertex.
 
-\section{Eigenvalues of Adjacency Matrices}
 \fancyem{Recall}
 \[\# \text{ of marked closed walks of length } \ell = \sum_{i=1}^p \lambda_i^\ell.\]
 It can be used backwards: using counted walks to compute eigenvalues.
@@ -395,13 +398,12 @@ A(G \times H)(u \otimes v) = \lambda u \otimes v + u \otimes \mu v = (\lambda+\m
 
 \begin{proof}[Proof 2](Marked closed walk)
 Walk in $G \times H \xleftrightarrow[]{1-1}$ a \underline{shuffle} of marked closed walks in $G \& H.$
-
-\begin{align*}
-& \# \text{ of closed walks of length $\ell$ in $G \times H$} \\
-= & \sum_{k} \binom{\ell}{k} \sum_i \lambda_i^k\sum_j \mu_j^{\ell - k} \\
-= & \sum_i \sum_j \sum_k \binom{\ell}{k} \lambda_i^{k} \mu_j^{\ell - k} \\
-= & \sum_{i, j} (\lambda_i + \mu_j)^\ell
-\end{align*}
+\begin{multline*}
+\# \text{ of closed walks of length $\ell$ in $G \times H$} \\
+= \sum_{k} \binom{\ell}{k} \sum_i \lambda_i^k\sum_j \mu_j^{\ell - k}
+= \sum_i \sum_j \sum_k \binom{\ell}{k} \lambda_i^{k} \mu_j^{\ell - k}
+= \sum_{i, j} (\lambda_i + \mu_j)^\ell.
+\end{multline*}1
 This set of numbers are unique by problem in lecture 1, so they must be the eigenvalues of $G \times H.$
 \end{proof}
 
@@ -461,12 +463,12 @@ $G = (K_2)^n$ is regular with $d = n.$
 
 A \underline{simple random walk} on $G$ originating at a vertex $v$ is a random walk with equal probabilities for each adjacent vertices.
 
-\begin{align*}
-    & \matP\left(\text{walk is back at $v$ after $\ell$ steps}\right) \\
-    =\ & \frac{1}{d^\ell} \#\{\text{marked closed walks of length $\ell$ orginiating from $v$}\} \\
-    =\ & d^{-\ell} p^{-1} \sum_1^p \lambda_i^\ell.
-\end{align*}
-assuming that $\Aut(G)$ acts transitively on vertices.
+Assuming that $\Aut(G)$ acts transitively on vertices, we have the result
+\begin{multline*}
+    \matP\left(\text{walk is back at $v$ after $\ell$ steps}\right) = \\\frac{1}{d^\ell} \#\{\text{marked closed walks of length $\ell$ orginiating from $v$}\} 
+    = d^{-\ell} p^{-1} \sum_1^p \lambda_i^\ell.
+\end{multline*}
+
 
 Notice that an arbitrary regular $G$ does not necessarily have that condition, but the converse is true.
 
@@ -480,7 +482,8 @@ The probability that a simple random walk on $(K_2)^n$ returns to its origin aft
 
 \chapter{Tilings, Spanning Trees, and Electric Networks}
 \section{Domino Tilings ("Dimers")}
-
+\epigraph{If you sit in this classroom for a long enough period of time, you probably can figure out this (\ref{prop:divine}) yourself. But I offer you a divine revelation.}{-- \textup{Sergey Fomin}}
+\epigraph{If you can't solve this, it just means you're mere mortals. Even if you do it... I mean the grader will grade it, but...}{-- \textup{Sergey Fomin on the perfect square problem at the end of the section}}
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}
@@ -604,7 +607,7 @@ A_n = \begin{bmatrix}
 0 & 0 & 0 & \ldots & 1 & 0
 \end{bmatrix}
 \]
-\begin{proposition}
+\begin{proposition}\label{prop:divine}
 The eigenvalues of $A_n$ are 
 \[
 \lambda_k = 2 \cos\left(\frac{k\pi}{n+1}\right)\quad \text{for } k = 1, \ldots, n.
@@ -680,7 +683,8 @@ Another way to define Catalan's constant:
 K = \beta(2) = \sum_{i=0}^\infty \frac{(-1)^n}{(2n+1)^2} = \frac{1}{1^2} - \frac{1}{3^2} + \frac{1}{5^2} - \frac{1}{7^2} + \ldots.
 \]
 
-\section{Spanning Tree in Grid Graphs}
+\section{Spanning Tree in Grid Graphs, Planar Graphs}
+\epigraph{He published this result when he was 60, which proved that aged people can still do mathematics.}{-- \textup{Sergey Fomin on H.N.V. Temperley}}
 Suppose a grid graph $G$:
 \[\begin{tikzpicture}
 \draw[step=0.5cm,gray,very thin] (-1.5, 1) grid (1, -0.5);
@@ -1009,7 +1013,8 @@ Now we have a formard map. We also need to obtain the inverse map from spanning 
 
 \fancyem{Problem} Prove that the number of domino tilings (if exist) of an odd-by-odd rectangle with a boundary box removed doesn't depend on which box we removed.
 
-\section{Spanning Trees of Planar Graphs}
+We now consider a similar problem:
+
 Suppose $P$ is a polygon, $G$ a polygonal subdivision of $P$. Define $H$ by adding midpoints and extra vertex in each bounded face and adding edges to connect them.
 
 \fancyem{Problem} Show that the number of spanning trees in $G$ is equal to the number of perfect matchings in $H$ with one vertex that are also in $P$ removed.
@@ -1054,8 +1059,9 @@ Suppose $P$ is a polygon, $G$ a polygonal subdivision of $P$. Define $H$ by addi
 \end{example}
 
 \section{The Diamond Lemma}
+\epigraph{This should really be explained to six-graders... Then they will have of joy of discovering this result.}{-- \textup{Sergey Fomin on the diamond lemma}}
 \begin{definition}
-    A \underline{one-player game} is define by:
+    A \underline{one-player game} is defined by:
     \begin{itemize}
         \item the set of positions $\mathcal{S}$
         \item for each $s \in \mathcal{S}$ a set of positions $s' \neq s$ into which the player can from from from $s$. Denote as $s \rightsquigarrow s'$.
@@ -1086,9 +1092,11 @@ Suppose $P$ is a polygon, $G$ a polygonal subdivision of $P$. Define $H$ by addi
     \end{itemize}
     Assume a red position exists. Starts at the red position until no move into red position exists. 
 
-    For each green position, there is a unique terminal position. Since it starts from red there need to be two distinct ones, but that is a contradiction, since all green position will have a common successor, which would have color green.
+    For each green position, there is a unique terminal position. Since it starts from a red position, there need to be two distinct outcomes. But that is a contradiction, since all green position are obtained from a certain red position, which means any two of them will have a common successor, then from now on the outcome should be the same.
 \end{proof}
 
+\section{Using the Diamond Lemma}
+\epigraph{I play Wordle twice a day. Once in English, once in Russian. The Russian version is simpler because there are much fewer 5-letter words in Russian.}{-- \textup{Sergey Fomin}}
 \begin{definition}[Young diagrams]
     A diagram in which the number of boxes on a row is decreasing. An example of which is \ydiagram{5, 3, 2}.
     
@@ -1101,7 +1109,7 @@ Suppose $P$ is a polygon, $G$ a polygonal subdivision of $P$. Define $H$ by addi
 
 Note: the remaining shape would always be a staircase. If we color the blocks black and white alternatively, we can determine the final shape by the difference between white and black boxes.
 
-\fancyem{Problem} Consider a similar game but we are removing border strips consisting of $p$ boxes ($p \in \N$). Prove that the game is confluent.
+\fancyem{Problem} Consider a similar game, but we are removing border strips consisting of $p$ boxes ($p \in \N$). Prove that the game is confluent.
 
 \begin{definition}[Young tableaux]
     Take a Young diagram and fill it with numbers so that each row and column is in increasing order. Such diagram is called a standard Young tableau (SYT).
@@ -1216,19 +1224,35 @@ For non-terminating games, the diamond lemma does not necessarily hold:
 \end{proof}
 
 \section{Loop-erased Walks}
+\epigraph{He took my class shortly before he discovered this algorithm (on generating uniform spanning trees)... After that he worked at Microsoft Research for 10 years until they decided they don't need mathematicians anymore and fired everybody.}{-- \textup{Sergey Fomin on D.B. Wilson}}
 
-\begin{definition}[G.Lawler, 1980]
-    Suppose $G$ a connected graph. Let $\pi$ be a (finite) walk in $G$. $\operatorname{LE}(\pi)$ "loop erasure" of $\pi$ is defined by:
+\begin{definition}[G. Lawler, 1980]
+    Suppose $G$ a connected graph. Let $\pi$ be a (finite) walk in $G$. $\operatorname{LE}(\pi)$ "loop erasure" of $\pi$ is defined by \autoref{algo:le}.
 
-    \fbox{%
-        \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{
-            IF $\pi$ doesn't intersect itself\\
-            THEN $\LE(\pi) \defeq \pi$ \\
-            ELSE remove the $1$st cycle that $\pi$ get $\pi'$;
-                $\LE(\pi) \defeq \LE(\pi')$
-        }%
-    }
+    \begin{algorithm}[h]
+        \setstretch{1.15}
+        \caption{Loop erasure}
+        \label{algo:le}
+        \begin{algorithmic}[1] 
+            \Procedure{LE}{$\pi$}
+                \If{$\pi$ does not intersect itself} 
+                \State \textbf{return} $\pi$
+                \Else 
+                    \State Remove the first cycle of $\pi$ to get $\pi'$
+                    \State \textbf{return} $\LE(\pi')$
+                \EndIf
+            \EndProcedure
+        \end{algorithmic}
+    \end{algorithm}
 
+    % \fbox{%
+    %     \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{
+    %         IF $\pi$ doesn't intersect itself\\
+    %         THEN $\LE(\pi) \defeq \pi$ \\
+    %         ELSE remove the $1$st cycle that $\pi$ get $\pi'$;
+    %             $\LE(\pi) \defeq \LE(\pi')$
+    %     }%
+    % }
 \end{definition}
 
 \fancyem{Stacks \& Cycle popping}
@@ -1260,15 +1284,32 @@ The outcome of the game (after all cycles have been popped) is a rooted forest t
 
 Input: connected loopless graph $G$.
 Output: random spanning tree $T$ in $G$.
-fix a vertedx in $G$ (a \underline{root}) $T \defeq {r}$.
+% fix a vertedx in $G$ (a \underline{root}) $T \defeq {r}$.
 
-WHILE $T$ does not cover all vertices in $G$ DO \\
-    pick a vertex $v \notin T$  (using \underline{any} rule) \\
-    run a \underline{simple} random walk $\pi$ from $v$ until it hits $T$.\\
-    $T \leftarrow T \cup \{v: v \in \LE(\pi)\}$.
+% WHILE $T$ does not cover all vertices in $G$ DO \\
+%     pick a vertex $v \notin T$  (using \underline{any} rule) \\
+%     run a \underline{simple} random walk $\pi$ from $v$ until it hits $T$.\\
+%     $T \leftarrow T \cup \{v: v \in \LE(\pi)\}$.
+\begin{algorithm}[h]
+    \setstretch{1.15}
+    \caption{Wilson's algorithm}
+    \label{algo:wilson}
+    \begin{algorithmic}[1]
+        \Procedure{Wilson}{$G = (V(G), E(G))$}
+            \State $T = (V(T), E(T)) \defeq (\{r\}, \emptyset)$ for some $r \in V(G)$.
+            \While{$V(T) \neq V(G)$} \Comment{Continue until $T$ covers all vertices}
+                \State Pick $v \in V(G) \setminus V(T)$
+                \State Run a simple random walk $\pi$ from $v$ until it hits $T$
+                \State $V(T) \gets V(T) \cup \{v, \LE(\pi) \text{ includes vertex } v\}$
+                \State $E(T) \gets E(T) \cup \{e, \LE(\pi) \text{ includes edge } e\}$
+            \EndWhile
+            \State \textbf{return} $T$
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
 
 \begin{theorem}
-    This algorithm outputs a uniformly distributed spanning tree of $G$.
+    This algorithm, shown in \autoref{algo:wilson}, outputs a uniformly distributed spanning tree of $G$.
 \end{theorem}
 \begin{proof}
     Make $r$ an absorbing state. Run Wilson's algorithm with stacks, each time designating the vertices in $T$ as absorbing states. Loop erasure = cycle popping.
@@ -1391,7 +1432,7 @@ The art of computer programming, vol 4. (generate random combinatorial objects t
 \end{example}
 
 \section{Flows}
-\epigraph{I actually don't drink any alcohol at all.}{--- \textup{Sergey Fomin}}
+\epigraph{(Making analogies using distilling of Whiskey)...\\``I actually don't drink any alcohol at all."}{--- \textup{Sergey Fomin}}
 \begin{definition}
     Suppose $G$ is connected loopless graph with $a, b$ designated as \underline{boundary} vertices and all other vertices called \underline{interior} vertices. 
     
@@ -1439,6 +1480,7 @@ we have
 \end{theorem}
 
 \section{Potentials}
+\epigraph{``He is a wonderful mathematician."\\ (He is also a great lecturer...) \\ ``Well some people have them both."}{-- \textup{Jeffrey C. Lagarias on Sergey Fomin}}
 \begin{definition}
     Suppose $f$ satisfies \eqref{eq:2ndkirchhoff}. Define the potential $p = p_f$, a function on the vertices of $G$, as follows:
     \begin{itemize}

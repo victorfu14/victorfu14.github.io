@@ -20,3 +20,5 @@ public/
 *.aux
 *.fls
 *.fdb_latexmk
+*.bbl
+*.blg

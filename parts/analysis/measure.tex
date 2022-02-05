@@ -120,6 +120,18 @@
 \newcommand{\fnl}{\parbox[t]{0\linewidth}{}}
 \newcommand*\ttlmath[2]{\texorpdfstring{$\boldsymbol{#1}$}{#2}}
 
+\usepackage{epigraph}
+
+% \epigraphsize{\small}% Default
+\setlength\epigraphwidth{8cm}
+\setlength\epigraphrule{0pt}
+
+\usepackage{etoolbox}
+
+\makeatletter
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+\makeatother
+
 \begin{document}
 \pagenumbering{gobble}
 \clearpage
@@ -259,7 +271,7 @@ $\mu: \mathcal{A} \to [0, \infty] \st \mu(\emptyset) = 0, $ countable additivity
 
 \setcounter{theorem}{12}
 \begin{theorem}
-$(X,  \mathcal{A}, \mu)$ measure space
+Suppose $(X,  \mathcal{A}, \mu)$ a measure space. Then
 \begin{enumerate}
 \item(monotonicity)
 \[A, B \in \mathcal{A}, A \subset B \implies \mu(A) \leq \mu(B).\]
@@ -384,8 +396,8 @@ We have shown countable subadditivity.
 
 Outer measure is very close to a measure. Here the textbooks diverge.
 
-Tao: introduce Lebesgue measure on $\R$ using topological qualities of subsets of $\R.$\\
-Folland: introduce abstract method by Carathéodory and Kolmogorov.
+\cite{taoIntroductionMeasureTheory2011} introduces Lebesgue measure on $\R$ using topological qualities of subsets of $\R.$\\
+\cite{follandRealAnalysisModern1999} introduces abstract method by Carathéodory and Kolmogorov.
 
 \begin{definition}
 Let $\mu^*$ be an outer measure on $X$. We say $A \subset X$ is Carathéodory measurable with respect to $\mu^*$ if $\forall E \subset X, \mu^*(E) = \mu^*(E \setminus A) + \mu^*(E \cap A).$ 
@@ -670,29 +682,24 @@ $F: \R \to \R$ is an \underline{increasing} function if $F(x) \leq F(y)$ for $x 
 $F: \R \to \R$ is increasing and right-continuous $\implies F$ is distribution function. 
 \end{definition}
 
-\begin{example}
+\begin{example}\fnl
 \begin{itemize}
 \item
-\[
-F(x) = \begin{cases}
+$F(x) = \begin{cases}
 1, & x \geq 0 \\
 0, & x < 0.
-\end{cases}
-\]
+\end{cases}$
 \item
 $\Q = \{r_1, r_2, \ldots\}, F_n(x) = \begin{cases}
 1 & x \geq r_n \\
-0 & x < r_n.
-\end{cases}$
-\[
-F(x) = \sum_{n=1}^\infty \frac{F_n(x)}{2^n} \text{ is a distribution function.}
-\]
+0 & x < r_n
+\end{cases}$. $\displaystyle F(x) = \sum_{n=1}^\infty \frac{F_n(x)}{2^n}$ is a distribution function.
 \end{itemize}
 \end{example}
 
 \fancyem{Note} If $F$ is increasing, $F(\infty) \defeq \lim_{x \to \infty} F(x), F(-\infty) \defeq \lim_{x \to -\infty} F(x)$ exists in $[-\infty, \infty]$.
 
-In probability theory, cumulative distribution function (CDF) is a distribution function with $F(\infty) = 0$ and $F(-\infty) = 0$.
+In probability theory, cumulative distribution function (CDF) is a distribution function with $F(\infty) = 1$ and $F(-\infty) = 0$.
 
 There are distributions [Folland, Ch9], but these are different from \underline{distribution} functions.
 
@@ -793,7 +800,7 @@ Actually $(\mathcal{A}_{\mu_F}, \mu_F) = (\mathcal{B}(\R), \mu_F)$ (HW3).
 \end{itemize}
 \end{definition} 
 
-\begin{example}
+\begin{example}\fnl
 \begin{enumerate}
 \item $\mu_F((a, b]) = F(b) - F(a)$. $F$ is right-continuous and increasing $\implies F(x_-) \leq F(x) = F(x_+)$.
 
@@ -955,7 +962,7 @@ Properties of Lebesgue measure
 	DIY.
 \end{proof}
 
-\begin{example}
+\begin{example}\fnl
 	\begin{enumerate}
 		\item $\Q = \{r_1\}_{i=1}^\infty$, which is dense in $\R$.
 		Let $\varepsilon > 0$ and \[
@@ -1143,7 +1150,7 @@ $f(x) = f^+(x) - f^-(x)$. $f$ is $\mathcal{A}$-measurable $\iff f^+, f^-$ measur
 		\int f = \int f d\mu = \sup\left\lbrace \int \phi \mid 0 \leq \phi \leq f, \phi \text{ simple} \right\rbrace.	
 	\]
 \end{definition}
-\begin{proposition}
+\begin{proposition}\fnl
 	\begin{itemize}
 		\item If $f$ is a simple function then two definitions are the same.
 		\item $\displaystyle \int cf = c\int f$.
@@ -1156,7 +1163,6 @@ $f(x) = f^+(x) - f^-(x)$. $f$ is $\mathcal{A}$-measurable $\iff f^+, f^-$ measur
 		\item $f: X \to [0, \infty]$ is $\cA$-measurable, $\forall n \in \N$.
 		\item $0 \leq f_1(x) \leq \ldots $.
 		\item $\displaystyle \lim_{n \to \infty} f_n(x) = f(x)$.
-		\item
 	\end{itemize}
 	Then
 	\[
@@ -1225,7 +1231,7 @@ and
 \begin{proof}
 	Let $E = \left\lbrace x \mid f(x) \geq c \right\rbrace$. Then \[f(x) \geq c1_{E}(x) \implies \int f \geq c\int 1_E = c \mu(E). \qedhere\] 
 \end{proof}
-\begin{proposition}
+\begin{proposition}\label{prop:zeroint}
 	Suppose $f \geq 0$ measurable. Then $\int f = 0 \iff f = 0$ almost everywhere (a.e.) \[\int f d\mu = \mu(A) = 0,\ A = \{x \mid f(x) > 0\} = f^{-1}((0, \infty])\]
 \end{proposition}
 \begin{proof}
@@ -1286,4 +1292,99 @@ and
 	\end{enumerate}
 \end{corollary}
 
+\section{Integration of Complex Functions}
+\epigraph{I was afraid that you are bored.}{--- \textup{Jinho Baik on homework}}
+\begin{definition}
+	$(X, \mathcal{A}, \mu)$ measure space. \begin{itemize}
+		\item $f:X \to \overline{\R}$ or $f: X \to \C$ measurable functions is called \underline{integrable} if $\int |f| < \infty$. Then \[\int f = \int f^+ - \int f^- \text{ or } \int f = \int u^+ - \int u^- + i\left(\int v^+ - \int v^-\right).\]
+		\item Suppose $f: X \to \overline{\R}$. Define \[\int f = \begin{cases}
+			\infty & \displaystyle \int f^+ = \infty, \int f^- < \infty, \\[1em]
+			-\infty & \displaystyle  \int f^+ < \infty, \int f^- = \infty.
+		\end{cases}\]
+	\end{itemize}
+\end{definition}
+
+\begin{lemma}
+	Suppose $f, g: x \to \overline{\R} \to \C$ integrable.
+	Assume $f(x) + g(x)$ is well-defined $\forall x \in X$. (i.e. $\infty + (-\infty)$, $-\infty + \infty$ do not occur) \begin{enumerate}
+		\item $f + g$, $cf, c \in \C$ are integrable.
+		\item $\displaystyle \int f + g = \int f + \int g$.
+		\item $\displaystyle \left|\int f\right| \leq \int |f|$. (This is essentially triangle inequality.)
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	Check \cite[p.53]{follandRealAnalysisModern1999}.
+\end{proof}
+\begin{lemma}
+	$(X, \mathcal{A}, \mu)$ measure space and $f$ \underline{integrable} function on $X$.
+	\begin{enumerate}
+		\item $f$ is finite a.e. (i.e. $\{x \in X: |f(x)| = \infty\}$ is a null set)
+		\item The set $\{x \in X: f(x) \neq 0\}$ is $\sigma$-finite.
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	HW5Q8.
+\end{proof}
+
+\begin{proposition}
+	Suppose $(X, \mathcal{A}, \mu)$ a measure space.
+	\begin{enumerate}
+		\item If $h$ is integrable on $X$, then \[\int_E h = 0, \forall E \in \mathcal{A} \iff \int |h| = 0 \iff h = 0\text{ a.e.}\]
+		\item If $f, g$ are integrable on $X$ then \[\int_E f = \int_E g, \forall E \in \mathcal{A} \iff f = g\text{ a.e.}\]
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	\begin{enumerate}
+		\item $\int |h| = 0 \iff h = 0$ is shown in \ref{prop:zeroint}.
+		\[
+			\int |h| = 0 \implies \left|\int_E h\right| \leq \int_E |h| \leq \int |h| = 0.
+		\]
+		On the other hand, assume $\int_E h = 0, \forall E \in \mathcal{A}$. $h = u + iv = u^+ - u^- + i(v^+ - v^-)$. Let $B = \{x \mid u^+(x) > 0\}$.
+		\[0 = \re\int_B h = \int_B u = \int_B u^+ = \int_B u^+ + \int_{B^c} u^+ = \int u^+ \implies u^+ = 0 \text{ a.e.}\]
+		Similarly, we get $u^-, v^+, v^- = 0$ a.e..
+		\item follows from (a). \qedhere
+	\end{enumerate}
+\end{proof}
+\begin{theorem}[Dominated convergence theorem]
+	Suppose $(X, \mathcal{A}, \mu)$ a measure space and
+	\begin{enumerate}
+		\item $f_n$ \underline{integrable} on $X$, $\forall n \in \N$.
+		\item $\displaystyle \lim_{n \to \infty} f_n(x) = f(x)$ a.e. (pointwise)
+		\item $\exists g: X \to [0, \infty] \st$ \begin{itemize}
+			\item $g$ is integrable.
+			\item $|f_n(x)| \leq g(x)$ a.e., $\forall n \in \N$.
+		\end{itemize}
+	\end{enumerate}
+	Then \[\lim_{n \to \infty} \int f_n = \int f.\]
+\end{theorem}
+\begin{proof}
+	Let $F$ be the countable union of null sets on which (a)-(c) may fail. Modifying the def of $f_n, f, g$ on $F$ we may assume (a)-(c) hold everywhere. (b)+(c) $\implies f$ is integrable.
+
+	We consider $\overline{\R}$-valued case only. ($\C$-valued case follows)
+	\begin{align*}
+		& g + f_n \geq 0, g - f_n \geq 0 \\
+		\xRightarrow[]{\text{Fatou}} & \int g + f \leq \liminf_{n \to \inf} \int g + f_n,\quad \int g - f \leq \liminf_{n \to \inf} \int g - f_n  \\
+		\implies & \int g + \int f \leq \int g + \liminf_{n \to \infty} \int f_n,\quad \int g - \int f \leq \int g - \limsup_{n \to \infty} \int f_n \\
+		\xRightarrow[]{\int g < \infty} & \int f \leq \liminf_{n \to \infty} \int f_n,\quad - \int f \leq - \limsup_{n \to \infty} \int f_n. \\
+		\implies & \int f \leq \liminf_{n \to \infty} \int f_n \leq \limsup_{n \to \infty} \int f_n \leq \int f
+	\end{align*}
+	So we should have \[ \int f = \liminf_{n \to \infty} \int f_n = \limsup_{n \to \infty} \int f_n. \qedhere \]
+\end{proof}
+Next we investigate the question:
+\[\int \sum_{1}^\infty f_n \stackrel{\text{?}}{=} \sum_{1}^\infty \int f_n.\]
+Tonelli: yes if $f_n \geq 0$.
+Fubini:
+\begin{corollary}[Fubini's theorem for series and integrals]
+	\[\left.\begin{array}{r}
+		f_n \text{ integrable} \\
+		\displaystyle \sum_1^\infty \int |f_n| < \infty
+	\end{array}\right\} \implies \int \sum_{1}^\infty f_n = \sum_{1}^\infty \int f_n.\]
+\end{corollary}
+\begin{proof}
+	$\displaystyle G(x) = \sum_1^\infty |f_n(x)| \geq |F_N(x)|, F_N(x) = \sum_1^N f_n(x)$.
+\end{proof}
+
+
+\bibliography{analysis}{}
+\bibliographystyle{alpha}
 \end{document}
