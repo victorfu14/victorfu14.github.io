@@ -1,0 +1,209 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb,nccmath}
+\usepackage{mathtools}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\setlength{\topmargin}{0.5in}
+\usepackage[margin=4cm]{geometry}
+\usepackage{enumerate}
+
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\setlength{\parskip}{0.5em}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+
+% useful characters/operators
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\matP}{\mathbb{P}}
+\newcommand{\matS}{\mathbb{S}}
+\newcommand{\matH}{\mathbb{H}}
+\newcommand{\matT}{\mathbb{T}}
+\newcommand{\st}{\ s.t.\ }
+\newcommand{\ie}{\ i.e.\ }
+\newcommand{\eg}{\ e.g.\ }
+\def \diam {\operatorname{diam}}
+\def \Hom {\operatorname{Hom}}
+\def \id {\operatorname{id}}
+\def \tr {\operatorname{tr}}
+\def \dist {\operatorname{dist}}
+\def \intr {\operatorname{int}}
+\def \sgn {\operatorname{sgn}}
+\def \im {\operatorname{Im}}
+\def \re {\operatorname{Re}}
+\def \curl {\operatorname{curl}}
+\def \divg {\operatorname{div}}
+\def \GL {\operatorname{GL}}
+\def \End {\operatorname{End}}
+\def \Aut {\operatorname{Aut}}
+\def \Fr {\operatorname{Frac}}
+\def \cont {\operatorname{cont}}
+\newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
+\newcommand{\df}{\text{d}}
+\newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
+
+% arrows and :=, =:
+\makeatletter
+\providecommand*{\twoheadrightarrowfill@}{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow
+}
+\providecommand*{\twoheadleftarrowfill@}{%
+  \arrowfill@\twoheadleftarrow\relbar\relbar
+}
+\providecommand*{\xtwoheadrightarrow}[2][]{%
+  \ext@arrow 0579\twoheadrightarrowfill@{#1}{#2}%
+}
+\providecommand*{\xtwoheadleftarrow}[2][]{%
+  \ext@arrow 5097\twoheadleftarrowfill@{#1}{#2}%
+}
+\makeatother
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\mathrel{\mathop:}}
+
+% integral for measure theory
+\newcommand{\lowerint}{\underline{\int_{\R^d}}}
+\newcommand{\upperint}{\overline{\int_{\R^d}}}
+\newcommand{\lint}[1]{\underline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\uint}[1]{\overline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\sint}[1]{\simp{\int_{\R^d} #1 (x)dx}}
+\newcommand{\lesint}[1]{\int_{\R^d} #1 (x)dx}
+
+% note taking
+\newcommand{\fancyem}[1]{\underline{\textsc{#1}}}
+
+% theorem style
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{conjecture}{Conjecture}
+\newtheorem*{proposition}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{example}{Example}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% for clearer reference
+\usepackage{hyperref}
+\newcommand{\corollaryautorefname}{Corollary}
+\newcommand{\lemmaautorefname}{Lemma}
+\newcommand{\definitionautorefname}{Definition}
+\newcommand{\exampleautorefname}{Example}
+\newcommand{\conjectureautorefname}{Conjecture}
+\renewcommand{\subsectionautorefname}{Section}
+
+% other styling
+\usepackage{fancyvrb, fancyhdr}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+
+\pagestyle{fancy}
+\fancyhead[LO,L]{Feb 10, 2022}
+\fancyhead[RO,R]{Yiwei Fu}
+\fancyhead[C]{MATH 494}
+\fancyfoot[CO,C]{\thepage}
+
+\usepackage{tikz-cd}
+
+\usepackage{epigraph}
+
+% \epigraphsize{\small}% Default
+\setlength\epigraphwidth{8cm}
+\setlength\epigraphrule{0pt}
+
+\usepackage{etoolbox}
+
+\makeatletter
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+\makeatother
+
+
+\begin{document}
+% \renewcommand{\ref}[1]{\autoref{#1}}
+% \title{Math 494}
+% \author{Yiwei Fu}
+% \date{Feb 03, 2022}
+% \maketitle
+
+\epigraph{For pedestrians, when you cross the roads, you should as least notice there are cars on the road!}{--- \textup{Micheal Zieve}}
+\epigraph{It's totally wrong, but I remembered I was told that Gauss had a personal computer, in the sense that there was some person who did computations for him. That does not make sense since Gauss is also the best at doing computations while being the best at everything else. But I like the idea.}{--- \textup{Micheal Zieve}}
+\bigskip
+
+Let $R$ be a UFD and $K$ be $\Fr(R)$.
+\begin{theorem}
+    Let $R$ be a UFD and $K$ be $\Fr(R)$. Then $R[x]$ is a UFD ($\implies R[x, y]$ is UFD, $R[x_1, x_2, \ldots, x_n]$ is UFD.)
+\end{theorem}
+\begin{proof}
+    First note that $K[x]^* = K^*$ and $R[x]^* = R^* \subseteq K^*$. For any nonconstant $f(x) \defeq \sum_{i=0}^n a_ix^i$ in $R[x]$, define the "content" to be $c(f)\defeq \gcd(a_0, a_1, \ldots, a_n)$. Then $f(x) = c(f)\cdot \hat{f}(x)$ where $c(\hat{f}) = 1$. (or equivalently a unit)
+
+    If $f(x) \in R[x] \setminus R$ has $c(f) = 1$, say $f(x)$ is "primitive". Note that if $f(x) \in R[x] \setminus R$ is irreducible, then $c(f) = 1$.
+
+    So the irreducibles in $R[x]$ are:
+    \begin{itemize}
+        \item irreducible elements in $R$ (these are units in $K[x]$)
+        \item nonconstant irreducible elements in $R[x]$ (these are primitive)
+    \end{itemize}
+
+    We'll show that the irreducible polynomials in $K[x]$ are precisely the primitive irreducible polynomials in $R[x]$ times elements of $K^*$.
+    (e.g. $2x$ is irreducible in $\Q[x]$ but not in $\Z[x]$, but $x$ is irreducible in $\Z[x]$.)
+
+    Any nonconstant $f(x) \in K[x]$ can be written as $\frac{a}{b} \hat{f}(x)$ with $\hat{f}(x) \in R[x]$ primitive and $a, b \in R \setminus \{0\}$. We may assume that $\gcd(a, b) = 1$.
+
+    $f, g \in R[x]$ are primitive then $fg$ is primitive, since if $c(fg) \neq 1$ then $\exists$ irreducible $p \in R \st p \mid c(fg) \implies$ if $\phi: R[x] \to (R/(p))[x]$ is the "reduce $\bmod\ p$" homomorphism then $\phi(fg) = 0 \implies \phi(f)\phi(g) = 0$. But $p$ is irreducible and $R$ is UFD $\implies p$ is prime $\implies R/(p)$ is an integral domain $\implies (R/(p))[x]$ is an integral domain $\implies \phi(f) = 0$ or $\phi(g) = 0 \implies p \mid c(f)$ or $p \mid c(g) \implies f$ or $g$ is not primitive, a contradiction.
+    
+    \fancyem{Claim:} If $f \in R[x]$ is irreducible and primitive then $f$ is irreducible in $K[x]$.
+
+    \begin{proof}[Proof of claim]\let\qed\relax
+        Suppose $f = gh, g, h \in K[x]$ nonconstant. We may assume $g \in R[x]$, $g$ primitive. Then $h = \frac{a}{b}\hat{h}(x)$, $\hat{h}(x) \in R[x]$ primitive, $a, b$ are nonzero and coprime.
+
+        Then $f = \frac{a}{b}g\hat{h} \implies g\hat{h}$ is primitive. Hence $bf = ag\hat{h}$ where $f$ is primitive and $g\hat{h}$ is primitive. Then $a \mid b$ and $b \mid a \implies a, b \in R^*$ since $\gcd(a, b) = 1$. So $f$ is irreducible in $R[x]$, a contradiction.
+    \end{proof}
+
+    So we have shown that the irreducible polynomials in $K[x]$ are precisely the primitive irreducible polynomials in $R[x]$ times elements of $K^*$.
+
+    Then if $f, g \in R[x]$ are irreducible primitive then $f \in g\cdot(R[x])^*$ if and only if $f \in g\cdot(K[x])^*$, since if $f = g \cdot \frac{a}{b}, a, b \in R \setminus \{0\}$ coprime then $bf = ag \implies b \mid a, a \mid b$ so $\gcd(a, b) = 1 \implies a, b \in R^* \implies \frac{a}{b} \in R^*$.
+
+    Given any $f(x) \in R[x]$ which is not $0$, if $f(x) \in R$ then the unique factorization of $f(x)$ in $R$ is the unique factorization of $f(x)$ in $R[x]$.
+
+    If $\deg(f) > 0$ then $f(x) = c(f) \cdot \hat{f}(x)$ so there is a factorization of $f(x)$ in $R[x]$, obtained by appending factorizations of $c(f)$ and of $\hat{f}(x)$.
+
+    Conversely, any factorization of $f(x)$ must consists of (irreducibles with product $c(f)$) times some unit and (irreducible with product $\hat{f}(x)$).
+
+    The factorization of $c(f)$ is unique since $R$ is UFD. And the factorization of $\hat{f}(x)$ is the unique factorization of $\hat{f}(x)$ in $K[x]$.
+
+    By above, the notions of uniqueness are the same, so $R[x]$ is a UFD.
+\end{proof}
+
+\subsection*{Eisenstein's irreducibility criterion}
+\begin{theorem}[Eisenstein's irreducibility criterion]
+    If $f(x) = a_nx^n + a_{n-1}x^{n-1} + \ldots + a_0 \in \Z[x]$ and for some prime $p$, \[p \nmid a_n, p \mid a_{n-1}, \ldots, a_0, p^2 \nmid a_0 \text{ and } c(f) = 1.\] 
+    
+    Then $f(x)$ is irreducible in $\Z[x]$ and hence in $\Q[x]$.
+\end{theorem}
+\begin{proof}
+    $p:\Z[x] \to (\Z/(p))[x]$, $p(f) = a_nx^n \neq 0$. If $f = gh$ with $g, h \in \Z[x]$ nonconstant, then $\phi(f) = \phi(g)\phi(h)$ and $p \nmid a_n \implies \deg(\phi(g)) = \deg(g), \deg(\phi(h)) = \phi(h)$.
+
+    $\implies \phi(g) = bx^i, \phi(h) = dx^{n-i}, b, d \in (\Z/(p))^*, 0 < i < n \implies g \equiv bx^i \mod p, h \equiv dx^{n-i} \mod p$.
+
+    So $p \mid g(0), p \mid h(0) \implies p^2 \mid g(0), h(0) = a_0$, a contradiction.
+\end{proof}
+
+\begin{corollary}
+    $x^n - p$ is irreducible in $\Q[x]$, $\forall n > 0$ and every prime $p$.
+\end{corollary}
+
+Next time: deduce that $x^{p - 1} + x^{p - 2} + \ldots + 1$ is irreducible in $Q[x]$ for prime $p$. 
+
+
+
+
+
+
+\end{document}

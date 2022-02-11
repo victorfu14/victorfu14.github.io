@@ -50,9 +50,10 @@
 \def \supp {\operatorname{supp}}
 \newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
 \newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
-\newcommand{\df}{\text{d}}
+\newcommand{\df}{\ \mathrm{d}}
 \newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
 \newcommand{\gen}[1]{\left\langle #1 \right\rangle}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
 
 % arrows and :=, =:
 \makeatletter
@@ -110,6 +111,8 @@
 \usepackage{fancyvrb, fancyhdr}
 \usepackage{tikz}
 \usepackage{tcolorbox}
+
+\usepackage{tikz-cd}
 
 \pagestyle{fancy}
 \fancyhead[LO,L]{\leftmark}
@@ -1009,7 +1012,7 @@ Properties of Lebesgue measure
 	\left\lbrace\begin{array}{l}
 		f \text{ is $(\mathcal{A}, \mathcal{B}(\R))$-measurable} \\
 		f \text{ is $(\mathcal{A}, \mathcal{B}(\overline{\R}))$-measurable} \\
-		\Re f, \Im f: X \to \R \text{are $\mathcal{A}$-measurable.}
+		\re f, \im f: X \to \R \text{ are $\mathcal{A}$-measurable.}
 	\end{array}\right.
 	\]
 	Here $\mathcal{B}(\overline{\R}) = \{E \subset \overline{\R} \mid E \cap R \in \mathcal{B}(\R)\}$.
@@ -1125,7 +1128,7 @@ $f(x) = f^+(x) - f^-(x)$. $f$ is $\mathcal{A}$-measurable $\iff f^+, f^-$ measur
 \begin{definition}\label{def:nonneg}
 	Suppose $(X, \cA, \mu)$ a measure space and $\phi = \sum_{i=1}^N c_i1_{E_i}: X \to [0, \infty]$ a simple function.
 	Let \[
-		\int \phi = \int \phi d\mu = \int_X \phi d\mu = \sum_1^N c_i\mu(E_i).	
+		\int \phi = \int \phi \df\mu = \int_X \phi \df \mu = \sum_1^N c_i\mu(E_i).	
 	\]
 \end{definition}
 
@@ -1136,7 +1139,7 @@ $f(x) = f^+(x) - f^-(x)$. $f$ is $\mathcal{A}$-measurable $\iff f^+, f^-$ measur
 		\item $\displaystyle \int c\phi = c \int \phi, c \in [0, \infty)$.
 		\item $\displaystyle \int (\phi + \psi) = \int \phi + \int \psi$.
 		\item $\displaystyle \phi(x) \geq \psi(x),\ \forall x \implies \int \phi \geq \int \psi$.
-		\item $\displaystyle \nu(A) = \int_A \phi d \mu$ is a measure on $(X, \cA)$.
+		\item $\displaystyle \nu(A) = \int_A \phi \df \mu$ is a measure on $(X, \cA)$.
 	\end{itemize}
 \end{proposition}
 \begin{proof}
@@ -1147,7 +1150,7 @@ $f(x) = f^+(x) - f^-(x)$. $f$ is $\mathcal{A}$-measurable $\iff f^+, f^-$ measur
 	Suppose $(X, \cA, \mu), f: X \to [0, \infty]$ is $\cA$-measurable. 
 
 	Define \[
-		\int f = \int f d\mu = \sup\left\lbrace \int \phi \mid 0 \leq \phi \leq f, \phi \text{ simple} \right\rbrace.	
+		\int f = \int f \df\mu = \sup\left\lbrace \int \phi \mid 0 \leq \phi \leq f, \phi \text{ simple} \right\rbrace.	
 	\]
 \end{definition}
 \begin{proposition}\fnl
@@ -1191,11 +1194,11 @@ $f(x) = f^+(x) - f^-(x)$. $f$ is $\mathcal{A}$-measurable $\iff f^+, f^-$ measur
 		\lim_{N \to \infty} \sum_1^N s_n = \sum_1^\infty s_n	
 	\]
 \end{proof}
-\begin{theorem}[Fotou's lemma]
+\begin{theorem}[Fatou's lemma]
 	Suppose $f_n \geq 0$ measurable. Then \[\int \liminf_{n \to \infty} f_n \leq \liminf_{n \to \infty}\int f_n.\]
 \end{theorem}
 Recall that \[
-\liminf_{n \to \infty} f_n \defeq \lim_{k \to \infty} \inf_{n \geq k} f_n = \sum_{k \in \N} \inf_{n \geq k} f_n,
+\liminf_{n \to \infty} f_n \defeq \lim_{k \to \infty} \inf_{n \geq k} f_n = \sup_{k \in \N} \inf_{n \geq k} f_n,
 \]
 and
 \[
@@ -1383,6 +1386,259 @@ Fubini:
 \begin{proof}
 	$\displaystyle G(x) = \sum_1^\infty |f_n(x)| \geq |F_N(x)|, F_N(x) = \sum_1^N f_n(x)$.
 \end{proof}
+
+\section{\ttlmath{L^1}{L-1} space}
+\begin{definition}
+	Suppose $V$ is a vector space over field $\R$ or $\C$. A \emph{seminorm}
+on $V$ is $\|\cdot\|: V \to [0, \infty) \st$
+\begin{itemize}
+	\item $\|cv\| = |c|\|v\|, \forall v \in V, \forall c$ scalar
+	\item $\|v + w\| \leq \|v\| + \|w\|$, triangle inequality
+\end{itemize}
+A \emph{norm} is a seminorm such that $\|v\| \iff v = 0$.
+\end{definition}
+
+\begin{lemma}
+	A normed vector space is a metric space with metric $\rho(v, w) = \|v - w\|$.
+\end{lemma}
+\begin{proof}{(DIY)}
+	\begin{itemize}
+		\item $\rho(v, w) = 0 \iff \|v - w\| = 0 \iff v - w = 0 \iff v = w$.
+		\item $\rho(v, w) = \norm{v - w} = \norm{-1(w - v)} = |-1|\norm{w - v} = \rho(w, v)$.
+		\item $\rho(v, w) + \rho(w, z) = \norm{v - w} + \norm{w - z} \geq \norm{v - w + w - z} = \norm{v - z} = \rho(v, z)$. \qedhere
+	\end{itemize}
+\end{proof}
+\begin{example}
+	$\R^d$ with $\|x\|_p = \begin{cases}
+		\displaystyle \left(\sum_{1}^d |x_i|^p\right)^{1 / p} & p \in [1, \infty) \\
+		\displaystyle \max_{1 \leq i \leq d} |x_i| & p = \infty
+	\end{cases}$ is a normed vector space.
+	Unit ball $\{x: \|x\|_p < 1\}$.
+\end{example}
+All $\|\cdot\|_p$ norm induce the same topology i.e. if $U$ is open in $p$-norm then it is open in $p'$-norm. This implies that a sequence converging under $p$-norm also converges under $p'$-norm.
+
+\fancyem{Recall} $f$ is integrable $\implies \int|f| < \infty$. $f = g $ a.e. $\implies \int f = \int g$.
+
+\begin{definition} 
+	Suppose $(X, \cA, \mu)$ a measure space.\\
+	$f \in L^1(X, \cA, \mu) = L^1(X, \mu) = L^1(X) = L^1(\mu)$ means $f$ is an integrable function on $X$.
+\end{definition}
+
+\begin{lemma}
+	$L^1(X, \cA, \mu)$ is a vector space with seminorm $\|f\|_1 = \int |f|$.
+\end{lemma}
+
+\begin{definition}
+	Define $f \sim g$ if $f = g$ a.e. 
+	$L^1(X, \cA, \mu)/_\sim = L^1(X, \cA, \mu)$.
+	$``="$ is just a notation for convenience!
+\end{definition}
+
+With new definition we have $L^1(X, \cA, \mu)$ is a normed vector space.
+$\rho(f, g) = \int |f - g|$.
+
+Something interesting to discuss is what are the dense subsets of $L^1$.
+\begin{theorem}\fnl
+	\begin{enumerate}
+		\item $\{$ integrable simple functions $\}$ is dense in $L^1(X, \cA, \mu)$ (with respect to $L^1$ metric)
+		\item $(X, \cA, \mu) = (\R, \cA_\mu, \mu)$, $\mu$ is Lebesgue-Stieltjes measure $\implies$ $\{$ integrable step functions $\}$ is dense in $L^1(X, \cA, \mu)$ 
+		\item $C_c(\R)$ is dense in $L^1(\R, \mathcal{L}, m)$.
+	\end{enumerate}
+\end{theorem}
+\begin{definition}\fnl
+	\begin{itemize}
+		\item A step function on $\R$ is $\psi + \sum_1^N c_i 1_{I_i}$, where $I_i$ is an interval.
+		\item $C_c(\R)$ is the collection of continuous functions with compact support $\supp(f) = \overline{\{x \in \R \mid f(x) \neq 0\}}$.
+	\end{itemize}
+\end{definition}
+\begin{proof}
+	\begin{enumerate}
+		\item $\exists$ simple functions $0 \leq |\phi_1| \leq |\phi_2| \leq \ldots \leq |f|$, $\phi_n \to f$ pointwise $\implies \displaystyle \lim_{n \to \infty} \int |\phi_n - f| = 0$ by DCT. ($|\phi_n - f| \leq |\phi_n| + |f| \leq 2|f|$)
+		\item $1_E$ approx by $\sum_1^N c_i1_{I_i}$? Regularity theorem for Lebesgue-Stieltjes measure $\implies \forall \varepsilon' > 0, \exists I = \bigcup_1^N I_i \st \mu(E \triangle I) < \varepsilon'$.
+		\item Suppose $1_{(a, b)}$, $g \in C_c(\R)$. $\int |1_{(a, b)} - g|dm \leq 1 \cdot \frac{\varepsilon}{2} + 1 \cdot \frac{\varepsilon}{2} = \varepsilon$. \qedhere
+	\end{enumerate}
+\end{proof}
+
+\section{Riemann Integrability} 
+Suppose $P = \{a = t_0 < t_1 < \ldots < t_k = b\}$ a partition of $[a, b]$. Lower Riemann sum of $f$ using $P$
+\[L_P = \sum_{i = 1}^k \left(\inf_{[t_{i-1}, t_i]} f\right)(t_i - t_{i - 1})\] and upper Riemann sum
+\[U_p = \sum_{i = 1}^k \left(\sup_{[t_{i-1}, t_i]} f\right)(t_i - t_{i - 1})\]
+Lower Riemann integral of $f = \underline{I} = \sup_P L_P$. Upper Riemann integral of $f = \overline{I} = \inf_P U_P$.
+
+\begin{definition}
+	A \emph{bounded} function $f:[a, b] \to \R$ is called Riemann (Darboux) integrable if $\underline{I} = \overline{I}$. (If so, $\underline{I} = \overline{I} = \int_a^b f(x)\df x$.)
+\end{definition}
+\fancyem{Note} \begin{itemize}
+	\item If $P \subset P'$, then $L_P \leq L_{P'}, U_{P'} \leq U_P$.
+	\item Recall that continuous functions on $[a, b]$ are Riemann integrable on $[a, b]$.
+\end{itemize}
+
+\begin{theorem}
+	Let $f: [a, b] \to \R$ be a bounded function.
+	\begin{enumerate}
+		\item If $f$ is Riemann integrable, then $f$ is Lebesgue measurable. (thus Lebesgue integrable) and $\displaystyle \int_a^b f(x) \df x = \int_{[a, b]}f \df m$.
+		\item $f$ is Riemann integrable $\iff f$ is continuous Lebesgue a.e.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	$\exists$partitions $P_1 \subset P_2 \subset P_3 \subset \ldots \st L_{P_n} \nearrow \underline{I}, U_{P_n} \searrow \overline{I}$.
+
+	Define simple (step) functions 
+	\[\phi_n = \sum_{i=1}^k\left(\inf_{[t_{i - 1}, t_i]}\right)1_{(t_{i-1}, t_i]}\]
+	\[\psi_n = \sum_{i=1}^k\left(\sup_{[t_{i - 1}, t_i]}\right)1_{(t_{i-1}, t_i]}\]
+
+	Define $\phi = \sup_n \phi_n$, $\psi = \inf_n \psi_n$. Then $\phi, \psi$ are Lebesgue measurable functions.
+
+	\fancyem{Note} \begin{itemize}
+		\item $\exists M > 0 \st |\phi_n|, |\psi_n| \leq M1[a, b], \forall n \in \N$.
+		\item $\int \phi_n \df m = L_{P_n}, \int \psi_n \df m = U_{P_n}$.
+	\end{itemize}
+	By DCT, $\displaystyle \underline{I} = \lim_{n \to \infty} \int \phi_n \df m = \int \phi \df m,  \overline{I} = \int \psi \df m$.
+
+	Thus, $f$ is Riemann integrable $\iff \int \phi = \int \psi \iff \int (\phi - \psi) = 0 \iff \phi = \psi$ Lebesgue a.e.
+
+	Recall that $\phi \leq f \leq \psi, \forall x \in (a, b]$. So $f = \phi$ a.e. Since $(\R, \mathcal{L}, \mu)$ is complete, $f$ is Lebesgue measurable (see HW). The second statement hence follows.
+\end{proof}
+
+\section{Modes of Convergence}
+Suppose $f_n, f: X \to \C, S \subset X$.
+\begin{itemize}
+	\item $f_n \to f$ \emph{pointwise} on $S$: $\forall x \in S, \forall \varepsilon > 0, \exists N \in \N \st \forall n \geq \N, |f_n(x) - f(x)| < \varepsilon$.
+	\item $f_n \to f$ \emph{uniformly} on $S$: $\forall \varepsilon > 0, \exists N \in \N \st \forall x \in X, \forall n \geq \N, |f_n(x) - f(x)| < \varepsilon$.
+\end{itemize}
+We can change $\forall \varepsilon > 0$ to $\forall k \in \N$ and bound the distance by $\frac{1}{k}$.
+
+\begin{lemma}\label{le:conv-sets}
+	Let $B_{n, k} = \{x \in X \mid |f_n(x) - f(x)| < \frac{1}{k}\}$.
+	\begin{enumerate}
+		\item $f_n \to f$ pointwise on $\displaystyle S \iff S \subset \bigcap_{k = 1}^\infty \bigcup_{N = 1}^\infty \bigcap_{n = N}^\infty B_{n, k}$.
+		\item $f_n \to f$ uniformly on $\displaystyle S \iff \exists N_1, N_2, \ldots \in \N \st S \subset \bigcap_{k = 1}^\infty \bigcap_{n = N_k}^\infty B_{n, k}$.
+	\end{enumerate}
+\end{lemma}
+\begin{definition}
+	Suppose $(X, \cA, \mu)$ a measure space.
+	\begin{enumerate}
+		\item $f_n \to f$ a.e means $\exists$ null set $E \st f_n \to f$ pointwise on $E^c$.
+		\item $f_n \to f$ in $L^1$ means $\displaystyle \lim_{n \to \infty} \norm{f_n - f} = 0$.
+	\end{enumerate}
+\end{definition}
+
+\begin{example} $(\R, \mathcal{L}, \mu)$. $f = 0$.
+	\begin{enumerate}
+		\item $f_n = 1_{(n, n+1)}, f_n = \frac{1}{n}1_{(0, n)}, f_n = n1_{\left(0, \frac{1}{n}\right)}$. All of $f_n \to f$ pointwise but $\not\to f$ in $L^1$.
+		\item Typewriter functions: $f_n \to f$ in $L^1$. $f_n \not\to f$ a.e.
+	\end{enumerate}
+\end{example}
+
+\begin{proposition}[Fast $L^1$ convergence $\implies$ a.e. convergence]
+	Suppose $(x, \cA, \mu)$ measure space. $f_n, f$ measurable function on $X$.
+	\[
+	\sum_1^\infty \norm{f_n-f}_1 < \infty \implies f_n \to f\ a.e.	
+	\]
+\end{proposition}
+\begin{proof}
+	\fancyem{Recall} Markov's inequality.
+
+	Let $\displaystyle E = \bigcup_{k = 1}^\infty\bigcap_{N=1}^\infty \bigcup_{n = N}^\infty B_{n, k}^c = \{x \mid f_n(x) \not\to f(x)\}$. By Markov we have
+	\begin{align*}
+		& \forall k, \forall N, \mu(B_{n, k}^c) \leq k \int |f_n - f| \\
+		\implies & \forall k, \mu\left(\bigcap_{n=N}^\infty B_{n, k}^c\right) \leq \sum_{n = N}^\infty k \norm{f_n - f}_1 \to 0 \text{ as } n \to 0 \\
+		\implies & \forall k, \mu\left(\bigcap_{N=1}^\infty\bigcap_{n=N}^\infty B_{n, k}^c\right) = \lim_{N \to \infty} \mu\left(\bigcap_{n=N}^\infty B_{n, k}^c\right) = 0 \\
+		\implies & \mu(E) = 0. \qedhere
+	\end{align*}
+\end{proof}
+
+\begin{corollary}
+	$f_n \to f$ in $L^1 \implies \exists$subsequence $f_{n_j} \to f\ a.e$.
+\end{corollary}
+\begin{proof}
+	$\forall j \in \N, \exists n_j \in \N \st \norm{f_{n_j} - f}_1 < \frac{1}{j^2}$. Then $\sum_{j=1}^\infty \norm{f_{n_j} - f}_1 < \infty$.
+\end{proof}
+\begin{definition}
+	$f_n, f$ measurable functions on $(X, \cA, \mu)$. $f_n \to f$ \emph{in measure} means \[\forall \varepsilon > 0, \lim_{n \to \infty}\mu\left(\left\{x \in X \mid |f_n(x) - f(x)| \geq \varepsilon \right\}\right) = 0.\]
+\end{definition}
+\begin{example}
+	\begin{itemize}
+		\item $f_n = n1_{\left(0, \frac{1}{n}\right)}, f = 0$.
+		\[
+			\forall \varepsilon > 0, \left\lbrace x \mid |f_n(x) - f(x)| > \varepsilon\right\rbrace = \left(0, \frac{1}{n}\right).	
+		\]
+		(Recall that $f_n \not\to 0$ in $L^1$.)
+
+		\item Typewriter function. (Recall that $f_n \not\to 0$ a.e.)
+	\end{itemize}
+\end{example}
+
+We can easily check that $f_n \to f$ in $L^1 \implies f_n \to f$ in measurable. But the converse is not true.
+
+$f_n \to f$ in measure $\implies \exists f_{n_j} \to f$ a.e. (Check \cite{follandRealAnalysisModern1999})
+
+We have then the following diagram:
+\[
+	\begin{tikzcd}
+	\text{$f_n \to f$ fast $L^1$} 
+		\arrow[r, Rightarrow] 
+		\arrow[dr, Rightarrow] 
+		& \text{$f_n \to f$ in $L^1$} 
+			\arrow[r, Rightarrow, shift left=1.5] 
+			\arrow[r, "/" marking, Leftarrow, shift right=1.5] 
+				& \text{$f_n \to f$ in measure}  \\
+		& \text{$f_n \to f$ a.e.}  \arrow[u, "/" marking, Leftarrow, shift left=1.5] \arrow[u, "/" marking, Rightarrow, shift right=1.5] & \text{$\exists f_{n_j} \to f$ a.e.}  \arrow[u, Leftarrow]
+	\end{tikzcd}
+\]
+
+\begin{definition}
+	$f_n, f$ measurable functions on $(X, \cA, \mu)$.
+	\begin{enumerate}
+		\item $f_n \to f$ \emph{uniformly a.e} means $\exists$ null set $F \st f_n \to f$ uniformly on $F^c$.
+		\item $f_n \to f$ \emph{almost uniformly} means $\forall \varepsilon > 0, \exists F \in \cA, \st \mu(F) < \varepsilon, f_n \to f$ uniformly on $F^c$.
+	\end{enumerate}
+\end{definition}
+Recall \ref{le:conv-sets}.
+
+% \epigraph{Still you can massage it and make it work.}{}
+
+\begin{theorem}[Egoroff]
+	$f_n, f$ measurable on $(X, \cA, \mu)$. Suppose $\mu(X) < \infty$. Then $f_n \to f$ a.e $\iff f_n \to f$ almost uniformly.
+\end{theorem}
+\begin{proof}
+	"$\impliedby$": DIY
+	
+	"$\implies$": Fix $\varepsilon > 0$.
+
+	$f_n \to f$ a.e $\implies \displaystyle \mu\left(\bigcup_{k = 1}^\infty \bigcap_{N = 1}^\infty \bigcup_{n = N}^\infty B^c_{n, k}\right) = 0 \implies \forall k, \mu\left(\bigcap_{N = 1}^\infty \bigcup_{n = N}^\infty B^c_{n, k}\right) = 0$.
+
+	By the continuity of measure from above and since $\mu(X) < \infty$, 
+	\begin{align*}
+		\forall k, \lim_{N \to \infty} \mu\left(\bigcup_{n = N}^\infty B^c_{n, k}\right) = 0 \implies \forall k, \exists N_k \in \N, \mu\left(\bigcup_{n = N_k}^\infty B^c_{n, k}\right) < \frac{\varepsilon}{2^k}.
+	\end{align*}
+	Let $\displaystyle F = \bigcup_{k = 1}^\infty \bigcup_{n = N_k}^\infty B^c_{n, k} \implies \mu(F) < \varepsilon, f_n \to F$ uniformly on $F^c$.
+\end{proof}
+
+\chapter{Product Measures}
+(p.22 - 36, section 1.2 and section 2.5, 2.6 of \cite{follandRealAnalysisModern1999}) \\ 
+The ultimate goal is to prove Fubini's theorem. This is also related to probability in in the sense that a series of events is in product measure.
+\section{Product \ttlmath{\sigma}{sigma}-algebra}
+\begin{itemize}
+	\item Product space $X = \prod_{\alpha \in I}X_\alpha, x = (x_\alpha)_{\alpha \in I}$.
+	\item Coordinate map $\pi_\alpha: X \to X_\alpha$.
+\end{itemize}
+\begin{definition}
+	$(X_\alpha, \cA_\alpha)$ measurable space. $\forall \alpha \in I$, the \emph{product $\sigma$-algebra} on $\displaystyle X = \prod_{\alpha \in I}X_\alpha$ is \[\bigotimes_{\alpha \in I} \cA_\alpha  = \gen{\bigcup_{\alpha \in I}\pi_\alpha^{-1}\left(\cA_\alpha\right)}\]
+	where \[
+		\pi^{-1}_\alpha\left(A_\alpha\right) = \{\pi^{-1}_\alpha(E) | E \in \cA_\alpha\}.
+	\]
+\end{definition}
+\fancyem{Notation} \[I = \{1, \ldots, d\} \implies X = \prod_{i=1}^d X_i, x = (x_1, \ldots, x_d), \bigotimes_{i=1}^d \cA_i = \cA_1 \otimes \ldots \otimes \cA_d.\]
+
+\begin{lemma}
+	If $I$ is countable, then 
+	\[
+		\bigotimes_{\alpha \in I} \cA_\alpha = \gen{\left\lbrace \prod_{i=1}^\infty E_i \mid E_i \in \cA_i \right\rbrace}
+	\]
+\end{lemma}
+
+
 
 
 \bibliography{analysis}{}

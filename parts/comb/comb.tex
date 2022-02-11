@@ -21,7 +21,8 @@
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\matP}{\mathbb{P}}
-\newcommand{\mats}{\mathbb{s}}
+\newcommand{\matE}{\mathbb{E}}
+\newcommand{\matS}{\mathbb{S}}
 \newcommand{\matH}{\mathbb{H}}
 \newcommand{\matT}{\mathbb{T}}
 \newcommand{\st}{\ s.t.\ }
@@ -47,6 +48,8 @@
 \newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
 \newcommand{\df}{\text{d}}
 \newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
+
+
 
 % arrows and :=, =:
 \makeatletter
@@ -108,10 +111,18 @@
 
 % other styling
 \usepackage{fancyvrb, fancyhdr}
+\usepackage{tikz-cd}
 \usepackage{tikz}
 \PassOptionsToPackage{usenames, x11names}{xcolor}
 \usepackage{tcolorbox}
 \selectcolormodel{cmy}
+
+\newcommand{\edge}{
+    \begin{tikzcd}[cramped, sep=small, labels={font=\everymath\expandafter{\the\everymath\textstyle}}]
+        u \arrow[r, "e", no head] & v
+    \end{tikzcd}
+}
+
 
 \pagestyle{fancy}
 \fancyhead[LO,L]{\leftmark}
@@ -1438,11 +1449,11 @@ The art of computer programming, vol 4. (generate random combinatorial objects t
     
     A \underline{flow} $f$ assigns a number $f(e, u, v)$ to each edge $e$ with endpoint $u, v$, so that \begin{itemize}
         \item $f(e, u, v) = -f(e, v, u)$.
-        \item $\forall$ interior vertex $u$, $\displaystyle \sum_{v \in V(G), (u, v) \in E(G)} f(e, u, v) = 0$. ("Conservation of flow")
+        \item $\forall$ interior vertex $u$, $\displaystyle \sum_{v \in V(G), u\frac{e}{}v  \in E(G)} f(e, u, v) = 0$. ("Conservation of flow")
     \end{itemize}
 \end{definition}
 It follows that $\exists$ number $|f|$, called the \underline{total flow} from $a$ to $b$, such that \begin{equation}\label{eq:1stkirchhoff}
-\sum_{v \in V(G), (u, v) \in E(G)} f(e, u, v)\begin{cases}
+\sum_{v \in V(G), u\frac{e}{}v \in E(G)} f(e, u, v)\begin{cases}
     0 & u \text{ interior} \\
     |f| &  u = a \\
     -|f| & u = b.
@@ -1451,10 +1462,10 @@ It follows that $\exists$ number $|f|$, called the \underline{total flow} from $
 
 We basically created a weighted graph in some sense: $w: E(G) \to \R_{>0}$. 
 \begin{definition}
-    For any vertex $u$, $\displaystyle w(u) \defeq \sum_{e = (u, v) \in E(G)} w(e)$.
+    For any vertex $u$, $\displaystyle w(u) \defeq \sum_{u\frac{e}{}v  \in E(G)} w(e)$.
 \end{definition}
 
-A "weighted version" of a simple random walk is a Markov chain with transition probability from $u$ to $v$ being $\displaystyle \sum_{e = (u, v) \in E(G)} \frac{w(e)}{w(u)}$.
+A "weighted version" of a simple random walk is a Markov chain with transition probability from $u$ to $v$ being $\displaystyle \sum_{u\frac{e}{}v \in E(G)} \frac{w(e)}{w(u)}$.
 
 \fancyem{Problem}* Generalize Wilson's algorithm to weighed graphs.
 
@@ -1465,9 +1476,14 @@ A "weighted version" of a simple random walk is a Markov chain with transition p
 
 \eqref{eq:1stkirchhoff} is the first Kirchhoff law. (conversation of charge/current)
 
-The second Kirchhoff law expresses the conversation of energy: given a cycle \[
-    u_0 \frac{e_1}{} u_1 \frac{e_2}{} u_2 \frac{e_3}{}\ldots \frac{e_k}{} u_k = u_0,  
+The second Kirchhoff law expresses the conversation of energy: given a cycle 
+\[
+    \begin{tikzcd}[cramped, sep=small, labels={font=\everymath\expandafter{\the\everymath\textstyle}}]
+        u_0 \arrow[r, "e_1", no head] & u_1 \arrow[r, "e_2", no head] & u_2 \arrow[r, "e_3", no head] & \cdots \arrow[r, "e_k", no head] & u_k = u_0
+    \end{tikzcd}
 \]
+
+
 we have
 \begin{equation}\label{eq:2ndkirchhoff}
     \sum_{i=1}^k \frac{f(e_i, u_{i-1}, u_i)}{w(e_i)} = 0.
@@ -1485,7 +1501,9 @@ we have
     Suppose $f$ satisfies \eqref{eq:2ndkirchhoff}. Define the potential $p = p_f$, a function on the vertices of $G$, as follows:
     \begin{itemize}
         \item assign an arbitrary value to $p(a)$
-        \item for any walk that starts at $a = u_0 \frac{e_1}{} u_1 \frac{e_2}{} u_2 \frac{e_3}{}\ldots \frac{e_k}{} u_k = u$, set \[
+        \item for any walk that starts at $a = \begin{tikzcd}[cramped, sep=small, labels={font=\everymath\expandafter{\the\everymath\textstyle}}]
+            u_0 \arrow[r, "e_1", no head] & u_1 \arrow[r, "e_2", no head] & u_2 \arrow[r, "e_3", no head] & \cdots \arrow[r, "e_k", no head] & u_k = u
+        \end{tikzcd}$, set \[
             p(u) \defeq p(a) + \sum_{i=1}^k \frac{f(e_i, u_{i-1}, u_i)}{w(e_i)}. 
         \]
     \end{itemize}
@@ -1493,6 +1511,137 @@ we have
 \begin{lemma}
     The function $u \mapsto p(u)$ is well-defined.
 \end{lemma}
+
+\begin{proposition}[Ohm's Law] For an edge $u\frac{e}{}v$, we have
+    \[\frac{f(e, u, v)}{w(e)} = p(v) - p(u)\]
+\end{proposition}
+This shows us how to recover flow from potential. (Doesn't it look like FTC?)
+
+Condition \eqref{eq:1stkirchhoff} becomes \begin{equation}
+    \sum_{u \frac{e}{} v} w(e)(p(v) - p(u)) = 0
+\end{equation}
+given a fixed interior vertex $u$. 
+
+$p$ is a discrete harmonic function with respect to weight $w$ in the sense that
+\begin{equation}\label{eq:harmonic}
+    p(u) = \sum_{u \frac{e}{} v} \frac{w(e)}{w(u)}p(v)
+\end{equation}
+
+\eqref{eq:harmonic} should be satisfied at each interior vertex $u$. For a \emph{conservative} flow (no boundary), \eqref{eq:harmonic} is satisfied everywhere.
+
+\section{The Maximum Principle}
+% \epigraph{While it is fundamental and deep... This is almost obvious.}{-- \textup{Sergey Fomin}}
+\epigraph{...no, the graph is finite. We are doing combinatorics.}{-- \textup{Sergey Fomin}}
+% \epigraph{If nobody but one didn't lose money in this room, that person didn't lose or gain money either.}{-- \textup{Sergey Fomin}}
+\begin{lemma}
+    Suppose $p$ is a discrete harmonic real function on the vertices of a connected weighted finite graph with positive valued weights. Then $p$ attains its maximum and minimum values at the boundary (where harmonicity conditions does not hold). In the absence of the boundary, $p$ must be constant.
+\end{lemma}
+We can now prove the uniqueness of a solution to Kirchhoff equations.
+\begin{proof}
+    Suppose $f_1, f_2$ satisfy \eqref{eq:1stkirchhoff} and \eqref{eq:2ndkirchhoff}. For a given total flow value $|f_1| = |f_2|$. Then $f = f_1 - f_2$ is a conservative flow satisfying \eqref{eq:2ndkirchhoff}. Now the potential $p = p_f$ is harmonic everywhere. By the maximum principle $p$ is constant. Now by Ohm's Law, $f = 0$ everywhere $\implies f_1 = f_2$.
+\end{proof}
+Now we need the existence of the solution to Kirchhoff equations. We give a method to construct a solution the Kirchhoff equations using random walks.
+
+Take $\pi$ random walk on $G$ with \begin{itemize}
+    \item starts at $a$
+    \item stops at $b$
+    \item proceeds from $u$ along $u \frac{e}{} v$ with probability $\frac{w(e)}{w(u)}$.
+\end{itemize}
+Denote $\pi(t)$ the vertex occupies by $\pi$ at time $t \in \Z_{\geq 0}$. Define the Bernoulli random variables \[\xi_t(e, u, v)
+\begin{cases}
+    1 & \text{if $\pi(t) = u$ and $\pi$ then moves along $e$ to $v$} \\
+    0 & otherwise
+\end{cases}
+\]
+Consider the expectation \[
+\sum_t \matE\xi_t(e, u, v) = \frac{w(e)}{w(u)} \sum_t \matP(\pi(t) = u) < \infty.    
+\]
+
+\begin{proposition}
+    Define $f$ by \[f(e, u, v) = \sum_t \matE\xi_t(e, u, v) - \sum_t \matE\xi_t(e, v, u).\]
+    Then $f$ satisfies \eqref{eq:1stkirchhoff} and \eqref{eq:2ndkirchhoff} with $|f| = 1$.
+\end{proposition}
+\begin{proof}\fnl
+    \begin{itemize}
+        \item We have \begin{align*}
+            \sum_{u \frac{e}{} v} f(e, u, v) & = \sum_{u \frac{e}{} v}\sum_t \matE\xi_t(e, u, v) -  \sum_{u \frac{e}{} v}\sum_t \matE\xi_t(e, v, u) \\
+            & = E\#\{\text{ departures from $u$ }\} - E\#\{\text{ arrivals from $u$ }\} \\
+            & = \begin{cases}
+                0 & u \text{ internal}, \\
+                1 & u = a,\\
+                -1 & u = b.
+            \end{cases}
+        \end{align*}
+        This shows $f$ satisfies \eqref{eq:1stkirchhoff}.
+
+        \item Suppose a cycle $u_0 \frac{e_1}{} u_1 \frac{e_2}{} u_2 \frac{e_3}{} \ldots \frac{e_k}{} u_k = u_0$. Then \begin{align*}
+            \sum_{i = 1}^k \frac{f(e_i, u_{i-1}, u_i)}{w(e_i)} & = \sum_{t}\sum_{i} \frac{\matE\xi_i(e_i, u_{i - 1}, u_i)}{w(e_i)} - \sum_{t}\sum_{i} \frac{\matE\xi_i(e_i, u_{i}, u_{i - 1})}{w(e_i)} \\
+            & = \sum_t \sum_i \frac{\matP(\pi(t) = u_{i - 1})}{w(u_{i - 1})} - \sum_t \sum_i \frac{\matP(\pi(t) = u_i)}{w(u_i)} \\
+            & = 0. \text{ (observe that $u_k = u_0$)}
+        \end{align*}
+        This shows $f$ satisfies \eqref{eq:2ndkirchhoff}. \qedhere
+    \end{itemize}
+\end{proof}
+
+% \epigraph{First, I need to find a decent piece of Hagomoro chalk.}{}
+% \epigraph{I am not assigning homework today. I know you guys are disappointed. But I simply didn't cover enough material for a homework.}{}
+
+% \epigraph{How could anybody, in 1847, by just looking at electric currents, come up with spanning tree stuff? The answer is actually not that hard.}{}
+
+\begin{theorem}[G. Kirchhoff, 1847]
+    Suppose $G$ contains an edge $a \frac{e_0}{} b$($a, b$ are boundary vertices). Run a unit current (i.e. flow) $f$ in $G$ from $a$ to $b$. Then \[f(e_0, a, b) = \matP\left(\text{ random spanning tree in $G$ contains $e_0$ }\right)\]
+\end{theorem} where $\matP(T)$ is proportional to $\prod_{e \in T} w(e)$.
+
+
+
+\begin{proof}
+    Use weighted version of Wilson's Algorithm (which is published 150 years after this result) to generate $T$, using $b$ as the root and a random walk $\pi$ starting at $a$ as the first step. We have
+    \[
+        \matP(T \text{ contains } e_0) = \matP(\LE(\pi) \text{ contains } e_0) = \matP(\pi \text{ contains } e_0).
+    \] On the other hand,
+    \[
+        f(e_0, a, b) = \sum_t \matE\xi_t(e, a, b) - \underbrace{\sum_t \matE\xi_t(e, b, a)}_{= 0} = \matP(\pi \text{ contains } e_0). \qedhere
+    \]
+\end{proof}
+
+\section{Effective Conductance}
+\epigraph{This is like MATH 454 or something... I don't know. I didn't take that class.}{-- \textup{Sergey Fomin}}
+\begin{definition}
+    Define effective conductance as
+    \[
+    W(G, a, b) \defeq \frac{|f|}{p(b) - p(a)}    
+    \] where $f$ is a flow in $G$ of total value $|f|$ and $p = p_f$.
+\end{definition}
+
+\begin{corollary}
+    The potential $p = p_f$ of a flow $f$ is uniquely determined, up to a constant, by:
+    \begin{enumerate}
+        \item $p$ is discrete harmonic in the interior of $G$;
+        \item $\displaystyle p(b) - p(a) = \frac{|f|}{W(G, a, b)}$.
+    \end{enumerate}
+\end{corollary}
+\begin{proof}
+    Suppose $p, p'$ are two functions satisfying the conditions above. Let $\Delta p = p - p'$. Then $\Delta p$ is harmonic outside $\{a, b\}$ and moreover $\Delta p(a) - \Delta p(b) = 0$. By the maximum principle, $\Delta p$ must be constant.
+\end{proof}
+
+% \epigraph{I must be wise.}{-- \textup{Sergey Fomin}}
+
+Probabilistic distribution of potentials
+% \epigraph{I am not assigning homework today. I know you guys are disappointed. But I simply didn't cover enough material for a homework.}{-- \textup{Sergey Fomin}}
+
+\fancyem{Problem} Let $f$ be a unit flow and $p = p_f$ its potential. Suppose $u$ is a vertex and $\pi_u$ random walk starting at $u$. Prove that \[p(u) - p(a) = \frac{\matP(\pi_u \text{ visits $b$ before $a$})}{W(G, a, b)}.\]
+
+\begin{corollary}
+    For any flow $f$ with potential $p$,
+    \[
+    \frac{p(u) - p(a)}{p(b) - p(a)} = \matP(\pi_u \text{ visits $b$ before $a$})
+    \]
+\end{corollary}
+
+\fancyem{Problem} Assume that $G \subset H$ and $G$ coincides with $H$ at $a, b$, in the sense that if there are edges in $H$ from vertices except $a$ and $b$ that are both in $G$ and $H$, it should be contained in $G$.
+
+$H'$ is the weight graph obtained from $H$ by replacing $G$ by a single edge $a \frac{e_0}{} b$ of weight $w(e_G) = W(G, a, b)$. Show that the solutions to Kirchhoff equations for $H$, $H'$ coincide outside $G$.
+
 
 
 

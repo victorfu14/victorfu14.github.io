@@ -20,3 +20,5 @@ And this course is just fantastic.
 - [Jan. 27, diamond lemma with application in several games](../../../../parts/comb/comb.pdf#section.2.4)
 - [Feb. 1, loop erasure, Wilson's algorithm](../../../../parts/comb/comb.pdf#section.2.5)
 - [Feb. 3, flow, potential](../../../../parts/comb/comb.pdf#section.2.6)
+- [Feb. 8, solving Kirchhoff equations](../../../../parts/comb/comb.pdf#section.2.8)
+- [Feb. 10, effective conductance](../../../../parts/comb/comb.pdf#section.2.9)
