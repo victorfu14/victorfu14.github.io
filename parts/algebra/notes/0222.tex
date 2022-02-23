@@ -1,0 +1,214 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb,nccmath}
+\usepackage{mathtools}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\setlength{\topmargin}{0.5in}
+\usepackage[margin=4cm]{geometry}
+\usepackage{enumerate}
+
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\setlength{\parskip}{0.5em}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+
+% useful characters/operators
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\matP}{\mathbb{P}}
+\newcommand{\matS}{\mathbb{S}}
+\newcommand{\matH}{\mathbb{H}}
+\newcommand{\matT}{\mathbb{T}}
+\newcommand{\st}{\ s.t.\ }
+\newcommand{\ie}{\ i.e.\ }
+\newcommand{\eg}{\ e.g.\ }
+\def \diam {\operatorname{diam}}
+\def \Hom {\operatorname{Hom}}
+\def \id {\operatorname{id}}
+\def \tr {\operatorname{tr}}
+\def \dist {\operatorname{dist}}
+\def \intr {\operatorname{int}}
+\def \sgn {\operatorname{sgn}}
+\def \im {\operatorname{Im}}
+\def \re {\operatorname{Re}}
+\def \curl {\operatorname{curl}}
+\def \divg {\operatorname{div}}
+\def \GL {\operatorname{GL}}
+\def \End {\operatorname{End}}
+\def \Aut {\operatorname{Aut}}
+\def \Fr {\operatorname{Frac}}
+\def \cont {\operatorname{cont}}
+\newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
+\newcommand{\df}{\text{d}}
+\newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
+
+% arrows and :=, =:
+\makeatletter
+\providecommand*{\twoheadrightarrowfill@}{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow
+}
+\providecommand*{\twoheadleftarrowfill@}{%
+  \arrowfill@\twoheadleftarrow\relbar\relbar
+}
+\providecommand*{\xtwoheadrightarrow}[2][]{%
+  \ext@arrow 0579\twoheadrightarrowfill@{#1}{#2}%
+}
+\providecommand*{\xtwoheadleftarrow}[2][]{%
+  \ext@arrow 5097\twoheadleftarrowfill@{#1}{#2}%
+}
+\makeatother
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\mathrel{\mathop:}}
+
+% integral for measure theory
+\newcommand{\lowerint}{\underline{\int_{\R^d}}}
+\newcommand{\upperint}{\overline{\int_{\R^d}}}
+\newcommand{\lint}[1]{\underline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\uint}[1]{\overline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\sint}[1]{\simp{\int_{\R^d} #1 (x)dx}}
+\newcommand{\lesint}[1]{\int_{\R^d} #1 (x)dx}
+
+% note taking
+\newcommand{\fancyem}[1]{\underline{\textsc{#1}}}
+
+% theorem style
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{conjecture}{Conjecture}
+\newtheorem*{proposition}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{example}{Example}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% for clearer reference
+\usepackage{hyperref}
+\newcommand{\corollaryautorefname}{Corollary}
+\newcommand{\lemmaautorefname}{Lemma}
+\newcommand{\definitionautorefname}{Definition}
+\newcommand{\exampleautorefname}{Example}
+\newcommand{\conjectureautorefname}{Conjecture}
+\renewcommand{\subsectionautorefname}{Section}
+
+% other styling
+\usepackage{fancyvrb, fancyhdr}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+
+\pagestyle{fancy}
+\fancyhead[LO,L]{Feb 22, 2022}
+\fancyhead[RO,R]{Yiwei Fu}
+\fancyhead[C]{MATH 494}
+\fancyfoot[CO,C]{\thepage}
+
+\usepackage{tikz-cd}
+
+\usepackage{epigraph}
+
+% \epigraphsize{\small}% Default
+\setlength\epigraphwidth{8cm}
+\setlength\epigraphrule{0pt}
+
+\usepackage{etoolbox}
+
+\makeatletter
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+\makeatother
+
+
+\begin{document}
+% \renewcommand{\ref}[1]{\autoref{#1}}
+% \title{Math 494}
+% \author{Yiwei Fu}
+% \date{Feb 03, 2022}
+% \maketitle
+
+\epigraph{Artin's books is a little short on fields.}{-- \textup{Michiael Zieve}}
+
+Today: $\sqrt[3]{2} \neq \sqrt{a_1} + \sqrt{a_2} + \ldots + \sqrt{a_k}, a_i \in \Q, a_i > 0$.
+
+We show that the left-hand side is in a field $K \st K$ has dimension divisible by $3$ or $\infty$ as $\Q$ vector space, while the right-hand side has dimension $2^\ell$.
+
+\begin{definition}
+  Given a field $K$, a field $L$ containing $K$ is called an \emph{extension} of $K$, and $L/_K$ (not a quotient) is a "field extension."
+\end{definition}
+
+\begin{definition}
+  If $L/_K$ is a field extension then its \emph{degree} is $\dim_KL \defeq \dim L$ as $K$ vector space.
+\end{definition}
+
+Let $L/_K$ be a field extension and let $\alpha \in L$. Then $K(\alpha)$ denotes the smallest field that contains $K$ and $\alpha = \left\lbrace \frac{a(\alpha)}{b(\alpha)}: a, b \in K[x], b(\alpha) \neq 0\right\rbrace$.
+
+Let $S = \{f(x) \in K[x]: f(\alpha) = 0\}$. Then $S$ is an ideal of $K[x]$. Since $K[x]$ is PID, $S = (m(x))$ for some $m(x) \in K[x]$. We may assume $m(x)$ is monic or $0$. (Clearly $m$ is irreducible.)
+
+\begin{definition}
+  $\alpha$ is \emph{algebraic} over $K$ if $f(\alpha) = 0$ for some nonzero $f(\alpha) \in K[x]$. In this case, the \emph{minimal polynomial} of $\alpha$ over $k$ is $\operatorname{minpol}_K(\alpha) = \operatorname{irr}_K(\alpha) =$ the unique monic irreducible $m(x) \in K[x] \st m(\alpha) = 0$.
+
+  $\alpha$ is transcendental over $K$ is $\alpha$ is not algebraic over $K$.
+\end{definition}
+
+If $\alpha$ is transcendental over $K$ then $K[x] \xhookrightarrow[]{\text{eval}} K[\alpha] \subseteq K(\alpha)$ this homomorphism extends to an injective homomorphism $K(x) \hookrightarrow K(\alpha)$ which is an isomorphism $K(x) \cong K(\alpha)$.
+
+Now suppose $\alpha$ is algebraic over $K$ with $m(x) = \operatorname{minpol}_K(\alpha)$. Then $K[x] \to K[\alpha]$ is surjective with kernel $(m(x))$. So $K[x]/(m(x)) \cong K[\alpha]$. But $(m(x))$ is maximal $\implies K[\alpha]$ is a field $\implies K(\alpha) = K[\alpha]$.
+
+$K[x]/m(x)K[x]$ as a $K$-vector space has basis $\{1, x, x^2, \ldots, x^{n-1}\}$ where $n \defeq \deg(m(x))$ (since every coset $K[x]/(m(x))$ contains a unique polynomial of degree $< n$.)
+
+So if $\alpha$ is algebraic over $K$, and $n \defeq \deg(\operatorname{minpol}_K(\alpha))$, then $K(\alpha)$ has basis $1, \alpha, \ldots, \alpha^{n-1}$ as a $K$-vector space $\implies \dim_K(K(\alpha)) = n = \deg(\operatorname{minpol}_K(\alpha))$.
+
+Notation: if $L/_K$ is a field extension, then $[L:K] = \dim_K L = \dim L$ as a $K$ vector space.
+
+\begin{example}
+  $[\Q(i): \Q] = 2$. 
+  
+  $[\Q(\sqrt[n]{2}): \Q] = n$. (since $x^n - 2$ is irreducible)
+
+  $[\Q(e^{2\pi i/p}): \Q] = p - 1$ if $p$ is prime since $\operatorname{minpol}_\Q(e^{2\pi i/p}) = x^{p-1} + x^{p-2} + \ldots + 1$.
+\end{example}
+
+\begin{example}
+  Any $3$-dimensional $\C$-vector space has dimension $6$ as an $\R$-vector space: if $\alpha_1, \alpha_2, \alpha_3$ is a $\C$-basis, then every element of the vector space can be written in exactly one way as $(a_1 + ib_1)\alpha_1 + (a_2 + ib_2)\alpha_2 + (a_3 + ib_3)\alpha_3$ with $a_j, b_j \in \R$ i.e. as $a_1\alpha_1 + ib_1\alpha_1 + a_2\alpha_2 + ib_2\alpha_2 + a_3\alpha_3 + ib_3\alpha_3$. So $\alpha_j, i\alpha_j$'s is an $\R$-basis of $V$.
+\end{example}
+
+\begin{proposition}
+  More generally, if $L/_K$ is a field extension and $V$ is an $L$-vector space of nonzero dimension. Then $\dim_K V = [L: K] \dim_L V$.
+\end{proposition}
+\begin{proof}
+  Let $\alpha_1, \alpha_2, \ldots$ be an $L$-basis for $V$. Let $\beta_1, \beta_2, \ldots$ be a $K$-basis for $L$. We'll show that $\{\alpha_i\beta_j\}$ is a $K$-basis for $V$.
+
+  Every element of $V$ can be written in exactly one way as $\sum_i \ell_i\alpha_i$ with $\ell_i \in L$ and each $\ell_i$ can be written in exactly one way as $\ell_i = \sum_j k_{ij} beta_j$ with $k_{ij} \in K$.
+
+  Every element of $V$ can be written in exactly one way as $\sum_i\sum_j k_{ij} \beta_j \alpha_i \implies \{\alpha_i\beta_j\}$ is a $K$-basis for $V$.
+\end{proof}
+
+\begin{corollary}
+  If $K, L, M$ are fields with $M \supset L \supset K$ then $[M: K] = [M: L]\cdot[L:K]$.
+\end{corollary}
+
+\begin{example}
+  Eisenstein $\implies x^3 - 2$ irreducible over $\Q \implies [\Q(\sqrt[3]{2}): \Q] = 3 \implies$ if $K$ is a field containing $\sqrt[3]{2}$ then $[K: Q]$ is divisible by $3$ (or $\infty$.)
+
+  If $L/_K$ is an extension and $\alpha \in K$ has a square root in $L$, then $[K(\sqrt{a}): K] = 1$ or $2$.
+
+  So if $a_1, \ldots, a_n \in \Q$ then $[\Q(\sqrt{a_1}): \Q] = 1$ or $2$, $[\Q(\sqrt{a_1}, \sqrt{a_2}): \Q(\sqrt{a_1})] = 1$ or $2$, $\ldots$. Hence if $K_i \defeq \Q(\sqrt{a_1}, \ldots, \sqrt{a_n})$ then $[K_{i+1}: K_i] = [K_i(\sqrt{a_{i+1}}):K_i] = 1$ or $2$.
+
+  This shows that $[K_i: \Q]$ divides $2^i \implies$ not divisible by $3$.
+
+  We can also get that $\sqrt[3]{2} \neq$ sum of nested square roots.
+\end{example}
+
+\epigraph{You know that a protractor is? WOW! I didn't know what computer was when I was in school. I thought there must be some trade-off!}{-- \textup{Micheal Zieve}}
+
+
+
+
+
+\end{document}

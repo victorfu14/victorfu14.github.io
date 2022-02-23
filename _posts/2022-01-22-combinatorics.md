@@ -22,3 +22,6 @@ And this course is just fantastic.
 - [Feb. 3, flow, potential](../../../../parts/comb/comb.pdf#section.2.6)
 - [Feb. 8, solving Kirchhoff equations](../../../../parts/comb/comb.pdf#section.2.8)
 - [Feb. 10, effective conductance](../../../../parts/comb/comb.pdf#section.2.9)
+- [Feb. 15, effective conductance with dessert](../../../../parts/comb/comb.pdf#section.2.9)
+- [Feb. 17, some more linear algebra, Binet Cauchy (currently missing)]
+- [Feb. 22, Laplace Expansion, Matrix-Tree Theorem](../../../../parts/comb/comb.pdf#section.3.1)

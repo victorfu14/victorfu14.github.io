@@ -408,7 +408,7 @@ A(G \times H)(u \otimes v) = \lambda u \otimes v + u \otimes \mu v = (\lambda+\m
 \end{proof}
 
 \begin{proof}[Proof 2](Marked closed walk)
-Walk in $G \times H \xleftrightarrow[]{1-1}$ a \underline{shuffle} of marked closed walks in $G \& H.$
+Walk in $G \times H \xleftrightarrow[]{1-1}$ a \emph{shuffle} of marked closed walks in $G \& H.$
 \begin{multline*}
 \# \text{ of closed walks of length $\ell$ in $G \times H$} \\
 = \sum_{k} \binom{\ell}{k} \sum_i \lambda_i^k\sum_j \mu_j^{\ell - k}
@@ -466,13 +466,13 @@ which is $0$ when $\ell$ is odd.
 \end{proposition}
 
 \section{Random Walks}
-Let $G$ be a \underline{regular graph} of degree $d$ on $p$ vertices.
+Let $G$ be a \emph{regular graph} of degree $d$ on $p$ vertices.
 
 \begin{example}
 $G = (K_2)^n$ is regular with $d = n.$
 \end{example}
 
-A \underline{simple random walk} on $G$ originating at a vertex $v$ is a random walk with equal probabilities for each adjacent vertices.
+A \emph{simple random walk} on $G$ originating at a vertex $v$ is a random walk with equal probabilities for each adjacent vertices.
 
 Assuming that $\Aut(G)$ acts transitively on vertices, we have the result
 \begin{multline*}
@@ -548,7 +548,7 @@ A domino tiles decompose part of grids into $1 \times 2$ rectangles.
 
 Think of it another way: the "dual graph" where squares are vertices, and there exists an edge between two vertices iff the corresponding squares shares an edge. A tiling is a perfect matching between these vertices. 
 
-Special case: $m \times n$ \underline{rectangular} boards
+Special case: $m \times n$ \emph{rectangular} boards
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}
@@ -566,7 +566,7 @@ $M = A(G)$ has the form $\begin{bmatrix}
 
 \fancyem{Claim} $T(m, n) =$ the permanent of matrix $B.$
 
-Permanents do not have nice properties, thus they are hard to calculate. In order to better calculate the permanent of $B$, let $\tilde{B}$ obtained from $B$ by replacing the $1$'s by corresponding to \underline{vertical} tiles by $i$'s where $i^2 = -1.$
+Permanents do not have nice properties, thus they are hard to calculate. In order to better calculate the permanent of $B$, let $\tilde{B}$ obtained from $B$ by replacing the $1$'s by corresponding to \emph{vertical} tiles by $i$'s where $i^2 = -1.$
 
 \begin{proposition}
 $T(m, n) = \per(B) = \pm \det(\tilde{B}).$
@@ -1072,19 +1072,19 @@ Suppose $P$ is a polygon, $G$ a polygonal subdivision of $P$. Define $H$ by addi
 \section{The Diamond Lemma}
 \epigraph{This should really be explained to six-graders... Then they will have of joy of discovering this result.}{-- \textup{Sergey Fomin on the diamond lemma}}
 \begin{definition}
-    A \underline{one-player game} is defined by:
+    A \emph{one-player game} is defined by:
     \begin{itemize}
         \item the set of positions $\mathcal{S}$
         \item for each $s \in \mathcal{S}$ a set of positions $s' \neq s$ into which the player can from from from $s$. Denote as $s \rightsquigarrow s'$.
     \end{itemize}
-    If the latter set is empty, then $S$ is called \underline{terminal}.
+    If the latter set is empty, then $S$ is called \emph{terminal}.
 
-    A \underline{play sequence} is a sequence
+    A \emph{play sequence} is a sequence
     \[s \rightsquigarrow s' \rightsquigarrow s'' \rightsquigarrow \ldots\]
 
-    A game is \underline{terminating} is $\nexists$ infinite play sequences.
+    A game is \emph{terminating} is $\nexists$ infinite play sequences.
 
-    A game is \underline{confluent} is its outcome is uniquely determined by initial position.
+    A game is \emph{confluent} is its outcome is uniquely determined by initial position.
 \end{definition}
 
 \begin{lemma}[The Diamond Lemma for terminating games]
@@ -1116,7 +1116,7 @@ Suppose $P$ is a polygon, $G$ a polygonal subdivision of $P$. Define $H$ by addi
    
     Move = Removal of a domino tile from the SE rim that also results in a Young diagram.
 \end{definition}
-\fancyem{Claim} This game is \underline{confluent}.
+\fancyem{Claim} This game is \emph{confluent}.
 
 Note: the remaining shape would always be a staircase. If we color the blocks black and white alternatively, we can determine the final shape by the difference between white and black boxes.
 
@@ -1195,7 +1195,7 @@ Given a skewed tableau, choose a top-left corner piece and move the blocks one a
     \label{fig:jeudetaquin}
 \end{figure}
 
-The game ends on a SYT, called a \underline{rectification} of $T$.
+The game ends on a SYT, called a \emph{rectification} of $T$.
 
 \fancyem{Problem} The rectification is unique. (Jeu de tauqin is confluent.)
 
@@ -1245,14 +1245,14 @@ For non-terminating games, the diamond lemma does not necessarily hold:
         \caption{Loop erasure}
         \label{algo:le}
         \begin{algorithmic}[1] 
-            \Procedure{LE}{$\pi$}
+            \Function{LE}{$\pi$}
                 \If{$\pi$ does not intersect itself} 
                 \State \textbf{return} $\pi$
                 \Else 
                     \State Remove the first cycle of $\pi$ to get $\pi'$
                     \State \textbf{return} $\LE(\pi')$
                 \EndIf
-            \EndProcedure
+            \EndFunction
         \end{algorithmic}
     \end{algorithm}
 
@@ -1270,13 +1270,13 @@ For non-terminating games, the diamond lemma does not necessarily hold:
 
 Recall: Markov chains.
 
-"Running a Markov chain with stacks": at each state, decide on transition choices \underline{in advance}.
+"Running a Markov chain with stacks": at each state, decide on transition choices \emph{in advance}.
 
 $v$ is a vertex, $u(v) = (u_1, u_2, u_3, \ldots)$ where $u_k$ denotes the vertex we move to after visiting $v$ for the $k$-th time. They are i.i.d RV's.
 
 Assume: the Markov chain arrives with probability $1$ at an absorbing state (where the stack is empty).
 
-Given a collection of partially depleted stacks, we get a graph (A subgraph of $G$, the underlying oriented graph of Markov chain) determined by the top of each stack.  The out degrees of each non-absorbing vertex in the graph is equal to $1$. The removing of cycles from this graph is called \underline{cycle-popping}.
+Given a collection of partially depleted stacks, we get a graph (A subgraph of $G$, the underlying oriented graph of Markov chain) determined by the top of each stack.  The out degrees of each non-absorbing vertex in the graph is equal to $1$. The removing of cycles from this graph is called \emph{cycle-popping}.
 
 \fancyem{Loop-erased \textbf{random} walk}
 
@@ -1306,7 +1306,7 @@ Output: random spanning tree $T$ in $G$.
     \caption{Wilson's algorithm}
     \label{algo:wilson}
     \begin{algorithmic}[1]
-        \Procedure{Wilson}{$G = (V(G), E(G))$}
+        \Function{Wilson}{$G = (V(G), E(G))$}
             \State $T = (V(T), E(T)) \defeq (\{r\}, \emptyset)$ for some $r \in V(G)$.
             \While{$V(T) \neq V(G)$} \Comment{Continue until $T$ covers all vertices}
                 \State Pick $v \in V(G) \setminus V(T)$
@@ -1315,7 +1315,7 @@ Output: random spanning tree $T$ in $G$.
                 \State $E(T) \gets E(T) \cup \{e, \LE(\pi) \text{ includes edge } e\}$
             \EndWhile
             \State \textbf{return} $T$
-        \EndProcedure
+        \EndFunction
     \end{algorithmic}
 \end{algorithm}
 
@@ -1445,14 +1445,14 @@ The art of computer programming, vol 4. (generate random combinatorial objects t
 \section{Flows}
 \epigraph{(Making analogies using distilling of Whiskey)...\\``I actually don't drink any alcohol at all."}{--- \textup{Sergey Fomin}}
 \begin{definition}
-    Suppose $G$ is connected loopless graph with $a, b$ designated as \underline{boundary} vertices and all other vertices called \underline{interior} vertices. 
+    Suppose $G$ is connected loopless graph with $a, b$ designated as \emph{boundary} vertices and all other vertices called \emph{interior} vertices. 
     
-    A \underline{flow} $f$ assigns a number $f(e, u, v)$ to each edge $e$ with endpoint $u, v$, so that \begin{itemize}
+    A \emph{flow} $f$ assigns a number $f(e, u, v)$ to each edge $e$ with endpoint $u, v$, so that \begin{itemize}
         \item $f(e, u, v) = -f(e, v, u)$.
         \item $\forall$ interior vertex $u$, $\displaystyle \sum_{v \in V(G), u\frac{e}{}v  \in E(G)} f(e, u, v) = 0$. ("Conservation of flow")
     \end{itemize}
 \end{definition}
-It follows that $\exists$ number $|f|$, called the \underline{total flow} from $a$ to $b$, such that \begin{equation}\label{eq:1stkirchhoff}
+It follows that $\exists$ number $|f|$, called the \emph{total flow} from $a$ to $b$, such that \begin{equation}\label{eq:1stkirchhoff}
 \sum_{v \in V(G), u\frac{e}{}v \in E(G)} f(e, u, v)\begin{cases}
     0 & u \text{ interior} \\
     |f| &  u = a \\
@@ -1588,7 +1588,7 @@ Consider the expectation \[
 
 % \epigraph{How could anybody, in 1847, by just looking at electric currents, come up with spanning tree stuff? The answer is actually not that hard.}{}
 
-\begin{theorem}[G. Kirchhoff, 1847]
+\begin{theorem}[G. Kirchhoff, 1847]\label{thm:spanningtree}
     Suppose $G$ contains an edge $a \frac{e_0}{} b$($a, b$ are boundary vertices). Run a unit current (i.e. flow) $f$ in $G$ from $a$ to $b$. Then \[f(e_0, a, b) = \matP\left(\text{ random spanning tree in $G$ contains $e_0$ }\right)\]
 \end{theorem} where $\matP(T)$ is proportional to $\prod_{e \in T} w(e)$.
 
@@ -1609,7 +1609,7 @@ Consider the expectation \[
 \begin{definition}
     Define effective conductance as
     \[
-    W(G, a, b) \defeq \frac{|f|}{p(b) - p(a)}    
+    w(G, a, b) \defeq \frac{|f|}{p(b) - p(a)}    
     \] where $f$ is a flow in $G$ of total value $|f|$ and $p = p_f$.
 \end{definition}
 
@@ -1617,7 +1617,7 @@ Consider the expectation \[
     The potential $p = p_f$ of a flow $f$ is uniquely determined, up to a constant, by:
     \begin{enumerate}
         \item $p$ is discrete harmonic in the interior of $G$;
-        \item $\displaystyle p(b) - p(a) = \frac{|f|}{W(G, a, b)}$.
+        \item $\displaystyle p(b) - p(a) = \frac{|f|}{w(G, a, b)}$.
     \end{enumerate}
 \end{corollary}
 \begin{proof}
@@ -1629,7 +1629,7 @@ Consider the expectation \[
 Probabilistic distribution of potentials
 % \epigraph{I am not assigning homework today. I know you guys are disappointed. But I simply didn't cover enough material for a homework.}{-- \textup{Sergey Fomin}}
 
-\fancyem{Problem} Let $f$ be a unit flow and $p = p_f$ its potential. Suppose $u$ is a vertex and $\pi_u$ random walk starting at $u$. Prove that \[p(u) - p(a) = \frac{\matP(\pi_u \text{ visits $b$ before $a$})}{W(G, a, b)}.\]
+\fancyem{Problem} Let $f$ be a unit flow and $p = p_f$ its potential. Suppose $u$ is a vertex and $\pi_u$ random walk starting at $u$. Prove that \[p(u) - p(a) = \frac{\matP(\pi_u \text{ visits $b$ before $a$})}{w(G, a, b)}.\]
 
 \begin{corollary}
     For any flow $f$ with potential $p$,
@@ -1642,8 +1642,173 @@ Probabilistic distribution of potentials
 
 $H'$ is the weight graph obtained from $H$ by replacing $G$ by a single edge $a \frac{e_0}{} b$ of weight $w(e_G) = W(G, a, b)$. Show that the solutions to Kirchhoff equations for $H$, $H'$ coincide outside $G$.
 
+\begin{theorem}[G. Kirchhoff, 1847]
+    Suppose $G$ is a resistor network with unit conductances. Then
+    \[
+        w(G, a, b) = \frac{\#\{\text{spanning trees in $G$}\}}{\#\{\text{spanning trees in $G$ with two components containing $a$ and $b$ respectively}\}}.
+    \]
+    Alternatively,
+    \[
+        w(G, a, b) = \frac{\#\{\text{spanning trees in $G$}\}}{\#\{\text{spanning trees in $G_{ab}$}\}},
+    \] where $G_{ab}$ is obtained from $G$ by gluing $a$ and $b$.
+\end{theorem}
 
+\begin{example}\fnl
+    \begin{enumerate}
+        \item $n$-chain graph (series circuit):
+        \[
+            \begin{tikzpicture}
+                \node[shape=circle, fill=black, scale = 0.3] (A1) at (0, 0) {};
+                \node[shape=circle, fill=black, scale = 0.3] (A2) at (1, 0) {};
+                \node[shape=circle, fill=black, scale = 0.3] (A3) at (2, 0) {};
+                \node[shape=circle, fill=black, scale = 0.3] (A4) at (3, 0) {};
+                \node[shape=circle, fill=black, scale = 0.3] (A5) at (4, 0) {};
+              
+                \draw (A1) -- (A2) -- (A3) -- (A4) -- (A5);
+                
+            \end{tikzpicture}
+        \]
+        $\#\{\text{spanning trees in $G$}\} = 1$, $\#\{\text{spanning trees in $G_{ab}$}\} = n$. So effective conductance $w(G, a, b) = \frac{1}{n}$.
+        \item Parallel circuit:
+        $\#\{\text{spanning trees in $G$}\} = n$, $\#\{\text{spanning trees in $G_{ab}$}\} = 1$. So effective conductance $w(G, a, b) = n$.
+    \end{enumerate}
+\end{example}
 
+\begin{proof}
+    Add an edge $e$ between $a, b$ with $w(e) = 1$ and get $H$.
+    Run a unit current in $H$ from $a$ to $b$. By Kirchhoff's 2nd law,
+    \[\frac{f(e, a, b)}{w(e, a, b)} = \frac{1 - f(e, a, b)}{w(G, a, b)} \implies f(e, a, b) = \frac{1}{1 + w(G, a, b)}.\]
+    By \ref{thm:spanningtree},
+    \[
+        f(e, a, b) = \frac{\#\{\text{spanning trees in $H$ containing $e$}\}}{\#\{\text{spanning trees in $H$}\}}.
+    \]
+    Hence \begin{align*}
+        w(G, a, b) & = \frac{\#\{\text{spanning trees in $H$ not containing $e$}\}}{\#\{\text{spanning trees in $H$ containing $e$}\}} \\
+        & = \frac{\#\{\text{spanning trees in $G$}\}}{\#\{\text{spanning trees in $G_{ab}$}\}}. \qedhere
+    \end{align*} 
+\end{proof}
+
+\fancyem{Problem} Consider the $n$-cube graph $G = (K_2)^n$. Suppose $a, b$ are antipodal vertices in $G$. Find $w(G, a, b)$.
+
+\fancyem{Problem} Suppose $G$ has $n$ vertices and $m$ edges. Assume that each edge belongs to the same number of spanning trees. Find the effective conductance between a pair of adjacent vertices.
+
+Application: find the effective conductance between adjacent vertices of a dodecahedron.
+
+Dessert!
+
+"Squaring a square" -- partitioning a rectangle into distinct squares. [L. Brooks, C. Smith, A. Stone, W. Tutte, 1938]
+
+Horizontal bars are made of an ideal conductor. Separate the square plates so that square plates are resistors.
+
+Want: potential of a vertex $=$ its height.
+
+\fancyem{Problem} Find another such tiling of 9 distinct squares of a rectangle.
+
+For squares, www.squaring.net
+
+\chapter{More Linear Algebra}
+
+\section{Laplace Expansion}
+
+Minors of Incidence Matrix
+\begin{corollary}
+    Let $G$ be an undirected graph and $M_0$ denote the incidence matrix of an orientation of $G$, with one row (corresponds to some vertex $v$) removed. Then the maximal minors of $M_0$ are given by $\det M_0[S] = \begin{cases}
+        \pm 1 & S \text{ forms a spanning tree} \\
+        0 & \text{otherwise}
+    \end{cases}$.
+\end{corollary}
+\begin{proof}
+    The first case is already done.
+
+    We need to show the second case. The subgraph formed by $S$ must be connected. One of the components doesn't contain $v$. The sum of the corresponding rows of $M_0[S]$ is equal to $0$.
+\end{proof}
+
+Discrete Laplacian
+\begin{definition}
+    Suppose $G$ is a loopless graph on vertices $1, \ldots, n$. The \emph{Laplacian} of $G$ is the matrix $L = L(G) = (L_{ij})_{ij=1}^n$ defined by
+    \[
+    L_{ij} \defeq \begin{cases}
+        \deg(i) & i = j \\
+        -k & i - j \text{ with $k$ edges}.
+    \end{cases}    
+    \]
+\end{definition}
+This is the matrix is a system of linear equations that satisfied by (discrete) harmonic functions on $G$.
+\begin{example}
+    $G = 4$-cycle, $L(G) = \begin{bmatrix}
+        2 & -1 & 0 & -1 \\
+        -1 & 2 & -1 & 0 \\
+        0 & -1 & 2 & -1 \\
+        -1 & 0 & -1 & 2
+    \end{bmatrix}.$
+\end{example}
+
+\fancyem{Remark}: The row (respectively, column) sums to $0$ in $L(G)$.
+\begin{corollary}
+    All cofactors of $L(G)$ are equal to each other.
+\end{corollary}
+
+\begin{lemma}
+    Suppose $M$ is an incidence matrix of an orientation of $G$, then $L(G) = MM^T$.
+\end{lemma}
+\begin{proof}
+    Direct inspection.
+\end{proof}
+Relation to PDE's. $\nabla\nabla^T = \Delta$.
+
+\section{The Matrix-Tree Theorem}
+\epigraph{Not sure this is the best terminology, but it is the established one, so I'll use this.}{-- \textup{ Sergey Fomin}}
+
+(implicit in G. Kirchhoff)
+\begin{theorem}
+    $\#$ of spanning trees in $G = $ (any) cofactor of $L(G)$.
+\end{theorem}
+\begin{example}
+    $G = 4$-cycle then 
+    \[
+        \det \begin{bmatrix}
+            2 & -1 & 0 \\
+            -1 & 2 & 0 \\
+            0 & -1 & 2
+        \end{bmatrix} = 8 - 2 - 2 = 4.   
+    \]
+\end{example}
+\begin{proof}
+    Let $L_0 = L(G)$ without last row and column. Then, by Binet-Cauchy,
+    \[\det(L_0) = \det (M_0M_0^T) = \sum_{|S| = n - 1} \left(\det M_0[S]\right)^2 = \# \text{ of spanning trees}.\qedhere\]
+\end{proof}
+
+Cofactors and Eigenvalues
+\begin{proposition}
+    $Z = n \times n$ matrix with zero row and column sums.
+    Let $\lambda_1, \ldots, \lambda_{n-1},\lambda_n = 0$ be eigenvalues of $Z$. Then any cofactor of $Z$ is equal to $\frac{1}{n}\lambda_1 \cdot \ldots \cdot \lambda_{n-1}$. 
+\end{proposition}
+\begin{proof}
+    $\det(Z - tI_n) = \det(Z) - t \cdot nZ_{11} + $ some higher order terms.
+    Also $=\prod(\lambda_i - t) = - \lambda_1 \lambda_2 \ldots \lambda_{n-1}t + $ some higher order terms.
+\end{proof}
+
+\begin{corollary}
+    $G$ is (connected) loopless graph on $n$ vertices. $\lambda_1, \ldots, \lambda_{n-1}, \lambda_n = 0$ are eigenvalues of $L(G)$.
+
+    Then the spanning trees in $G = \frac{1}{n}\lambda_1 \ldots \lambda_{n-1}$ 
+\end{corollary}
+
+Spanning trees in regular graphs.
+$G$ is a regular graph of degree $d$.
+\fancyem{Observation:} $L(G) = dI - A(G) \implies \lambda_i = d - \mu_i$.
+
+\begin{example}
+    $G = (K_2)^d$.
+    $n = 2^d$ and eigenvalues of $A(G): d - 2k$ with multiplicities $\binom{d}{k}, 0 \leq k \leq d \implies$ eigenvalues of $L(G): 2k$ with multiplicities $\binom{d}{k}, 0 \leq k \leq d$.
+\end{example}
+\begin{corollary}
+    $\#$ of spanning trees in $(K_2)^d$ is equal to 
+    \[
+        \frac{1}{2^d} \prod_{k=1}^d (2k)^{\binom{d}{k}} = 2^{2^d - 1 - d}1^{\binom{d}{1}}2^{\binom{d}{2}}\ldots d^{\binom{d}{d}}     
+    \]
+\end{corollary}
+For $k = 3$, this gives $384$.
 
 
 \end{document}
