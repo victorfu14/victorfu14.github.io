@@ -1,0 +1,220 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb,nccmath}
+\usepackage{mathtools}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\setlength{\topmargin}{0.5in}
+\usepackage[margin=4cm]{geometry}
+\usepackage{enumerate}
+
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\setlength{\parskip}{0.5em}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+
+% useful characters/operators
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\matP}{\mathbb{P}}
+\newcommand{\matS}{\mathbb{S}}
+\newcommand{\matH}{\mathbb{H}}
+\newcommand{\matT}{\mathbb{T}}
+\newcommand{\st}{\ s.t.\ }
+\newcommand{\ie}{\ i.e.\ }
+\newcommand{\eg}{\ e.g.\ }
+\def \diam {\operatorname{diam}}
+\def \Hom {\operatorname{Hom}}
+\def \id {\operatorname{id}}
+\def \tr {\operatorname{tr}}
+\def \dist {\operatorname{dist}}
+\def \intr {\operatorname{int}}
+\def \sgn {\operatorname{sgn}}
+\def \im {\operatorname{Im}}
+\def \re {\operatorname{Re}}
+\def \curl {\operatorname{curl}}
+\def \divg {\operatorname{div}}
+\def \GL {\operatorname{GL}}
+\def \End {\operatorname{End}}
+\def \Aut {\operatorname{Aut}}
+\def \Fr {\operatorname{Frac}}
+\def \cont {\operatorname{cont}}
+\newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
+\newcommand{\df}{\text{d}}
+\newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
+
+% arrows and :=, =:
+\makeatletter
+\providecommand*{\twoheadrightarrowfill@}{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow
+}
+\providecommand*{\twoheadleftarrowfill@}{%
+  \arrowfill@\twoheadleftarrow\relbar\relbar
+}
+\providecommand*{\xtwoheadrightarrow}[2][]{%
+  \ext@arrow 0579\twoheadrightarrowfill@{#1}{#2}%
+}
+\providecommand*{\xtwoheadleftarrow}[2][]{%
+  \ext@arrow 5097\twoheadleftarrowfill@{#1}{#2}%
+}
+\makeatother
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\mathrel{\mathop:}}
+
+% integral for measure theory
+\newcommand{\lowerint}{\underline{\int_{\R^d}}}
+\newcommand{\upperint}{\overline{\int_{\R^d}}}
+\newcommand{\lint}[1]{\underline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\uint}[1]{\overline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\sint}[1]{\simp{\int_{\R^d} #1 (x)dx}}
+\newcommand{\lesint}[1]{\int_{\R^d} #1 (x)dx}
+
+% note taking
+\newcommand{\fancyem}[1]{\underline{\textsc{#1}}}
+
+% theorem style
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{conjecture}{Conjecture}
+\newtheorem*{proposition}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{example}{Example}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% for clearer reference
+\usepackage{hyperref}
+\newcommand{\corollaryautorefname}{Corollary}
+\newcommand{\lemmaautorefname}{Lemma}
+\newcommand{\definitionautorefname}{Definition}
+\newcommand{\exampleautorefname}{Example}
+\newcommand{\conjectureautorefname}{Conjecture}
+\renewcommand{\subsectionautorefname}{Section}
+
+% other styling
+\usepackage{fancyvrb, fancyhdr}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+
+\pagestyle{fancy}
+\fancyhead[LO,L]{Feb 24, 2022}
+\fancyhead[RO,R]{Yiwei Fu}
+\fancyhead[C]{MATH 494}
+\fancyfoot[CO,C]{\thepage}
+
+\usepackage{tikz-cd}
+
+\usepackage{epigraph}
+
+% \epigraphsize{\small}% Default
+\setlength\epigraphwidth{8cm}
+\setlength\epigraphrule{0pt}
+
+\usepackage{etoolbox}
+
+\makeatletter
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+\makeatother
+
+
+\begin{document}
+% \renewcommand{\ref}[1]{\autoref{#1}}
+% \title{Math 494}
+% \author{Yiwei Fu}
+% \date{Feb 03, 2022}
+% \maketitle
+
+\section*{Constructions with straightedge and compass}
+Start with two points:
+
+Build from those: 
+\begin{itemize}
+  \item points, lines, circles
+  \item Given 2 points, can construct the line through them and the circle centered at one point and passing through the other
+  \item Given 2 lines (or 2 circles, or 1 line 1 circle) can construct their intersection.
+\end{itemize}
+
+Say a number $\ell \in \R$ is \emph{constructible} if, with straightedge and compass, we can construct a point $C$ on the line through $A$ to $B$ such that the (signed) distance from $A$ to $C$ is $\ell$ times the (signed) distance from $A$ to $B$.
+
+\begin{theorem}
+  A number $\ell \in \R$ is constructible if and only if $\ell \in K_n$ where $\Q = K_0 \subset K_1 \subset K_2 \subset \ldots \subset K_n$ and $K_i = K_{i-1}(\sqrt{\alpha_i})$ with $\alpha_i \in K_{i-1} \cap \R_{> 0}$.
+\end{theorem}
+
+\begin{corollary}
+  If $\ell \in \R$ is constructible then $[\Q(\ell): \Q] = 2^m$, $m \in \Z_{\geq 0}$.
+\end{corollary}
+\begin{remark}
+  The converse is not true.
+\end{remark}
+
+Three classic problems:
+\begin{itemize}
+  \item Squaring a circle
+  \item Trisect an angle
+  \item Duplicate a cube
+\end{itemize}
+
+Under straightedge and compass construction,
+\begin{enumerate}
+  \item It is impossible to duplicate a cube that has twice the volume as the original cube, since $[\Q(\sqrt[3]{2}):\Q] = 3$.
+  \item It is impossible to squaring a circle, i.e. construct a square whose area is that of a given circle, i.e. $\sqrt{\pi}$ is not constructible, since $[\Q(\sqrt{\pi}):\Q] = \infty$.
+  \item It is impossible to trisect an arbitrary angle. ($\cos 60\degree = \frac{1}{2}$ is constructible but $\cos 20\degree$ is not)
+  \begin{align*}
+    & \cos 3\theta = 4\cos^3\theta - 3\cos\theta \\
+    \implies & \frac{1}{2} = 4(\cos 20\degree)^3 - 3 \cos 20\degree \\
+    \implies & \cos 20\degree \text{ is a root of } 4x^3 - 3x - \frac{1}{2}.
+  \end{align*}
+  Let $x = \frac{y}{2}$, then $8x^3 - 6x - 1 = y^3 - 3y - 1$ is irreducible in $\Z/2\Z[y]$. So $8x^3 - 6x - 1$ is irreducible in $\Z[x] \implies $ irreducible in $\Q[y] \implies 4x^3 - 3x - \frac{1}{2}$ is irreducible in $\Q[x] \implies [\Q(\cos 20\degree): \Q] = 3$.
+\end{enumerate}
+
+So we can construct a $17$-gon since
+\[
+  \cos \frac{2\pi}{17} = \frac{1}{16} + \frac{\sqrt{17}}{16} + \frac{\sqrt{34 - 2\sqrt{17}}}{16} + \frac{1}{8}\sqrt{17 + 3\sqrt{17} - \sqrt{34 - 2\sqrt{17}} - 2\sqrt{34 + 2\sqrt{17}}}.
+\]
+
+\[
+\Q \to \Q(\sqrt{17}) \to \Q\left(\sqrt{34 + 2\sqrt{17}}\right) \left(\ni \sqrt{34 - 2\sqrt{17}} = \frac{8\sqrt{17}}{\sqrt{34 + 2\sqrt{17}}}\right) \to \Q\left(\cos \frac{2\pi}{17}.\right)
+\]
+
+\fancyem{Claim} Can construct a regular $n$-gon if and only if can construct $\cos \frac{2\pi}{n}$.
+
+\begin{corollary}
+  If $p$ is prime and a regular $p$-gon is constructible then $p = 2^k + 1$. ($\implies k = 2^\ell$)
+\end{corollary}
+
+$\alpha = e^{2\pi i/p} = \cos \frac{2\pi}{p} + i\sin\frac{2\pi}{p}$.
+
+$\frac{\alpha + \frac{1}{\alpha}}{2} = \cos \frac{2\pi}{p}, \alpha^2 - (2\cos \frac{2\pi}{p})\alpha + 1 = 0 \implies \left[\Q\left(\cos \frac{2\pi}{p}, \alpha\right): \Q\left(\cos\frac{2\pi}{p}\right)\right] \leq 2$.
+
+Since $\alpha \notin \R \ni \cos \frac{2\pi}{p}$, this is equal. But $\operatorname{minpol}_\Q(\alpha) = x^{p-1} + x^{p-2} + \ldots + 1 \implies [\Q(\alpha): \Q] = p-1$.
+
+Then $\Q(\alpha) \xrightarrow[]{2} \Q\left(\cos \frac{2\pi}{p}\right) \xrightarrow[]{\frac{p-1}{2}} \Q \implies []$ so if $p$-gon is constructible then $p - 1 = 2^k$.
+
+A line through 2 points with coordinates in a field $K$ has an equation over $K$. The intersection of two lines with equations over $K$ is either $\emptyset$ or a point with coordinates in $K$. The intersection of a line over $K$ with a circle in $K$ is either $\emptyset$, a point with coordinate in $K$, two point with coordinates in $K$, or two points with coordinates in $K(\sqrt{\alpha})$ for some $\alpha \in K, \alpha > 0$.
+
+Intersecting two circles:
+$x^2 + y^2 = r_1$, $(x-a)^2 + (y-b)^2 = r_2 \implies -2ax + a^2 - 2by + b^2 = r_2 - r_1$.
+If $(a, b) \neq (0, 0)$ then it defines a line over $K$. 
+So: intersection of two circles over $K$ is either $\emptyset$, a point over $K$, two points in $K$, or two points over $K(\sqrt{\alpha})$.
+
+Some geometry:
+\begin{enumerate}
+  \item Given 2 points, we can construct perpendicular bisector of the segment between them.
+  \item Given a line $\ell$ and a point $p$, can construct a line through $p$ which is perpendicular to $\ell$.
+  \item Given a line $\ell$ and a point $p$, we construct a line through $p$ that is parallel to $\ell$.
+  \item Given points $p, q, r$ and a line $\ell$ containing $r$, can construct a point $s$ on $\ell$ such that the segments $rs$ and $pq$ gave the same length.
+  \item Can construct an angle iff can construct $\cos\theta$.
+  \item If $a, b$ are constructible then so are $a + b, -a, ab$ (through similar triangles), $\frac{1}{a}$. (So constructible numbers is a field.) Also $\sqrt{a}$.
+\end{enumerate}
+
+
+
+\end{document}

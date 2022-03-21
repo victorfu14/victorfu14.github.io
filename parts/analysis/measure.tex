@@ -913,7 +913,7 @@ $\mu$ is Lebesgue-Stieltjes measure on $\R \implies$
 \begin{definition}
 	Suppose $X$ a topological space.
 
-	A \emph{$G_\sigma$-set} is $\displaystyle G = \bigcup_1^\infty O_i$, $O_i$ open. 
+	A \emph{$G_\sigma$-set} is $\displaystyle G = \bigcap_1^\infty O_i$, $O_i$ open. 
 	An \emph{$F_\sigma$-set} is $\displaystyle F = \bigcup_1^\infty F_i$, $F_i$ closed.
 \end{definition}
 \begin{theorem}
@@ -1421,7 +1421,7 @@ Fubini:
 \end{proof}
 
 \section{\ttlmath{L^1}{L-1} space}
-\begin{definition}
+\begin{definition}\label{def:seminorm}
 	Suppose $V$ is a vector space over field $\R$ or $\C$. A \emph{seminorm}
 on $V$ is $\|\cdot\|: V \to [0, \infty) \st$
 \begin{itemize}
@@ -1850,7 +1850,7 @@ The importance of this definition shows up in the following theorem:
 
 Now comes the main thing:
 \section{Fubini-Tonelli Theorem}
-\begin{theorem}[Tonelli for characteristic functions] Suppose $(X, \cA, \mu)$, $(Y \cB, \nu)$ are \emph{$\sigma$-finite} measure spaces. Suppose $E \in \mathcal{A} \otimes \cB$. Then \begin{enumerate}
+\begin{theorem}[Tonelli for characteristic functions] Suppose $(X, \cA, \mu)$, $(Y, \cB, \nu)$ are \emph{$\sigma$-finite} measure spaces. Suppose $E \in \mathcal{A} \otimes \cB$. Then \begin{enumerate}
 	\item $\alpha(x) \defeq \nu(E_x): X \to [0, \infty]$ is a $\cA$-measurable function.
 	\item $\beta(y) \defeq \mu(E^y): Y \to [0, \infty]$ is a $\cB$-measurable function.
 	\item $\displaystyle (\mu \times \nu)(E) = \int_X \nu(E_x)\df \mu(x) = \int_Y \mu\left(E^y\right) \df \nu(y)$.
@@ -1988,6 +1988,457 @@ Suppose an open ball in $\R^d, B = B(a, r)$. Denote $cB = B(a, cr), c > 0$.
 \begin{proof}
 	Greedy algorithm.
 \end{proof}
+
+\fancyem{Notation}: $\displaystyle \int_E f \df m = \int_E f(x)\df x$.
+
+\begin{definition}
+	$f: \R^d \to \C$ is Lebesgue measurable. $f$ is \emph{locally integrable} if 
+	\[
+		\int_K |f| \df m < \infty, \forall \text{ compact }	 K \subset \R^d.
+	\]
+	We write $f \in L^1_{\text{loc}}(\R^d)$.
+\end{definition}
+\begin{example}
+	$f(x) = x^2 \in L^1_{\text{loc}}(\R^d)$. (in fact all continuous functions $\in L^1_{\text{loc}}(\R^d)$).
+\end{example}
+\begin{definition}
+	For $f \in L^1_{\text{loc}}(\R^d)$, define Hardy-Littlewood maximal function for $f$
+	\[ Hf(x) = \sup \{A_r(x) \mid r > 0\}, \quad A_r(x) = \frac{1}{m(B(x, r))} \int_{B(x, r)}|f(y)| \df y.\]
+\end{definition}
+\begin{lemma}
+	Let $f \in L^1_{\textup{loc}}(\R^d)$. Then, \begin{enumerate}
+		\item $A_r(x)$ is jointly continuous for $(x, r) \in \R^d \times (0, \infty)$.
+		\item $Hf(x)$ is Borel measurable.
+	\end{enumerate}
+\end{lemma}
+\begin{proof} \fnl
+	\begin{enumerate}
+		\item $(x, r) \to (x^*, r^*) \implies A_r(x) \to A_{r^*}(x^*)$.
+
+		Let $(x_n, r_n)$ be any sequence $\to (x^*, r^*)$.
+		\[ A_{r_n}(x_n) \leq \int |f(y)| 1_{B(x_n, r_n)}(y).\]
+
+		Apply DCT.
+
+		\item $\displaystyle (Hf)^{-1}((a, \infty)) = \bigcup_{r > 0}A_r^{-1}((a, \infty))$ is open.
+	\end{enumerate}
+\end{proof}
+
+\fancyem{Recall} Markov inequality
+\[
+	m\left(\left\lbrace x \mid |f(x)| \geq c \right\rbrace\right) \leq \frac{1}{c}\int |f(x)| \df x
+\]
+\begin{theorem}[Hardy-Littlewood maximal inequality] $\exists C_d > 0 \st \forall f \in L^1_{\textup{loc}}(\R^d), \forall \alpha > 0$,
+	\[
+		m\left(\left\lbrace x \mid Hf(x) > \alpha \right\rbrace\right) \leq \frac{C_d}{\alpha}\int |f(x)| \df x.
+	\]
+\end{theorem}
+\begin{proof}
+	Fix $f \in L^1$ and $\alpha > 0$. Let $E \{x \mid (Hf)(x) > \alpha\}$. $E$ is a Borel measurable set. Then
+	\[\displaystyle x \in E \implies \exists r_x > 0, \st A_{r_x}(x) > \alpha \implies m(B(x, r_x)) < \frac{1}{\alpha} \int_{B(x, r_x)}|f(y)| \df y.\]
+	By inner regularity, we have $m(E) = \sup \{m(K) \mid \text{ compact } K \subset E\}$. Let $K \subset E$ be compact. Then 
+	\begin{align*}
+		& K \subset \bigcup_{x \in K} B(x, r_x) \\
+		\implies & K \subset \bigcup{i=1}^N B_i \\
+		\implies & K \subset \bigcup_{j=1}^m (3B_j'), B_1', \ldots, B_m' \text{ disjoint} \\
+		\implies & m(K) \leq \sum_{j=1}^n m(3B'_j) = 3^d\sum_{j=1}^n m(B'_j) \\
+		\implies & m(K) \leq \frac{3^d}{\alpha} \sum_{j=1}^N \int_{B'_j} |f(y)| \df y \\
+		\implies & m(K) \leq \frac{3^d}{\alpha} \int_{\R^d} |f(y)| \df y. \qedhere
+	\end{align*}
+\end{proof}
+
+\section{Lebesgue Differentiation Theorem}
+\begin{theorem}
+	Let $f \in L^1(\R^d)$. Then \[\displaystyle \lim_{r \to 0} \frac{1}{m(B(x, r))} \int_{B(x, r)} |f(y) - f(x)| \df y = 0 \text{ for a.e } x.\]
+\end{theorem}
+\begin{proof}
+	\begin{enumerate}
+		\item The result is holds for $f \in C_c(\R^d)$ (check!)
+		\item Let $f \in L^1(\R^d)$. Fix $\varepsilon > 0$. $\exists g \in C_c(\R^d) \st \norm{f - g}_1 < \varepsilon$. Then \begin{multline*}
+			\int_{B(x, r)} |f(y) - f(x)| \df y \\
+			\leq \int_{B(x, r)}|f(y) - g(y)| \df y + \int_{B(x, r)}|g(y) - g(x)| \df y + \int_{B(x, r)}|g(x) - f(x)| \df y.
+		\end{multline*}
+		Let $Q(x) = \limsup_{r \to 0}\frac{1}{m(B(x,r))}\int_{B(x, r)}|f(y) - f(x)| \df y$. WTS that $m\left(\{x \mid Q(x) > 0\}\right) = m \left(\bigcup_{n=1}^\infty\left\lbrace x \mid Q(x) > \frac{1}{n}\right\rbrace\right) = 0.$
+
+		Enough to show that $m(E_\alpha) = 0, \forall \alpha > 0, E_\alpha = \{x \mid Q(x) > \alpha\}$.
+
+		But $Q(x) \leq (H(f - g))(x) + 0 + |g(x) - f(x)|$, 
+		
+		$\{x \mid Q(x) > \alpha \subset \left\lbrace x \mid H(f - g)(x) > \frac{\alpha}{2}\right\rbrace \bigcup \left\lbrace x \mid |g(x) - f(x)| > \frac{\alpha}{2}\right\rbrace$.
+
+		$m\left(\left\lbrace x \mid Q(x) > \alpha \right\rbrace\right) \leq \frac{2C_d}{\alpha} \norm{f - g}_1 + \frac{2}{\alpha}\norm{f - g}_1 \leq \frac{2(C_d + 1)}{\alpha}\varepsilon$. \qedhere
+	\end{enumerate}
+\end{proof}
+
+\begin{corollary}
+	This also holds for $f \in L^1_{\textup{loc}}(\R^d)$.
+\end{corollary}
+\begin{proof}
+	DIY.
+\end{proof}
+\begin{corollary}
+	For $f \in L^1_{\textup{loc}}(\R^d)$, 
+	\[
+		\lim_{r \to 0} \frac{1}{m(B(x, r))} \int_{B(x, r)} f(y) \df y = 0 \text{ for a.e }x.
+	\]
+\end{corollary}
+\begin{proof}
+	DIY.
+\end{proof}
+
+\begin{definition}
+	Let $f \in L^1_{\textup{loc}}(\R^d)$. The point $x \in \R^d$ is called a \emph{Lebesgue point} of $f$ if 
+	\[
+		\lim_{r \to 0} \frac{1}{m(B(x, r))} \int_{B(x, r)} |f(y) - f(x)| = 0.	
+	\]
+\end{definition}
+$f \in L^1_{\textup{loc}}(\R^d) \implies$ a.e point is a Lebesgue point of $f$.
+
+\begin{definition}
+	$\{E_r\}_{r > 0}$ \emph{shrinks nicely} to $x$ as $r \to 0$ means $E_r \subset B(x, r)$ and $\exists c > 0 \st cm(B(x, n)) \leq m(E_r)$.
+\end{definition}
+
+\begin{corollary}[Lebesgue differentiation theorem]
+	\[\left.
+		\begin{array}{r}
+		E_r \text{ shrinks nicely to } 0 \\
+		f \in L^1_{\textup{loc}}(\R^d) \\
+		x \text{ a Lebesgue point of } f
+	\end{array}\right\rbrace \implies \lim_{r \to 0} \frac{1}{m(E_r)}\int_{E_r + x} |f(y) - f(x)| \df y = 0.\]
+\end{corollary}
+\begin{proof}
+	DIY.
+\end{proof}
+
+\begin{corollary}
+	$f \in L^1_{\textup{loc}}(\R^d) \implies F(x) = \int_0^x f(y) \df y$ is differentiable and $F'(x) = f(x)$ a.e.
+\end{corollary}
+
+Rest of \cite[Ch.3]{follandRealAnalysisModern1999} will be covered later.
+
+\chapter{Normed Vector Spaces}
+Topological spaces $\supset$ metric spaces $\supset$ normed spaces $\supset$ inner product spaces.
+
+Let's start with metric spaces. \cite[5.1, 6.1, 6.2]{follandRealAnalysisModern1999}
+
+\section{Metric Spaces and Normed Spaces}
+\begin{definition}
+	Suppose $Y$ is a set. A \emph{metric} of $Y$ is $\rho: Y \times Y \to [0, \infty) \st$
+	\begin{enumerate}
+		\item $\rho(x, y) = \rho(y, x)$
+		\item $\rho(x, y) \leq \rho(x, z) + \rho(z, y)$
+		\item $\rho(x, y) = 0 \iff x = y$.
+	\end{enumerate}
+\end{definition}
+
+\begin{example}\fnl
+	\begin{enumerate}
+		\item $\Q, \rho(x, y) = |x - y|$. 
+		\item $\R, \rho(x, y) = |x - y|$.
+		\item $\displaystyle \R_+, \rho(x, y) = \left| \ln \left(\frac{y}{x}\right) \right|$.
+		\item $\displaystyle \R^d, \rho_1(x, y) = \sum_{i=1}^d |x_i - y_i|, \rho_2(x, y) = \left(\sum_{i=1}^d |x_i - y_i|^2\right)^{1/2}, \rho_\infty(x, y) = \max_{1 \leq i \leq d} |x_i - y_i|$.
+		\item 
+	\end{enumerate}
+\end{example}
+
+\begin{definition}[Recall \ref{def:seminorm}]
+	Suppose $V$ is a vector space over field $\R$ or $\C$. A \emph{seminorm}
+	on $V$ is $\|\cdot\|: V \to [0, \infty) \st$
+	\begin{itemize}
+	\item $\|cv\| = |c|\|v\|, \forall v \in V, \forall c$ scalar
+	\item $\|v + w\| \leq \|v\| + \|w\|$, triangle inequality
+	\end{itemize}
+	A \emph{norm} is a seminorm such that $\|v\| \iff v = 0$.
+\end{definition}
+
+Norm gives rise to a metric where $\rho(v, w) = \norm{v - w}$.
+
+$v_n \to v \iff \lim_{n \to \infty}\norm{v_n - v} = 0$.
+
+\begin{example}
+	\begin{enumerate}
+		\item $L^1(X, \cA, \mu)$
+		\item $C([0, 1]), \norm{f}_1 = \int_0^1 |f(x)|\df x, \norm{f}_\infty \max_{0 \leq x \leq 1} |f(x)|$.
+		\item $\R^d, \norm{x}_2 = \sqrt{\sum_{1}^d |x_i|^2}, \norm{x}_1 = \sum_{1}^d|x_i, \norm{x}_\infty \max_{1 \leq i \leq d} |x_i|$.
+	\end{enumerate}
+\end{example}
+
+\section{\ttlmath{L^p}{L\^p} Spaces}
+\begin{definition}
+	Suppose $(X, \cA, \mu)$ a measure space. $f$ is measurable function. For $0 < p < \infty$, define $\norm{f}_p = \left(\int_{X} |f|^p \df \mu\right)^{1/p}$.
+
+	Define $L^p(X, \cA, \mu) = \left\lbrace f \mid \norm{f}_p < \infty\right\rbrace$.
+\end{definition}
+\begin{example}
+	
+\end{example}
+
+\begin{definition}
+	$\ell^p = \ell^p(N) = \{a = (a_1, a_2, \ldots) \mid \norm{a}_p = \left(\sum_{1}^\infty |a_i|^p\right)^{1 / p} < \infty\}$.
+\end{definition}
+
+\begin{lemma}
+	$L^p$ is a vector space, $\forall p \in (0, \infty)$.
+\end{lemma}
+\begin{proof}
+	\[
+		\left(\int |cf|^p\right)^{1/p} = |c|\norm{f}_p
+	\]
+	\[
+		(\alpha + \beta)^p \leq (2 \max(|\alpha|, |\beta|))^p = 2^p \max\left(|\alpha|^p, |\beta|^p\right) \leq 2^p(|\alpha|^p + |\beta|^p)	
+	\]
+\end{proof}
+
+\begin{theorem}[Hölder's Inequality]
+	Let $p < \infty, q = \frac{p}{p - 1}$ so $\frac{1}{p} + \frac{1}{q} = 1$. Then 
+	\[
+		\norm{fg}_1 \leq \norm{f}_p\norm{g}_q	
+	\]
+\end{theorem}
+\begin{proof}
+	\[
+		t \leq \frac{t^p}{p} + 1 - \frac{1}{p}, \forall t \geq 0	
+	\]
+	(Take $F(t) = t - \frac{t^p}{p}$)
+	\begin{equation}
+		\alpha\beta \leq \frac{\alpha^p}{p} + \frac{\beta^q}{q}, \forall \alpha, \beta \geq 0 \text{ (Young's inequality)}
+	\end{equation}
+		
+	WLOG assume $0 \leq \norm{f}_p, \norm{g}_q < \infty$. Let $F(x) = \frac{f(x)}{\norm{f}_p}, G(x) = \frac{g(x)}{\norm{g}_q}$.
+
+	$\implies \norm{F}_p = 1 = \norm{G}_q$.
+
+	By (5.1), 
+	\[
+		\int |F(x)G(x)| \leq \int \frac{|F(x)|^p}{p} + \int \frac{|G(x)|^q}{q}	
+	\] 
+	\[
+		\frac{\int |f(x)g(x)|}{\norm{f}_p\norm{g}_q} \leq \frac{1}{p} + \frac{1}{q} = 1.	
+	\]
+\end{proof}
+
+\begin{theorem}[Minkowski's inequality]
+	Let $1 \leq p < \infty$. For $f, g \in L^p, \norm{f + g}_p \leq \norm{f}_p + \norm{g}_p$.
+\end{theorem}
+\begin{proof}
+	$p = 1$ is easy.
+
+	Assume $1 < p < \infty$. WLOG assume $\norm{f + g}_p \neq 0$.
+	We have
+	\begin{align*}
+		\int |f(x) + g(x)|^p & \leq \int |f(x) + g(x)|^{p - 1}(|f(x)| + |g(x)|) \\
+		& \leq \left(\int (|f + g|^{p-1})^q\right)^{1 / q}\left(\int |f|^p\right)^{1 / p} + \left(\int (|f + g|^{p-1})^q\right)^{1 / q}\left(\int |g|^p\right)^{1 / p} \\
+		& \leq \left(\int (|f + g|^{p-1})^q\right)^{1 / q} \left[\left(\int |f|^p\right)^{1 / p}  + \left(\int |g|^p\right)^{1 / p} \right] \\
+		& \leq \left(\int (|f + g|^{p-1})^q\right)^{1 / q} \left[\norm{f}_p  + \norm{g}_p\right]
+	\end{align*}
+	Since $q(p-1) = p$, divide by $\left(\int (|f + g|^{p-1})^q\right)^{1 / q}$ on both sides we have
+	\[
+	\left(\int |f(x) + g(x)|^p\right)^{1 - 1/q} \leq \norm{f}_p + \norm{g}_p. \qedhere
+	\]	
+\end{proof}
+
+Hölder: $\norm{fg}_1 \leq \norm{f}_p\norm{g}_q, \frac{1}{p} + \frac{1}{q} = 1$.
+
+Minkowski: $\norm{f + g}_p \leq \norm{f}_p + \norm{g}_p, 1 \leq p < \infty$.
+\begin{definition}
+	For a measurable function $f$ on $(X, \cA, \mu)$, let \[S = \{\alpha \geq 0 \mid \mu(\{x \mid |f(x)| > \alpha \}) = 0\} = \{\alpha \geq 0 \mid f(x) \leq \alpha \text{ a.e}\}.\]
+	Define $\norm{f}_\infty = \begin{cases}
+		\inf S & S \neq \emptyset \\
+		\infty & S = \emptyset.
+	\end{cases}$. Let $L^\infty(X, \cA, \mu) = \{f \mid \norm{f}_\infty < \infty\}$.
+\end{definition}
+\begin{example}\fnl
+	\begin{itemize}
+		\item $(\R, \cL, m)$, $f(x) = \frac{1}{x} 1_{(0, \infty)}(x) \neq L^\infty$, $f(x) = x1_{\Q}(x) + \frac{1}{1 + x^2} \in L^\infty$.
+		\item If $f$ is \emph{continuous} on $(\R, \cL, m)$, $\norm{f}_\infty = \sup_{x \in \R} |f(x)|$. For $a \in \ell^\infty$, $\norm{a}_\infty = \sup_{i \in \N} |a_i|$. ($\ell^\infty = \{a = (a_1, a_2, \ldots) \mid \norm{a}_\infty < \infty\} = \{a \mid  \exists M \geq 0 \st |a_i| \leq M_i, \forall i\}$)
+	\end{itemize}
+\end{example}
+
+\begin{lemma}
+	\begin{enumerate}
+		\item For $\alpha \geq \norm{f}_\infty, \mu(\{x \mid |f(x)| > \alpha\}) = 0$. For $\alpha < \norm{f}_\infty, \mu(\{x \mid |f(x)| > \alpha\}) > 0$.
+		\item $|f(x)| \leq \norm{f}_\infty$ a.e.
+		\item $f \in L^\infty \iff \exists$ \emph{bounded} measurable function $g$ such that $f = g$ a.e.
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	DIY.
+\end{proof}
+
+\begin{theorem}\fnl
+	\begin{enumerate}
+		\item $\norm{fg}_1 \leq \norm{f}_1\norm{g}_\infty$.
+		\item $\norm{f + g}_\infty \leq \norm{f}_\infty + \norm{g}_\infty$.
+		\item $f_n \to f$ in $L^\infty \iff f_n \to f$ uniformly a.e.
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	DIY
+	For (c): $\implies$ Let $A_n = \{x \mid |f_n(x) - f(x)| > \norm{f_n - f}_\infty\}$. Then $\mu(A_n) = 0$.
+
+	Let $A = \bigcup_1^\infty A_n, \mu(A_n) = 0$. $\forall x \in A^c = \bigcap_1^\infty A_n^c, \forall n, |f_n(x) - f(x)| \leq \norm{f_n - f}_\infty$. The latter converges to $0$ by assumption.
+
+	Given $\varepsilon > 0, \exists N \st \norm{f_n - f}_\infty < \varepsilon, \forall n \geq N$. So $\forall x \in A^c, \forall n \geq N, |f_n(x) - f(x)| \leq \norm{f_n - f}_\infty < \varepsilon$.
+\end{proof}
+
+\begin{proposition}\fnl
+	\begin{enumerate}
+		\item For $1 \leq p < \infty$, the collection of simple functions with finite measure support is dense in $L^p(X, \cA, \mu)$.
+		\item For $1 \leq p < \infty$, the collection of step functions (by definition they have finite measure support) is dense in $L^p(\R, \cL, m)$. So is $C_c(\R)$.
+		\item For $p = \infty$, the collection of simple functions is dense in $L^\infty(X, \cA, \mu)$.
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	DIY
+\end{proof}
+\fancyem{Note}: $C_c(\R)$ is \emph{not dense} in $L^\infty(\R, \cL, m)$.
+
+\section{Embedding Properties of \ttlmath{L^p}{L\^p} spaces}
+\begin{definition}
+	Two norms $\norm{\cdot}, \norm{\cdot}'$ on the same spaces $V$ are said to be \emph{equivalent} if $\exists c_1, c_2 > 0 \st c_1\norm{v} \leq \norm{v}' \leq c_2 \norm{v}, \forall v \in V$.
+\end{definition}
+So we have same open sets, same convergence.
+\begin{example} \fnl
+	\begin{itemize}
+		\item For $\R^d$, $\norm{\cdot}_p$, $1 \leq p \leq \infty$ are equivalent.
+		\item For $1 \leq p, q \leq \infty p \neq q$, $L^p(\R, m)$-norm and $L^q(\R, m)$-norm are \emph{not equivalent}. $L^p(\R, m) \not\subset L^q(\R, m), L^p(\R, m) \not\supset L^q(\R, m)$.
+	\end{itemize}
+\end{example}
+
+\begin{proposition}
+	$\forall 0 < p < q < r \leq \infty$, $L^p \cap L^r \subset L^q$.
+\end{proposition}
+
+\section{Banach Spaces}
+
+\begin{theorem}
+	Suppose $(V, \norm{\cdot})$ a normed space. Then it is complete $\iff$ Every absolutely convergent series is convergent (i.e. if $\sum_{1}^\infty \norm{v_n} < \infty$ then $\exists s \in V \st \sum_{1}^N v_n \to s$ as $N \to \infty$)
+\end{theorem}
+\begin{proof}
+	$\implies$: DIY. (partial sums form a Cauchy Sequence)
+
+	$\impliedby$: Suppose $v_n, n \in \N$ is a Cauchy sequence. $\forall j \in \N, \exists N_j \in \N \st \norm{v_n - v_m} < \frac{1}{2^j}, \forall n, m \geq N_j$.
+
+	WLOG we may assume $N_1 < N_2 < \ldots$. Let $w_1 = v_{N_1}, w_j = v_{N_j} - v_{N_{j-1}}, \forall j \geq 2 \implies \sum_{1}^\infty \norm{w_j} \leq \norm{v_{N_1}} + \sum_{j=2}^\infty \frac{1}{2^{j-1}} < \infty \implies \sum_{1}^k w_j \to \exists s \in V$.
+	
+	Thus $V_{N_{k}} \to s$ as $k \to \infty$. $v_n$ is Cauchy $\implies v_n \to s$ as $n \to \infty$.
+\end{proof}
+
+\section{Bounded Linear Transformation}
+\begin{definition}
+	Suppose $(V, \norm{\cdot}), (W, \norm{\cdot}')$ two normed spaces. A linear map $T: V \to W$ is said to be a \emph{bounded map} is $\exists c \geq 0 \st \norm{T_v}' \leq C\norm{v}, \forall v \in V$.
+\end{definition}
+\begin{proposition}
+	Suppose $T: (V, \norm{\cdot}) \to (W, \norm{\cdot}')$ is a linear map. Then the followings are equivalent:
+	\begin{enumerate}
+		\item $T$ is continuous
+		\item $T$ is continuous at $0$
+		\item $T$ is a bounded map
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	(a) $\implies$ (b) is clear.
+
+	(b) $\implies$ (c): For $\varepsilon = 1$, $\exists \delta > 0 \st \norm{Tu}' < \varepsilon = 1$ if $\norm{u} < \delta$. Suppose $v \in V, v \neq 0$. Let $u = \frac{\delta}{2\norm{v}}v \implies \norm{u} = \frac{\delta}{2} < \delta \implies \norm{Tu}' < 1 \implies \frac{\delta}{2\norm{v}}\norm{Tv}' < 1 \implies \norm{Tu}' < \frac{2}{\delta}\norm{v}$.
+
+	(c) $\implies$ (a): Fix $v_0 \in V$. $\norm{Tv - Tv_0}' = \norm{T(v - v_0)}' \leq C\norm{v - v_0}$.
+\end{proof}
+
+\begin{example}
+	\begin{enumerate}
+		\item $T: \ell^1 \to \ell^1, Ta = (a_2, a_3, \ldots)$, $\norm{Ta}_1 \leq \norm{a}_1$. $T$ is BLT.
+		\item $T: (C([-1, 1]), \norm{\cdot}_1) \to \C, Tf=f(0)$. This is not continuous.
+		\item $T: (C([-1, 1]), \norm{\cdot}_\infty) \to \C, Tf=f(0)$ is BLT.
+		\item Let $A$ be a $n \times m$ matrix. $T: \R^n \to \R^m, v \mapsto Av$ is BLT.
+		\item Let $K(x, y)$ be a continuous function on $[0, 1] \times [0, 1]$. \[T: (C_[0, 1], \norm{\cdot}_\infty) \to (C[0, 1], \norm{\cdot}_\infty), Tf = \int_0^1 K(x, y)f(y) \df y\] is a BLT.
+		\item $\displaystyle T: L^1(\R) \to (C(\R), \norm{\cdot}_\infty), (Tf)(t) = \int_{-\infty}^\infty e^{-itx}f(x) \df x$ (Fourier transform of $f$)
+		\item $T: (C^\infty([0, 1]), \norm{\cdot}_\infty) \to (C^\infty([0, 1]), \norm{\cdot}_\infty), (Tf)(x) = f'(x)$ is not bounded.
+	\end{enumerate}
+\end{example}
+
+\begin{definition}
+	Let $L(V, W) = \{T: V \to W \mid T \text{ is BLT}\}$. For $T \in L(V, W)$, the \emph{operator norm} of $T$ is
+	\begin{align*}
+		\norm{T} & \defeq \inf\{c \geq 0 \mid \norm{Tv}' \leq c\norm{v}, \forall v \in V\} \\
+		& = \sup\left\{\frac{\norm{Tv}'}{\norm{v}}\ \biggr\rvert\ v \neq 0, v \in V\right\} \\
+		& = \sup\left\{\norm{Tv}' \mid \norm{v} = 1\right\}.
+	\end{align*}
+\end{definition}
+\begin{lemma}
+	\begin{enumerate}
+		\item Above three definitions are equivalent.
+		\item It is indeed a normed space.
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	DIY.
+\end{proof}
+
+\section{Dual of \ttlmath{L^p}{Lp} Spaces}
+
+\chapter{Signed and Complex Measures}
+\cite[Ch.3]{follandRealAnalysisModern1999}.
+
+\fancyem{Recall} Suppose $(X, \cA, \mu)$ a measure space. $f: X \to [0, \infty]$ measurable. Let $\displaystyle \nu(E) = \int_E f \df \mu, E \in \cA \implies \nu$ is a measure on $(X, \cA)$. 
+
+\section{Signed Measures}
+\begin{definition}
+	Suppose $(X, \cA)$ a measurable space. A signed measure is $\nu: \cA \to [-\infty, \infty)$ or $\nu: \cA \to (-\infty, \infty]$ such that \begin{itemize}
+		\item $\nu(\emptyset) = 0$.
+		\item $A_1, A_2, \ldots \in \cA$, $A_i$ disjoint $\implies \displaystyle \nu\left(\bigcup_1^\infty A_i\right) = \sum_1^\infty \nu(A_i)$ where the series converges absolutely if $\displaystyle \nu\left(\bigcup_1^\infty A_i\right) \in (-\infty, \infty)$.
+	\end{itemize}
+\end{definition}
+\begin{example}\fnl
+	\begin{itemize}
+		\item $\nu$ positive measure $\implies \nu$ is a signed measure.
+		\item $\mu_1, \mu_2$ positive measures such that either $\nu_1(X) < \infty$ or $\nu_2(X) < \infty \implies  \nu = \mu_1 - \mu_2$ a signed measure.
+		\item $f: X \to \bar{\R} \st \displaystyle \int_X f^+ \df \mu < \infty$ or $\displaystyle \int_X f^- \df \mu < \infty \implies \nu(E) = \int_E f \df \mu$.
+	\end{itemize}
+\end{example}
+
+\fancyem{Note}: 
+\begin{enumerate}
+	\item $A \subset B \nRightarrow \nu(A) \leq \nu(B)$ since $\nu(B) = \nu(A) + \nu(B \setminus A)$.
+	\item $A \subset B, \nu(A) = \infty \implies \nu(B) = \infty$.
+\end{enumerate}
+
+\begin{lemma}
+	$\nu$ is a signed measure on $(X, \cA)$. Then
+	\begin{itemize}
+		\item $E_n \in \cA, E_1 \subset E_2 \subset \ldots \implies \displaystyle \nu\left(\bigcup_1^\infty E_n\right) = \lim_{n \to \infty}\nu(E_n)$.
+		\item $E_n \in \cA, E_1 \supset E_2 \supset \ldots, -\infty < \nu(E_1) < \infty \implies \displaystyle \nu\left(\bigcap_1^\infty E_n\right) = \lim_{N \to \infty} \nu(E_n)$.
+	\end{itemize}
+\end{lemma}
+
+\begin{definition}
+	$\nu$ is a signed measure on $(X, \cA)$. Let $E \in \cA$. We say \begin{enumerate}
+		\item $E$ is \emph{positive} for $\nu$ (a positive set for $\nu$) if $\forall F \subset E, F \in \cA$, $\nu(F) \geq 0$.
+		\item $E$ is \emph{negative} for $\nu$ (a negative set for $\nu$) if $\forall F \subset E, F \in \cA$, $\nu(F) \leq 0$.
+		\item $E$ is \emph{null} for $\nu$ (a null set for $\nu$) if $\forall F \subset E, F \in \cA$, $\nu(F) = 0$.
+	\end{enumerate}
+\end{definition}
+
+\fancyem{Note} $E$ positive set, $F \subset E \implies \nu(F) \leq \nu(E)$. $E$ negative set, $F \subset E \implies \nu(F) \geq \nu(E)$.
+
+\begin{theorem}[The Hahn decomposition theorem]
+	Suppose $\nu$ is a signed measure of $(X, \cA)$. Then $\exists P, N \in \cA \st P \cap N = \emptyset, P \cup N = X$, $P$ is positive for $\nu$, and $N$ is negative for $\nu$.
+
+	If $P', N'$ are another such pair, then $P \triangle P' (= N \triangle N')$ is null for $\nu$.
+\end{theorem}
+
+\begin{definition}
+	$\mu, \nu$ signed measure on $(X, \cA)$.
+
+	$\nu \bot \nu$ (singular to each other) means $\exists E, F \in \cA \st E \cap F = \emptyset, E \cup F = X$, $F$ is null for $\mu$, $E$ is null for $\nu$.
+\end{definition}
+\begin{example}
+	For $(\R, \cB(\R))$, \begin{enumerate}
+		\item Lebesgue measure $m$
+		\item Cantor measure $\mu_C((a, b])$.
+		\item Discrete measure $\mu_D = \delta_1 + 2 \delta_{-1}$.
+	\end{enumerate}
+	For (a), (c), take $E = \R \setminus \{-1, 1\}$, $F = \{-1, 1\}$. For (a), (b), take the cantor set $K$, $E = \R \setminus K, F = K$.
+\end{example}
 
 \bibliography{analysis}{}
 \bibliographystyle{alpha}

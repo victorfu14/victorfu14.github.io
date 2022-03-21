@@ -25,3 +25,7 @@ And this course is just fantastic.
 - [Feb. 15, effective conductance with dessert](../../../../parts/comb/comb.pdf#section.2.9)
 - [Feb. 17, some more linear algebra, Binet Cauchy (currently missing)]
 - [Feb. 22, Laplace Expansion, Matrix-Tree Theorem](../../../../parts/comb/comb.pdf#section.3.1)
+
+(Things gets a bit messy after spring break. I'll fix it as soon as possible)
+
+- [partitions, lattices](../../../../parts/comb/comb.pdf#section.4.1)
