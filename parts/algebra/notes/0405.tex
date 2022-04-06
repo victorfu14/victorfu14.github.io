@@ -1,0 +1,188 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb,nccmath}
+\usepackage{mathtools}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\setlength{\topmargin}{0.5in}
+\usepackage[margin=4cm]{geometry}
+\usepackage{enumerate}
+
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\setlength{\parskip}{0.5em}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+
+% useful characters/operators
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\matP}{\mathbb{P}}
+\newcommand{\matS}{\mathbb{S}}
+\newcommand{\matH}{\mathbb{H}}
+\newcommand{\matT}{\mathbb{T}}
+\newcommand{\st}{\ s.t.\ }
+\newcommand{\ie}{\ i.e.\ }
+\newcommand{\eg}{\ e.g.\ }
+\def \diam {\operatorname{diam}}
+\def \Hom {\operatorname{Hom}}
+\def \id {\operatorname{id}}
+\def \tr {\operatorname{tr}}
+\def \dist {\operatorname{dist}}
+\def \intr {\operatorname{int}}
+\def \sgn {\operatorname{sgn}}
+\def \im {\operatorname{Im}}
+\def \re {\operatorname{Re}}
+\def \curl {\operatorname{curl}}
+\def \divg {\operatorname{div}}
+\def \GL {\operatorname{GL}}
+\def \End {\operatorname{End}}
+\def \Aut {\operatorname{Aut}}
+\def \Fr {\operatorname{Frac}}
+\def \cont {\operatorname{cont}}
+\def \Gal {\operatorname{Gal}}
+\def \minpol {\operatorname{minpol}}
+\newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
+\newcommand{\df}{\text{d}}
+\newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
+
+% arrows and :=, =:
+\makeatletter
+\providecommand*{\twoheadrightarrowfill@}{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow
+}
+\providecommand*{\twoheadleftarrowfill@}{%
+  \arrowfill@\twoheadleftarrow\relbar\relbar
+}
+\providecommand*{\xtwoheadrightarrow}[2][]{%
+  \ext@arrow 0579\twoheadrightarrowfill@{#1}{#2}%
+}
+\providecommand*{\xtwoheadleftarrow}[2][]{%
+  \ext@arrow 5097\twoheadleftarrowfill@{#1}{#2}%
+}
+\makeatother
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\mathrel{\mathop:}}
+
+% integral for measure theory
+\newcommand{\lowerint}{\underline{\int_{\R^d}}}
+\newcommand{\upperint}{\overline{\int_{\R^d}}}
+\newcommand{\lint}[1]{\underline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\uint}[1]{\overline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\sint}[1]{\simp{\int_{\R^d} #1 (x)dx}}
+\newcommand{\lesint}[1]{\int_{\R^d} #1 (x)dx}
+
+% note taking
+\newcommand{\fancyem}[1]{\underline{\textsc{#1}}}
+
+% theorem style
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{conjecture}{Conjecture}
+\newtheorem*{proposition}{Proposition}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{example}{Example}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% for clearer reference
+\usepackage{hyperref}
+\newcommand{\corollaryautorefname}{Corollary}
+\newcommand{\lemmaautorefname}{Lemma}
+\newcommand{\definitionautorefname}{Definition}
+\newcommand{\exampleautorefname}{Example}
+\newcommand{\conjectureautorefname}{Conjecture}
+\renewcommand{\subsectionautorefname}{Section}
+
+% other styling
+\usepackage{fancyvrb, fancyhdr}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+
+\pagestyle{fancy}
+\fancyhead[LO,L]{Apr 5, 2022}
+\fancyhead[RO,R]{Yiwei Fu}
+\fancyhead[C]{MATH 494}
+\fancyfoot[CO,C]{\thepage}
+
+\usepackage{tikz-cd}
+
+\usepackage{epigraph}
+
+% \epigraphsize{\small}% Default
+\setlength\epigraphwidth{8cm}
+\setlength\epigraphrule{0pt}
+
+\usepackage{etoolbox}
+
+\makeatletter
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+\makeatother
+
+
+\begin{document}
+% \renewcommand{\ref}[1]{\autoref{#1}}
+% \title{Math 494}
+% \author{Yiwei Fu}
+% \date{Feb 03, 2022}
+% \maketitle
+
+Recall: $L/K$ is Galois if $|\Aut_K(L)| = [L : K]$. $L/K$ is separable if $|\Hom_K(L, M)| = [L: K]$ for some field $M \supseteq K$.
+
+$L/K$ is Galois $\implies L/K$ is separable.
+
+$L/K$ is Galois $\iff L = $ splitting field over $K$ of some separable $f(X) \in K[X] \iff L/K$ is separable and $\Hom_K(L, M) = \Aut_K(L), \forall M \supseteq L$.
+
+If $L/K$ is separable, let $N$ be the Galois closure of $L/K$.
+
+Define $G \defeq \Gal(N/K), H \defeq \Gal(N/L)$. Then, fields between $L$ and $K$ correspond to groups between $G$ and $H$.
+
+Given a separable extension $L/K$, we can write $L = L_n - L_{n-1} - \ldots - L_1 - K = L_0$ where there is no field between $L_i$ and $L_{i - 1}$. This is a powerful approach enabling one to study arbitrary $L/K$ be induction, where the induction step addresses a \emph{minimal extension}.
+
+useful because: Galois groups (closures) of minimal separable extensions are massively restricted. Define such a Galois group to be a primitive permutation group.
+
+Facts: If $G$ is a primitive subgroup of $S_n$, then either \begin{itemize}
+  \item $L \times L \times \ldots \times L \leq G \leq \Aut(L^k) = \Aut(L)^k \rtimes S_k$
+  \item $n = p^k$, $p$ prime, $(C_p)^k \leq G \leq \operatorname{AGL}_k(\F_p) = (\F_p)^k \rtimes \GL_k(\F_p)$ in usual action on $(\F_p)^k$.
+\end{itemize} 
+
+Also: for $100\%$ of positive integers $n$, the only primitive subgroups of $S_n$ are $A_n$ and $S_n$.
+
+Also: if $n$ is prime then every transitive subgroup of $S_n$ is: \begin{itemize}
+  \item $S_n$ or $A_n$
+  \item groups between $\F_n$ and $\operatorname{AGL}_1(\F_n)$.
+  \item if $n = \frac{q^k-1}{q-1}$ with $k \geq 2$ and $q$ prime, then $\operatorname{PGL}_k(\F_q) \leq G \leq \operatorname{P \Gamma L}_k(\F_q)$ acting on $P^{k-1}(\F_q)$.
+  \item $n = 23$, $M_{23}$ "Mathieu sporadic group"
+  \item $n = 11$, $M_{11}$ and $\operatorname{PSL}_2(\F_n)$.
+\end{itemize}
+
+Solvability by radicals:
+
+Given $f(X) \in \Q[X]$, when can all roots of $f(X)$ be expressed in terms of nested radicals e.g. $\sqrt[3]{57\sqrt{31} - 1000\sqrt[5]{21+\sqrt{3}}}$
+
+Concretely: an element $\alpha \in \C$ is expressible in terms of nested radicals iff $\alpha \in K_n$ for some field $K_n \st K_n \supseteq K_{n-1} \supseteq \ldots \supseteq K_{0} = \Q$ where $K_i = K_{i-1}(\alpha_i)$ with $d_i \in K_{i-1}$ for some positive integer $d_i$.
+
+\begin{theorem}
+  For any separable $f(X) \in \Q[X]$, $f(x)$ is "solvable by radicals" meaning that all its complex roots are expressible as above if and only if the Galois group $G$ of $f(X)$ over $\Q$ is "solvable", i.e. $\exists G \triangleright G_1 \triangleright G_2 \triangleright \ldots \triangleright G_k = 1$ where $G_{i-1}$ is normal in $G$, and $G_i/G_{i-1}$ is cyclic of prime order.
+\end{theorem}
+
+\begin{corollary}
+  All polynomials in $\Q[X]$ of degree $\leq 4$ are solvable by radicals, but $\forall n \geq 5$, $\exists$ degree-$n$ irreducible $f(x) \in \Q[x]$ which are NOT solvable (since $\exists$ polynomials with groups $S_n$, which is not solvable when $n \geq 5$)
+\end{corollary}
+
+Key lemma \begin{lemma}
+  If a field $K$ contains $n$ $n$-th roots of unity, and $L/K$ is Galois with $\Gal(L/K) \cong C_n$, then $L = K(\alpha)$ where $\alpha^n \in K$.
+\end{lemma}
+
+Converse is easy: if $K$ contains $n$-th roots of unity $\zeta$ and $L = K(\alpha)$ where $\minpol_K(\alpha) = x^n - c$, then $L/K$ is Galois and $\Gal(L/K) \cong C_n$.
+
+For: the roots of $x^n - c$ are $\alpha \phi^i$, $0 \leq i \leq n - 1$, which are all in $K(\alpha) = L$. SO $L = $ splitting field of $x^n - c$ over $K \implies L/K$ is Galois of degree $n$, $\Gal(L/K) = \{\sigma_i i\alpha \mapsto \alpha \phi^i, i \in \Z/n\Z\} \implies \Gal(L/K) = \langle\sigma_1\rangle \cong C_n$
+\end{document}

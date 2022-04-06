@@ -33,6 +33,7 @@
 \def \id {\operatorname{id}}
 \def \tr {\operatorname{tr}}
 \def \rk {\operatorname{rk}}
+\def \sp {\operatorname{span}}
 \def \dist {\operatorname{dist}}
 \def \intr {\operatorname{int}}
 \def \sgn {\operatorname{sgn}}
@@ -47,6 +48,8 @@
 \def \indeg {\operatorname{indeg}}
 \def \outdeg {\operatorname{outdeg}}
 \def \Par {\operatorname{Par}}
+\def \del {\operatorname{del}}
+\def \add {\operatorname{add}}
 \newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
 \newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
 \newcommand{\df}{\text{d}}
@@ -1706,15 +1709,71 @@ Horizontal bars are made of an ideal conductor. Separate the square plates so th
 
 Want: potential of a vertex $=$ its height.
 
-\fancyem{Problem} Find another such tiling of 9 distinct squares of a rectangle.
+\fancyem{Problem} F
+ind another such tiling of 9 distinct squares of a rectangle.
 
 For squares, www.squaring.net
 
 \chapter{More Algebraic Graph Theory}
 
 \section{Laplace Expansion}
+\begin{definition}
+    Suppose a $m \times n$ matrix $X$ and a set $S$ of indices $\leq n$. Then $X[S] = (x_{ij})_{j \in S}$ i.e. $X[S]$ is the matrix selected from the $j$-th column of $X$ where $j \in S$.
+\end{definition}
 
-Minors of Incidence Matrix
+\begin{theorem}[Laplace expansion formula]
+    Let $Z = \begin{bmatrix}
+        X \\
+        Y
+    \end{bmatrix}$, where $X$ is an $n \times (n + m)$ matrix and $Y$ is an $m \times (n + m)$ matrix. Then \[\det (Z) = \sum_{\substack{S \subset [1, n + m] \\ |S| = n}} \sgn(S) \det X[S]\det Y[\bar{S}]\]
+    where \[\bar{S} = [1, n + m] \setminus S, \quad \sgn(S) = (-1)^{\#\{\bar{s} < s \mid s \in S, \bar{s} \in \bar{S}\}}.\]
+\end{theorem}
+
+\begin{corollary}
+    Let $A$ and $B$ be matrices of sizes $n \times m$ and $m \times n$, respectively, with $n \leq m$. Then \[
+        \det \begin{bmatrix}
+            0 & A \\
+            B & I_m
+        \end{bmatrix} = (-1)^n\sum_{\substack{|S| = n \\ S \subset [1, m]}} \det A[S] \cdot \det B^T[S].   
+    \]
+\end{corollary}
+
+\begin{theorem}[Binet-Cauchy formula]
+    Let $A$ and $B$ be matrices of sizes $n \times m$ and $m \times n$, respectively, with $n \leq m$. Then \[
+        \det (AB) = \sum_{\substack{S \subset [1, m] \\ |S| = n}} \det A[S] \det B^T[\bar{S}].    
+    \]
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Let $Z$ be a square matrix of size $n$. The $(i,j)$ \emph{minor} refers to the determinant of the $(n-1) \times (n-1)$ submatrix formed by deleting the $i$-th row and $j$-th column from $Z$. The corresponding cofactor is the signed minor
+    \[Z_{ij} = (-1)^{i + j}\det(z_{kl})_{\substack{k \neq i \\ \ell \neq j}}\]
+\end{definition}
+Given the definition of cofactors we have a formula of $\det Z$:
+\[
+    \det Z = \sum_j z_{aj}Z_{aj} = \sum_{i}z_{ib}Z_{ib}.    
+\]
+
+\begin{lemma}
+    Let $Z = (z_{ij})$ be a square matrix where row sums are all $0$. The all cofactors for a given row are equal to each other.
+\end{lemma}
+\begin{proof}
+    Let $Z'$ be obtained from $Z$ by adding $1$ to the entry $z_{i1}$. Adding all columns of $Z$ to column $k$ and then expanding the determinant with respect to the column, we get that $\det(Z') = Z_{ik}$. Hence $Z_{i1} = Z_{i2} = \ldots = \det(Z')$.
+\end{proof}
+
+\section{Matrix Representation of Direct Graphs}
+\begin{example}
+    
+\end{example}
+\begin{lemma}
+    Let $T$ be a tree and $M_0$ be the incidence matrix of an orientation $T$ with one of its rows removed. Then $\det(M_0) = \pm 1$.
+\end{lemma}
+\begin{proof}
+    Exactly one term in the expression of the determinant is nonzero, which corresponds to mapping each edge to its endpoint that is farther from the root.
+\end{proof}
+
 \begin{corollary}
     Let $G$ be an undirected graph and $M_0$ denote the incidence matrix of an orientation of $G$, with one row (corresponds to some vertex $v$) removed. Then the maximal minors of $M_0$ are given by $\det M_0[S] = \begin{cases}
         \pm 1 & S \text{ forms a spanning tree} \\
@@ -1727,8 +1786,8 @@ Minors of Incidence Matrix
     We need to show the second case. The subgraph formed by $S$ must be connected. One of the components doesn't contain $v$. The sum of the corresponding rows of $M_0[S]$ is equal to $0$.
 \end{proof}
 
-Discrete Laplacian
-\begin{definition}
+
+\begin{definition}[Discrete Laplacian]
     Suppose $G$ is a loopless graph on vertices $1, \ldots, n$. The \emph{Laplacian} of $G$ is the matrix $L = L(G) = (L_{ij})_{ij=1}^n$ defined by
     \[
     L_{ij} \defeq \begin{cases}
@@ -1947,7 +2006,7 @@ Enumeration of de Bruijn sequences
 \end{proof}
 \section{Construction of de Bruijn Sequences}
 
-\chapter{}
+\chapter{\ttlmath{q}{q}-binomal coefficients}
 \section{Partitions and Tableaux}
 \section{More Partition Identities}
 \fancyem{Problem} Suppose $k, n > 0$. Prove that \begin{multline*}
@@ -2018,5 +2077,232 @@ Let \[g(m, n, a) \defeq \#\{\text{ptns of $a$ in $L(m, n)$}\}\] and \[
         m + n \\ n
     \end{bmatrix}_q \qbin{m+n}{n} \defeq \sum_{a = 0}^{mn} g(m, n, a)q^a    
 \]
+
+
+\section{Sperner's Theorem}
+\epigraph{Once you get stepped on by an elephant, you remain 2-dimensional for the rest of your life.}{}
+\begin{proposition}
+    Boolean lattice $\mathbb{B}_n$ is Sperner ($|\text{the largest antichain}| = |\text{largest level set}|$)
+\end{proposition}
+
+\begin{proof}
+    Let $P_k = \{S \mid |S| = k, S \subset [1, n]\} \subset \mathbb{B}_n$. So $|P_k| = \binom{n}{k}$. Suppose $k < \frac{n}{2}$.
+    
+    Construct an injection $\phi_k: P_k \to P_{k+1} \st \forall S \in P_k, \phi_k(S) > S$. Similarly, for $k > \frac{n}{2}$ we would get injections $\psi_k: P_k \to P_{k-1} \st \psi_k(S) < S$.
+
+    Stitching these injections together would give a partition of $\mathbb{B}_n$ into $\max|P_k| = \binom{n}{\left\lfloor n/2 \right\rfloor}$ chains, thus proving the theorem.
+
+    We prove the existence of such injections.
+
+    Let \[\R P_k \defeq \text{vector space formally spanned by $P_k$}.\]
+    Suppose we can build $U_k: \R P_k \to \R P_{k+1} \st$ \begin{itemize}
+        \item $U_k$ is injective: $\rk(U_k) = |P_k|$,
+        \item $\forall x, U_k(x) \in \sp \{y \in P_{k+1}, y > x\}$,
+    \end{itemize}
+    then we are done.
+
+    Set \[U_k(x) = \sum_{\substack{y \in P_{k+1} \\ y > x} y}, D_k(x) = \sum_{\substack{y \in P_{k-1}\\ y < x}}y.\]
+    We have that \[D_{k+1} = U^*_k.\]
+
+    We introduce a lemma first.
+    \begin{lemma}
+        $\forall k \in [0, n], D_{k+1}U_k - U_{k-1}D_k = (n - 2k)I$.
+    \end{lemma}
+    \begin{proof}[Proof of lemma]\let\qed\relax
+       The off-diagonal entries of LHS are all $0$. And we have 
+       \[(D_{k+1}U_k - U_{k-1}D_k)x = (n - k - k)x + \ldots\]
+    \end{proof}
+
+    Some stuff
+\end{proof}
+
+Unimodality of Gaussian coefficients
+
+A sequence is unimodal if it has a (weakly) unique max. A polynomial is unimodal if its coefficients are unimodal.
+
+\epigraph{I accomplished with scarcely an effort a task which I had believed lay outside the range of human power.}{-- \textup{James Joseph Sylvester}}
+\epigraph{The proof is very technical and un-illuminating}{-- \textup{Sergey Fomin}}
+\begin{theorem}[J. Sylvester, 1878]
+    $\qbin{n}{k}$ is unimodal.
+\end{theorem}
+
+First combinatorial proof is found by Kathleen O'Hara in 1990.
+
+\begin{theorem}[R.P. Stanley, 1980]
+    $L(m, n)$ is Sperner.
+\end{theorem}
+This is a stronger result (of which the proof) implies Sylvester's theorem.
+
+\section{Rank-Unimodality of the Lattice \ttlmath{L(m, n)}{L(m, n)}}
+\begin{definition}
+    Let $P$ be a poset. $\lambda \subset P$ is an \emph{order ideal} iff $\forall b \in \lambda, \forall c < b, c \in \lambda$.
+\end{definition}
+\begin{example}
+    $P = [1, m] \times [1, n]$, the product of $m$ chain $\{1, 2, \ldots, m\}$ and $n$ chain.
+\end{example}
+
+\begin{definition}
+    $J(P) \defeq$ the set of finite order ideals of $P$, viewed as a poset ordered by containment.
+\end{definition}
+\begin{example}
+    \begin{enumerate}[(a)]
+        \item $P = [1, m] \times [1, n]$, $J(P) = L(m, n)$.
+        \item $P = \{\text{$n$-element anti-chain}\}$, $J(P) = \mathbb{B}(n) = [0, 1]^n$.
+    \end{enumerate}
+\end{example}
+
+Any $J(P)$ is a distributive lattice. In fact, every finite distributive lattice is isomorphic to $J(P)$ for some $P$.
+
+A key lemma:
+\begin{lemma}
+    Let $P$ be a finite poset. For $k \in \Z_{\geq 0}, J(P)_k$ be the order ideals $\lambda \subset P \st |\lambda| = k$.
+
+    For $\lambda \in J(P)$, denote \begin{align*}
+        \add(\lambda) & = \{x \notin \lambda \mid \lambda \cup \{x\} \in J(P)\} \\
+        \del(\lambda) & = \{x \in \lambda \mid \lambda - \{x\} \in J(P)\}.
+    \end{align*}
+    Assume $w: P \to \R_{\geq 0}$ satisfies $\forall \lambda \in J(P)_k$, \[
+        \delta(\lambda) \defeq \sum_{x \in \add(\lambda)} w(x) - \sum_{x \in \del(\lambda)}w(x) > 0.    
+    \]
+    Then $\exists$ an order respecting injection $J(P)_k \to J(P)_{k+1}$.
+\end{lemma}
+\fancyem{Note}: the converse is not necessarily true.
+
+\begin{proof}
+    Let $V_k = \R J(P)_k$ a formal linear combination of order ideal of size $k$.
+
+    Define linear maps \[
+        U_j: V_j \to V_{j + 1}, \quad D_j: V_j \to V_{j - 1}    
+    \] by \begin{align*}
+        U_j(\lambda) & = \sum_{x \in \add(\lambda)} \sqrt{w(x)}\left(\lambda \cup \{x\}\right), \\
+        D_j(\lambda) & = \sum_{x \in \del(\lambda)} \sqrt{w(x)}\left(\lambda - \{x\}\right).
+    \end{align*}
+    \fancyem{Claim}: $D_{k+1}U_k - U_{k+1}D_k = U^*_kU_k - U_{k-1}U^*_{k-1}$ has diagonal matrix wirh $(\lambda, \lambda)$ entry described by $\delta(\lambda)$.
+\end{proof}
+
+
+\section{The Hooklength Formula}
+\begin{definition}
+    Young lattice $\mathbb{Y} \defeq J(\Z_{> 0} \times \Z_{> 0})$ the poset of \emph{all} Young diagrams ordered by inclusion.
+\end{definition}
+
+\begin{definition}
+    Denote $f^\lambda \defeq \#\{\text{standard Young diagram of size } \lambda\}$.
+\end{definition}
+
+\begin{example}
+    
+\end{example}
+
+\begin{theorem}[J.S. Frame, G. de B. Robinson, R.M. Thrall, 1954]
+    For $|\lambda| = n$ we have \[
+        f^\lambda = \frac{n!}{\prod_{x \in \lambda}h_\lambda(x)}.    
+    \]
+\end{theorem}
+
+\begin{example}
+    
+\end{example}
+
+\begin{theorem}[R.M. Thrall, 1952]
+    The number of standard shifted tableaux of shape $\lambda^*$ is equal to \[
+        \frac{n!}{\prod_{x \in \lambda^*} h_{\lambda^*}(x)}, 
+    \] where $h_{\lambda^*}(x)$ is the size of "shifted hook".
+\end{theorem}
+
+\begin{example}
+    
+\end{example}
+
+\begin{proof}[Proof of the Hooklength formula]
+[C. Greene, A. Nijenhuis, H. Wilf 1979]
+
+Suppose $\lambda$ Young diagram with $|\lambda| = n$.
+Set $H(\lambda) = \prod_{x \in \lambda}h_\lambda(x)$. Here $x$ is a unit box. 
+
+Want to show that $f^\lambda = \dfrac{n!}{H(\lambda)}$.
+
+\[\del(\lambda) = \{\text{corner boxes of } \lambda\}.\]
+We have a recurrence relation\[
+    f^\lambda = \sum_{v \in \del(\lambda)} f^{\lambda - \{v\}}.
+\]
+It suffices to prove that \begin{align*}
+    \frac{n!}{H(\lambda)} & = \sum_{v \in \del(\lambda)} \frac{(n-1)!}{H(\lambda - \{v\})} \\
+    \iff n & = \sum_{v \in \del(\lambda)} \frac{H(\lambda)}{H(\lambda - \{v\})}. 
+\end{align*}
+
+Idea: construct a Markov chain on $\lambda$ with certain properties: \begin{itemize}
+    \item Start at a box $u \in \lambda$.
+    \item Terminate (with probability $1$) when it reaches $v \in \del(\lambda)$.
+    
+    Let $\matP(u, v) = \matP(\text{end in $v$ when starting at $u$})$. $\sum_{v \in \del(\lambda)} \matP(u, v) = 1$. 
+    \item $\displaystyle \sum_{u \in \lambda}\matP(u, v) = \frac{H(\lambda)}{H(\lambda - \{v\})}$.
+\end{itemize}
+If such Markov chain exists, we get \[
+    n = \sum_{u \in \lambda} \sum_{v \in \del(\lambda)}\matP(u, v) = \sum_{v \in \del(\lambda)}\sum_{u \in \lambda} \matP(u, v) = \sum_{v \in \del(\lambda)} \frac{H(\lambda)}{H(\lambda - \{v\})}.
+\]
+
+We propose the following Markov chain defined by \autoref{algo:hookwalk}.
+\begin{algorithm}[h]
+    \setstretch{1.15}
+    \caption{The Hook Walk}
+    \label{algo:hookwalk}
+    \begin{algorithmic}[1]
+        \Function{Walk}{Young diagram $\lambda$, box $u \in \lambda$}
+            \State $v \gets u$
+            \While{$v \notin \del(\lambda)$} \Comment{Continue until $v$ is a corner book}
+                \State Choose $v' \in \operatorname{hook}(v) \setminus \{v\}$ uniformly at random
+                \State $v \gets v'$
+            \EndWhile
+            \State \textbf{return} $v$
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+We claim that this walk satisfies the above conditions.
+
+We introduce some lemmas:
+\begin{definition}[Lattice path]
+    Suppose $r, s \in \Z_{>0}$. \[\operatorname{LP}(r, s) \defeq \{\text{lattice paths from $(1, 1)$ to $(r + 1, s + 1)$}\}.\]
+\end{definition}
+\begin{lemma}\label{le:latticepath}
+    Suppose $a_1, \ldots, a_r \in \R_{>0}, b_1, \ldots, b_r \in \R_{>0}$ with $a_{r + 1} = 0$ and $b_{r + 1} = 0$. Then \begin{equation}\label{latticepath}
+        \sum_{\pi \in \operatorname{LP}(r, s)} \prod_{\substack{(i, j) \in \pi \\ (i, j) \neq (r+1, s+1)}} \frac{1}{a_i + b_j} = \frac{1}{\prod_{i=1}^r a_i\prod_{j=1}^s b_j}.
+    \end{equation}
+\end{lemma}
+\begin{example}
+    Take $r = 1, s = 2$. The lattice would look like \[\begin{array}{ccc}
+        \dfrac{1}{a_1 + b_1} & \dfrac{1}{a_1 + b_2} & \dfrac{1}{a_1} \\[1em]
+        \dfrac{1}{b_1} & \dfrac{1}{b_2} &
+    \end{array}\]
+    \[
+        \frac{1}{a_1 + b_1}\left(\frac{1}{b_1b_2} + \frac{1}{a_1 + b_2}\left(\frac{1}{a_1} + \frac{1}{b_2}\right)\right) = \frac{1}{a_1 + b_1}\left(\frac{1}{b_1b_2} + \frac{1}{a_1b_2}\right) = \frac{1}{b_1a_1b_1}.
+    \]  
+\end{example}
+
+\begin{proof} 
+    Double induction on $r, s$.
+
+    \textbf{Base case}: easy.
+
+    \textbf{Induction assumption}:
+
+    \textbf{Induction step}: LHS of \eqref{latticepath} equals to \[\frac{1}{a_1 + b_1}\left(\frac{b_1 + a_1}{\prod a_i \prod b_j}\right),\]
+    which equals to RHS of \eqref{latticepath}.
+\end{proof}
+
+Now let $\operatorname{LP'}(r, s)$ denote the sequences that start at $(1, 1)$, end at $(r+1, s+1)$, where each step is either horizontal or vertical with any length.
+   
+\begin{lemma}[Lemma']
+    Suppose $a_1, \ldots, a_r \in \R_{>0}, b_1, \ldots, b_r \in \R_{>0}$ with $a_{r + 1} = 0$ and $b_{r + 1} = 0$.
+    \begin{equation}\label{latticepath'}
+        \sum_{\pi \in \operatorname{LP'}(r, s)} \prod_{\substack{(i, j) \in \pi \\ (i, j) \neq (r+1, s+1)}} \frac{1}{a_i + b_j} = \prod_{i=1}^r \left(1 + \frac{1}{a_i}\right)\prod_{j=1}^s \left(1 + \frac{1}{b_j}\right).
+    \end{equation}
+\end{lemma}
+\begin{proof}
+    Follows from \autoref{le:latticepath}. (cheat)
+\end{proof}
+
+In the case of hooklength formula, $\displaystyle 1 + \frac{1}{a_i} = 1 + \frac{1}{h_\lambda(x) - 1} = \frac{h_\lambda(x)}{h_\lambda(x) - 1}$, so the RHS of \eqref{latticepath'} becomes $\dfrac{H(\lambda)}{H(\lambda - \{v\})}$.
+\end{proof}
 
 \end{document}

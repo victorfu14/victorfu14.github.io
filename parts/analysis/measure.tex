@@ -1,6 +1,7 @@
 \documentclass{report}
 \usepackage{amsmath,amssymb,amsthm,textcomp,gensymb}
 \usepackage{mathtools}
+\usepackage{centernot}
 \renewcommand{\qedsymbol}{$\blacksquare$}
 
 \setlength{\topmargin}{0.5in}
@@ -50,12 +51,16 @@
 \def \divg {\operatorname{div}}
 \def \GL {\operatorname{GL}}
 \def \supp {\operatorname{supp}}
+\def \BV {\operatorname{BV}}
+\def \NBV {\operatorname{NBV}}
 \newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
 \newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
 \newcommand{\df}{\ \mathrm{d}}
+\newcommand{\ndf}{\mathrm{d}}
 \newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
 \newcommand{\gen}[1]{\left\langle #1 \right\rangle}
 \newcommand{\norm}[1]{\left\| #1 \right\|}
+\newcommand{\nll}{\centernot{\ll}}
 
 % arrows and :=, =:
 \makeatletter
@@ -2131,14 +2136,15 @@ Let's start with metric spaces. \cite[5.1, 6.1, 6.2]{follandRealAnalysisModern19
 	\end{enumerate}
 \end{definition}
 
-\begin{example}\fnl
+\begin{example} \fnl
 	\begin{enumerate}
 		\item $\Q, \rho(x, y) = |x - y|$. 
 		\item $\R, \rho(x, y) = |x - y|$.
 		\item $\displaystyle \R_+, \rho(x, y) = \left| \ln \left(\frac{y}{x}\right) \right|$.
-		\item $\displaystyle \R^d, \rho_1(x, y) = \sum_{i=1}^d |x_i - y_i|, \rho_2(x, y) = \left(\sum_{i=1}^d |x_i - y_i|^2\right)^{1/2}, \rho_\infty(x, y) = \max_{1 \leq i \leq d} |x_i - y_i|$.
-		\item 
+		\item $\displaystyle \R^d, \rho_1(x, y) = \sum_{i=1}^d |x_i - y_i|, \rho_p(x, y) = \left(\sum_{i=1}^d |x_i - y_i|^p\right)^{1/p}, \rho_\infty(x, y) = \max_{1 \leq i \leq d} |x_i - y_i|$.
+		\item $\displaystyle C([0, 1]), \rho_p(f, g) = \left(\int_0^1 |f - g|^p\right)^{1/p}, \rho_\infty = \max_{x \in [0, 1]} |f(x) - g(x)|$.
 	\end{enumerate}
+	They are all metric spaces.
 \end{example}
 
 \begin{definition}[Recall \ref{def:seminorm}]
@@ -2165,9 +2171,7 @@ $v_n \to v \iff \lim_{n \to \infty}\norm{v_n - v} = 0$.
 
 \section{\ttlmath{L^p}{L\^p} Spaces}
 \begin{definition}
-	Suppose $(X, \cA, \mu)$ a measure space. $f$ is measurable function. For $0 < p < \infty$, define $\norm{f}_p = \left(\int_{X} |f|^p \df \mu\right)^{1/p}$.
-
-	Define $L^p(X, \cA, \mu) = \left\lbrace f \mid \norm{f}_p < \infty\right\rbrace$.
+	Suppose $(X, \cA, \mu)$ a measure space. $f$ is measurable function. For $0 < p < \infty$, define $\displaystyle \norm{f}_p = \left(\int_{X} |f|^p \df \mu\right)^{1/p}$. Define $L^p(X, \cA, \mu) = \left\lbrace f\ \biggr\rvert\ \norm{f}_p < \infty\right\rbrace$.
 \end{definition}
 \begin{example}
 	
@@ -2182,12 +2186,20 @@ $v_n \to v \iff \lim_{n \to \infty}\norm{v_n - v} = 0$.
 \end{lemma}
 \begin{proof}
 	\[
-		\left(\int |cf|^p\right)^{1/p} = |c|\norm{f}_p
+		\left(\int |cf|^p\right)^{1/p} = |c|\norm{f}_p.
 	\]
+	Given the following inequality
 	\[
-		(\alpha + \beta)^p \leq (2 \max(|\alpha|, |\beta|))^p = 2^p \max\left(|\alpha|^p, |\beta|^p\right) \leq 2^p(|\alpha|^p + |\beta|^p)	
+		(\alpha + \beta)^p \leq (2 \max(|\alpha|, |\beta|))^p = 2^p \max\left(|\alpha|^p, |\beta|^p\right) \leq 2^p(|\alpha|^p + |\beta|^p)
+	\]
+	we have \[
+		\int |f+g|^p \leq 2^p \left(\int \left(|f|^p + |g|^p\right)\right) \implies \norm{f + g}_p \leq 2 \left(\int \left(|f|^p + |g|^p\right)\right)^{1/p}. \qedhere
 	\]
 \end{proof}
+
+But we want to know that whether \[
+	\norm{f + g}_p \leq \norm{f}_p + \norm{g}_p
+\] holds.
 
 \begin{theorem}[Hölder's Inequality]
 	Let $p < \infty, q = \frac{p}{p - 1}$ so $\frac{1}{p} + \frac{1}{q} = 1$. Then 
@@ -2295,9 +2307,9 @@ Minkowski: $\norm{f + g}_p \leq \norm{f}_p + \norm{g}_p, 1 \leq p < \infty$.
 
 \section{Embedding Properties of \ttlmath{L^p}{L\^p} spaces}
 \begin{definition}
-	Two norms $\norm{\cdot}, \norm{\cdot}'$ on the same spaces $V$ are said to be \emph{equivalent} if $\exists c_1, c_2 > 0 \st c_1\norm{v} \leq \norm{v}' \leq c_2 \norm{v}, \forall v \in V$.
+	Two norms $\norm{\cdot}, \norm{\cdot}'$ on the same spaces $V$ are said to be \emph{equivalent} if \[\exists c_1, c_2 > 0 \st c_1\norm{v} \leq \norm{v}' \leq c_2 \norm{v}, \forall v \in V.\]
 \end{definition}
-So we have same open sets, same convergence.
+So on equivalent norms we have same open sets, same convergence.
 \begin{example} \fnl
 	\begin{itemize}
 		\item For $\R^d$, $\norm{\cdot}_p$, $1 \leq p \leq \infty$ are equivalent.
@@ -2306,8 +2318,26 @@ So we have same open sets, same convergence.
 \end{example}
 
 \begin{proposition}
+	Suppose $\mu(X) < \infty$, then for any $0 < p < q \leq \infty, L^q \subseteq L^p$.
+\end{proposition}
+\begin{proof}
+	\begin{itemize}
+		\item $p = \infty$ is easy.
+		\item Suppose $p < \infty$.
+	\end{itemize}
+\end{proof}
+
+\begin{proposition}
+	If $0 < p < q \leq \infty$ then $\ell^p \subseteq \ell^q$.
+\end{proposition}
+
+
+\begin{proposition}
 	$\forall 0 < p < q < r \leq \infty$, $L^p \cap L^r \subset L^q$.
 \end{proposition}
+\begin{proof}
+	DIY
+\end{proof}
 
 \section{Banach Spaces}
 
@@ -2420,16 +2450,10 @@ So we have same open sets, same convergence.
 
 \fancyem{Note} $E$ positive set, $F \subset E \implies \nu(F) \leq \nu(E)$. $E$ negative set, $F \subset E \implies \nu(F) \geq \nu(E)$.
 
-\begin{theorem}[The Hahn decomposition theorem]
-	Suppose $\nu$ is a signed measure of $(X, \cA)$. Then $\exists P, N \in \cA \st P \cap N = \emptyset, P \cup N = X$, $P$ is positive for $\nu$, and $N$ is negative for $\nu$.
-
-	If $P', N'$ are another such pair, then $P \triangle P' (= N \triangle N')$ is null for $\nu$.
-\end{theorem}
-
 \begin{definition}
 	$\mu, \nu$ signed measure on $(X, \cA)$.
 
-	$\nu \bot \nu$ (singular to each other) means $\exists E, F \in \cA \st E \cap F = \emptyset, E \cup F = X$, $F$ is null for $\mu$, $E$ is null for $\nu$.
+	$\nu \perp \nu$ (singular to each other) means $\exists E, F \in \cA \st E \cap F = \emptyset, E \cup F = X$, $F$ is null for $\mu$, $E$ is null for $\nu$.
 \end{definition}
 \begin{example}
 	For $(\R, \cB(\R))$, \begin{enumerate}
@@ -2439,6 +2463,307 @@ So we have same open sets, same convergence.
 	\end{enumerate}
 	For (a), (c), take $E = \R \setminus \{-1, 1\}$, $F = \{-1, 1\}$. For (a), (b), take the cantor set $K$, $E = \R \setminus K, F = K$.
 \end{example}
+
+\begin{lemma}
+	$\nu$ is a signed measure on $(X, \cA)$.
+	\begin{enumerate}
+		\item $E$ is positive (for $\nu$) and $G \subset E$ measurable $\implies G$ is positive (for $\nu$).
+		\item $E_1, E_2, \ldots$ positive sets $\implies \displaystyle \bigcup_1^\infty E_n$ is positive.
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	DIY.
+\end{proof}
+
+\begin{lemma}
+	$\nu$ is a signed measure on $(X, \cA)$. Suppose $E \in \cA$ and $0 < \nu(E) < \infty \implies \exists$ measurable set $A \subset E \st A$ is a positive set (for $\nu$) and $\nu(A) > 0$.
+\end{lemma}
+\begin{proof}[Proof in \cite{roydenRealAnalysis2010}]
+	If $E$ is a positive set, we are done.
+
+	Otherwise, $E$ contains sets of negative measure. Let $n_1 \in \N$ be the smallest such that $\exists E_1 \subset E$ with $\nu(E_1) < - \frac{1}{n_1}$. If $E \setminus E_1$ is a positive set then we are done. Otherwise, $E \setminus E_1$ contain sets of measure.
+
+	Inductively if $E \setminus \bigcup_1^{k_1} E_i$ is not a positive set. Let $n_k \in \N$ be the \emph{smallest} such that $\exists E_k \subset E \setminus \bigcup_1^{k_1} E_i$ with $\nu(E_k) < - \frac{1}{n_k}$.
+
+	Note: if $n_k \geq 2, \forall B \subset E \setminus \bigcup_1^{k-1}E_i, \nu(B) \geq  - \frac{1}{n_{k-1}}$.
+
+	Let $A = E \setminus \bigcup_1^\infty E_k$. Since $E = A \cup \bigcup_1^\infty E_k, \nu(E) = \nu(A) + \sum_1^\infty \nu(E_k) \implies \nu(A) > 0$.
+
+	Since $\nu(E), \nu(A)$ are finite, then $\sum_1^\infty \frac{1}{n_k}$ need to be convergent $\implies \lim_{k \to \infty} n_k = \infty$.
+
+	Now, if $B \subset A$ then $B \subset E \setminus \bigcup_1^{k - 1}E_i$. If $\nu(B) \geq -\frac{1}{n_{k-1}} \implies \nu(B) \geq 0$. Thus $A$ is positive.
+\end{proof}
+
+\begin{theorem}[The Hahn decomposition theorem]
+	Suppose $\nu$ is a signed measure of $(X, \cA)$. Then $\exists P, N \in \cA \st P \cap N = \emptyset, P \cup N = X$, $P$ is positive for $\nu$, and $N$ is negative for $\nu$. If $P', N'$ are another such pair, then $P \triangle P' (= N \triangle N')$ is null for $\nu$.
+\end{theorem}
+\begin{proof}
+	\emph{Uniqueness:} $P \setminus P' \subset P \cap n' \implies P \setminus P'$ is positive and negative, thus a null set. Same for $P \setminus P'$.
+
+	\emph{Existence:} WLOG assume $\nu: \cA \to [-\infty, \infty)$. Let $s = \sup\{\nu(E) \mid E \text{ positive for } \nu\}$. $\exists P_1, P_2, \ldots$ positive sets such that $\lim_{n \to \infty} \nu(P_n) = s$. 
+	
+	Let $P = \displaystyle\bigcup_1^\infty E_n \implies P$ is positive $\implies \begin{cases}
+		s \geq \nu(P) \\
+		\nu(P) \geq \nu(P_n)
+	\end{cases} \implies \nu(P) = s$. Note that $0 \leq s = \nu(P) < \infty$.
+
+	Let $N = X \setminus P$. Is $N$ a negative set?
+
+	Suppose not. Then $\exists E \subset N \st \nu(E) > 0$. Note that $\nu(E) < \infty \implies \exists$ positive set  $A \subset EA$ with $\nu(A) > 0$. The $P, A$ are disjoint, $P \cup A$ is a positive set, and $\nu(P \cup A) = \nu(P) + \nu(A) > s$, a contradiction. 
+
+	So $N$ is a negative set.
+\end{proof}
+
+\begin{theorem}[Jordan decomposition theorem]
+	$\nu$ signed measure on $(X, \cA)$. $\exists!$ positive measures $\nu^+, \nu^-$ on $(X, \cA) \st \nu(E) = \nu^+(E) - \nu^-(E), \forall E \in \cA$ and $\nu^+ \perp \nu^-$.
+\end{theorem}
+\begin{proof}
+	$\nu^+(E) = \nu(E \cap P)$, $\nu^-(E) = - \nu(E \cap N)$. DIY.
+\end{proof}
+\begin{example}
+	$(X, \cA, \mu), f: X \to \bar{\R}$. Let $\nu(E) = \int_E f \df \mu$. $\nu^+ = \int_E f^+ \df \mu, \nu^- = \int_E f^- \df \mu$.
+\end{example}
+
+\begin{definition}
+	Suppose $\nu$ a signed measure on $(X, \cA)$. \emph{Total variation measure} of $\nu$ is $|\nu| = \nu^+ \nu^-$ (a positive measure on $(X, \cA)$).
+\end{definition}
+\begin{definition}
+	$|\nu|(E)= \int_E |f| \df \nu$
+\end{definition}
+
+\begin{lemma}
+	\begin{enumerate}
+		\item $|\nu(E)| \leq |\nu|(E)$,
+		\item $E$ is a null set for $\nu \iff E$ is a null set for $|\nu|$,
+		\item Suppose $\kappa$ is another signed measure. $\kappa \perp \nu \iff \kappa \perp |\nu| \iff \kappa \perp \nu^+$ and $\kappa \perp \nu^-$.
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	DIY.
+\end{proof}
+
+\begin{definition}
+	$\nu$ is finite ($\sigma$-finite) if $|\nu|$ is a finite ($\sigma$-finite) measure. ($\iff \nu^+, \nu^-$ are finite ($\sigma$-finite) measures.)
+\end{definition}
+
+\section{Absolutely Measurable Spaces}
+\begin{definition}
+	$\mu$ a positive measure, $\nu$ a signed measure on $(X, \cA)$. $\nu \ll \mu$ ($\nu$ is absolutely continuous with respect to $\mu$) $\iff (E \in \cA, \mu(E) = 0 \implies \nu(E) = 0) \iff $ all $\mu$-null sets and $\nu$-null sets. (check)
+\end{definition}
+\begin{example}
+	$(X, \cA, \mu), f: X \to \bar{\R}$. $\nu(E) = \int E f \df \mu \implies \nu \ll \mu$.
+\end{example}
+\fancyem{Notation}: $\df \nu = f \df \mu$ means $\nu$ is the measure defined by $\nu(E) = \int_E f \df \mu$.
+
+\begin{lemma}
+	$\mu$ positive measure, $\nu$ signed measure.
+	\begin{enumerate}
+		\item $\nu \ll \mu \iff |\nu| \ll \mu \iff \nu^+ \ll \mu$ and $\nu^- \ll \mu$.
+		\item $\nu \ll \mu$ and $\nu \perp \mu \implies \nu = 0$. 
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	
+\end{proof}
+
+\begin{theorem}[Radon-Nikodym]\label[thm]{R-N}
+	$\nu$ a $\sigma$-finite positive measure, $\nu$ a $\sigma$-finite signed measure on $(X, \cA)$. Suppose $\nu \ll \mu$. Then $\exists f: X \to \bar{\R}$ measurable function such that $\nu(E) = \int_E f \df \mu$. If $g$ is another such function then $f = g$ a.e.
+\end{theorem}
+\begin{proof}
+	Will follow by proof of Lebesgue-Radon-Nikodym on Monday.
+\end{proof}
+
+\begin{definition}
+	Suppose $\nu \ll \mu$. A \emph{Radon-Nikodym derivative} of $\nu$ with respect to $\mu$ is a function $\frac{\df \nu}{\df \mu}: X \to \bar{\R}$ satisfying $\nu(E) = \int_E \frac{\df \nu}{\df \mu} \df \mu, \forall E \in \cA$.
+\end{definition}
+\fancyem{Note}: \ref{R-N} shows the existence of such functions. If there is another such function $g$, then $\frac{\df \nu}{\df \mu} = g$ $\mu$-a.e.
+
+\fancyem{Notation}: \[\df \nu = \frac{\df \nu}{\df \mu} \df \mu.\]
+
+\begin{example}
+	$F(x) = e^{2x}: \R \to \R$ is continuous and increasing.
+
+	The Lebesgue-Stieltjes measure $\mu_F$ on $(\R, \cB(\R))$ is the unique locally finite Borel measure satisfying $\mu((a, b]) = e^{2b} - e^{2a}, \forall a < b$.
+	\[\mu_F(E) \stackrel{\text{why?}}{=}\int_E 2e^{2x} \df x.\]
+	So $\mu_F \ll m$ and $\frac{\df \mu_F}{\df m} = 2e^{2x}$.
+\end{example}
+\begin{example}
+	$F(x) = C(x): \R \to \R$ the Cantor function. $C'(x) = 0$ Lebesgue a.e.
+	\[\mu_C(E) \neq \int_E 0 \df x.\]
+	In particular, $c(b) - c(a) \neq \int_a^b c'(x) \df x$ even if $c$ is continuous and has derivative a.e. So $\mu_c \nll m$. But $\mu_c \perp m$.
+\end{example}
+
+\section{Lebesgue Differentiation Theorem for Regular Borel Measures on \ttlmath{\R^d}{R^d}}
+\cite[p. 99]{follandRealAnalysisModern1999}
+\begin{definition}
+	A Borel signed measure $\nu$ on $\R^d$ is called \emph{regular} if \begin{enumerate}
+		\item $|\nu|(\kappa) < \infty, \forall$ compact $K$.
+		\item $|\nu|(E) = \inf\{ m(O) \mid \text{ open } O \supset E\}, \forall $ Borel set $E$.
+	\end{enumerate}
+\end{definition}
+\begin{example}
+	LS measure on $\R$ are regular. Lebesgue measure on $\R^d$ is regular (so, the difference of two of them) Note: from (a), $\nu$ regular $\implies \nu$ is $\sigma$-finite,
+
+	If $\df \nu = f \df m$ regular, then $|\nu|(\kappa) = \int_K |f| \df m < \infty$, so $f \in L^1_\textup{loc}(\R^d)$.
+\end{example}
+
+\begin{lemma}
+	If $f \in L^1_\textup{loc}(\R^d) \iff \df \nu = f \df m$ is regular
+\end{lemma}
+\begin{proof}
+	Read the book.
+\end{proof}
+
+\fancyem{Recall} Lebesgue differentiation theorem
+
+\begin{corollary}
+	Let $\rho$ be a \emph{regular} signed Borel measure on $\R^d$. Suppose $\rho \ll m \implies$ For Lebesgue a.e.-$x$, $\lim_{r \to 0}\frac{\rho(E_r)}{m(E_r)} = \frac{\df \rho}{\df m}(x)$ for every $E_r \to x$ nicely. 
+\end{corollary}
+
+\begin{proposition}
+	Let $\lambda$ be a \emph{regular} positive Borel measure on $\R^d$. Suppose $\lambda \perp m$. For Lebesgue a.e.-$x$, $\lim_{r \to 0}\frac{\lambda(E_1)}{m(E_1)} = 0$ for every $E_r \to x$ nicely.
+\end{proposition}
+\begin{proof}
+	Enough to consider $E_1 = B(x, r)$ 
+	\[
+		\left\{x \mid \limsup_{r \to 0} \frac{\lambda(E_1)}{m(E_1)} \neq 0\right\} = \bigcup_{n=1}^\infty G_n, G_n = \left\{x \mid \limsup_{r \to 0} \frac{\lambda(E_1)}{m(E_1)} > \frac{1}{n} \right\}
+	\]
+	Enough to show that $m(G_n) = 0, \forall n$.
+
+	$\lambda \perp m \implies \R^d = A \cup B$ disjoint. $\lambda(A) = 0, m(B) = 0$, Enough to show $m(G_n \cap A) = 0$.
+
+	Fix $\varepsilon > 0$. Since $\lambda$ is regular, $\exists$ open $O \supset A \st \lambda(O) \leq \lambda(A) + \varepsilon = \varepsilon$. $\forall x \in G_n \cap A, \exists r_x > 0 \st \frac{\lambda(B(x, r_x))}{m(B(x, r_x))} > \frac{1}{n}$ and $B(x, r_x) \subset O$.
+
+	Let $K \subset G_n \cap A$, compact. $K \subset \bigcup_{x \in K} B(x, r_x) \implies \exists$ finite subcover $\implies \exists B_1, B_2, \ldots, E_N$ disjoint, $K \subset \bigcup_1^N 3B_i$. 
+
+	$\implies m(K) \leq 3^d \sum_1^N m(B_i) \leq 3^d n \sum_{1}^N \lambda(B_i) = 3^dn\lambda\left(\bigcap_1^N B_i\right) \leq 3^d n \lambda(O) \leq 3^dn\varepsilon \implies m(G_n \cap A) \leq 3^dn\varepsilon$.
+\end{proof}
+
+\begin{theorem}[LDT for regular Borel measures] Suppose $\nu$ is a regular Borel signed meaaure on $\R^d$ and $\df \nu = \df \lambda + f \df m$, $\lambda \perp m \implies$ for Leb a.e. $x$, $\lim_{r \to 0} \frac{\nu(E_r)}{m(E_r)} = f(x)$ for every $E_r \to x$ nicely.
+\end{theorem}
+\begin{proof}
+	$\nu$ regular $\implies \lambda, f\df m$ are regular.
+\end{proof}
+
+\section{Monotone Differentiation Theorem}
+\cite[3.5]{follandRealAnalysisModern1999}
+\begin{definition}
+	For $F: \R \to \R$ that is increasing, denote $F(x+) = \lim_{y \downarrow x}F(y) = \inf_{y > x} F(y), F(x-) = \lim_{y \uparrow x} F(y) = \sup_{y < x} F(y)$.
+\end{definition}
+
+\begin{lemma}
+	$F$ is increasing $\implies D = \{x \mid F \text{ is discontinuous at } x\}$ is countable.
+\end{lemma}
+\begin{proof}
+	$x \in D \implies F(x+) > F(x-)$ since $F \nearrow$. For $x, y \in D, x \neq y \implies I_x, I_y$ disjoint. For each $x \in D$, let $I_x = (F(x-), F(x+)) \implies \exists f: D \to \Q$ is $1$-$1$. $I_x$ is open interval, not empty $\implies D$ is countable. 
+\end{proof}
+
+\begin{theorem}[Monotone differentiation theorem]
+	Suppose $F \nearrow \implies$ \begin{itemize}
+		\item $F$ is differentiable Lebesgue a.e.
+		\item $G(x) = F(x+)$ is differentiable Lebesgue a.e.
+		\item $G' = F'$ a.e.
+	\end{itemize}
+\end{theorem}
+\begin{proof}
+	$G$ is increasing, right-continuous on $\R \implies \exists$ Lebesgue-Stieltjes measure $\mu_G$ on $\R$ (so, regular). 
+	\[
+		\frac{G(x + h) - G(x)}{h} = \begin{cases}
+			\dfrac{\mu_G((x, x+h])}{m((x, x+h])} & h > 0, \\[1em]
+			\dfrac{\mu_G((x+h, x])}{m((x+h, x])} & h < 0
+		\end{cases}	
+	\] converges for Lebesgue a.e $x$ by LDT. So $G'$ exists a.e.
+
+	Let $H(x) = G(x) - F(x) \geq 0$. We have \[\{x \mid H(x) > 0\} \subset \{x \mid x \text{ is discontinuous at } x\}.\]
+	So $\{x \mid H(x) > 0\}$ it is countable. Denote the set as $\{x_n\}$.
+	
+	Let $\mu = \sum_{n} H(x_n) \delta_{x_n}$. Then \[\mu((-N, N)) = \sum_{x_n \in (-N, N)} H(x_n) \stackrel{check}{\leq} G(N) - F(-N) < \infty.\]
+
+	So $\mu$ is a locally finite Borel measure on $\R \implies \mu$ is regular. Hence \[
+		\left|\frac{H(x + h) - H(x)}{h}\right| \leq \frac{H(x + h) + H(x)}{|h|} \leq 4 \frac{\mu((x-2h, x+2h))}{4|h|} \xrightarrow[]{\text{LDT}, \mu \perp m} 0
+	\] for Lebesgue a.e. $x$.
+
+	So $H$ is differentiable a.e and $H' = 0$ a.e.
+\end{proof}
+
+\begin{proposition}
+	$F \nearrow \implies \displaystyle \int_a^b F'(x) \df x \leq F(b) - F(a)$.
+\end{proposition}
+
+\begin{example}\fnl
+	\begin{itemize}
+		\item $F(x) = \begin{cases}
+			0 & x \leq 0 \\
+			1 & x > 0
+		\end{cases}$. $F'(x) = 0$ a.e and $\displaystyle \int_{-1}^1 F'(x) \df x = 0 < F(1) - F(-1) = 1$.
+		\item $F(x)$ Cantor function. $F'(x) = 0$ a.e. and $\displaystyle \int_0^1 F'(x)\df x = 0 \leq F(1) - F(0) = 1$.
+	\end{itemize}
+\end{example}
+
+\begin{lemma}
+	$F \in \operatorname{BV}$ and right-continuous $\implies T_F \in \operatorname{NBV}$.
+\end{lemma}
+\begin{proof}
+	$T_F \nearrow$, bounded $\implies T_F \in \operatorname{BV}, T_F(-\infty) = 0$. Is $T_F$ right-continuous?
+
+	Suppose it is not. $\exists a \in \R \st c \defeq T_F(a+) - T_F(a) > 0$. Fix $\varepsilon > 0$. Since $F(x)$ and $g(x) \defeq T_F(x+)$ are right continuous, $\exists \delta > 0 \st$ \[
+		|F(y) - F(a)| < \varepsilon, \quad |g(y) - g(a)| < \varepsilon\quad \forall y \in (a, a + \delta].
+	\]
+	So $T_F(y) - T_F(a+) \leq T_F(y+) - T_F(a+) < \varepsilon$.
+
+	$\exists a = x_0 < x_1 < x_2 < \ldots < x_n = a + \delta \st$
+	\begin{align*}
+		\sum_{i=1}^n |F(x_i) - F(x_{i-1})| & \geq T_F(a + \delta) - T_F(a) - \frac{c}{4} \\
+		& \geq T_F(a+) - T_F(a) - \frac{c}{4} = \frac{3}{4}c.
+	\end{align*} 
+	This shows that $\sum_{i=2}^n |F(x_i) - F(x_{i-1})| \geq \frac{3}{4}c - \varepsilon$ since
+
+	Consider $[a, x_1]$. $\exists a = t_0 < t_1 < \ldots < t_k = x_1 \st$ \[
+		\sum_{i=1}^k |F(t_i) - F(t_{i-1})| \geq T_F(x_1) - T_F(a) - \frac{c}{4} \geq \frac{3}{4}c.
+	\]
+	So we can write $[a, a + \delta] = [a, x_1] \cup [x_1, a + \delta]$. So \begin{align*}
+		\varepsilon + c & \geq T_F(a + \delta) - T_F(a+) + T_F(a+) - T_F(a) \\
+						& = T_F(a + \delta) - T_F(a) \\
+						& \geq \sum_{j=1}^k |F(t_j) - F(t_{j-1})| + \sum_{i=2}^n |F(x_i) - F(x_{i-1})| \geq \frac{3}{4}c - \varepsilon + \frac{3}{4}c = \frac{3}{2} - \varepsilon \\
+		\implies c & \leq 4\varepsilon.
+	\end{align*}
+	Since $\varepsilon > 0$ is arbitrary, we conclude that $c = 0$, a contradiction.
+\end{proof}
+
+\begin{corollary}
+	$F \in \operatorname{NBV} \iff F = F_1 - F_2, F_1, F_2 \in \operatorname{NBV}$ and $\nearrow$.
+\end{corollary}
+\begin{proof}
+	$F = \frac{}{}$.
+\end{proof}
+
+\begin{theorem}\fnl
+	\begin{enumerate}
+		\item $\mu$ is a finite \emph{signed} Borel measure on $\R \implies F(x) \defeq \mu((-\infty, x]) \in \operatorname{NBV}$.
+		\item $F \in \NBV \implies \exists!$ finite \emph{signed} Borel measure $\mu_F$ on $\R$ satisfying $\mu((-\infty, x]) = F(x)$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	\begin{enumerate}
+		\item $\mu = \mu^+ - \mu^- \implies F = F^+ - F^-, F^\pm (x) = \mu^\pm ((-\infty, x])$ is increasing, bounded, right-continuous, and $F^\pm (-\infty) = 0$. 
+		\item $F \in \NBV \implies F = F_1 - F_2, F_1, F_2 \in \NBV$ and are increasing. So $\exists \mu_{F_1}, \mu_{F_2}$ Lebesgue-Stieltjes measure. $\mu_F \defeq \mu_{F_1} - \mu_{F_2}$. Uniqueness is left for homework.
+	\end{enumerate}
+\end{proof}
+
+\begin{proposition}
+	Let $F \in \NBV$. Then \begin{enumerate}
+		\item $F$ is differentiable a.e, $F \in L^1(\R, m)$.
+		\item $\ndf \mu_{F} = \ndf \lambda + F' \ndf m, \lambda \perp m$.
+		\item $\mu_F \perp m \iff F' = 0$ Lebesgue a.e.
+		\item $\mu_F \ll m \iff \displaystyle \int_{-\infty}^x F'(t)\df t = F(x)$.
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	Check (a), (b), (c).
+
+	(d) $\mu_F \ll m \iff \lambda = 0 \iff \ndf \mu_F = F' \ndf m \iff \mu_F = \int_E F' \df m, \forall E$ Borel $\iff F(x) = \int_{-\infty}^x F'(t)\df t, \forall x \in \R$. (by uniqueness)
+\end{proof}
 
 \bibliography{analysis}{}
 \bibliographystyle{alpha}
