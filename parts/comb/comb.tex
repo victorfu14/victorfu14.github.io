@@ -2101,7 +2101,7 @@ Let \[g(m, n, a) \defeq \#\{\text{ptns of $a$ in $L(m, n)$}\}\] and \[
     \end{itemize}
     then we are done.
 
-    Set \[U_k(x) = \sum_{\substack{y \in P_{k+1} \\ y > x} y}, D_k(x) = \sum_{\substack{y \in P_{k-1}\\ y < x}}y.\]
+    Set \[U_k(x) = \sum_{\substack{y \in P_{k+1} \\ y > x}} y, D_k(x) = \sum_{\substack{y \in P_{k-1}\\ y < x}}y.\]
     We have that \[D_{k+1} = U^*_k.\]
 
     We introduce a lemma first.
@@ -2177,7 +2177,16 @@ A key lemma:
         U_j(\lambda) & = \sum_{x \in \add(\lambda)} \sqrt{w(x)}\left(\lambda \cup \{x\}\right), \\
         D_j(\lambda) & = \sum_{x \in \del(\lambda)} \sqrt{w(x)}\left(\lambda - \{x\}\right).
     \end{align*}
-    \fancyem{Claim}: $D_{k+1}U_k - U_{k+1}D_k = U^*_kU_k - U_{k-1}U^*_{k-1}$ has diagonal matrix wirh $(\lambda, \lambda)$ entry described by $\delta(\lambda)$.
+    \fancyem{Claim}: $D_{k+1}U_k - U_{k+1}D_k = U^*_kU_k - U_{k-1}U^*_{k-1}$ is a diagonal matrix with $(\lambda, \lambda)$ entry described by $\delta(\lambda)$.
+
+    Now, $U^*_kU_k = U_{k-1}U^*_{k-1} + D$ where $D$ is a diagonal matrix with positive entries. Notice that $U_{k-1}U^*_{k-1}$ is positive semidefinite $\implies U^*_kU_k$ is also positive semidefinite. Hence $U_k$ has maximum rank.
+
+    As before, this implies the existence of order resepcting injection.
+\end{proof}
+
+Given this lemma, now we show that $L(m, n)$ is Sperner.
+\begin{proof}[Proof of $L(m, n)$ is Sperner]
+    
 \end{proof}
 
 
