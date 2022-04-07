@@ -20,6 +20,8 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\B}{\mathbb{B}}
 \newcommand{\matP}{\mathbb{P}}
 \newcommand{\matE}{\mathbb{E}}
 \newcommand{\matS}{\mathbb{S}}
@@ -48,6 +50,7 @@
 \def \indeg {\operatorname{indeg}}
 \def \outdeg {\operatorname{outdeg}}
 \def \Par {\operatorname{Par}}
+\def \Gr {\operatorname{Gr}}
 \def \del {\operatorname{del}}
 \def \add {\operatorname{add}}
 \newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
@@ -1737,14 +1740,36 @@ For squares, www.squaring.net
         \end{bmatrix} = (-1)^n\sum_{\substack{|S| = n \\ S \subset [1, m]}} \det A[S] \cdot \det B^T[S].   
     \]
 \end{corollary}
+\begin{example}
+    \[ \det \begin{bmatrix}
+        0 & a_1 & a_2 \\
+        b_1 & 1 & 0 \\
+        b_2 & 0 & 1
+    \end{bmatrix} = -(a_1b_1 + a_2b_2). \]
+\end{example}
 
 \begin{theorem}[Binet-Cauchy formula]
     Let $A$ and $B$ be matrices of sizes $n \times m$ and $m \times n$, respectively, with $n \leq m$. Then \[
-        \det (AB) = \sum_{\substack{S \subset [1, m] \\ |S| = n}} \det A[S] \det B^T[\bar{S}].    
+        \det (AB) = \sum_{\substack{|S| = n \\S \subset [1, m]}} \det A[S] \det B^T[\bar{S}].    
     \]
 \end{theorem}
 \begin{proof}
-    
+    We have \[
+        \begin{bmatrix}
+            -I_n & A \\
+            0 & I_m
+        \end{bmatrix}
+        \begin{bmatrix}
+            0 & A \\
+            B & I_m
+        \end{bmatrix} = \begin{bmatrix}
+            AB & 0 \\
+            B & I_m
+        \end{bmatrix}.
+    \]
+    Taking determinant of both sides we have \[
+        (-1)^n(-1)^n\sum_{\substack{|S| = n \\ S \subset [1, m]}} \det A[S] \cdot \det B^T[S] = \det(AB). \qedhere
+    \] 
 \end{proof}
 
 \begin{definition}
@@ -1763,9 +1788,30 @@ Given the definition of cofactors we have a formula of $\det Z$:
     Let $Z'$ be obtained from $Z$ by adding $1$ to the entry $z_{i1}$. Adding all columns of $Z$ to column $k$ and then expanding the determinant with respect to the column, we get that $\det(Z') = Z_{ik}$. Hence $Z_{i1} = Z_{i2} = \ldots = \det(Z')$.
 \end{proof}
 
-\section{Matrix Representation of Direct Graphs}
-\begin{example}
-    
+\section{Matrix Representation of Directed Graphs}
+\begin{example}[Incidence matrix of a directed graph]
+    \fnl
+    \[G = \begin{tikzpicture}[baseline=(current bounding box.center)]
+        \node[shape=circle, fill=black, scale = 0.3] (A1) at ({-2*sqrt(3)/3}, 0) {};
+        \node[left] at (A1) {$v_1$};
+        \node[shape=circle, fill=black, scale = 0.3] (A2) at (0, 2) {};
+        \node[above] at (A2) {$v_2$};
+        \node[shape=circle, fill=black, scale = 0.3] (A3) at ({2*sqrt(3)/3}, 0) {};
+        \node[right] at (A3) {$v_3$};
+        \node[shape=circle, fill=black, scale = 0.3] (A4) at (0, -2) {};
+        \node[below] at (A4) {$v_4$};
+
+        \draw[->, thick] (A1) -- (A2) node[midway, above, sloped] {1};
+        \draw[->, thick] (A2) -- (A3) node[midway, above, sloped] {2};
+        \draw[->, thick] (A3) to [out=135,in=45,looseness=1.1] (A1) node[midway, above, sloped] {3};
+        \draw[->, thick] (A1) to [out=-45,in=-135,looseness=1.1] (A3) node[midway, below, sloped] {4};
+        \draw[->, thick] (A3) -- (A4) node[midway, below, sloped] {5};
+    \end{tikzpicture}, \quad M = \begin{bmatrix}
+        -1 & 0 & -1 & -1 & 0 \\
+        1 & -1 & 0 & 0 & 0 \\
+        0 & 1 & -1 & 1 & -1 \\
+        0 & 0 & 0 & 0 & 1.
+    \end{bmatrix}\]
 \end{example}
 \begin{lemma}
     Let $T$ be a tree and $M_0$ be the incidence matrix of an orientation $T$ with one of its rows removed. Then $\det(M_0) = \pm 1$.
@@ -1876,34 +1922,94 @@ For $k = 3$, this gives $384$.
 \fancyem{Problem} Find the number of spanning trees in the Peterson graph.
 
 \section{Cayley's Formula}
-\begin{theorem}
+\begin{theorem}[A. Cayley, 1889(no proof), J. Sylvester, 1857]
     The number of trees in a fixed $n$-element set of vertices is $n^{n - 2}$.
 \end{theorem}
 \begin{example}
-    $n = 2: $
-
-    $n = 3: $
-
-    Basically we are counting spanning trees of a complete graph.
+    \[n = 2: \begin{tikzpicture}
+        \node[shape=circle, fill=black, scale = 0.3] (A1) at (0, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A2) at (1, 0) {};
+        \draw[thick] (A1) to (A2);
+    \end{tikzpicture}\ .\]
+    \[n = 3: \begin{tikzpicture}
+        \node[shape=circle, fill=black, scale = 0.3] (A1) at (0, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A2) at (1, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A3) at (0.5, {0.5*sqrt(3)}) {};
+        \draw[thick] (A1) to (A2) to (A3);
+    \end{tikzpicture}\ , \quad
+    \begin{tikzpicture}
+        \node[shape=circle, fill=black, scale = 0.3] (A1) at (0, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A2) at (1, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A3) at (0.5, {0.5*sqrt(3)}) {};
+        \draw[thick] (A3) to (A1) to (A2);
+    \end{tikzpicture}\ , \quad
+    \begin{tikzpicture}
+        \node[shape=circle, fill=black, scale = 0.3] (A1) at (0, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A2) at (1, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A3) at (0.5, {0.5*sqrt(3)}) {};
+        \draw[thick] (A1) to (A3) to (A2);
+    \end{tikzpicture}\ .\]
+    \[n = 4: 4\ \begin{tikzpicture}
+        \node[shape=circle, fill=black, scale = 0.3] (A1) at (0, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A2) at (1, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A3) at (0.5, {0.5*sqrt(3)}) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A4) at (0.5, {0.5/3*sqrt(3)}) {};
+        \draw[thick] (A1) to (A4) to (A3);
+        \draw[thick] (A2) to (A4);
+    \end{tikzpicture}\ , \quad 12\ 
+    \begin{tikzpicture}
+        \node[shape=circle, fill=black, scale = 0.3] (A1) at (0, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A2) at (1, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A3) at (2, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A4) at (3, 0) {};
+        \draw[thick] (A1) to (A2) to (A3) to (A4);
+    \end{tikzpicture}\ .\]
+    \[n = 5: 5\ \begin{tikzpicture}
+        \node[shape=circle, fill=black, scale = 0.3] (A1) at (0, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A3) at (1, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A2) at (0.5, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A4) at (0.5, 0.5) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A5) at (0.5, -0.5) {};
+        \draw[thick] (A1) to (A3);
+        \draw[thick] (A5) to (A4);
+    \end{tikzpicture}\ , \quad 60\ \begin{tikzpicture}
+        \node[shape=circle, fill=black, scale = 0.3] (A1) at (0, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A2) at (1, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A3) at (0.5, {0.5*sqrt(3)}) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A4) at (0.5, {0.5/3*sqrt(3)}) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A5) at ({1+1/3*sqrt(3)}, 0) {};
+        \draw[thick] (A1) to (A4) to (A3);
+        \draw[thick] (A5) to (A2) to (A4);
+    \end{tikzpicture}\ ,\quad 60\ 
+    \begin{tikzpicture}
+        \node[shape=circle, fill=black, scale = 0.3] (A1) at (0, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A2) at (0.8, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A3) at (1.6, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A4) at (2.4, 0) {};
+        \node[shape=circle, fill=black, scale = 0.3] (A5) at (3.2, 0) {};
+        \draw[thick] (A1) to (A5);
+    \end{tikzpicture}\ .\]
 \end{example}
 \begin{proof}
+    This is counting spanning trees of a complete graph.
+    
     Eigenvalues of $A(K_n): -1, -1, \ldots, n - 1$. Eigenvalues of $L(K_n): n, n, n, \ldots, 0$.
 
     So the number of spanning trees: $\frac{1}{n}n^{n-1} = n^{n - 2}$.
 \end{proof}
 
-Directed Matrix-Tree theorem.
+Now we introduce the directed matrix-tree theorem.
 \begin{definition}
     An \emph{arborescence} rooted at a vertex $v$ is a tree whose edges are directed away from $v$.
-\end{definition}
-"spanning arborescence".
 
-$\tau(D, v) = \#$spanning arborescences rooted at $v$.
+    A \emph{spanning arborescence} is an arborescence that includes all vertices of the graph. We denote $\tau(D, v) \defeq \#$spanning arborescences rooted at $v$.
+\end{definition}
+
 \begin{example}
     
 \end{example}
 
-\begin{theorem}
+\begin{theorem}[Directed matrix-tree theorem]
     $\tau(D, v) = $ any cofactor in the row labeled by $v$ of the matrix $L(D) = (L_{ij})$ defined by
     \[
         L_{ij} = \begin{cases}
@@ -1920,7 +2026,8 @@ $\tau(D, v) = \#$spanning arborescences rooted at $v$.
     
 \end{example}
 
-\section{Eulerian Tours}
+\section{Eulerian Tours and Postman Routes}
+\epigraph{This is all kind of clear if you just close your eyes and meditate.}{-- \textup{Sergey Fomin}}
 \begin{definition}
     An Eulerian tour is a closed walk that visits all vertices and traverses each edge exactly once. If such a tour exists, then the graph is \emph{Eulerian}.
 \end{definition}
@@ -1969,10 +2076,6 @@ Suppose $D$ an Eulerian graph. Let $\varepsilon(D)$ denote the number of Euleria
     We got a correspondence between Eulerian tours ending with $e$ with arborescence $T$ rooted at $v$, collection if linear ordering satisfying (a), (b).
 \end{proof}
 
-\epigraph{This is all kind of clear if you just close your eyes and meditate.}{}
-
-\section{}
-
 Postman Routes
 
 $G$ is connected $\implies D(G)$ is Eulerian.
@@ -1989,14 +2092,14 @@ Application: "rotating drum" random number generator
 
 This can be generalized to larger alphabets
 
-The de Bruijn graph
+De Bruijn graph
 vertices = binary strings of length $n - 1$
 
 edges = $\{(a_1,\ldots, a_{n-1}) \to (a_2, \ldots, a_{n-1}, a_n)\}$.
 
-The de Bruijn sequence is cryptomorhpic to Eulerian tours in this graph since the de Bruijn graph is connected and balanced 
+The De Bruijn sequence is cryptomorhpic to Eulerian tours in this graph since the De Bruijn graph is connected and balanced 
 
-Enumeration of de Bruijn sequences
+Enumeration of De Bruijn sequences
 \begin{corollary}
     $\#$ dB sequences of degree $n = $ any cofactor of the directed Laplacian of the de Bruijn graph.
 \end{corollary}
@@ -2008,8 +2111,69 @@ Enumeration of de Bruijn sequences
 
 \chapter{Partitions and Tableaux}
 % \chapter{\ttlmath{q}{q}-binomal coefficients}
-\section{Partitions}
-\section{More Partition Identities}
+\section{Partitions and Young Diagrams}
+\begin{definition}
+    A \emph{partition} of $n \in \Z_{\geq 0}$ is a weakly decreasing sequence $\lambda = (\lambda_1 \geq \lambda_2 \geq \lambda_3 \geq \ldots)$ of nonnegative integers whose sum is $n$.
+\end{definition}
+Usually we ignore $\lambda_i = 0$. The positive $\lambda_i$'s are called the \emph{parts} of $\lambda$.
+We also write \[
+    \Par(n) \defeq \{\text{partitions of } n\}.    
+\]
+We can also express partition in the form of Young diagrams.
+\begin{example}
+    \[\Par(4) = \{4, 31, 22, 211, 1111\},\]
+    \[
+        \ydiagram{4}\ (4),\quad \ydiagram{3, 1}\ (31),\quad \ydiagram{2, 2}\ (22),\quad \ydiagram{2, 1, 1}\ (211),\quad \ydiagram{1, 1, 1, 1}\ (1111).   
+    \]
+    We can see that conjugate partitions correspond to transposed Young diagrams.
+\end{example}
+Generally one may want to count the number of partitions (Young diagrams) of $n$. Let $p(n) \defeq \#\Par(n)$. We have the following table: 
+\[
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c}
+        $n$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & \ldots \\
+        \hline
+        $p(n)$ & 1 & 1 & 2 & 3 & 5 & 7 & 11 & 15 & 22 & \ldots
+    \end{tabular}    
+\]
+\begin{theorem}[G.H. Hardy - S. Ramanujan, 1918]
+    As $n \to \infty$,
+    \[p(n) \sim \frac{1}{4n\sqrt{3}}e^{\pi\sqrt{2n/3}}.\]
+\end{theorem}
+H. Rademacher [1937] gave a complete asymptotic expansion for $p(n)$.
+
+\section{Generating Function and Partition Identities}
+Now we introduce the generating functions for counting partitions.
+\begin{theorem}[L. Euler]\fnl
+    \begin{equation}\label{eq:gen}
+        \sum_{n=0}^\infty p(n)x^n = \frac{1}{(1 - x)(1 - x^2)(1 - 3)\ldots}.
+    \end{equation}
+\end{theorem}
+\begin{proof}[Explanation]
+    RHS of \eqref{eq:gen} is \[
+        (1 + x + x^2 + \ldots)(1 + x^2 + x^4 + \ldots)(1 + x^3 + x^6 + \ldots)\ldots
+    \]
+    where the coefficients of $x^n = $ the number of solutions to $n = a_1 + 2a_2 + 3a_3 + \ldots$.
+\end{proof}
+So we have the folloing equalities: 
+\begin{equation}\label{eq:partsleqk}
+    \sum_{n=0}^\infty \#\{\text{partitions of $n$ with parts $\leq k$}\}x^n = \frac{1}{(1-x)(1-x^2)\ldots(1-x^k)}.
+\end{equation}
+\begin{equation}\label{eq:leqkparts}
+    \sum_{n=0}^\infty \#\{\text{partitions of $n$ with $\leq k$ parts}\}x^n = \frac{1}{(1-x)(1-x^2)\ldots(1-x^k)}.
+\end{equation}
+It is clear that \eqref{eq:partsleqk} and \eqref{eq:leqkparts} evaluate to the same function since they deal with partitions conjugate to each other.
+\begin{equation}\label{eq:distinct}
+    \sum_{n=0}^\infty \#\{\text{partitions of $n$ with distinct parts}\}x^n = \prod_{k=1}^\infty(1 + x^k) = \prod_{k=1}^\infty \frac{1 - x^{2k}}{1-x^k}.
+\end{equation}
+\begin{equation}\label{eq:odd}
+    \sum_{n=0}^\infty \#\{\text{partitions of $n$ with odd parts}\}x^n = \prod_{k=1}^\infty \frac{1}{1-x^{2k-1}} = \prod_{k=1}^\infty \frac{1 - x^{2k}}{1-x^k}.
+\end{equation}
+\fancyem{Problem} Give a bijective proof of why the LHS of \eqref{eq:distinct} and \eqref{eq:odd} are equal to each other.
+
+\fancyem{Problem} Prove that \[
+    \#\{\text{self-conjugate partitions of $n$}\} = \#\{\text{partitions of $n$ into distinct odd parts}\}.   
+\]
+
 \fancyem{Problem} Suppose $k, n > 0$. Prove that \begin{multline*}
     \#\{\text{ptns of $n$ into parts NOT divisible by $k$}\} \\ 
     = \#\{\text{ptns of $n$ s.t. the multiplicity of each part is $< k$}\}.
@@ -2049,7 +2213,7 @@ Enumeration of de Bruijn sequences
     \]
 \end{theorem}
 
-Dominance in $\R^n$. Suppose $\lambda = (\lambda_1 \geq \lambda_2 \geq \ldots \geq \lambda_n) \in \R^n$ and $\mu = (\mu_1 \geq \mu_2 \geq \ldots \geq \mu_n) \in \R^n$. Let $P_\lambda$ denote the convex hull of $S_n$-orbit of $\lambda$. (Here $S_n$ is the symmetry group $n$)
+Dominance in $\R^n$ can be translated into the inclusion of convex hulls. Suppose $\lambda = (\lambda_1 \geq \lambda_2 \geq \ldots \geq \lambda_n) \in \R^n$ and $\mu = (\mu_1 \geq \mu_2 \geq \ldots \geq \mu_n) \in \R^n$. Let $P_\lambda$ denote the convex hull of $S_n$-orbit of $\lambda$. (Here $S_n$ is the symmetry group of $n$.)
 
 \fancyem{Problem} Let $\lambda, \mu$ defined as above (weakly decreasing coordinates). Show that for $\mu, \lambda$ s.t. $\mu_1 + \ldots + \mu_n = \lambda_1 + \ldots + \lambda_n$. We have $P_\mu \leq P_\lambda \iff \mu \leq \lambda$. (Dominance extended to $\R^n$.)
 
@@ -2066,26 +2230,148 @@ Dominance in $\R^n$. Suppose $\lambda = (\lambda_1 \geq \lambda_2 \geq \ldots \g
 I. Schur [1923] proved $\Downarrow$, A. Horn [1954] proved $\Uparrow$.
 
 \section{The Lattices \ttlmath{L(m, n)}{L(m, n)}}
-Let $L(m, n)$ be the partitions whose shape (is Young diagram) fits into the $m \times n$ box. (i.e. $\lambda_1 \leq n$, $\#$parts $\leq m$)
+Let $L(m, n)$ be the partitions whose shape (as a Young diagram) fits into the $m \times n$ box. (i.e. $\lambda_1 \leq n$, $\#$parts $\leq m$)
 
-$L(m, n)$ is partially ordered by \emph{containment}.
+$L(m, n)$ is partially ordered by \emph{containment} i.e. $\mu \leq \lambda \iff \forall i, \mu_i \leq \lambda_i$.
 It is an easy exercise to check that $L(m, n)$ is a \emph{distributive lattice}.
 
 \fancyem{Observarion} $\#L(m, n) = \binom{m+n}{n} = \binom{m + n}{m}$.
 
-Let \[g(m, n, a) \defeq \#\{\text{ptns of $a$ in $L(m, n)$}\}\] and \[
-    \begin{bmatrix}
-        m + n \\ n
-    \end{bmatrix}_q \qbin{m+n}{n} \defeq \sum_{a = 0}^{mn} g(m, n, a)q^a    
+\begin{definition}[$q$-binomial coefficients]\label{def:qbin}
+    Let \[g(m, n, a) \defeq \#\{\text{partitions of $a$ in $L(m, n)$}\}\] and \[
+        \qbin{m+n}{n} \defeq \sum_{\lambda \in L(m, n)}q^{|\lambda|} = \sum_{a = 0}^{mn} g(m, n, a)q^a    
+    \]
+\end{definition}
+\begin{example}
+    $m = 2, n = 3,$ \begin{align*}
+        \qbin{5}{2} & = 1 + q + 2q^2 + 2q^3 + 2q^4 + q^5 + q^6 \\
+        & = (1 + q^2)(1 + q + q^2 + q^3 + q^4).
+    \end{align*}
+\end{example}
+
+\section{\ttlmath{q}{q}-binomial coefficients}
+To introduce more identities on $q$-binomial coefficients, we first digress to talk about the Grassmannian.
+\begin{definition}
+    Given $\F$ a field, $V = \F^{m + n}$ the standard $(m+n)$-dimension vector space over $\F$, we have \[
+        \Gr(m, m+n, \F) \defeq \{\text{$m$-dimensional subspaces of $V$}\}.
+    \]
+\end{definition}
+\begin{theorem}
+    Any $m$-subspace $U \subset V$ is uniquely represented as the row span of an $m \times (m + n)$ matrix is \emph{reduced row echelon form}.
+\end{theorem}
+\setcounter{MaxMatrixCols}{20}
+\begin{example}
+    Suppose $m = 5, n = 7$ and $M = \begin{bmatrix}
+        0 & 1 & * & 0 & * & * & 0 & 0 & * & 0 & * & * \\
+        0 & 0 & 0 & 1 & * & * & 0 & 0 & * & 0 & * & * \\
+        0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & * & 0 & * & * \\
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & * & 0 & * & * \\
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & * & * 
+    \end{bmatrix}$.
+    Then \[U = \operatorname{span}\left(M_2, M_4, M_7, M_8, M_{10}\right) \text{ and } \lambda = 65332 \in L(5, 7).
+    \]
+\end{example}
+We have $\{\text{subspaces whose row echelon form has "shape" $\lambda$}\} = $ Schubert cell (labelled by $\lambda$) $\cong \F^{|\lambda|}$.
+
+We now investigate Grassmannians over finite fields. Suppose $q$ is prime power, then $\F_q$ is a field of order $q$. 
+\[
+    \# \Gr(m, m+n, \F_q) = \sum_{\lambda \in L(m, n)}q^{|\lambda|} = \qbin{m+n}{m}.    
+\] On the other hand, \begin{align*}
+    \# \Gr(m, m+n, \F_q) & = \frac{\#\{\text{sequences of $m$ linearly independent vectors in $\F_q^{m + n}$}\}}{\#\{\text{ordered bases in $\F_q^m$}\}} \\
+    & = \frac{(q^{m+n} - 1)(q^{m+n} - q)\ldots(q^{m+n} - q^{m-1})}{(q^{m} - 1)(q^{m+n} - q)\ldots(q^{m} - q^{m-1})} \\
+    & = \frac{[m+n]_q[m+n-1]_q\ldots[n+1]_q}{[n]_q[n-1]_q\ldots[1]_q} \\
+    & = \frac{[m+n]!}{[m]![n]!}
+\end{align*}
+where \[
+    [k] \defeq 1 + q + \ldots + q^{k-1} = \frac{q^k - 1}{q - 1}, [k]! \defeq [1]_q[2]_q\ldots[k]_q.
+\]
+\begin{theorem}\fnl
+    \[\qbin{m+n}{n} = \frac{[m+n]!}{[m]![n]!}.\]
+\end{theorem}
+\begin{proof}
+We've proved this equation for prime power $q \implies$ it is true for formal variable $q$. 
+\end{proof}
+\begin{example}
+    \begin{align*}
+        \qbin{5}{2} & = \frac{[5]!}{[3]![2]!} = \frac{[5]_q[4]_q}{[1]_q[2]_q}\\
+        & = (1 + q + q^2 + q^3 + q^4)\frac{1 + q + q^2 + q^3}{1 + q} \\
+        & = (1 + q^2)(1 + q + q^2 + q^3 + q^4)
+    \end{align*}
+    as calculated before.
+\end{example}
+\fancyem{Problem} Prove that \[
+    [n + m]! = [m]![n]!\sum_{\lambda \in L(m, n)}q^{|\lambda|}    
+\] by a direct bijective argument.
+
+We can discover more identities:
+\begin{lemma}Following \autoref{def:qbin}, we have
+    \[g(m, n, a) = g(m - 1, n, a - n) + g(m, n - 1, a)\]
+    where $g(m', n', a) = 0$ if $m' < 0$ or $n' < 0$.
+\end{lemma}
+\begin{proof}
+\end{proof}
+\begin{proposition}[$q$-Pascal recurrence]\fnl
+    \[\qbin{n}{k} = q^k\qbin{n-1}{k} + \qbin{n-1}{k-1}\]
+\end{proposition}
+Given this, we can construct the $q$-Pascal triangle:
+
+\fancyem{Problem*} The $q$-Pascal recurrence can be used to (re-)prove the formula \[
+    \qbin{m+n}{n} = \frac{[m+n]!}{[m]![n]!}.
 \]
 
-\section{\ttlmath{q}{q}-binomal coefficients}
+\fancyem{Problem} Prove that \[
+    \qbin{n + m}{k} = \sum_{i=1}^k q^{e(n, m, k, i)} \qbin{n}{i} \qbin{m}{k-i}
+\] where $e$ is some function of $n, m, k, i$. Then deduce that \[
+    \qbin{2n}{n} = \sum_{i=1}^n q^{i^2} \left(\qbin{n}{i}\right)^2.    
+\]
 
-\section{Sperner's Theorem}
-\epigraph{Once you get stepped on by an elephant, you remain 2-dimensional for the rest of your life.}{}
-\begin{proposition}
-    Boolean lattice $\mathbb{B}_n$ is Sperner ($|\text{the largest antichain}| = |\text{largest level set}|$)
-\end{proposition}
+\fancyem{Problem} Prove that \[
+    \prod_{j=1}^n(1+yq^j) = \sum_{k=0}^n q^{\frac{k(k+1)}{2}}\qbin{n}{k}y^k.
+\]
+
+\section{Sperner Theory}
+\epigraph{Once you get stepped on by an elephant, you remain 2-dimensional for the rest of your life.}{-- \textup{Sergey Fomin}}
+\begin{definition}
+    Suppose a poset $P$. A \emph{chain} is a subset of $P$ that consists of compatible elements. An \emph{antichain} is a subset of $P$ that consists of incompatible elements.
+\end{definition}
+\begin{example}
+    The \emph{Boolean algebra} $\B_n$ is the poset of all subsets of an $n$-element set ordered by division.
+    \[n = 3, \quad
+    \begin{tikzpicture}[baseline=(current bounding box.center)]
+        \node[shape=circle, fill=black, scale = 0.3] (A1) at (-1, 0) {};
+        \node[left] at (A1) {ab};
+        \node[shape=circle, fill=black, scale = 0.3] (A2) at (-0.1, 1) {};
+        \node[right] at (A2) {abc};
+        \node[shape=circle, fill=black, scale = 0.3] (A3) at (1, 0) {};
+        \node[right] at (A3) {bc};
+        \node[shape=circle, fill=black, scale = 0.3] (A4) at (0.1, -1) {};
+        \node[above] at (A4) {b};
+
+        \node[shape=circle, fill=black, scale = 0.3] (A5) at (-0.9, -1) {};
+        \node[left] at (A5) {a};
+        \node[shape=circle, fill=black, scale = 0.3] (A6) at (0, 0) {};
+        \node[right] at (A6) {ac};
+        \node[shape=circle, fill=black, scale = 0.3] (A7) at (1.1, -1) {};
+        \node[right] at (A7) {c};
+        \node[shape=circle, fill=black, scale = 0.3] (A8) at (0.2, -2) {};
+        \node[below] at (A8) {$\emptyset$};
+
+        \draw[thick] (A1) to (A2) to (A3) to (A4) to (A1);
+        \draw[thick] (A5) to (A6) to (A7) to (A8) to (A5);
+        \draw[thick] (A1) to (A5) to (A6) to (A2) to (A3) to (A7) to (A8) to (A4);
+    \end{tikzpicture}    
+    \] is a \emph{graded} poset. The antichains are the set of element with a fixed rank $a$. The cardinalities of antichains are called the Whitney numbers. In the Boolean algebra, these are binomial coefficients.
+\end{example}
+\begin{theorem}[Dilworth, 1950]
+    The size of the largest antichain in a finite poset $P = $ smallest $\#$ of chains covering $P$.
+\end{theorem}
+\begin{definition}
+    Let $P$ be a graded poset. $P$ is Sperner $\iff$ the size of its larget antichain $=$ largest Whitney number.
+\end{definition}
+
+\begin{theorem}[Sperner, 1927]
+    Boolean lattice $\mathbb{B}_n$ is Sperner. ($|\text{the largest antichain}| = |\text{largest level set}|$). In the other words, the largest size of an antichain in $\B_n$ is $\binom{n}{\left\lfloor n/2 \right\rfloor}$.
+\end{theorem}
 
 \begin{proof}
     Let $P_k = \{S \mid |S| = k, S \subset [1, n]\} \subset \mathbb{B}_n$. So $|P_k| = \binom{n}{k}$. Suppose $k < \frac{n}{2}$.
@@ -2108,23 +2394,35 @@ Let \[g(m, n, a) \defeq \#\{\text{ptns of $a$ in $L(m, n)$}\}\] and \[
 
     We introduce a lemma first.
     \begin{lemma}
-        $\forall k \in [0, n], D_{k+1}U_k - U_{k-1}D_k = (n - 2k)I$.
+        $\forall k \in [0, n],$ \begin{equation}\label{eq:n-2k}
+            D_{k+1}U_k - U_{k-1}D_k = (n - 2k)I
+        \end{equation}
     \end{lemma}
     \begin{proof}[Proof of lemma]\let\qed\relax
        The off-diagonal entries of LHS are all $0$. And we have 
        \[(D_{k+1}U_k - U_{k-1}D_k)x = (n - k - k)x + \ldots\]
     \end{proof}
 
-    Some stuff
+    \fancyem{Note}:$MM^*$ is always the matrix of a positive semidefinite quadratic form: \[
+        \langle MM^*v, v\rangle = \langle M^*v, M^*v\rangle \geq 0.   
+    \]
+    Since $D_{k+1} = U_k^*$ and $D_{k} = U_{k-1}^*$, \eqref{eq:n-2k} then can be written as \[
+        U_k^*U_k = U_{k-1}U_{k-1}^* + (n - 2k)I.
+    \] where $U_{k-1}U_{k-1}^*$ is positive semidefinite and $(n - 2k)I$ is positive definite.
+    So $U_k^*U_k$ is positive definite $\iff$ all eigenvalues of $U_k^*U_k$ is positive.
+
+    Hence $U_k^*U_k$ is non-degenerate, so it has full rank.
 \end{proof}
 
-Unimodality of Gaussian coefficients
-
-A sequence is unimodal if it has a (weakly) unique max. A polynomial is unimodal if its coefficients are unimodal.
+\begin{definition}
+    A sequence is \emph{unimodal} if it has a (weakly) unique max. A polynomial is unimodal if its coefficients are \emph{unimodal}.
+\end{definition}
 
 \epigraph{I accomplished with scarcely an effort a task which I had believed lay outside the range of human power.}{-- \textup{James Joseph Sylvester}}
+
 \epigraph{The proof is very technical and un-illuminating}{-- \textup{Sergey Fomin}}
-\begin{theorem}[J. Sylvester, 1878]
+
+\begin{theorem}[J. Sylvester, 1878]\fnl
     $\qbin{n}{k}$ is unimodal.
 \end{theorem}
 
