@@ -107,6 +107,7 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{algorithmicx}
+\counterwithin{algorithm}{section}
 
 % for clearer reference
 \usepackage{hyperref}
@@ -2613,5 +2614,150 @@ Now let $\operatorname{LP'}(r, s)$ denote the sequences that start at $(1, 1)$, 
 
 In the case of hooklength formula, $\displaystyle 1 + \frac{1}{a_i} = 1 + \frac{1}{h_\lambda(x) - 1} = \frac{h_\lambda(x)}{h_\lambda(x) - 1}$, so the RHS of \eqref{latticepath'} becomes $\dfrac{H(\lambda)}{H(\lambda - \{v\})}$.
 \end{proof}
+
+\begin{example}
+    Suppose $\lambda = (k, k) = \ydiagram{5, 5}$ with hooklength \[
+        \ytableausetup{centertableaux, mathmode, boxsize=2.5em}
+        \begin{ytableau}
+            k+1 & k & \ldots & 3 & 2\\
+            k & k-1 & \ldots & 2 & 1\\
+        \end{ytableau}.
+    \] Hence \[
+        f^{\lambda} = \frac{(2k)!}{((k+1)k)!k!} = \frac{1}{k+1}\binom{2k}{k}
+    \] which is the $k$-th Catalan number, which can be interpreted as the number of lattice path from $(0, 0)$ to $(k, k)$ that stays below the line $y = x$.
+\end{example}
+
+\fancyem{Problem} Find the number of (shortest) lattice paths in $\Z^d$ connecting the points $(0, \ldots, 0)$ and $(m, \ldots, m) \in \Z^d$ while staying inside the cone $\{x_1 \geq x_2 \geq x_3 \geq x_4 \geq \ldots \geq x_d \geq 0\}$.
+
+Generating a uniformly random standard Young tableaux
+
+\begin{algorithm}[h]
+    \setstretch{1.15}
+    \caption{Random SYT}
+    \label{algo:unirandSYT}
+    \begin{algorithmic}[1]
+        \Function{RandSYT}{Young diagram $\lambda$}
+            \State $\lambda' \gets \lambda$
+            \While{$\lambda'$ is nonempty}
+            \State Choose a box $u \in \lambda$
+            \State Run a Hook Walk (\autoref{algo:hookwalk}) starting at $u$ to get to $v$.
+            \State Place $|\lambda'|$ into $v$ of $\lambda$, $\lambda' \gets \lambda' - \{v\}$
+            \EndWhile
+            \State \textbf{return} $\lambda$
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+\fancyem{Problem} Prove that the resulting SYT is uniformly distributed.
+
+We can generalize hooklength-type formula to certain posets, namely for the $\#$ of "increasing trees".
+
+Suppose $P$ is a poset whose Hasse diagram is a rooted tree.
+\[
+    \begin{tikzpicture}
+        \node[shape=circle, fill=black, scale = 0.3] (A1) at (0, 0) {};
+        \node[above] at (A1) {9};
+        \node[shape=circle, fill=black, scale = 0.3] (A2) at (-0.8, -0.8) {};
+        \node[left] at (A2) {3};
+        \node[shape=circle, fill=black, scale = 0.3] (A3) at (0.1, -0.8) {};
+        \node[right] at (A3) {1};
+        \node[shape=circle, fill=black, scale = 0.3] (A4) at (0.8, -0.8) {};
+        \node[right] at (A4) {4};
+
+        \node[shape=circle, fill=black, scale = 0.3] (A5) at (-1.3, -1.6) {};
+        \node[right] at (A5) {1};
+        \node[shape=circle, fill=black, scale = 0.3] (A6) at (-0.6, -1.6) {};
+        \node[right] at (A6) {1};
+
+        \node[shape=circle, fill=black, scale = 0.3] (A7) at (0.8, -1.6) {};
+        \node[right] at (A7) {3};
+
+        \node[shape=circle, fill=black, scale = 0.3] (A8) at (1.3, -2.4) {};
+        \node[right] at (A8) {1};
+        \node[shape=circle, fill=black, scale = 0.3] (A9) at (0.6, -2.4) {};
+        \node[right] at (A9) {1};
+
+        \draw[thick] (A3) to (A1) to (A2);
+        \draw[thick] (A5) to (A2) to (A6);
+        \draw[thick] (A1) to (A4) to (A7);
+        \draw[thick] (A8) to (A7) to (A9);
+    \end{tikzpicture}\ , \quad h_p(x) = \{y \in P \mid y \leq x\}.
+\]
+
+\epigraph{None of the problems are particularly hard. It's the end of the term, so you are probably tired. I also want you to give me high evaluations. But I have tenure, so I don't care that much.}{}
+
+\fancyem{Problem} Prove that the number of ways to label the elements of $P$ by $1, \ldots n$, so that larger elements get larger labels, is equal to $\dfrac{n!}{\prod h_p(x)}$.
+
+\section{The Frobenius-Young Identity}
+\epigraph{Nobody called it that. But I did some research, and it looks like Frobenius and Young are the people who have done it first.}{}
+
+\begin{theorem}
+    $\displaystyle \sum_{|\lambda| = n}(f^{\lambda})^2 = n!$.
+\end{theorem}
+A direct bijective proof was found by Schensted in the early 60s in Ann Arbor. Frobenius' original proof use algebraic results. 
+\begin{proof}[Linear-algebraic proof]
+    Let $\R\mathbb Y = $ formal linear combinations of Young diagram. And \begin{align*}
+        U(\lambda) & = \sum_{x \in \add(\lambda)}(\lambda \cup \{x\}), \\
+        D(\lambda) & = \sum_{x \in \del(\lambda)}(\lambda - \{x\}).
+    \end{align*}
+    For example, \begin{align*}
+        \ytableausetup{centertableaux, mathmode, boxsize=1em}
+        U\left(\ \ydiagram{2}\ \right) & = \ydiagram{2, 1} + \ydiagram{3}\ , \\
+        D\left(\ \ydiagram{2}\ \right) & = \ydiagram{1}\ .
+    \end{align*}
+    Observe that the identity can be restated as \begin{equation}\label{eq:empty}
+        D^nU^n(\emptyset) = n!\emptyset 
+    \end{equation}
+    Now comes a key idea.
+    \begin{proposition}
+        $U$ and $D$ satisfy the \emph{Heisenberg commutation relation} \[
+            DU - UD = \id.    
+        \]
+    \end{proposition}
+    \begin{proof}\let\qed\relax
+        This means for $\lambda, \mu \in \mathbb{Y}$, \[
+            \#\{\text{$2$-edge path from $\lambda \nearrow \searrow \mu$}\} - 
+            \#\{\text{$2$-edge path from $\lambda \searrow \nearrow \mu$}\} =
+            \begin{cases}
+                1 & \lambda = \mu \\
+                0 & \lambda \neq \mu.
+            \end{cases}
+        \]
+    \end{proof}
+    \fancyem{Note}: this is pretty remarkable since in finite dimensional spaces this is not possible (taking traces on both sides).
+
+    \begin{lemma}
+        $\forall$ polynomial $f$ in one variable, \[
+            Df(UD)U = (UD + 1)f(UD + 1)    
+        \]
+    \end{lemma}
+    \begin{proof}\let\qed\relax
+        It is linear in $f \implies$ enough to show for $f(x) = x^k$.
+        \[
+            D(UD)^kU = (DU)^{k + 1} = (UD + 1)^{k + 1} = (UD + 1)f(UD + 1).
+        \]
+    \end{proof}
+    \begin{corollary}
+        $D^nU^n = (UD + 1)(UD + 2)\cdots(UD + n)$.
+    \end{corollary}
+    \begin{proof}\let\qed\relax
+        Induction on $n$.
+
+        \textbf{Base case:} $DU = UD + 1$.
+        
+        \textbf{Induction hypothesis:}
+
+        \textbf{Induction step:} \begin{multline*}
+            D^{n+1}U^{n+1} = D \cdot D^nU^n \cdot U = D(UD + 1)(UD + 2)\cdots(UD + n)U \\
+            = (UD + 1)(UD + 2)\cdots(UD + n)(UD + n + 1).
+        \end{multline*}
+    \end{proof}
+    Now we can see that \eqref{eq:empty} holds since \[
+        D^nU^n(\emptyset) = (UD + 1)(UD + 2)\ldots(UD + n)(\emptyset) = 1 \cdot 2 \cdots n \cdot \emptyset.
+    \] Hence we've proved the identity.
+\end{proof}
+
+\fancyem{Digression}: consider \[
+    U: f(x) \mapsto xf(x), \quad D: f(x) \mapsto f'(x).  
+\] Then Heisenberg commutation relation holds.
 
 \end{document}

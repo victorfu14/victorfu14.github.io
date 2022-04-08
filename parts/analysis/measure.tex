@@ -53,6 +53,7 @@
 \def \supp {\operatorname{supp}}
 \def \BV {\operatorname{BV}}
 \def \NBV {\operatorname{NBV}}
+
 \newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
 \newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
 \newcommand{\df}{\ \mathrm{d}}
@@ -2451,9 +2452,7 @@ So on equivalent norms we have same open sets, same convergence.
 \fancyem{Note} $E$ positive set, $F \subset E \implies \nu(F) \leq \nu(E)$. $E$ negative set, $F \subset E \implies \nu(F) \geq \nu(E)$.
 
 \begin{definition}
-	$\mu, \nu$ signed measure on $(X, \cA)$.
-
-	$\nu \perp \nu$ (singular to each other) means $\exists E, F \in \cA \st E \cap F = \emptyset, E \cup F = X$, $F$ is null for $\mu$, $E$ is null for $\nu$.
+	Suupose $\mu, \nu$ are signed measure on $(X, \cA)$. $\nu \perp \nu$ (singular to each other) means $\exists E, F \in \cA \st E \cap F = \emptyset, E \cup F = X$, $F$ is null for $\mu$, $E$ is null for $\nu$.
 \end{definition}
 \begin{example}
 	For $(\R, \cB(\R))$, \begin{enumerate}
@@ -2525,7 +2524,7 @@ So on equivalent norms we have same open sets, same convergence.
 \end{example}
 
 \begin{definition}
-	Suppose $\nu$ a signed measure on $(X, \cA)$. \emph{Total variation measure} of $\nu$ is $|\nu| = \nu^+ \nu^-$ (a positive measure on $(X, \cA)$).
+	Suppose $\nu$ a signed measure on $(X, \cA)$. \emph{Total variation measure} of $\nu$ is $|\nu| = \nu^+ + \nu^-$ (a positive measure on $(X, \cA)$).
 \end{definition}
 \begin{definition}
 	$|\nu|(E)= \int_E |f| \df \nu$
@@ -2700,6 +2699,52 @@ So on equivalent norms we have same open sets, same convergence.
 	\end{itemize}
 \end{example}
 
+\section{Functions of Bounded Variation}
+\begin{definition}
+	For $F: \R \to \R$, the total variation function of $F$ is $T_F: \R \to [0, \infty]$, \[
+		T_F(x) = \sup\left\{\sum_{i=1}^n |F(x_i) - F(x_{i-1})| \mid n \in \N, -\infty < x_0 < x_1 < \ldots < x_n = x\right\}.
+	\]
+\end{definition}
+\begin{lemma}
+	For $a < b$, \[
+		T_F(b) = T_F(a) + \sup\left\{\sum_{i=1}^n |F(x_i) - F(x_{i-1})| \mid n \in \N, a = x_0 < x_1 < \ldots < x_n = b\right\}
+	\]
+\end{lemma}
+Note that $T_F$ is increasing.
+
+\begin{definition}
+	$F \in \BV$ ($F$ is of bounded variation) means $T_F(\infty) = \lim_{x \to \infty}T_F(x) < \infty$. 
+
+	$F \in \BV([a, b])$ means $\sup\left\{\sum_{1}^N |F(x_i) - F(x_{i-1})| \mid a = x_0 < x_1 < \ldots < x_n = b\right\} < \infty$.
+\end{definition}
+Note that $F \in \BV \implies F$ is bounded.
+
+\begin{example}\fnl
+	\begin{enumerate}
+		\item $F(x) = \sin x \notin \BV, \in \BV([a, b])$.
+		\item $F(x) = \begin{cases}
+			\frac{\sin x}{x} & x \neq 0 \\
+			1 & x = 0
+		\end{cases} \notin \BV([a, b])$ for $a < 0 < b$.
+		\item $F, G \in \BV \implies \alpha F + \beta G \in \BV$.
+		\item $F \nearrow$ and bounded $\implies F \in \BV$.
+		\item $F$ \emph{Lipschitz} on $[a, b] \implies F \in \BV([a, b])$. (\emph{Lipschitz} $\implies \exists M \geq 0 \st |F(x) - F(y)| \leq M|x - y|, \forall x, y$.)
+		\item $F$ differentiable, $F'$ bounded on $[a, b] \implies F \in \BV([a, b])$.
+		\item $F(x) = \int_{-\infty}^x f(t) \in L^1(\R) \implies F \in \BV$ since \[
+			\sum_{1}^N|F(x_i) - F(x_{i-1})| \leq \sum_1^N \int_{x_{i-1}}^{x_i} |f(t)| \df t = \int_{x_0}^x |f(t)| \df t \leq \int_{-\infty}^\infty |f(t)| \df t < \infty.
+		\]
+	\end{enumerate}
+\end{example}
+
+\begin{definition}
+	$\NBV = \{G \in \BV \mid G \text{ right-continuous}, G(-\infty) = 0\}$.
+\end{definition}
+\begin{example}\fnl
+	\begin{enumerate}
+		\item $F \nearrow$, bounded, right-continuous, $F(-\infty) = 0$.
+		\item $F(x) = \int_{-\infty}^x f(t)\df t, f \in L^1(\R)$. (Midterm $\implies F$ is uniformly continuous.)
+	\end{enumerate}
+\end{example}
 \begin{lemma}
 	$F \in \operatorname{BV}$ and right-continuous $\implies T_F \in \operatorname{NBV}$.
 \end{lemma}
@@ -2734,7 +2779,7 @@ So on equivalent norms we have same open sets, same convergence.
 	$F \in \operatorname{NBV} \iff F = F_1 - F_2, F_1, F_2 \in \operatorname{NBV}$ and $\nearrow$.
 \end{corollary}
 \begin{proof}
-	$F = \frac{}{}$.
+
 \end{proof}
 
 \begin{theorem}\fnl
@@ -2764,6 +2809,93 @@ So on equivalent norms we have same open sets, same convergence.
 
 	(d) $\mu_F \ll m \iff \lambda = 0 \iff \ndf \mu_F = F' \ndf m \iff \mu_F = \int_E F' \df m, \forall E$ Borel $\iff F(x) = \int_{-\infty}^x F'(t)\df t, \forall x \in \R$. (by uniqueness)
 \end{proof}
+
+\section{Absolutely Continuous Functions}
+\def \AC {\operatorname{AC}}
+\begin{definition}
+	$F: \R \to \R$ is absolutely continuous ($F \in \AC$) means $\forall \varepsilon > 0, \exists \delta > 0 \st$ if $(a_1, b_1), \ldots, (a_N, b_N)$ are \emph{disjoint} open intervals satisfying $\sum_{n=1}^N(b_n - a_n) < \delta$, then $\displaystyle \sum_{n=1}^N |F(b_n) - F(a_n)| < \varepsilon$.
+\end{definition}
+\begin{lemma}
+	\begin{enumerate}
+		\item $F \in \AC \implies F$ is uniformly continuous.
+		\item $F$ is Lipschitz $\implies F \in \AC$.
+		\item $\displaystyle F(x) = \int_\infty^x f(t)\df t, f \in L^1 \implies F \in \AC$.
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	\begin{align*}
+		\sum_{n=1}^N |F(b_n) - F(a_n)| = \sum_{1}^N \left|\int_{a_n}^{b_n} f(t) \df t\right| \leq \sum_1^N \int_{a_n}^{b_n} |f(t)| \df t = \int_E |f| \df m
+	\end{align*}
+	where $E = \bigcup_{1}^N (a_n, b_n)$.
+	By midterm Q1, If $f \in L^1(X, \mu)$ then $\forall \varepsilon > 0, \exists \delta > 0 \st \mu(E) < \delta \implies \int_E |f| < \varepsilon$.
+\end{proof}
+The inverse of (a) is not always true. The Cantor function $C(x)$ is uniformly continuous but $C \notin \AC$.
+
+\begin{proposition}
+	Suppose $F \in \NBV$. Then $F \in \AC \iff \mu_F \ll m$.
+\end{proposition}
+\begin{corollary}
+	$F \in \NBV \cap \AC \iff \displaystyle F(x) = \int_\infty^x f(t)\df t$ for some $f \in L^1(\R, m)$. If this holds, $f = F'$ Lebesgue a.e.
+\end{corollary}
+\begin{lemma}
+	$F \in \AC([a, b]) \implies F \in \NBV([a, b])$.
+\end{lemma}
+\begin{proof}
+	Check. (read the textbook)
+\end{proof}
+\begin{theorem}[Fundamental theorem of Calculus]
+	For $F: [a, b] \to \R$, TFAE: \begin{enumerate}
+		\item $F \in \AC([a, b])$,
+		\item $\displaystyle F(x) - F(a) = \int_a^x f(t) \df t$ for some $f \in L^1([a, b], m)$,
+		\item $F$ is differentiable a.e on $[a, b]$ and $F(x) - F(a) = \int_a^x F'(t) \df t$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof of Prop]
+	$\impliedby$: Suppose $\mu_F \ll m$. Then $F(x) = \int_{-\infty}^x F'(t)\df t, F' \in L^1 \implies F \in \AC$.
+
+	$\implies$: Suppose $F \in \AC$.
+	
+	Note: since $F$ is continuous, $\mu_F((a, b]) = \lim_{n \to \infty} \mu_F\left(\left(a, b-\frac{1}{n}\right]\right) = \lim_{h \to \infty} F\left(b - \frac{1}{n}\right) - F(a) = F(b) - F(a)$.
+	
+	Let $E$ be a Borel set with $m(E) = 0$. Fix $\varepsilon > 0$. Let $\delta > 0$ be the constant from $F \in \AC$. Since $m$ and $\mu_F$ are \emph{regular}, \begin{align*}
+		& \exists \text{ open } U_1 \supset U_2 \supset \ldots \supset E \st \lim_{n \to \infty} m(U_n) = m(E) = 0, \\
+		& \exists \text{ open } V_1 \supset V_2 \supset \ldots \supset E \st \lim_{n \to \infty} \mu_F(V_n) = \mu_F(E).
+	\end{align*}
+	Let $O_n = U_n \cap V_n$. $O_n$ is open and $O_1 \supset O_2 \supset \ldots \supset E$. Then \[
+		\lim_{n \to \infty} m(O_n) = m(E) = 0, \quad \lim_{n \to \infty} \mu_F(O_n) = \mu_F(E)\ \text{(think about it)}.
+	\]
+	WLOG, we may assume $m(O_1) < \delta$. Each $O_n = \bigcup_{k=1}^\infty (a^n_k, b^n_K)$ disjoint, $\sum_{k=1}^N (b_k^n, a_k^n) \leq m(O_n) \leq m(O_1) \leq \delta \implies$ \[
+		\mu_F \left(\bigcup_{k=1}^N (a^n_k, b^n_K)\right) = \sum_{k=1}^N \mu_F(a^n_k, b^n_K) = \sum_{k=1}^N F(b_k^n) - F(a_k^n).
+	\]
+	Take the absolute value we have \[
+		\left|\mu_F \left(\bigcup_{k=1}^N (a^n_k, b^n_K)\right)\right| \leq \sum_{k=1}^N 
+		|F(b_k^n) - F(a_k^n)| < \varepsilon.
+	\] Hence \[
+		|\mu_F(O_n)| = \lim_{n \to \infty} \left|\mu_F \left(\bigcup_{k=1}^N (a^n_k, b^n_K)\right)\right| \leq \varepsilon \implies |\mu_F(E)| = \lim_{n \to \infty} |
+		\mu_F(O_n)| \leq \varepsilon.
+	\] Since $\varepsilon > 0$ is arbitrary we conclude that $\mu_F(E) = 0$.
+\end{proof}
+
+\begin{definition}
+	Suppose $\mu$ a finite signed Borel measure on $\R$. 
+	\begin{itemize}
+		\item $\mu$ is a \emph{discrete} measure means $\exists$countable set $\{x_n\}$ and $c_n \neq 0 \st \sum_{1}^\infty c_n < \infty$ and $\mu = \sum_n c_n \delta_{x_n}$.
+		\item $\mu$ is a \emph{continuous} measure means $\mu(\{a\}) = 0, \forall a \in \R$.
+	\end{itemize}
+\end{definition}
+\begin{lemma}
+	\begin{enumerate}
+		\item $\mu = \mu_d + \mu_c$ uniquely, where $\mu_d$ is a discrete measure and $\mu_c$ is a continuous measure.
+		\item $\mu$ discrete $\implies \mu \perp m$.
+		\item $\mu \ll m \implies \mu$ is continuous.
+	\end{enumerate}
+\end{lemma}
+\begin{corollary}
+	Suppose $\mu$ is finite signed Borel measure on $\R$. Then $\mu$ can be uniquely written as \[
+		\mu = \mu_d + \mu_{ac} + \mu_{sc}	
+	\] where $\mu_{ac} \in \AC$ and $\mu_{sc}$ is singularly continuous (continuous and $\perp m$).
+\end{corollary}
 
 \bibliography{analysis}{}
 \bibliographystyle{alpha}

@@ -35,3 +35,4 @@ And this course is just fantastic.
 - [Mar. 29, rank-unimodality of $L(m, n)$](../../../../parts/comb/comb.pdf#section.4.7)
 - [Mar. 31, Young lattice](../../../../parts/comb/comb.pdf#section.4.8)
 - [Apr. 5, the hooklength formula](../../../../parts/comb/comb.pdf#section.4.8)
+- [Apr. 7, the Frobenius-Young identity](../../../../parts/comb/comb.pdf#section.4.9)
