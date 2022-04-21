@@ -54,8 +54,8 @@
 \def \del {\operatorname{del}}
 \def \add {\operatorname{add}}
 \newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
-\newcommand{\dr}[2]{\dfrac{\text{d} #1}{\text{d} #2}}
-\newcommand{\df}{\text{d}}
+\newcommand{\df}{\mathrm{d}}
+\newcommand{\dr}[2]{\dfrac{\df #1}{\df #2}}
 \newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
 \newcommand{\qbin}[2]{\begin{bmatrix}{#1}\\ {#2}\end{bmatrix}_q}
 
@@ -108,6 +108,8 @@
 \usepackage{algpseudocode}
 \usepackage{algorithmicx}
 \counterwithin{algorithm}{section}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
 
 % for clearer reference
 \usepackage{hyperref}
@@ -2284,7 +2286,7 @@ We now investigate Grassmannians over finite fields. Suppose $q$ is prime power,
     & = \frac{[m+n]!}{[m]![n]!}
 \end{align*}
 where \[
-    [k] \defeq 1 + q + \ldots + q^{k-1} = \frac{q^k - 1}{q - 1}, [k]! \defeq [1]_q[2]_q\ldots[k]_q.
+    [k]_q \defeq 1 + q + \ldots + q^{k-1} = \frac{q^k - 1}{q - 1}, [k]! \defeq [1]_q[2]_q\ldots[k]_q.
 \]
 \begin{theorem}\fnl
     \[\qbin{m+n}{n} = \frac{[m+n]!}{[m]![n]!}.\]
@@ -2482,7 +2484,7 @@ A key lemma:
 
     Now, $U^*_kU_k = U_{k-1}U^*_{k-1} + D$ where $D$ is a diagonal matrix with positive entries. Notice that $U_{k-1}U^*_{k-1}$ is positive semidefinite $\implies U^*_kU_k$ is also positive semidefinite. Hence $U_k$ has maximum rank.
 
-    As before, this implies the existence of order resepcting injection.
+    As before, this implies the existence of order respecting injection.
 \end{proof}
 
 Given this lemma, now we show that $L(m, n)$ is Sperner.
@@ -2497,7 +2499,7 @@ Given this lemma, now we show that $L(m, n)$ is Sperner.
 \end{definition}
 
 \begin{definition}
-    Denote $f^\lambda \defeq \#\{\text{standard Young diagram of size } \lambda\}$.
+    Denote $f^\lambda \defeq \#\{\text{standard Young tableaux of size } \lambda\}$.
 \end{definition}
 
 \begin{example}
@@ -2560,7 +2562,7 @@ We propose the following Markov chain defined by \autoref{algo:hookwalk}.
     \begin{algorithmic}[1]
         \Function{Walk}{Young diagram $\lambda$, box $u \in \lambda$}
             \State $v \gets u$
-            \While{$v \notin \del(\lambda)$} \Comment{Continue until $v$ is a corner book}
+            \While{$v \notin \del(\lambda)$} \Comment{Continue until $v$ is a corner box}
                 \State Choose $v' \in \operatorname{hook}(v) \setminus \{v\}$ uniformly at random
                 \State $v \gets v'$
             \EndWhile
@@ -2623,7 +2625,7 @@ In the case of hooklength formula, $\displaystyle 1 + \frac{1}{a_i} = 1 + \frac{
             k & k-1 & \ldots & 2 & 1\\
         \end{ytableau}.
     \] Hence \[
-        f^{\lambda} = \frac{(2k)!}{((k+1)k)!k!} = \frac{1}{k+1}\binom{2k}{k}
+        f^{\lambda} = \frac{(2k)!}{(k+1)k!k!} = \frac{1}{k+1}\binom{2k}{k}
     \] which is the $k$-th Catalan number, which can be interpreted as the number of lattice path from $(0, 0)$ to $(k, k)$ that stays below the line $y = x$.
 \end{example}
 
@@ -2759,5 +2761,171 @@ A direct bijective proof was found by Schensted in the early 60s in Ann Arbor. F
 \fancyem{Digression}: consider \[
     U: f(x) \mapsto xf(x), \quad D: f(x) \mapsto f'(x).  
 \] Then Heisenberg commutation relation holds.
+
+\fancyem{Problem} View the Hasse diagram of the Young lattice as a graph $\mathbb Y$. Prove that the number of closed walks of length $2m$ in $\mathbb Y$ the begins and ends at $\emptyset$ is equal to $1 \cdot 3 \cdot 5 \cdot \cdots \cdot (2n - 1)$.
+
+\fancyem{Hint} Examine $(D + U)^{2m}(\emptyset)$.
+
+\section{Counting Involution in \ttlmath{S_n}{S\_n}}
+Now we investigate $\sum_{|\lambda| = n} f^\lambda$.
+
+\begin{theorem}\fnl
+    \[\sum_{|\lambda| = n} f^\lambda  = \#\text{involutions in } S_n = \#\text{partial matchings in} K_n.
+    \]
+\end{theorem}
+
+Suppose $y_n = \#\text{involutions in } S_n$.
+\begin{lemma}
+    $y_0 = y_1 = 1, y_{n+1} = y_n + ny_{n-1}$.
+\end{lemma}
+\begin{proof}
+    Either $n + 1$ is a fixed point \emph{or} $n + 1$ is sent to one of $1, 2, \ldots, n$ leaving an involution on $n - 1$ elements.
+\end{proof}
+Consider the exponential generating functions \[
+    y(x) = \sum_{n=0}^\infty y_n \frac{x^n}{x!}.    
+\]
+\begin{theorem}
+    $\displaystyle y(x) = e^{x + \frac{x^2}{2}}$.
+\end{theorem}
+\begin{proof}
+    We have \[
+        y'(x) = \sum_{n=1}^\infty y_n \frac{nx^{n-1}}{n!} = \sum_{n=0}^\infty y_{n+1} \frac{x^n}{n!}.
+    \]
+    By the recurrence relation we have \begin{align*}
+        \sum_{n=1}^\infty y_{n+1} \frac{x^n}{n!} & = \sum_{n=1}^\infty y_{n} \frac{x^n}{n!} + \sum_{n=1}^\infty y_{n-1} \frac{x^n}{(n-1)!}  \\
+        \implies y' - 1 & = y - 1 + xy \\
+        \implies y' & = y(1 + x).
+    \end{align*}
+    Given the initial condition $y_0 = y_1 = 1$, solving the linear ODE we can conclude that $y = e^{x + x^2/2}$.
+\end{proof}
+\fancyem{Problem} Show that $y_n = i^{-n}H_n(i)$ where $i = \sqrt{-1}$ and \[H_n(x) = (-1)^ne^{x^2/2}\frac{\df^n}{\df x^n}(e^{-x^2/2})\] is the "probabilistic" Hermite polynomial.
+
+\fancyem{Problem} Show that $y_n = \mathbb{E}(X+1)^n$ where $X \sim \mathcal{N}(0, 1)$.
+
+\section{Counting Standard Young Tableaux with \ttlmath{n}{n} Boxes}
+\begin{definition}
+    Denote \[
+        Y_n \defeq \sum_{|\lambda| = n} \lambda \in \R\mathbb{Y}.    
+    \]
+\end{definition}
+Note that \[
+    D^nY_n = \left(\sum_{|\lambda| = n} f^\lambda\right)\emptyset.
+\]
+\begin{lemma}
+    $D^nU = nD^{n-1} + UD^n$.
+\end{lemma}
+\begin{proof}
+    Induction on $n$.
+    \textbf{Base case:} $n = 1, DU = 1 + UD$.
+    
+    \textbf{Induction hypothesis:} suppose this holds for $n$.
+
+    \textbf{Induction step:} \begin{multline*}
+        D^{n+1}U = D^n(DU) = D^n(UD + 1) = D^nUD + D^n \\
+        = (nD^{n-1} + UD^n)D + D^n = (n+1)D^n + UD^{n+1}. \qedhere
+    \end{multline*}
+\end{proof}
+\begin{lemma}
+    $DY_{n+1} = UY_{n-1} + Y_n$.
+\end{lemma}
+The proof uses the same reasoning as the Heisenberg identity that $D, U$ satisfies.
+
+\begin{proof}
+    [Proof of the recurrence for the $\sum f^\lambda$]\fnl
+    \begin{multline*}
+        D^{n+1}Y_{n+1} = D^n(DY_{n+1}) = D^n(UY_{n-1} + Y_n) \\
+        = (nD^{n-1} + \underbrace{UD^n)Y_{n-1}}_{=0} + D_nY_n = nD^{n-1}Y_{n-1} + D^nY_n. \qedhere
+    \end{multline*}
+    % \[D^{n+1}Y_{n+1} = D^n(DY_{n+1}) = D^n(UY_{n+1} + Y_n)\]
+\end{proof}
+
+% \section{Some Other Cool Identities}
+\fancyem{Problem} Prove that, for $|\lambda| = n$, we have \[
+    \sum_{\mu \text{ covers } \lambda} f^\mu = (n+1)f^\lambda.    
+\]
+\fancyem{Problem} Prove that \[
+    \sum_{x \in \add(\lambda)} f^{\lambda \cup \{x\}}c(x) = 0
+\]
+where $c(x)$ the "content" ($c(x) = j - i$ for $x = (i, j)$).
+
+\section{Schensted's Insertion Algorithm}
+[C. Schensted, 1961] (when he was working as a physicist in Ann Arbor)
+A bijective proof of Frobenius-Young identity.
+\begin{algorithm}[h]
+    \setstretch{1.15}
+    \caption{Schensted's algorithm}
+    \label{algo:schensted}
+    % \REQUIRE Permutation $w = w_1w_2\cdots w_n \in S_n$
+    % \ENSURE SYT $P = P(W), Q = Q(w)$ (same shape, $n$ boxes)
+    \begin{algorithmic}[1]
+        \Require permutation $w = w_1w_2\cdots w_n \in S_n$
+        \Ensure SYT $P = P(W), Q = Q(W)$ (same shape, $n$ boxes)
+        \Function{Schensted}{$w$}
+            \State $P \gets \emptyset, Q \gets \emptyset$
+            \For{j: 1 $\to$ n}
+            \State $k \gets w_j, i \gets 1, \beta \gets \texttt{true}$
+            \While{$\beta = \texttt{true}$}
+                \If{all entries in row $i$ of $P$ are $\leq k$}
+                \State Append $k$ at the end of this row
+                \State Place $j$ in the corresponding box of $Q$ \Comment{Now $|P| = |Q|$}
+                \State $\beta \gets \texttt{false}$
+                \Else 
+                \State Replace the leftmost entry $l > k$ in row $i$ of $P$ by $k_j$
+                \State $k \gets l, i \gets i + 1$
+                \EndIf 
+            \EndWhile
+            \EndFor
+            \State \textbf{return} $P, Q$ \Comment{$P$ insertion tableau, $Q$ recording tableau}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{example}
+    $w = (412563)$
+\end{example}
+
+\begin{theorem}[C. Schensted, 1961]
+    The map $w \mapsto (P, Q)$ is a \emph{bijection} between $S_n \to \{\text{pairs of SYT with same shape, $n$ boxes}\}$.
+\end{theorem}
+\begin{theorem}
+    Switching $P$ and $Q$ produces the inverse permutation: $w^{-1} \mapsto (Q, P)$.
+\end{theorem}
+\begin{example}
+    $w = (412563), w^{-1} = (236145)$.
+\end{example}
+Hence, we get a bijection between involutions with pair $(P, P) \implies \sum f^\lambda = \#$ involutions.
+
+\begin{proof}
+    (based on an alternative parallel version of Schensted's algorithm)
+
+    Recall: for $\lambda, \mu \in \mathbb Y$ with $|\lambda| = |\mu| = n$, then $(\lambda, \mu)$-matrix entry of $DU$ counts $\{\upsilon \in \mathbb Y_{n+1}: \lambda \subsetneq \upsilon \supsetneq \mu\}$. The $(\lambda, \mu)$-matrix entry of $UD + 1$ counts $\{\rho \in \mathbb Y_{n_1} \cup \mathbb Y_n: \lambda \supseteq \rho \subseteq \mu\}$
+
+    Fix a bijection between these sets (the only interesting case being $\lambda = \mu$). 
+\end{proof}
+
+\begin{theorem}
+    This procedure recovers Schensted's algorithm.
+\end{theorem}
+The procedure also shows $(Q, P) \mapsto w^{-1}$ (by transposing).
+
+Schensted correspondence via jeu de taquin
+
+Take the permutation and view it as a skew tableau, and do jeu de taquin reduction. The output is $P(w)$!
+
+$w \mapsto (P, Q) \mapsto \lambda = \lambda(w) \defeq |P| = |Q|$.
+
+$\lambda_1 = $ length of the longest increasing subsequence of $w = w_1 w_2 \cdots w_n$.
+
+$\lambda_1 + \lambda_2 = $ maximal number of terms in a union of two increasing subsequences of $w$.
+
+$\lambda_1 + \cdots + \lambda_k = $ maximal number of terms in a union of $k$ increasing subsequences of $w$.
+
+$\lambda'_1$ is maximal length of a decreasing subsequence.
+
+$\lambda'_1 + \lambda'_2 = $ maximal number of terms in a union of two decreasing subsequences of $w$.
+
+$\lambda'_1 + \cdots + \lambda'_k = $ maximal number of terms in a union of $k$ decreasing subsequences of $w$.
+
+Can be generalized to posets (take chain, 2-chain/antichain, 2-antichain)
 
 \end{document}

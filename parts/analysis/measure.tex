@@ -34,9 +34,10 @@
 \newcommand{\cB}{\mathcal{B}}
 \newcommand{\cC}{\mathcal{C}}
 \newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cH}{\mathcal{H}}
 \newcommand{\cL}{\mathcal{L}}
 \newcommand{\cM}{\mathcal{M}}
-\newcommand{\cF}{\mathcal{F}}
 \newcommand{\cR}{\mathcal{R}}
 \def \diam {\operatorname{diam}}
 \def \Hom {\operatorname{Hom}}
@@ -2170,7 +2171,7 @@ $v_n \to v \iff \lim_{n \to \infty}\norm{v_n - v} = 0$.
 	\end{enumerate}
 \end{example}
 
-\section{\ttlmath{L^p}{L\^p} Spaces}
+\section{\ttlmath{L^p}{L\textasciicircum p} Spaces}
 \begin{definition}
 	Suppose $(X, \cA, \mu)$ a measure space. $f$ is measurable function. For $0 < p < \infty$, define $\displaystyle \norm{f}_p = \left(\int_{X} |f|^p \df \mu\right)^{1/p}$. Define $L^p(X, \cA, \mu) = \left\lbrace f\ \biggr\rvert\ \norm{f}_p < \infty\right\rbrace$.
 \end{definition}
@@ -2306,7 +2307,7 @@ Minkowski: $\norm{f + g}_p \leq \norm{f}_p + \norm{g}_p, 1 \leq p < \infty$.
 \end{proof}
 \fancyem{Note}: $C_c(\R)$ is \emph{not dense} in $L^\infty(\R, \cL, m)$.
 
-\section{Embedding Properties of \ttlmath{L^p}{L\^p} spaces}
+\section{Embedding Properties of \ttlmath{L^p}{L\textasciicircum p} spaces}
 \begin{definition}
 	Two norms $\norm{\cdot}, \norm{\cdot}'$ on the same spaces $V$ are said to be \emph{equivalent} if \[\exists c_1, c_2 > 0 \st c_1\norm{v} \leq \norm{v}' \leq c_2 \norm{v}, \forall v \in V.\]
 \end{definition}
@@ -2405,7 +2406,7 @@ So on equivalent norms we have same open sets, same convergence.
 	DIY.
 \end{proof}
 
-\section{Dual of \ttlmath{L^p}{Lp} Spaces}
+\section{Dual of \ttlmath{L^p}{L\textasciicircum p} Spaces}
 
 \chapter{Signed and Complex Measures}
 \cite[Ch.3]{follandRealAnalysisModern1999}.
@@ -2592,7 +2593,7 @@ So on equivalent norms we have same open sets, same convergence.
 	In particular, $c(b) - c(a) \neq \int_a^b c'(x) \df x$ even if $c$ is continuous and has derivative a.e. So $\mu_c \nll m$. But $\mu_c \perp m$.
 \end{example}
 
-\section{Lebesgue Differentiation Theorem for Regular Borel Measures on \ttlmath{\R^d}{R^d}}
+\section{Lebesgue Differentiation Theorem for Regular Borel Measures on \ttlmath{\R^d}{R\textasciicircum d}}
 \cite[p. 99]{follandRealAnalysisModern1999}
 \begin{definition}
 	A Borel signed measure $\nu$ on $\R^d$ is called \emph{regular} if \begin{enumerate}
@@ -2779,7 +2780,7 @@ Note that $F \in \BV \implies F$ is bounded.
 	$F \in \operatorname{NBV} \iff F = F_1 - F_2, F_1, F_2 \in \operatorname{NBV}$ and $\nearrow$.
 \end{corollary}
 \begin{proof}
-
+	Write $F = \dfrac{T_F + F}{2} - \dfrac{T_F - F}{2}$. $T_F(x_1) - T_F(x_2) \geq $ total variation of $F$ on $(x_1, x_2) \geq |F(x_1) - F(x_2)|$ so both functions are increasing.
 \end{proof}
 
 \begin{theorem}\fnl
@@ -2897,6 +2898,326 @@ The inverse of (a) is not always true. The Cantor function $C(x)$ is uniformly c
 	\] where $\mu_{ac} \in \AC$ and $\mu_{sc}$ is singularly continuous (continuous and $\perp m$).
 \end{corollary}
 
-\bibliography{analysis}{}
+\chapter{Hilbert Spaces}
+\cite[5.5]{follandRealAnalysisModern1999}
+\section{Inner Product Spaces}
+\begin{definition}
+	Suppose $V$ a (complex) vector space. An \emph{inner product} is $\gen{,}, V \times V \to \C$ such that \begin{enumerate}
+		\item $\inner{\alpha x + \beta y}{z} = \alpha\inner{x}{z} + \beta\inner{y}{z}$,
+		\item $\inner{x}{y} = \overline{\inner{y}{x}}$,
+		\item $\inner{x}{x} \in [0, \infty)$,
+		\item $\inner{x}{x} = 0 \iff x = 0$.
+	\end{enumerate}
+\end{definition}
+Note that $\inner{x}{\alpha y + \beta z} = \bar{\alpha}\inner{x}{y} + \bar{\beta} \inner{x}{z}$.
+
+\begin{example}
+	\begin{itemize}
+		\item $\R^d, \inner{x}{y} = x \cdot y = \sum_{1}^d x_iy_i$
+		\item $\C^d, \inner{x}{y} = x \cdot y = \sum_{1}^d x_i\bar y_i$.
+		\item $L^2(X, \mu), \inner{f}{g} = \int_X f\bar{g}\df \mu$. (Note: by Hölder, $\left|\int f\bar{g}\right| \leq \norm{f\bar g}_1 \leq \norm{f}_2 \norm{g}_2$)
+		\item $\ell^2, \inner{x}{y} = \sum_{1}^\infty x_iy_i$.
+	\end{itemize}
+\end{example}
+\begin{definition}
+	$\norm{x} = \sqrt{\inner{x}{x}}$. Does it satisfy triangle inequality?
+\end{definition}
+$\norm{x + y}^2 = \inner{x}{x} + \inner{x}{y} + \inner{y}{x} + \inner{y}{y} = \norm{x}^2 + 2\re\inner{x}{y} + \norm{y}^2$.
+
+\begin{theorem}[Cauchy-Schwarz Inequality]
+	$|\inner{x}{y}| \leq \norm{x}\norm{y}$.
+\end{theorem}
+\begin{proof}
+	Clearly if $\inner{x}{y} = 0$. Assume that $\inner{x}{y} \neq 0$.
+
+	$\forall \alpha \in \C, 0 \leq \norm{\alpha x - y}^2 = |\alpha|^2\norm{x}^2 - 2\re \alpha\inner{x}{y} + \norm{y}^2$. Write $\inner{x}{y} = |\inner{x}{y}|e^{i\theta}$.
+
+	Let $\alpha = e^{-i\theta}t, t \in \R$. Then $0 \leq \norm{x}^2t^2 - 2|\inner{x}{y}|t + \norm{y}^2, \forall t \in \R$. Hence $4|\inner{x}{y}|^2 - 4\norm{x}^2\norm{y}^2 \leq 0$.
+\end{proof}
+\begin{corollary}
+	$\norm{x + y} \leq \norm{x} + \norm{y}$. As a consequence, $\norm{x} = \sqrt{\inner{x}{x}}$ is a norm.
+\end{corollary}
+\begin{proof}
+	$\norm{x + y}^2 = \norm{x}^2 + 2\re\inner{x}{y} + \norm{y}^2 \leq \norm{x}^2 + 2\norm{x}\norm{y} + \norm{y}^2 = (\norm{x} + \norm{y})^2$.
+\end{proof}
+
+\begin{theorem}
+	[Parallelogram law]
+	Let $V$ be a normed space. Then, $\norm{\cdot}$ is induced by an inner product $\iff \norm{x + y}^2 + \norm{x - y}^2 = 2\norm{x}^2 + 2\norm{y}^2, \forall x, y \in V$.
+\end{theorem}
+\begin{proof}
+	$\implies$: Follows from $\norm{x \pm y} = \norm{x}^2 \pm 2\re\inner{x}{y} + \norm{y}^2$.
+
+	$\impliedby$: Let \[\inner{x}{y} = \frac{1}{4}\left(\norm{x + y}^2 - \norm{x - y}^2 +i\norm{x + iy}^2 - i\norm{x - iy}^2\right)\]
+	and check that it is a inner product.
+\end{proof}
+\begin{example}
+	$L^p(\R, m), f = 1_{(0, 1)}, g = 1_{(1, 2)}$. For $p \neq 2$, the parallelogram law fails.
+\end{example}
+
+\begin{lemma}
+	Let $V$ be an inner product space. If $X_n \to X$ strongly (i.e. $\lim_{n \to \infty} \norm{x_n - x} = 0$.) Then $X_n \to X$ weakly (i.e. $\forall y \in V, \lim_{n \to \infty}\inner{x_n - x}{y} = 0$.)
+\end{lemma}
+\begin{proof}
+	$|\inner{x_n - x}{y}| \leq \norm{x_n - x}\norm{y}$.
+\end{proof}
+\begin{example}
+	$\ell^2$, $x_n = (0, \ldots, 0, 1 (\text{$n$-th}), 0, \ldots)$.
+	Fix $y = \ell^2$. Then $\inner{x_n}{y} = \overline{y_n} \to 0$ as $n \to \infty$ since $\sum_{1}^\infty |y_n|^2 < \infty$. 
+	
+	Thus, $x_n \to 0$ weakly. But $\norm{x_n - 0} = \norm{x_n} = 0$ so $x_n \not\to 0$ strongly.
+\end{example}
+
+\section{Orthonormal Basis}
+\begin{definition}
+	$x, y$ are called orthogonal ($x \perp y$) if $\inner{x}{y} = 0$.
+\end{definition}
+\begin{lemma}[Pythagorean theorem]
+	\[x_1, \ldots, x_n \in V, \inner{x_i}{x_j} = 0, \forall i \neq j \implies \norm{x_1 + \cdots + x_n}^2 = \norm{x_1}^2 + \cdots + \norm{x_n}^2.\]
+\end{lemma}
+\begin{definition}
+	$\{e_k\}$ is an \emph{orthonormal set} is $\inner{e_m}{e_n} = \begin{cases}
+		0 & m \neq n \\
+		1 & m = n
+	\end{cases}$.
+\end{definition}
+\begin{lemma}
+	[Best approximation] Let $e_1, \ldots, e_n$ orthonormal vectors. For $x \in V$, let $\alpha_i = \inner{x}{e_i}, i = 1, \ldots, N$. Then \[
+		\norm{x - \sum_{i=1}^N \alpha_i e_i} \leq \norm{x - \sum_{i=1}^N \beta_i e_i}, \quad \forall \beta_1, \ldots, \beta_N \in \C.
+	\]
+\end{lemma}
+\begin{proof}
+	Let $z = x - \sum_1^N \alpha_i e_i, w = \sum_1^N(\alpha_i - \beta_i)e_i$. $\forall n = 1, \ldots, N, \inner{z}{e_n} = \inner{x}{e_n} - \alpha_n = 0 \implies \inner{z}{w} = 0 \implies \norm{z + w}^2 = \norm{z}^2 + \norm{w}^2 \geq \norm{z}^2$.
+\end{proof}
+
+\begin{lemma}
+	Suppose $\{e_i\}_1^\infty$ orthonormal set. For $x \in V$, let $\alpha_i = \inner{x}{e_i}$. Then \begin{enumerate}
+		\item $\norm{x}^2 = \norm{x - \sum_{1}^N \alpha_i e_i}^2 + \sum_{1}^N |\alpha_i|^2, \forall N \in \N$.
+		\item $\sum_1^\infty |\alpha_i|^2 \leq \norm{x}^2$. (Bassel's inequality)
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	\begin{enumerate}
+		\item We have \begin{align*}
+			\norm{x - \sum_1^N\alpha_i e_i} & = \norm{x}^2 - 2\re\inner{x}{\sum_1^N \alpha_i e_i} + \norm{\sum_1^N \alpha_i e_i}^2 \\
+			& = \norm{x}^2 - 2\sum_1^N \re\overline{\alpha_i}\inner{x}{e_i} + \norm{\sum_1^N \alpha_i e_i}^2 \\
+			& = \norm{x}^2 - \sum_1^N |\alpha_i|^2.
+		\end{align*}
+		\item follows from (a). \qedhere
+	\end{enumerate}
+\end{proof}
+
+\begin{definition}
+	An orthonormal set $\{e_i\}$ is said to be an orthonormal basis of $V$ if $\overline{W} = V$ where $W = \left\{\sum_1^n \beta_i e_i \mid N \in \N, \beta_1, \ldots, \beta_N \in \C \right\} = \{\text{finite linear combinations of $\{e_i\}$}\}$ i.e. $\forall x \in V, \forall \varepsilon > 0, \exists w \in W \st \norm{x - w} < \varepsilon$.
+\end{definition}
+\begin{example}
+	$\C^d, e_i = (0, \ldots, 0, 1, 0, \ldots, 0), i = 1, \cdots, d$ and $\ell^2, e_i = (0, \ldots, 0, 1, 0, \ldots), i = 1, 2, \cdots$. 
+\end{example}
+
+\begin{definition}
+	A \emph{Hilbert space} is an inner product space that is complete.
+\end{definition}
+\begin{example}
+	$\R^d, \C^d, L^2(X, \cA, \mu), \ell^2$.
+	
+	$C([0, 1]) \subset L^2([0, 1], m)$ is not closed, so it is not a Hilbert space.
+\end{example}
+\begin{theorem}
+	Let $\mathcal{H}$ be a Hilbert space. Let $\{e_i\}_{i=1}^\infty$ be an orthonormal set. TAFE: \begin{enumerate}
+		\item $\{e_i\}_{i=1}^\infty$ is an orthonormal basis.
+		\item $x \in \cH$ and $\inner{x}{e_i} = 0, \forall i \implies x = 0$.
+		\item $x \in \cH \implies S_N \defeq \sum_1^N \alpha_i e_i \to x$ strongly where $\alpha_i = \inner{x}{e_i}$.
+		\item $x \in \cH \implies \norm{x}^2 = \sum_1^\infty |\alpha_i|^2$. (Plancherel identity)
+	\end{enumerate}
+\end{theorem}
+\begin{proof}
+	(c) $\implies$ (d): $\norm{x} = \norm{x - s_N}^2 + \sum_1^N \norm{\alpha_i}^2$. Since $S_N \to x$ strongly we have $\norm{x} = \lim_{N \to \infty} \sum_1^N \norm{\alpha_1}^2$.
+
+	(d) $\implies$ (a): $\norm{x} = \norm{x - s_N}^2 + \sum_1^N \norm{\alpha_i}^2$ taking limit of both sides we have $0 = \lim_{N \to \infty}\norm{x - s_N}^2$.
+
+	(a) $\implies$ (b): Fix $x \in \cH$. Fix $\varepsilon > 0$. Then, by (a), $\exists y \in \left\{\sum_1^N \beta_i e_i\right\} \st \norm{x - y} < \varepsilon$. By the best approximation lemma, $\norm{x - s_k} \leq \norm{x - y} < \varepsilon$. If $\inner{x}{e_i} = 0, \forall i$, then $s_k = 0$. Thus, $\norm{x} = \norm{x - S_k} < \varepsilon$. Since $\varepsilon > 0$ arbitrary, $\norm{x} = 0$.
+
+	(b) $\implies$ (c): Bessel $\implies \sum_{1}^\infty |\alpha_i| \leq \norm{x} < \infty$. 
+	\[\norm{S_N - S_M}^2 = \norm{\sum_{i = M + 1}^N \alpha_i e_i}^2 \sum_{i = M+1}^N \alpha_i|^2 \to 0 \text{ as } N > M \to \infty.\]
+	So $\{S_N\}_{N=1}^\infty$ is a Cauchy sequence in $\cH$. Since $\cH$ is complete, $\exists y \in \cH$ such that\\ $\lim_{N \to \infty}\norm{S_n - y} = 0$ i.e. $S_n \to y$ strongly. Is $y = x$?
+
+	Fix $i \in \N, \inner{y - x}{e_i} = \inner{y - S_n}{e_i} + \inner{S_n - x}{e_i} = \alpha_i - \inner{x}{e_i} = 0$ (if $N > i$). So for $N > i$, $\inner{y - x}{e_i} = \inner{y - S_n}{e_i} \implies \inner{y - x}{e_i}$ as $N \to 0$. (Since $S_n \to y$ strongly $\implies S_n \to y$ weakly)
+
+	By (b) we have $y - x = 0 \iff y = x$.
+\end{proof}
+
+\begin{corollary}
+	[Parseval] $\inner{x}{y} = \sum_{1}^\infty \alpha_n\overline{\beta_n}$.
+\end{corollary}
+
+\begin{definition}
+	A metric space is called \emph{separable} if $\exists$ countable dense subset.
+\end{definition}
+\begin{definition}
+	$\Q^d \subset \R^d$. $\ell^p, 1 \leq p < \infty$ not $p = \infty$. $L^p(\R, m), 1 \leq p < \infty$ not $p = \infty$.
+\end{definition}
+\begin{proposition}
+	Every separable Hilbert space has a countable orthonormal basis.
+\end{proposition}
+\begin{proof}
+	Gram-Schmidt process.
+\end{proof}
+Every vector space has a basis, but need to use Zorn's lemma.
+
+
+\chapter{Intro to Fourier Analysis}
+\section{Fourier Series}
+\begin{lemma}
+	$e_n(x) = \dfrac{1}{\sqrt{2\pi}}e^{inx} = \dfrac{1}{\sqrt{2\pi}}\left(\cos(nx) + i\sin(nx)\right)_{n \in \Z}$ is an orthonormal set in $\cH = L^2\left([-\pi, \pi]\right)$.
+\end{lemma}
+\begin{proof}
+	Direct check. \[
+		\frac{1}{2\pi}\int_{-\pi}^\pi e^{i(m - n)x} \df x = \begin{cases}
+			1 & m = n \\
+			0 & m \neq n
+		\end{cases}. \qedhere
+	\]
+\end{proof}
+Question: is $\{e_n\}$ an orthonormal basis?
+
+In $L\left([-\pi, \pi]\right)$, we have \[
+	\norm{f}_1 = \int_{-\pi}^\pi |1||f(x)| \leq \norm{1}_2\norm{f}_2 = \frac{1}{\sqrt{2\pi}}\norm{f}_2 \leq 2\pi\norm{f}_\infty.
+\]
+
+\begin{definition}
+	For $F \in L^1([-\pi, \pi])$, its Fourier coefficients are \[
+		\hat{f}_n = \inner{f}{e_n} = \frac{1}{\sqrt{2\pi}}\int_{-\pi}^\pi f(y)e^{-iny}\df y.	
+	\]
+\end{definition}
+
+We want to have
+\begin{align*}
+	\sum_{n = -M}^N \hat{f}_n e_n(x) & = \frac{1}{2\pi}\sum_{n=-M}^N \left[\int_{-\pi}^\pi f(y) e^{-iny} \df y\right] \\
+	& = \frac{1}{2\pi}\int_{-\pi}^\pi f(y)\left(\sum_{n=-M}^N e^{-in(x-y)}\right) \df y \xrightarrow[\text{in } L^2 ??]{M, N \to \infty} f(x).
+\end{align*}
+
+\begin{definition}
+	[Poisson Kernel] For $0 \leq r < 1$, \[P_r(t) = \frac{1}{2\pi}\sum_{n = -\infty}^\infty e^{int}r^{|n|} = \frac{1- r^2}{2\pi(1 - 2r\cos t + r^2)}.\]
+\end{definition}
+\begin{lemma}\label{le:kerneluni1}
+	For $f \in L^1([-\pi, \pi])$ and $0 \leq r < 1$, $\sum_{-\infty}^\infty \hat{f}_n e_n(x)r^{|n|}$ converges absolutely and uniformly for $x \in [-\pi, \pi]$, and is equal to \[
+		\int_{-\pi}^\pi P_r(x - y)f(y) \df y.	
+	\]
+\end{lemma}
+\begin{proof}
+	\begin{align*}
+		\sum_{-\infty}^\infty \left[\int_{-\pi}^\pi \left|f(y)e^{-int}\right| \df y\right]\left|e_n(x)\right|r^{|n|} & = \frac{\norm{f}_1}{2\pi} \sum_{-\infty}^\infty r^{|n|} < \infty.
+	\end{align*} Thus, Fubini's theorem applies.
+	Now \begin{align*}
+		\sum_{-\infty}^\infty \left[\int_{-\pi}^\pi \left|f(y)e^{-int}\right| \df y\right]|e_n(x)|r^{|n|} & = \frac{1}{2\pi} \int_{-\pi}^\pi f(y)\left(\sum_{n=-M}^N e^{-in(x-y)}r^{|n|}\right) \df y \\
+		& = \int_{-\pi}^\pi P_r(x - y)f(y) \df y.
+	\end{align*}
+	Need to check a bit more about uniform convergence.
+\end{proof}
+\fancyem{Note} $P_r(0) = \dfrac{1-r^2}{2\pi(1 - r)^2} = \dfrac{1 + r}{2\pi(1 - r)} \to \infty$ as $r \nearrow 1$.
+
+\begin{lemma}
+	$P_r(t)$ form a "family of good kernels" i.e. \begin{enumerate}
+		\item $P_r(t) \geq 0$
+		\item $\displaystyle \int_{-\pi}^\pi P_r(t) \df t = 1$
+		\item $\displaystyle \forall \delta > 0, \lim_{r \nearrow 1} \int_{[-\pi, \pi] \setminus [-\delta, \delta]} P_r(t) \df t = 0$.
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	(b) 1st formula; (a), (c) 2nd formula.
+	\[
+		\int_{[-\pi, \pi] \setminus [-\delta, \delta]} P_r(t) \df t \leq \frac{1 - r^2}{2\pi(1 - 2r\cos\delta + r^2)}2\pi \xrightarrow[]{r \nearrow 1} 0. \qedhere
+	\]
+\end{proof}
+
+\begin{lemma}\label{le:kerneluni2}
+	For $f \in C([-\pi, \pi])$ satisfying $f(-\pi) = f(\pi)$, then \[
+		\lim_{r \nearrow 1} \int_{-\pi}^\pi P_r(x - y)f(y) \df y = f(x)
+	\] uniformly for $x \in [-\pi, \pi]$.
+\end{lemma}
+\begin{proof}
+	Extend $f$ to $f: \R \to \R$ where $f(x + 2\pi) = f(x)$. So $f$ is uniformly continuous and bounded.
+	\begin{align*}
+		\int_{-\pi}^\pi P_r(x - y)f(y) \df y - f(x)	& = \int_{-\pi}^\pi P_r(y)f(x - y)\df y - f(x)\int_{-\pi}^\pi P_r(y) \df y \\
+		& = \int_{-\delta}^\delta P_r(y) (f(x - y) - f(x)) \df y \\
+		& \quad + \int\limits_{[-\pi, \pi] \setminus [-\delta, \delta]} P_r(y)(f(x - y) - f(x)) \df y. \qedhere
+	\end{align*}
+\end{proof}
+
+% Recall: An orthonormal set $\{e_i\}$ is an orthonormal basis if $\forall x \in V, \forall \varepsilon > 0, \exists w = \sum_{1}^k\beta_i e_i \st \norm{x - w} < \varepsilon$.
+
+\begin{theorem}
+	$\displaystyle \left\{e_n(x) = \frac{1}{\sqrt{2\pi}}e^{inx}\right\}$ is an orthonormal basis of $L^2([-\pi, -\pi])$.
+\end{theorem}
+\begin{proof}
+	Let $f \in L^2([-\pi, \pi])$. Fix $\varepsilon > 0$.
+
+	$\exists g \in C([-\pi, \pi])$ with $g(\pi) = g(-\pi) \st \norm{f - g}_2 < \frac{\varepsilon}{3}$ (why?)
+	
+	Let $g_r(x) = \int_{-\pi}^\pi P_r(x - y)g(y) \df y$. By \ref{le:kerneluni2}, $\exists r \in [0, 1) \st \norm{g_r - g}_\infty < \frac{\varepsilon}{3\sqrt{2\pi}}$. So $\norm{g_r - g} < \frac{\varepsilon}{3}$.
+
+	Let $g_{r, N}(x) = \sum_{-N}^N \hat{g_n}e_n(x)r^{|n|}$. By \ref{le:kerneluni1}, $\exists N \in \N \st \norm{g_{r, N} - g_r}_\infty < \frac{\varepsilon}{3\sqrt{2\pi}}$. Thus $\norm{g_{r, N} - g_r}_2 < \frac{\varepsilon}{3}$.
+
+	Hence, $\norm{f - g_{r, N}}_21 < \varepsilon$.
+\end{proof}
+
+\begin{example}
+	[Plancherel identity] $\norm{f}^2 = \sum_{-\infty}^\infty |\hat{f_n}|^2$.
+	
+	\[f(x) = x, \hat{f}_n = \frac{1}{\sqrt{2\pi}}\int_{-\pi}^\pi xe^{-inx} \df x\begin{cases}
+		0 & n = 0 \\
+		\frac{(-1)^ni\sqrt{2\pi}}{n} & n \neq 0
+	\end{cases}\]
+
+	So the identity becomes \[
+		\sum_{1}^\infty \frac{1}{n^2} = \frac{\pi^2}{6}.	
+	\]
+\end{example}
+\begin{example}[Isoperimetric inequality]
+	Suppose $(x(t), y(t)), t \in [-\pi, \pi]$ is a parametric curve in $\R^2$ that is \begin{enumerate}
+		\item closed: $(x(-\pi), y(-\pi)) = (x(\pi), y(\pi))$,
+		\item smooth: $x, y$ are $C^1$ functions,
+		\item simple.
+	\end{enumerate}
+	Suppose \[
+		L = \int_{-\pi}^\pi\sqrt{x'(t)^2 + y'(t)^2} \df t = 2\pi.	
+	\]
+	What is the largest area $A$ encloses?
+
+	By Green's theorem ($\oint_C P \df x - Q \df y = \iint_D (Q_x - P_y) \df A$), \[
+		A = \frac{1}{2} \oint (x\df y - y \df x) = \frac{1}{2}\oint (x(t)y'(t) - x(t)y'(t)) \df t.
+	\] 
+	Arc length parametrization so that $x'(t)^2 + y'(t)^2 = 1$ for all $t$. Then the condition $L = 2\pi$ can be written as \[
+		L = \int_{-\pi}^\pi \left(x'(t)^2 + y'(t)^2\right) \df t = 2\pi
+	\]
+
+	Rewrite using $z(t) = x(t) + iy(t), t \in [-\pi, \pi]$ subject to \[
+		\int_{-\pi}^\pi \norm{z'(t)}^2 \df t = 2\pi,
+	\] find the max of \[
+		A = \frac{1}{4i}\int_{-\pi}^\pi \left(\overline{z(t)}z'(t) - z(t)\overline{z'(t)} \right)\df t	
+	\]
+	Note that $z \in C^1$ and $z(-\pi) = z(\pi)$.
+
+	Denote $\hat{z}_n = \alpha_n$. Now, $\widehat{(z')}_n = \frac{1}{\sqrt{2\pi}}\int_{-\pi}^\pi z'(t)e^{-int} \df t = in\alpha_n$ (integrate by parts).
+
+	By Plancherel, the $L$ constraint becomes \[
+		\sum_{-\infty}^\infty |in\alpha_n|^2 = 2\pi.
+	\]
+	By Parseval, the $A$ object becomes \[
+		A = \frac{1}{4i}\sum_{-\infty}^\infty \overline{\alpha_n}(in\alpha_n) - \alpha_n\overline{(in\alpha_n)} = \frac{1}{2}\sum_{-\infty}^\infty n|\alpha_n|^2.
+	\]
+	The question now becomes the max of $\displaystyle \frac{1}{2}\sum_{-\infty}^\infty n|\alpha_n|^2$ subject to $\displaystyle \sum_{-\infty}^\infty n^2|\alpha_n|^2 = 2\pi$.
+
+	Show that $2\pi - \displaystyle \sum_{-\infty}^\infty n|\alpha_n|^2$ is nonnegative $\iff \displaystyle \sum_{-\infty}^\infty (n^2 - n)|\alpha_n|^2$ is nonnegative, which is obvious. 
+	
+	$A = \pi \iff$ the equality holds $\iff \alpha_n = 0$ for $n \neq 0, 1 \iff z(t) = \alpha_0 + \alpha_1e_1(t) \iff z(t) = \alpha_0 + \alpha_1e^{-it} \iff |z(t) - \alpha_0| = |\alpha_1|$, which is a circle.
+
+	This beautiful proof is by Hurwitz.
+\end{example}
+
+Books: Fourier Series \& Integrals, Dym \& McKean.
+
+
+\bibliography{analysis}
 \bibliographystyle{alpha}
 \end{document}

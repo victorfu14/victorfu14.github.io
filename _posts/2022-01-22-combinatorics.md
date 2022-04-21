@@ -36,3 +36,6 @@ And this course is just fantastic.
 - [Mar. 31, Young lattice](../../../../parts/comb/comb.pdf#section.4.8)
 - [Apr. 5, the hooklength formula](../../../../parts/comb/comb.pdf#section.4.8)
 - [Apr. 7, the Frobenius-Young identity](../../../../parts/comb/comb.pdf#section.4.9)
+- [Apr. 7, the Frobenius-Young identity](../../../../parts/comb/comb.pdf#section.4.9)
+- [Apr. 12, involutions](../../../../parts/comb/comb.pdf#section.4.10)
+- [Apr. 14, Schensted's insertion algorithm](../../../../parts/comb/comb.pdf#section.4.11)
