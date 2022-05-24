@@ -1609,7 +1609,7 @@ We can change $\forall \varepsilon > 0$ to $\forall k \in \N$ and bound the dist
 	\end{itemize}
 \end{example}
 
-We can easily check that $f_n \to f$ in $L^1 \implies f_n \to f$ in measurable. But the converse is not true.
+We can easily check that $f_n \to f$ in $L^1 \implies f_n \to f$ in measure. But the converse is not true.
 
 $f_n \to f$ in measure $\implies \exists f_{n_j} \to f$ a.e. (Check \cite{follandRealAnalysisModern1999})
 
@@ -2027,7 +2027,7 @@ Suppose an open ball in $\R^d, B = B(a, r)$. Denote $cB = B(a, cr), c > 0$.
 
 		Apply DCT.
 
-		\item $\displaystyle (Hf)^{-1}((a, \infty)) = \bigcup_{r > 0}A_r^{-1}((a, \infty))$ is open.
+		\item $\displaystyle (Hf)^{-1}((a, \infty)) = \bigcup_{r > 0}A_r^{-1}((a, \infty))$ is open. \qedhere
 	\end{enumerate}
 \end{proof}
 
@@ -2041,7 +2041,7 @@ Suppose an open ball in $\R^d, B = B(a, r)$. Denote $cB = B(a, cr), c > 0$.
 	\]
 \end{theorem}
 \begin{proof}
-	Fix $f \in L^1$ and $\alpha > 0$. Let $E \{x \mid (Hf)(x) > \alpha\}$. $E$ is a Borel measurable set. Then
+	Fix $f \in L^1$ and $\alpha > 0$. Let $E = \{x \mid (Hf)(x) > \alpha\}$. $E$ is a Borel measurable set. Then
 	\[\displaystyle x \in E \implies \exists r_x > 0, \st A_{r_x}(x) > \alpha \implies m(B(x, r_x)) < \frac{1}{\alpha} \int_{B(x, r_x)}|f(y)| \df y.\]
 	By inner regularity, we have $m(E) = \sup \{m(K) \mid \text{ compact } K \subset E\}$. Let $K \subset E$ be compact. Then 
 	\begin{align*}
@@ -2060,20 +2060,19 @@ Suppose an open ball in $\R^d, B = B(a, r)$. Denote $cB = B(a, cr), c > 0$.
 \end{theorem}
 \begin{proof}
 	\begin{enumerate}
-		\item The result is holds for $f \in C_c(\R^d)$ (check!)
+		\item The result holds for $f \in C_c(\R^d)$ (check!)
 		\item Let $f \in L^1(\R^d)$. Fix $\varepsilon > 0$. $\exists g \in C_c(\R^d) \st \norm{f - g}_1 < \varepsilon$. Then \begin{multline*}
 			\int_{B(x, r)} |f(y) - f(x)| \df y \\
 			\leq \int_{B(x, r)}|f(y) - g(y)| \df y + \int_{B(x, r)}|g(y) - g(x)| \df y + \int_{B(x, r)}|g(x) - f(x)| \df y.
 		\end{multline*}
-		Let $Q(x) = \limsup_{r \to 0}\frac{1}{m(B(x,r))}\int_{B(x, r)}|f(y) - f(x)| \df y$. WTS that $m\left(\{x \mid Q(x) > 0\}\right) = m \left(\bigcup_{n=1}^\infty\left\lbrace x \mid Q(x) > \frac{1}{n}\right\rbrace\right) = 0.$
+		Let $Q(x) = \displaystyle\limsup_{r \to 0}\frac{1}{m(B(x,r))}\int_{B(x, r)}|f(y) - f(x)| \df y$. We want to show that \[m\left(\{x \mid Q(x) > 0\}\right) = m \left(\bigcup_{n=1}^\infty\left\lbrace x \mid Q(x) > \frac{1}{n}\right\rbrace\right) = 0.\]
 
 		Enough to show that $m(E_\alpha) = 0, \forall \alpha > 0, E_\alpha = \{x \mid Q(x) > \alpha\}$.
 
-		But $Q(x) \leq (H(f - g))(x) + 0 + |g(x) - f(x)|$, 
-		
-		$\{x \mid Q(x) > \alpha \subset \left\lbrace x \mid H(f - g)(x) > \frac{\alpha}{2}\right\rbrace \bigcup \left\lbrace x \mid |g(x) - f(x)| > \frac{\alpha}{2}\right\rbrace$.
-
-		$m\left(\left\lbrace x \mid Q(x) > \alpha \right\rbrace\right) \leq \frac{2C_d}{\alpha} \norm{f - g}_1 + \frac{2}{\alpha}\norm{f - g}_1 \leq \frac{2(C_d + 1)}{\alpha}\varepsilon$. \qedhere
+		But $Q(x) \leq (H(f - g))(x) + 0 + |g(x) - f(x)| \implies$ 
+		\[\{x \mid Q(x) > \alpha \} \subset \left\lbrace x \mid H(f - g)(x) > \frac{\alpha}{2}\right\rbrace \bigcup \left\lbrace x \mid |g(x) - f(x)| > \frac{\alpha}{2}\right\rbrace.\]
+		So we have 
+		\[m\left(\left\lbrace x \mid Q(x) > \alpha \right\rbrace\right) \leq \frac{2C_d}{\alpha} \norm{f - g}_1 + \frac{2}{\alpha}\norm{f - g}_1 \leq \frac{2(C_d + 1)}{\alpha}\varepsilon. \qedhere \]
 	\end{enumerate}
 \end{proof}
 
@@ -2315,7 +2314,7 @@ So on equivalent norms we have same open sets, same convergence.
 \begin{example} \fnl
 	\begin{itemize}
 		\item For $\R^d$, $\norm{\cdot}_p$, $1 \leq p \leq \infty$ are equivalent.
-		\item For $1 \leq p, q \leq \infty p \neq q$, $L^p(\R, m)$-norm and $L^q(\R, m)$-norm are \emph{not equivalent}. $L^p(\R, m) \not\subset L^q(\R, m), L^p(\R, m) \not\supset L^q(\R, m)$.
+		\item For $1 \leq p, q \leq \infty, p \neq q$, $L^p(\R, m)$-norm and $L^q(\R, m)$-norm are \emph{not equivalent}. $L^p(\R, m) \not\subset L^q(\R, m), L^p(\R, m) \not\supset L^q(\R, m)$.
 	\end{itemize}
 \end{example}
 
@@ -2325,7 +2324,7 @@ So on equivalent norms we have same open sets, same convergence.
 \begin{proof}
 	\begin{itemize}
 		\item $p = \infty$ is easy.
-		\item Suppose $p < \infty$.
+		\item Suppose $p < \infty$. \qedhere
 	\end{itemize}
 \end{proof}
 
@@ -2338,7 +2337,10 @@ So on equivalent norms we have same open sets, same convergence.
 	$\forall 0 < p < q < r \leq \infty$, $L^p \cap L^r \subset L^q$.
 \end{proposition}
 \begin{proof}
-	DIY
+	\begin{itemize}
+		\item $p = \infty$ is easy.
+		\item Suppose $p < \infty$. Hölder on $p/\lambda q, r/(1-\lambda)q, \lambda = \frac{q^{-1} - r^{-1}}{p^{-1} - r^{-1}}$. \qedhere
+	\end{itemize}
 \end{proof}
 
 \section{Banach Spaces}
@@ -2567,7 +2569,7 @@ So on equivalent norms we have same open sets, same convergence.
 \end{proof}
 
 \begin{theorem}[Radon-Nikodym]\label[thm]{R-N}
-	$\nu$ a $\sigma$-finite positive measure, $\nu$ a $\sigma$-finite signed measure on $(X, \cA)$. Suppose $\nu \ll \mu$. Then $\exists f: X \to \bar{\R}$ measurable function such that $\nu(E) = \int_E f \df \mu$. If $g$ is another such function then $f = g$ a.e.
+	Suppose $\mu$ a $\sigma$-finite positive measure, $\nu$ a $\sigma$-finite signed measure on $(X, \cA)$. Suppose $\nu \ll \mu$. Then $\exists f: X \to \bar{\R}$ measurable function such that $\nu(E) = \int_E f \df \mu$. If $g$ is another such function then $f = g$ a.e.
 \end{theorem}
 \begin{proof}
 	Will follow by proof of Lebesgue-Radon-Nikodym on Monday.
@@ -2592,6 +2594,63 @@ So on equivalent norms we have same open sets, same convergence.
 	\[\mu_C(E) \neq \int_E 0 \df x.\]
 	In particular, $c(b) - c(a) \neq \int_a^b c'(x) \df x$ even if $c$ is continuous and has derivative a.e. So $\mu_c \nll m$. But $\mu_c \perp m$.
 \end{example}
+
+\begin{lemma}
+	Let $\mu, \nu$ be finite positive measures on $(X, \cA)$. Then either \begin{enumerate}
+		\item $\mu \perp \nu$, or
+		\item $\exists \varepsilon > 0, \exists F \in \cA \st \nu(F) > 0$ and $F$ is a positive set for $\nu - \varepsilon\mu$. (i.e. $\forall G \subset F, \nu(G) \geq \varepsilon \mu(G)$)
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	Let $\kappa_n = \nu - \frac{1}{n}\mu$. By Hahn decomposition, write $X = P_n \cup N_n$ where $P_n$ is positive and $N_n$ is negative for $\kappa_n$.
+	
+	Let $P = \bigcup_1^\infty P_n$ and $N = \bigcap_1^\infty N_n = X \setminus P$.
+	We have $\kappa_n(N) \leq 0$ since $N \subset N_n, \forall n \implies 0 \leq \nu(N) \leq \frac{1}{n}\mu(N), \forall n \implies \nu(N) = 0$.
+
+	Now if $\mu(P) = 0$ then $\mu \perp \nu$. Otherwise $\exists n \st \mu(P_n) > 0$. Take $F = P_n, \varepsilon = \frac{1}{n}$ we have that $F$ is a positive set for $\nu - \varepsilon\mu$ and $\nu(F) > 0$.
+\end{proof}
+
+\begin{theorem}[Lebesgue-Radon-Nikodym] 
+	Suppose $\mu$ a $\sigma$-finite positive measure, $\nu$ a $\sigma$-finite signed measure on $(X, \cA)$. Then $\exists! \lambda, \rho$ $\sigma$-finite signed measures on $(X, \cA)$ such that $\lambda \perp \mu, \rho \ll \mu, \nu = \lambda + \rho$.
+
+	Furthermore, $\exists f: X \to \bar{\R}$ measurable function that $\ndf \rho = f\df\mu$. And if there exists another $g$ then $f = g$ $\mu$-a.e. 
+\end{theorem}
+\begin{proof}
+	\begin{enumerate}
+		\item Assume $\mu, \nu$ finite positive measure.
+		Let \begin{align*}
+			\cF & = \left\{g: X \to [0, \infty]\ \biggr\rvert \int_E g \df \mu \leq \nu(E), \forall E \in \cA \right\} \\
+			& = \left\{g: X \to [0, \infty]\ \biggr\rvert\ \ndf\nu - g\ndf\nu \text{ is a positive measure}\right\}.
+		\end{align*}
+		Note that $\cF \neq \emptyset$ since $g = 0 \in \cF$. Let $s = \sup \left\{\int_X g \df \mu \mid g \in \cF\right\}$.
+		\begin{enumerate}
+			\item $\exists f \in \cF \st s = \int_X f \df \mu$. \begin{enumerate}
+				\item $g, h \in \cF \implies u(x) = \max\{g(x), h(x)\} \in \cF$.
+				Since setting $A = \{x \mid g(x) \geq h(x)\}$, we have \[
+					\int_E u \df \mu = \int_{E \cap A} g \df \mu + \int_{E \cap A^c} h \df \mu.	
+				\]
+				\item $\exists g_1, g_2, \ldots \st \lim_{n \to \infty} \int_X g_n \df \mu = S$.
+				By i, WLOG we can assume $0 \leq g_1(x) \leq g_2(x) \leq \ldots$ and $\st \lim_{n \to \infty} \int_X g_n \df \mu = S$.
+
+				Let $f(x) = \sup_n g_n(x) = \lim_{n \to \infty} g_n(x)$. By MCT, \[\int_E f \df \mu = \lim_{n \to \infty} \int_E g_n \df \mu \leq \nu(E) = S\] when $E = X$.
+			\end{enumerate}
+
+			\item Define $\rho(E) = \int_E f \df \mu \implies \rho \ll \mu$ and $\rho(X) = \int_X f \df \mu \leq \nu(X) < \infty$.
+			\item Define $\lambda(E) = \nu(E) - \rho(E) = \nu(E) - \int_E f \df \mu \geq 0$. Then $\lambda$ is a positive measure and $\lambda(X) \leq \nu(X) < \infty$.
+			\item $\lambda \perp \mu$. Suppose it is not. Then by lemma, $\exists \varepsilon > 0, F \in \cA \st \mu(F) > 0$ and $F$ is a positive set for $\lambda - \varepsilon \mu$.
+			
+			Let $g(x) = f(x) + \varepsilon 1_F(x)$. Then $\forall E \in \cA$, \begin{align*}
+				\int_E g \df \mu & = \int_E f \df \mu + \varepsilon \mu(E \cup F) = \nu(E) - \lambda(E) + \varepsilon \mu(E \cup F) \\
+				& \leq \nu(E) - \lambda(E \cap F) + \varepsilon\mu(E \cap F) \\
+				& \leq \nu(E)
+			\end{align*}
+			since $\lambda(E \cap F) - \varepsilon \mu(E \cap F) \geq 0$. 
+
+			But $s \geq \int_X g \df \mu = \int_X f \df \mu + \varepsilon \mu(F) = s + \varepsilon\mu(F) > s$, a contradiction. \qedhere
+		\end{enumerate}
+	\end{enumerate}
+\end{proof}
+
 
 \section{Lebesgue Differentiation Theorem for Regular Borel Measures on \ttlmath{\R^d}{R\textasciicircum d}}
 \cite[p. 99]{follandRealAnalysisModern1999}

@@ -5,13 +5,11 @@ categories: Maths
 excerpt: cool stuff
 published: true 
 ---
-This course is taught by [Sergey Fomin](http://www.math.lsa.umich.edu/~fomin/). (really cool guy)
+This course is taught by [Sergey Fomin](http://www.math.lsa.umich.edu/~fomin/). He is really cool guy and this course is just fantastic.
 
-And this course is just fantastic.
+As per instructor's requirement, the notes will not be posted after the course is finished. Here are the contents of the course:
 
-(Notice on Safari the hyperlink to sections within the PDF does not work. It seems to work on Chromium-based browsers and Firefox.)
-
-- [Jan. 6, linear algebra prelim, adjacency matrices & eigenvalues](../../../../parts/comb/comb.pdf#section.1.1)
+<!-- - [Jan. 6, linear algebra prelim, adjacency matrices & eigenvalues](../../../../parts/comb/comb.pdf#section.1.1)
 - [Jan. 11, eigenvalues inequalities and anti-diagonal block matrices](../../../../parts/comb/comb.pdf#section.1.3)
 - [Jan. 13, eigenvalues of circulant matrices, Cartesian products](../../../../parts/comb/comb.pdf#section.1.5)
 - [Jan. 18, random walks, domino tilings](../../../../parts/comb/comb.pdf#section.1.7)
@@ -36,6 +34,33 @@ And this course is just fantastic.
 - [Mar. 31, Young lattice](../../../../parts/comb/comb.pdf#section.4.8)
 - [Apr. 5, the hooklength formula](../../../../parts/comb/comb.pdf#section.4.8)
 - [Apr. 7, the Frobenius-Young identity](../../../../parts/comb/comb.pdf#section.4.9)
-- [Apr. 7, the Frobenius-Young identity](../../../../parts/comb/comb.pdf#section.4.9)
 - [Apr. 12, involutions](../../../../parts/comb/comb.pdf#section.4.10)
-- [Apr. 14, Schensted's insertion algorithm](../../../../parts/comb/comb.pdf#section.4.11)
+- [Apr. 14, Schensted's insertion algorithm](../../../../parts/comb/comb.pdf#section.4.11) -->
+
+- [Jan. 6, linear algebra prelim, adjacency matrices & eigenvalues]
+- [Jan. 11, eigenvalues inequalities and anti-diagonal block matrices]
+- [Jan. 13, eigenvalues of circulant matrices, Cartesian products]
+- [Jan. 18, random walks, domino tilings]
+- [Jan. 20, domino tilings]
+- [Jan. 25, spanning trees, diamond lemma]
+- [Jan. 27, diamond lemma with application in several games]
+- [Feb. 1, loop erasure, Wilson's algorithm]
+- [Feb. 3, flow, potential]
+- [Feb. 8, solving Kirchhoff equations]
+- [Feb. 10, effective conductance]
+- [Feb. 15, effective conductance, squaring a square]
+- [Feb. 17, Laplace expansion]
+- [Feb. 22, matrix-tree theorem]
+- [Feb. 24, Cayley's formula, Eulerian tours, the BEST theorem]
+- [Mar. 8, postman routes, De Bruijn sequences]
+- [Mar. 10, construction of De Bruijn sequences, partitions]
+- [Mar. 15, the dominance order, lattice $L(m, n)$]
+- [Mar. 17, the $q$-binomial coefficients]
+- [Mar. 22, identities of $q$-binomial coefficients, Sperner theory]
+- [Mar. 24, Sperner's theorem]
+- [Mar. 29, rank-unimodality of $L(m, n)$]
+- [Mar. 31, Young lattice]
+- [Apr. 5, the hooklength formula]
+- [Apr. 7, the Frobenius-Young identity]
+- [Apr. 12, involutions]
+- [Apr. 14, Schensted's insertion algorithm]
