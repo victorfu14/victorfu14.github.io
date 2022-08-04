@@ -1,0 +1,199 @@
+\documentclass{report}
+\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb,nccmath}
+\usepackage{mathtools}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\setlength{\topmargin}{0.5in}
+\usepackage[margin=4cm]{geometry}
+\usepackage{enumerate}
+
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\setlength{\parskip}{0.5em}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+
+% useful characters/operators
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\matP}{\mathbb{P}}
+\newcommand{\matE}{\mathbb{E}}
+\newcommand{\matS}{\mathbb{S}}
+\newcommand{\matH}{\mathbb{H}}
+\newcommand{\matT}{\mathbb{T}}
+\newcommand{\st}{\ s.t.\ }
+\newcommand{\ie}{\ i.e.\ }
+\newcommand{\eg}{\ e.g.\ }
+\def \diam {\operatorname{diam}}
+\def \Hom {\operatorname{Hom}}
+\def \id {\operatorname{id}}
+\def \tr {\operatorname{tr}}
+\def \rk {\operatorname{rk}}
+\def \sp {\operatorname{span}}
+\def \dist {\operatorname{dist}}
+\def \intr {\operatorname{int}}
+\def \sgn {\operatorname{sgn}}
+\def \im {\operatorname{Im}}
+\def \re {\operatorname{Re}}
+\def \curl {\operatorname{curl}}
+\def \divg {\operatorname{div}}
+\def \GL {\operatorname{GL}}
+\def \Aut {\operatorname{Aut}}
+\def \per {\operatorname{per}}
+\def \LE {\operatorname{LE}}
+\def \indeg {\operatorname{indeg}}
+\def \outdeg {\operatorname{outdeg}}
+\def \Par {\operatorname{Par}}
+\def \Gr {\operatorname{Gr}}
+\def \del {\operatorname{del}}
+\def \add {\operatorname{add}}
+\newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\df}{\mathrm{d}}
+\newcommand{\dr}[2]{\dfrac{\df #1}{\df #2}}
+\newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
+\newcommand{\qbin}[2]{\begin{bmatrix}{#1}\\ {#2}\end{bmatrix}_q}
+
+
+% arrows and :=, =:
+\makeatletter
+\providecommand*{\twoheadrightarrowfill@}{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow
+}
+\providecommand*{\twoheadleftarrowfill@}{%
+  \arrowfill@\twoheadleftarrow\relbar\relbar
+}
+\providecommand*{\xtwoheadrightarrow}[2][]{%
+  \ext@arrow 0579\twoheadrightarrowfill@{#1}{#2}%
+}
+\providecommand*{\xtwoheadleftarrow}[2][]{%
+  \ext@arrow 5097\twoheadleftarrowfill@{#1}{#2}%
+}
+\makeatother
+
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\mathrel{\mathop:}}
+
+% integral for measure theory
+\newcommand{\lowerint}{\underline{\int_{\R^d}}}
+\newcommand{\upperint}{\overline{\int_{\R^d}}}
+\newcommand{\lint}[1]{\underline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\uint}[1]{\overline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\sint}[1]{\simp{\int_{\R^d} #1 (x)dx}}
+\newcommand{\lesint}[1]{\int_{\R^d} #1 (x)dx}
+
+% note taking
+\newcommand{\fancyem}[1]{\underline{\textsc{#1}}}
+
+% theorem style
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{conjecture}{Conjecture}[section]
+\newtheorem{proposition}{Proposition}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% pseudocode and algorithms
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{algorithmicx}
+\counterwithin{algorithm}{section}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+% for clearer reference
+\usepackage{hyperref}
+\newcommand{\corollaryautorefname}{Corollary}
+\newcommand{\lemmaautorefname}{Lemma}
+\newcommand{\definitionautorefname}{Definition}
+\newcommand{\exampleautorefname}{Example}
+\newcommand{\conjectureautorefname}{Conjecture}
+\renewcommand{\subsectionautorefname}{Section}
+\newcommand{\algorithmautorefname}{Algorithm}
+
+% other styling
+\usepackage{fancyvrb, fancyhdr}
+\usepackage{tikz-cd}
+\usepackage{tikz}
+\PassOptionsToPackage{usenames, x11names}{xcolor}
+\usepackage{tcolorbox}
+\selectcolormodel{cmy}
+
+\newcommand{\edge}{
+    \begin{tikzcd}[cramped, sep=small, labels={font=\everymath\expandafter{\the\everymath\textstyle}}]
+        u \arrow[r, "e", no head] & v
+    \end{tikzcd}
+}
+
+
+\pagestyle{fancy}
+\fancyhead[LO,L]{\leftmark}
+\fancyhead[RO,R]{Yiwei Fu}
+% \fancyhead[C]{MATH 566}
+\fancyfoot[CO,C]{\thepage}
+\renewcommand{\sectionmark}[1]{\markboth{#1}{#1}}
+
+\numberwithin{equation}{section}
+
+\newcommand{\fnl}{\parbox[t]{0\linewidth}{}}
+\newcommand*\ttlmath[2]{\texorpdfstring{$\boldsymbol{#1}$}{#2}}
+
+\usepackage{epigraph}
+
+% \epigraphsize{\small}% Default
+\setlength\epigraphwidth{8cm}
+\setlength\epigraphrule{0pt}
+
+\usepackage{etoolbox}
+
+\makeatletter
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+\makeatother
+
+% combinatorics special
+\usepackage{pgfopts}
+\usepackage{ytableau}
+
+\begin{document}
+\title{Notes for REU -- Differential Privacy and Dynamic Graphs}
+\author{Yiwei Fu}
+\date{Summer 2022}
+\maketitle
+
+
+\tableofcontents
+
+\clearpage
+\pagenumbering{arabic}
+
+\chapter{}
+\section{Differential Privacy}
+\begin{definition}[Adjacent on graphs]
+
+\end{definition}
+
+\begin{definition}[Differential privacy]
+    A randomized algorithm $\mathcal{A}$ is $\varepsilon$-differetially private if given two adjacent data sets $B, B'$, for any subset $S \subseteq \im \mathcal{A}$, \[
+        \matP[\mathcal{A}(B) \in S] \leq e^\varepsilon \cdot \matP[\mathcal{A}(B') \in S].
+    \]
+\end{definition}
+
+\begin{definition}
+    
+\end{definition}
+
+\newpage 
+\section{Dynamic Graph Algorithms}
+
+
+\end{document}
