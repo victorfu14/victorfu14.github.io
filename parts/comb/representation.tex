@@ -1,0 +1,420 @@
+\documentclass{report}
+\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb,nccmath}
+\usepackage{mathtools}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\setlength{\topmargin}{0.5in}
+\usepackage[margin=4cm]{geometry}
+\usepackage{enumerate}
+
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\setlength{\parskip}{0.5em}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+
+% useful characters/operators
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\matP}{\mathbb{P}}
+\newcommand{\matE}{\mathbb{E}}
+\newcommand{\matS}{\mathbb{S}}
+\newcommand{\matH}{\mathbb{H}}
+\newcommand{\matT}{\mathbb{T}}
+\newcommand{\st}{\ s.t.\ }
+\newcommand{\ie}{\ i.e.\ }
+\newcommand{\eg}{\ e.g.\ }
+\def \diam {\operatorname{diam}}
+\def \Hom {\operatorname{Hom}}
+\def \id {\operatorname{id}}
+\def \tr {\operatorname{tr}}
+\def \rk {\operatorname{rk}}
+\def \sp {\operatorname{span}}
+\def \dist {\operatorname{dist}}
+\def \intr {\operatorname{int}}
+\def \sgn {\operatorname{sgn}}
+\def \im {\operatorname{Im}}
+\def \re {\operatorname{Re}}
+\def \curl {\operatorname{curl}}
+\def \divg {\operatorname{div}}
+\def \GL {\operatorname{GL}}
+\def \Aut {\operatorname{Aut}}
+\def \per {\operatorname{per}}
+\def \LE {\operatorname{LE}}
+\def \indeg {\operatorname{indeg}}
+\def \outdeg {\operatorname{outdeg}}
+\def \Par {\operatorname{Par}}
+\def \Gr {\operatorname{Gr}}
+\def \del {\operatorname{del}}
+\def \add {\operatorname{add}}
+\def \Gal {\operatorname{Gal}}
+\def \Sym {\operatorname{Sym}}
+\newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\df}{\mathrm{d}}
+\newcommand{\dr}[2]{\dfrac{\df #1}{\df #2}}
+\newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
+\newcommand{\qbin}[2]{\begin{bmatrix}{#1}\\ {#2}\end{bmatrix}_q}
+
+
+% arrows and :=, =:
+\makeatletter
+\providecommand*{\twoheadrightarrowfill@}{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow
+}
+\providecommand*{\twoheadleftarrowfill@}{%
+  \arrowfill@\twoheadleftarrow\relbar\relbar
+}
+\providecommand*{\xtwoheadrightarrow}[2][]{%
+  \ext@arrow 0579\twoheadrightarrowfill@{#1}{#2}%
+}
+\providecommand*{\xtwoheadleftarrow}[2][]{%
+  \ext@arrow 5097\twoheadleftarrowfill@{#1}{#2}%
+}
+\makeatother
+
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\mathrel{\mathop:}}
+
+% integral for measure theory
+\newcommand{\lowerint}{\underline{\int_{\R^d}}}
+\newcommand{\upperint}{\overline{\int_{\R^d}}}
+\newcommand{\lint}[1]{\underline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\uint}[1]{\overline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\sint}[1]{\simp{\int_{\R^d} #1 (x)dx}}
+\newcommand{\lesint}[1]{\int_{\R^d} #1 (x)dx}
+
+% note taking
+\newcommand{\fancyem}[1]{\underline{\textsc{#1}}}
+
+% theorem style
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{conjecture}{Conjecture}[section]
+\newtheorem{proposition}{Proposition}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% pseudocode and algorithms
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{algorithmicx}
+\counterwithin{algorithm}{section}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+% for clearer reference
+\usepackage{hyperref}
+\newcommand{\corollaryautorefname}{Corollary}
+\newcommand{\lemmaautorefname}{Lemma}
+\newcommand{\definitionautorefname}{Definition}
+\newcommand{\exampleautorefname}{Example}
+\newcommand{\conjectureautorefname}{Conjecture}
+\renewcommand{\subsectionautorefname}{Section}
+\newcommand{\algorithmautorefname}{Algorithm}
+
+% other styling
+\usepackage{fancyvrb, fancyhdr}
+\usepackage{tikz-cd}
+\usepackage{tikz}
+\PassOptionsToPackage{usenames, x11names}{xcolor}
+\usepackage{tcolorbox}
+\selectcolormodel{cmy}
+
+\newcommand{\edge}{
+    \begin{tikzcd}[cramped, sep=small, labels={font=\everymath\expandafter{\the\everymath\textstyle}}]
+        u \arrow[r, "e", no head] & v
+    \end{tikzcd}
+}
+
+
+\pagestyle{fancy}
+\fancyhead[LO,L]{\leftmark}
+\fancyhead[RO,R]{Yiwei Fu}
+\fancyfoot[CO,C]{\thepage}
+\renewcommand{\sectionmark}[1]{\markboth{#1}{#1}}
+
+\numberwithin{equation}{section}
+
+\newcommand{\fnl}{\parbox[t]{0\linewidth}{}}
+\newcommand*\ttlmath[2]{\texorpdfstring{$\boldsymbol{#1}$}{#2}}
+
+\usepackage{epigraph}
+
+% \epigraphsize{\small}% Default
+\setlength\epigraphwidth{8cm}
+\setlength\epigraphrule{0pt}
+
+\usepackage{etoolbox}
+
+\makeatletter
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+\makeatother
+
+% combinatorics special
+\usepackage{pgfopts}
+\usepackage{ytableau}
+
+\begin{document}
+\title{Notes for Math 668 -- Combinatorics of $\GL_n\C$ Representation Theory}
+\author{Yiwei Fu, Instructor: David E Speyer}
+\date{FA 2022}
+\maketitle
+
+
+\tableofcontents
+Office hours: 
+
+\clearpage
+\pagenumbering{arabic}
+
+
+\chapter{}
+We'll be studying finite dimensional representation of $\GL_n\C$ and its connections to combinatorics, including symmetric polynomials, Young Tableaux, crystals, JDQ and RSK, webs, standard theory.
+
+not doing, but good topics:
+\begin{itemize}
+    \item $\infty$-dimensional representations
+    \item Cluster algebras
+    \item total positivity
+    \item other Lie groups
+    \item $S_n$
+    \item $\GL_n\F_p$ representation theory.
+\end{itemize}
+All of these use the basic $\GL_n\C$ theory. In addition, $\GL_n\C$ representation theory is very close to $U(n)$-represention theory.
+
+\section{Introduction}
+\fancyem{Reminder Time}
+$G$ a group, $K$ a field, $V$ a $k$-vector space. Then a representation of $G$ on $V$ is an action of $G$ on $V$ by $K$-linear maps $G \times V \to V, (gh)(v) = g(h(v)), \id \cdot v = v, g(u + v) = g(u) + g(v), g(cv) = cg(v)$.
+
+In other words, a homomorphism $\rho: G \to \GL(V)$. We are looking at $\rho: \GL_n\C \to \GL_N(\C)$.
+
+Let $W = \C^n$ with the standard $\GL_n\C$ action. We like:
+\begin{itemize}
+    \item $W$, $W \oplus W$.
+    \item $W^{\otimes k}, \bigwedge^k W$ and $\Sym^k W$,
+    \item $W^V = \Hom(W, \C)$.
+    \item $\C$, $g \mapsto (\det g)^k$, $k \in \Z$.
+\end{itemize}
+
+Some representations we don't want to study.
+\begin{itemize}
+    \item $|\det(g)|^\alpha$, $\alpha \in \R$, not even when $\alpha = 1$.
+    \item $g \mapsto \overline{g}$
+    \item $g \mapsto \sigma(g)$, $\sigma \in \Gal(\C/\Q)$.
+\end{itemize} (They are not algebraic.)
+
+\begin{definition}
+    We say that $\rho: \GL_n\C \mapsto \GL_N(\C)$ is \emph{polynomial} if the $N^2$ matrix entries $\rho(g)_{ij}$ are polynomials in the entries of $g$, i.e. $\C[g_{pq}]$. We'll say $\rho$ is \emph{algebraic} if the $\rho(g)_{ij} \in \C[g_{pq}, (\det g)^{-1}]$.
+\end{definition}
+
+\begin{definition}
+    For any group $G$, and representation $V$ over a field $K$, we define the character $\chi_V$ of $V$ to be the function $G \to K$ given by $\chi_V(g) = \tr(\rho_V(g))$
+\end{definition}
+
+Notice that \[\chi_V(hgh^{-1}) = \tr(\rho_V(hgh^{-1})) = \tr(\rho_V(h)\rho_V(g)\rho_V(h)^{-1}) = \tr(\rho_V(g)) = \chi_V(g).\]
+
+The diagonalizable matrices are dense in $\GL_n\C$, so any continuous function is determined by its values on diagonalizable matrices. So a continuous conjugacy invariant function is determined by its values on diagonal matrices.
+
+If $V$ is a polynomial representation, then \[\chi_V\left(\begin{bmatrix}
+    z_1 &  & \\
+    & \ddots & \\
+    & & z_n
+\end{bmatrix}\right) \in \C[z_1, \ldots, z_n].\] ($\Z[z_1, \ldots, z_n]$, in fact.) 
+
+If $V$ is algebraic, \[\chi_V\left(\begin{bmatrix}
+    z_1 &  & \\
+    & \ddots & \\
+    & & z_n
+\end{bmatrix}\right) \in \C[z_1^{\pm}, \ldots, z_n^{\pm}].\] ($\Z_{\geq 0}[z_1^{\pm}, \ldots, z_n^{\pm}]$, in fact.)
+
+In general, \[
+    \sigma \begin{bmatrix}
+        z_1 &  & \\
+        & \ddots & \\
+        & & z_n
+    \end{bmatrix} \sigma^{-1} = \begin{bmatrix}
+        z_{\sigma(1)} &  & \\
+        & \ddots & \\
+        & & z_{\sigma(n)}
+    \end{bmatrix} 
+\]
+So characters of polynomial/algebraic representations are symmetric polynomials/Laurent polynomials.
+
+Denote $\Lambda_n = \Z[z_1, \ldots, z_n]^{S_n}$, and $\Lambda^{\pm}_n = \Z[z_1^{\pm}, \ldots, z_n^{\pm}]^{S_n}$. $\Lambda$ is symmetric polynomials in $\infty$-ly many vars.
+
+\section{Symmetric Polynomials}
+\[
+    \Lambda_n = \Z[x_1, \ldots, x_n]^{S_n}, \Lambda^{\pm}_n = \Z[x_1^{\pm}, \ldots, x_n^{\pm}]^{S_n}   
+\]
+\begin{definition}
+    A \emph{partition} is a weakly decreasing sequence of positive integers \[
+        \lambda_1 \geq \lambda_2 \geq \ldots \geq \lambda_\ell > 0    
+    \]
+\end{definition}
+We draw them as configuration of boxes called \emph{Young Diagrams}.
+\[
+    \ydiagram{4, 2, 1} \leftrightarrow (4, 2, 1). 
+\]
+French convention is increasing diagrams; Russian convention is angled.
+
+We often pad our partitions with $0$'s: $(4, 2, 1), (4, 2, 1, 0), \ldots$ The size of a partition $|\lambda| = \sum_j \lambda_j$, which is the number of boxes. The length of a partition $\ell(\lambda) = \# j, \lambda_j > 0$. The transpose of $(4, 2, 1)^T = (3, 2, 1, 1)$.
+$(\lambda^T)_j = \# i, \lambda_i \geq j$.
+
+\begin{definition}
+    The \emph{dominance order} is the partial order defined by
+    \[
+        \mu \preceq \lambda \iff \forall i, \mu_1 + \ldots + \mu_i \leq \lambda_i + \ldots + \lambda_i.    
+    \]
+\end{definition}
+\begin{definition}
+    Suppose $\lambda$ a partition, then \[
+        \Lambda_n \ni m_\lambda(x_1, x_2, \ldots, x_\lambda) = \sum_{(c_1, \ldots, c_n) \in S_n(\lambda_1, \ldots, \lambda_n)} x_1^{c_1} x_2^{c_2}\ldots x_n^{c_n}    
+    \]
+\end{definition}
+
+\fancyem{Note} We are not counting with multiplicity. All coefficients of $m_\lambda$ are $0$ or $1$:
+\[
+    m_{1,1}(x_1, x_2, x_3) = x_1x_2 + x_1x_3 + x_2x_3, \neq 2(x_1x_2 + x_1x_3 + x_2x_3).  
+\]
+
+So we have the monomial symmetric functions \[
+    \Lambda_n = \bigoplus_{\ell(\lambda) \leq n} \Z \cdot m_\lambda.   
+\]
+
+\begin{definition}
+    \[
+        e_{k}(x_1, \ldots, x_n) = \sum_{i_1 < i_2 < \ldots < i_k} x_{i_1}x_{i_2}\ldots x_{i_k} = m_{1\ldots1}    
+    \]
+    We have \[
+        e_{\lambda_1\lambda_2\ldots\lambda_\ell} = e_{\lambda_1}e_{\lambda_2}\ldots e_{\lambda_\ell} 
+    \]
+    We call $e$ elementary symmetric functions.
+\end{definition}
+\begin{example}
+    \begin{align*}
+        e_{3,1}(w, x, y, z) & = e_3e_1 \\
+        & = (wxy + wxz + wyz + xyz) \cdot (w + x + y + z) \\
+        & = (w^2xy + \ldots) + 4wxyz \\
+        & = m_{2, 1, 1} + 4m_{1, 1, 1, 1}.
+    \end{align*}
+    Notice $(2,1,1)$ is the transpose of $(3, 1)$.
+\end{example}
+\begin{lemma}
+    \[
+        e_\lambda = m_{\lambda^T} + \text{linear combination of $m_\mu$ with $m_\mu \prec \lambda^T$}    
+    \]
+\end{lemma}
+\begin{proof}
+    Suppose $m_\mu$ occurs with positive coefficients in $e_\lambda = e_{\lambda_1}\ldots e_{\lambda_\ell}$. Then $x_1^{\mu_1}\ldots x_n^{\mu_n}$ occurs in the expansion.
+
+    \begin{align*}
+        \mu_1 & \leq \#\{i: \lambda_i \geq 1\} = \ell(\lambda) = (\lambda^T)_1 \\
+        \mu_1 + \mu_2 & \leq 2\#\{i: \lambda_i \geq 2\} + \#\{i: \lambda_i = 1\} \\
+                    & \leq \#\{i: \lambda_i \geq 2\} + \#\{i: \lambda_i \geq 1\} \\
+                    & \leq (\lambda^T)_2 + (\lambda^T)_1 \\
+                    & \vdots
+    \end{align*}
+    For any $j$, \begin{align*}
+        \mu_1 + \mu_2 + \ldots + \mu_j & \leq j \cdot \#\{i: \lambda_i \geq j\} + \sum_{k=1}^{j-1}k\#\{i: \lambda_i = k\} \\
+        & \leq \sum_{k=1}^j \#\{i, \lambda_i \geq k\} = \sum_{k=1}^j (\lambda^T)_k
+    \end{align*}
+    So we have $\mu \preceq \lambda^T$. To get equality, must take $x_1x_2\ldots x_{\lambda_i}$ as the conjugation from $e_\lambda$, then we have the term $m_{\lambda^T}$ with coefficient $1$.
+\end{proof}
+
+\begin{corollary}
+    \[
+        \Lambda_n = \bigoplus_{\ell(\lambda^T)\leq n} \Z e_{\lambda} = \bigoplus_{\ell(\lambda)\leq n} \Z e_{\lambda^T}.    
+    \]
+\end{corollary}
+\begin{proof}
+    Fix a degree $d$. The $e_{\lambda^T}$ with $|\lambda| = d$ are related to $m_\lambda$ with $|\lambda| = d$ by an upper triangular matrix.
+\end{proof}
+
+\[
+    \Lambda_n = \Z[e_1, e_2, \ldots, e_n]    
+\]
+
+$\Lambda_n \to \Lambda_{n-1}$ by setting $x_n \mapsto 0$. Equivalently \[
+    m_\lambda \mapsto \begin{cases}
+        m_\lambda & \ell(\lambda) \leq n - 1 \\
+        0 & \ell(\lambda) \geq n
+    \end{cases}, e_\lambda \mapsto \begin{cases}
+        e_\lambda & \ell(\lambda^T) \leq n - 1 \\
+        0 & \ell(\lambda^T) \geq n
+    \end{cases}
+\]
+
+$\Lambda = \lim_{J \in n} \Lambda_n$ graded inverse limit. 
+
+In any fixed degree, this diagram stabilizes, with \[
+    \Lambda = \Z[e_1, e_2, \ldots] = \bigoplus_{\lambda} \Z \cdot e_\lambda = \bigoplus \Z \cdot m_\lambda
+\]
+
+
+We can obtain a lot of equations that does not consider how many variables we use, like
+$m_1^2 = m_2 + 2m_{11}$, $m_1^3 = m_3 + 3m_{21} + 6m_{111}$.
+
+$\Lambda$ is a graded ring with ring maps to every $\Lambda_n$.
+We would have diagrams like \[
+    \cdots \rightarrow \Lambda_3 \xrightarrow[]{x_3 \mapsto 0} \Lambda_2 \xrightarrow[]{x_2 \mapsto 1} \Lambda_1    
+\]
+Concretely, $\Lambda = \Z[e_1, e_2, e_3, \ldots]$, and the maps $\Lambda \to \Lambda_n$ sends $e_i \mapsto e_i$ for $i \leq n$ and $e_j to 0$ for $j > n$.
+
+$\Lambda = \bigoplus_\lambda \Z \cdot e_\lambda = \bigoplus_\lambda \Z\cdot m_\lambda$.
+For $e_\Lambda \cdot e_\mu$, do the computation in a large enough $\Lambda_n$.
+
+Given $\rightarrow \cdots \rightarrow x_3 \rightarrow x_2 \rightarrow x_1$. We say that $Y$ is $\lim_{\infty \leftarrow n} X_n$ if there are maps $\pi_1: Y \to x_1, \pi_2: Y \to X_2, \ldots$ and for any $Z$ we such compatible maps $(\alpha_1, \alpha_2, \ldots)$, there exists unique $f: Z \to Y$ such that $\alpha_i = \pi_i \circ f$.
+
+
+$e_k$ is the character of $\bigwedge^k \C^n$.
+
+$h_\lambda = h_{\lambda_1}h_{\lambda_2}\ldots = \sum_{i_1 \leq i_2 \leq \ldots \leq i_k}x_{i_1}x_{i_2}\ldots x_{i_k}$, which is the character of $\Sym^k \C^n$.
+
+$h_2 = \sum_{i \leq j}x_i x_j = \sum x_i^2 + \sum_{i < j} x_i x_j = m_2 + m_{11}$
+
+$h_{11} = h_1^2 = \left(\sum x_i\right)^2 = m_2 + 2m_{11}$.
+
+We already know that $\Lambda = \Z[e_1, e_2, \ldots] = \bigoplus_\lambda \Z \cdot e_\lambda$. We want to know that if $\Lambda = \Z[h_1, h_2, \ldots] = \bigoplus_\lambda \Z \cdot h_\lambda$.
+
+The key thing is to check that $e_k$'s are polynomials of $h_k$'s and vice versa. Once we do that, we know the $e$'s and the $h$'s generate the subring of $\Lambda$.
+
+\begin{lemma}
+    For any $k$, $\sum_{j=0}^k (-1)^je_jh_{k-j} = 0$.
+\end{lemma}
+Generating functions.
+\begin{proof}
+    $\sum_{j=0}^\infty e_j (-t)^j = \prod_{i=1}^\infty (1 - x_i t)$.
+
+    $\sum_{j=0}^\infty h_j t^j = \prod_{i=0}^\infty (1 + x_i t + x_i^2 t^2 + \ldots) = \prod_{i=1}^\infty \frac{1}{1 - x_it}$.
+
+    So \[
+        \left(\sum_{j=0}^\infty e_j (-t)^j\right)\left(\sum_{j=0}^\infty h_j t^j\right) = 1.
+    \]
+    Taking the coefficient of $t^k$ we have $\sum_{j=0}^k (-1)^je_jh_{k-j} = 0$.
+\end{proof}
+
+\begin{corollary}
+    $e_k$ is a polynomial in $h_1, h_2, \ldots, h_k$.
+\end{corollary}
+\begin{proof}
+    Induct on $n$. Base case: $e_1 = h_1$.
+
+    $e_k = \sum_{j=0}^{k-1}(-i)^{j-1}e_j h_{k-j}$. Inductively, for each $e_j$ for $j < k$ us a polynomial $h_1, h_2, \ldots, h_j$, so we win.
+\end{proof}
+
+The Hall inner product
+
+This is a positive definite symmetric bilinear pairing
+
+\end{document}

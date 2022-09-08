@@ -1,0 +1,344 @@
+\documentclass{report}
+\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb,nccmath}
+\usepackage{mathtools}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\setlength{\topmargin}{0.5in}
+\usepackage[margin=4cm]{geometry}
+\usepackage{enumerate}
+
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\setlength{\parskip}{0.5em}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+
+% useful characters/operators
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\matP}{\mathbb{P}}
+\newcommand{\matE}{\mathbb{E}}
+\newcommand{\matS}{\mathbb{S}}
+\newcommand{\matH}{\mathbb{H}}
+\newcommand{\matT}{\mathbb{T}}
+\newcommand{\st}{\ s.t.\ }
+\newcommand{\ie}{\ i.e.\ }
+\newcommand{\eg}{\ e.g.\ }
+\def \diam {\operatorname{diam}}
+\def \Hom {\operatorname{Hom}}
+\def \id {\operatorname{id}}
+\def \tr {\operatorname{tr}}
+\def \rk {\operatorname{rk}}
+\def \sp {\operatorname{span}}
+\def \dist {\operatorname{dist}}
+\def \intr {\operatorname{int}}
+\def \sgn {\operatorname{sgn}}
+\def \im {\operatorname{Im}}
+\def \re {\operatorname{Re}}
+\def \curl {\operatorname{curl}}
+\def \divg {\operatorname{div}}
+\def \GL {\operatorname{GL}}
+\def \Aut {\operatorname{Aut}}
+\def \per {\operatorname{per}}
+\def \LE {\operatorname{LE}}
+\def \indeg {\operatorname{indeg}}
+\def \outdeg {\operatorname{outdeg}}
+\def \Par {\operatorname{Par}}
+\def \Gr {\operatorname{Gr}}
+\def \del {\operatorname{del}}
+\def \add {\operatorname{add}}
+\newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\df}{\mathrm{d}}
+\newcommand{\dr}[2]{\dfrac{\df #1}{\df #2}}
+\newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
+\newcommand{\qbin}[2]{\begin{bmatrix}{#1}\\ {#2}\end{bmatrix}_q}
+\newcommand{\gen}[1]{\left\langle #1 \right\rangle}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+% arrows and :=, =:
+\makeatletter
+\providecommand*{\twoheadrightarrowfill@}{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow
+}
+\providecommand*{\twoheadleftarrowfill@}{%
+  \arrowfill@\twoheadleftarrow\relbar\relbar
+}
+\providecommand*{\xtwoheadrightarrow}[2][]{%
+  \ext@arrow 0579\twoheadrightarrowfill@{#1}{#2}%
+}
+\providecommand*{\xtwoheadleftarrow}[2][]{%
+  \ext@arrow 5097\twoheadleftarrowfill@{#1}{#2}%
+}
+\makeatother
+
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\mathrel{\mathop:}}
+
+% integral for measure theory
+\newcommand{\lowerint}{\underline{\int_{\R^d}}}
+\newcommand{\upperint}{\overline{\int_{\R^d}}}
+\newcommand{\lint}[1]{\underline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\uint}[1]{\overline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\sint}[1]{\simp{\int_{\R^d} #1 (x)dx}}
+\newcommand{\lesint}[1]{\int_{\R^d} #1 (x)dx}
+
+% note taking
+\newcommand{\fancyem}[1]{\underline{\textsc{#1}}}
+
+% theorem style
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{conjecture}{Conjecture}[section]
+\newtheorem{proposition}{Proposition}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% pseudocode and algorithms
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{algorithmicx}
+\counterwithin{algorithm}{section}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+% for clearer reference
+\usepackage{hyperref}
+\newcommand{\corollaryautorefname}{Corollary}
+\newcommand{\lemmaautorefname}{Lemma}
+\newcommand{\definitionautorefname}{Definition}
+\newcommand{\exampleautorefname}{Example}
+\newcommand{\conjectureautorefname}{Conjecture}
+\renewcommand{\subsectionautorefname}{Section}
+\newcommand{\algorithmautorefname}{Algorithm}
+
+% other styling
+\usepackage{fancyvrb, fancyhdr}
+\usepackage{tikz-cd}
+\usepackage{tikz}
+\PassOptionsToPackage{usenames, x11names}{xcolor}
+\usepackage{tcolorbox}
+\selectcolormodel{cmy}
+
+\newcommand{\edge}{
+    \begin{tikzcd}[cramped, sep=small, labels={font=\everymath\expandafter{\the\everymath\textstyle}}]
+        u \arrow[r, "e", no head] & v
+    \end{tikzcd}
+}
+
+
+\pagestyle{fancy}
+\fancyhead[LO,L]{\leftmark}
+\fancyhead[RO,R]{Yiwei Fu}
+% \fancyhead[C]{}
+\fancyfoot[CO,C]{\thepage}
+\renewcommand{\sectionmark}[1]{\markboth{#1}{#1}}
+
+\numberwithin{equation}{section}
+
+\newcommand{\fnl}{\parbox[t]{0\linewidth}{}}
+\newcommand*\ttlmath[2]{\texorpdfstring{$\boldsymbol{#1}$}{#2}}
+
+\usepackage{epigraph}
+
+% \epigraphsize{\small}% Default
+\setlength\epigraphwidth{8cm}
+\setlength\epigraphrule{0pt}
+
+\usepackage{etoolbox}
+
+\makeatletter
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+\makeatother
+
+% combinatorics special
+\usepackage{pgfopts}
+\usepackage{ytableau}
+
+\begin{document}
+\title{Notes for EECS 550: Information Theory}
+\author{Yiwei Fu, Instructor: David Neuhoff}
+\date{FA 2022}
+\maketitle
+
+
+\tableofcontents
+Office hours: 
+
+\clearpage
+\pagenumbering{arabic}
+
+\chapter{Introduction}
+\section{What is Information Theory}
+
+\section{Lossless Coding}
+It is a type of data compression.
+
+\fancyem{Goal} to encode data into bits so that \begin{enumerate}
+  \item bits can be decoded perfectly or with very high accuracy back into original data;
+  \item we use as few bits as possible.
+\end{enumerate}
+
+We need to model for data, a measure of decoding accuracy, a measure of compactness.
+
+\fancyem{Model for data}
+\begin{definition}
+  A \emph{source} is a sequence of i.i.d (discrete) random variables $U_1, U_2, \ldots$
+\end{definition}
+We would like to assume a known alphabet $A = \{a_1, a_2, \ldots, a_Q\}$ and known probability distribution either through probability mass functions $p_U(u) = \Pr[U = u]$.
+
+\begin{definition}
+  Source coding
+\end{definition}
+
+\fancyem{Performance measures}
+A measure of compactness (efficiency)
+
+\begin{definition}
+  rate = encoding rate = average number of encoded bits per data symbol
+\end{definition}
+  Two versions:
+  empricial avg rate $\langle r \rangle = \lim_{N \to \infty} \frac{1}{N}\sum_{k=1}^N L_k(U_1, \ldots, U_k)$.
+
+  Statistical avg rate:
+  \[
+    \overline{r} = \lim_{N \to \infty} \frac{1}{N}\sum_{k=1}^N \mathbb{E}[L_k(U_1, \ldots, U_k)]
+  \]
+
+  where $L_K$ is the number of bits out of the encoder after $U_k$ and before $U_{k+1}$.
+
+Accuracy
+per-letter frequency of error \[
+  \langle F_{LE}\rangle = \lim_{N \to \infty} \frac{1}{N} \sum_{k=1}^N I(\hat{U}_k=U_k)
+\]
+per-letter error probability \[
+  p_{LE} = \lim_{N \to \infty} \frac{1}{N} \sum_{k=1}^N \mathbb{E}[I(\hat{U}_k=U_k)] = \lim_{N \to \infty} \frac{1}{N} \sum_{k=1}^N \Pr(\hat{U}_k=U_k)
+\]
+
+Fixed-length to fixed-length block codes (FFB)
+
+% \[
+% \begin{tikzpicture}
+%   \draw[] rectangle (0, 0) to (1, 1);
+% \end{tikzpicture}  
+% \]
+
+characteristics
+
+A code is perfectly lossless (PL) if the $\beta(\alpha(\underline{u})) = \underline{u}$ for all $\underline{u} \in A_U^k$ (the set of all sequences $u_1, \ldots, u_k$).
+
+In order to be perfectly loss, $\alpha$ must be one-to-one. Encode must assign a distinct codeword ($L$ bits) to each data sequences. rate = $L/K$.
+We seek $R^*_{PL}(k)$ the smallest rate of any PL code.
+
+Number of sequences of size $k = Q^k$, and number binary sequence of size $L = 2^L$. We need $2^L \gg Q^K$.
+
+\[
+\overline{r} = \frac{L}{k} \geq \frac{k\log_2Q}{k} = \log_2Q
+\]
+Choose $\left\lceil k\log_2Q\right\rceil$, then we have \[
+  R^*_{PL}(k) = \frac{\left\lceil k\log_2Q\right\rceil}{k} \leq\frac{k\log_2Q + 1}{k} =\log_2 Q + \frac{1}{k}.
+\]
+\[
+  \log_2 Q \leq R^*_{PL}(k) \leq \log_2 Q + \frac{1}{k}
+\]
+
+Let $R^*_{PL}$ be the least rate of any PL FFB code with any $k$. 
+$R^*_{PL}(k) \to \log_2 Q$ as $k \to \infty$.
+
+$R^*_{PL} = \inf_k R^*_{PL}(k)$
+
+Now we want rate less and $\log_2 Q$ almost lossless codes.
+
+$R^*_{AL} =  \inf \{r, \text{there is an FFB code with $\bar{r} \leq n$ and arbitrarily small $P_{LE}$}\}$
+
+$ = \inf \{r, \text{there is an FFB code with $\bar{r} \leq n$ and $P_{LE} < \delta$ for all $\delta > 0$}\}$
+
+Instead of per-letter probability $P_{LE}$, we focus on block error probability $P_{BE} = \Pr(\underline{\hat{U}} \neq \underline{U})$
+
+\begin{lemma}
+  $P_{BE} \geq P_{LE} \geq \frac{P_{BE}}{k}$
+\end{lemma}
+\begin{proof}
+  See homework 1.
+\end{proof}
+
+To analyze, we focus on the set of correctly encoded sequences. $G = \{\underline{u}: \beta(\alpha(\underline{u})) = \underline{u}\}$
+
+Then we have \[P_{BE} = 1 - \Pr[U \in G], |G| \leq 2^k, L \geq \ceil{\log_2|G|}.\]
+
+\fancyem{Question} How large is the smallest set of sequences with length $k$ form $A_U$ with probability $\approx 1$? 
+
+We need to use weak law of large numbers (WLLN).
+
+\begin{theorem}
+  Suppose $A_x = \{1, 2, \ldots, Q\}$ with probability $p_1, \ldots, p_Q$. Given $\underline{u} = (u_1, \ldots, u_k) \in A^k_U$.
+  \[
+    n_q(\underline{u}) \defeq \# \text{times $a_q$ occurs in $\underline{u}$}, \quad f_q(\underline{u}) = \frac{n_q(\underline{u})}{k} = \text{frequency}
+  \]
+  Fix any $\varepsilon > 0$, \[
+    \Pr[f_q(\underline{u}) \doteq p_q \pm \varepsilon] \to 1 \text{ as } k \to \infty.
+  \] Moreover,
+  \[
+    \Pr[f_q(\underline{u}) \doteq p_q \pm \varepsilon, q = 1, \ldots, Q] \to q \text{ as } k \to \infty.  
+  \]
+\end{theorem}
+\fancyem{Notation} $a \doteq b \pm \varepsilon \iff |a - b| \leq \varepsilon$
+
+Consider subset of $A^k_U$ that corresponds to this event $x$.
+
+$T_k = \{\underline{u}: f_q(\underline{u}) \doteq p_q \pm \varepsilon, q = 1, \ldots, Q\}$.
+
+$\Pr[\underline{U} = \underline{u}] = p(u_1)p(u_2)\ldots p(u_k)$.
+
+By WLLN, $\Pr(T_k) \to 1$ as $k \to \infty$.
+
+\fancyem{Key Fact} all sequences in $T_k$ have approximately the same probability.
+
+For $\underline{u} \in T_k$,
+\begin{align*}
+  p(\underline{u}) & = p(u_1)p(u_2)\ldots p(u_k) \\
+  & = p_1^{n_1(u)}p_2^{n_2(u)}\ldots p_k^{n_k(u)} \\
+  & = p_1^{kf_1(u)}p_2^{kf_2(u)}\ldots p_k^{kf_k(u)} \\
+  & \approx \tilde{p}^k \text{ where } \tilde{p} = p_1^{p_1}p_2^{p_2} \ldots p_Q^{p_Q}.
+\end{align*}
+So we have $|T_k| \approx \frac{1}{\tilde{p}^k}$.
+
+Then we have \[
+  \overline{r} = \frac{\log_2|T_k|}{k} = -\frac{k\log_2\tilde{p}}{k} = -\log_2\tilde{p}. 
+\]
+
+Is that rate good? Can we do better? Can we have a set $S$ with probability $\approx 1$ and significantly smaller?
+
+Since $\Pr[\underline{U} \in A^k_U \setminus T_k] \approx 0 \implies \Pr[\underline{U} \in S] \approx \Pr[\underline{U} \in S \cap T_k] \approx \frac{|S|}{|T_k|}$. So when $k$ is large, $T_k$ is the smallest set with large probability. And $R^*_{AL} \approx -\log \tilde{p}$.
+
+How to express $\tilde{p}$.
+
+\begin{align*}
+  -\log \tilde{p} & = -\log \prod_{i=1}^Q p_i^{p_i} \\
+  & = -\sum_{i=1}^Q p_i\log p_i \eqdef \text{entropy} = H.
+\end{align*}
+
+Some properties of $H$:
+\begin{enumerate}
+  \item its unit is bits
+  \item $H \geq 0$.
+  \item $H = 0 \implies \iff p_q = 1$ for some $q$.
+  \item $H \leq \log_2 Q$.
+  \item $H = \log_2 Q \iff p_q = \frac{1}{Q}$ for all $q$.
+\end{enumerate}
+
+
+
+
+\end{document}

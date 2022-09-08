@@ -1,0 +1,393 @@
+\documentclass{report}
+\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb,nccmath}
+\usepackage{mathtools}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\setlength{\topmargin}{0.5in}
+\usepackage[margin=4cm]{geometry}
+\usepackage{enumerate}
+
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\setlength{\parskip}{0.5em}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+
+% useful characters/operators
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\matP}{\mathbb{P}}
+\newcommand{\matE}{\mathbb{E}}
+\newcommand{\matS}{\mathbb{S}}
+\newcommand{\matH}{\mathbb{H}}
+\newcommand{\matT}{\mathbb{T}}
+\newcommand{\st}{\ s.t.\ }
+\newcommand{\ie}{\ i.e.\ }
+\newcommand{\eg}{\ e.g.\ }
+\def \diam {\operatorname{diam}}
+\def \Hom {\operatorname{Hom}}
+\def \id {\operatorname{id}}
+\def \tr {\operatorname{tr}}
+\def \rk {\operatorname{rk}}
+\def \sp {\operatorname{span}}
+\def \dist {\operatorname{dist}}
+\def \intr {\operatorname{int}}
+\def \sgn {\operatorname{sgn}}
+\def \im {\operatorname{Im}}
+\def \re {\operatorname{Re}}
+\def \curl {\operatorname{curl}}
+\def \divg {\operatorname{div}}
+\def \GL {\operatorname{GL}}
+\def \Aut {\operatorname{Aut}}
+\def \per {\operatorname{per}}
+\def \LE {\operatorname{LE}}
+\def \indeg {\operatorname{indeg}}
+\def \outdeg {\operatorname{outdeg}}
+\def \Par {\operatorname{Par}}
+\def \Gr {\operatorname{Gr}}
+\def \del {\operatorname{del}}
+\def \add {\operatorname{add}}
+\def \rank {\operatorname{rank}}
+\newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\df}{\mathrm{d}}
+\newcommand{\dr}[2]{\dfrac{\df #1}{\df #2}}
+\newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
+\newcommand{\qbin}[2]{\begin{bmatrix}{#1}\\ {#2}\end{bmatrix}_q}
+\newcommand{\gen}[1]{\left\langle #1\right\rangle}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+
+
+% arrows and :=, =:
+\makeatletter
+\providecommand*{\twoheadrightarrowfill@}{%
+  \arrowfill@\relbar\relbar\twoheadrightarrow
+}
+\providecommand*{\twoheadleftarrowfill@}{%
+  \arrowfill@\twoheadleftarrow\relbar\relbar
+}
+\providecommand*{\xtwoheadrightarrow}[2][]{%
+  \ext@arrow 0579\twoheadrightarrowfill@{#1}{#2}%
+}
+\providecommand*{\xtwoheadleftarrow}[2][]{%
+  \ext@arrow 5097\twoheadleftarrowfill@{#1}{#2}%
+}
+\makeatother
+
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\mathrel{\mathop:}}
+
+% integral for measure theory
+\newcommand{\lowerint}{\underline{\int_{\R^d}}}
+\newcommand{\upperint}{\overline{\int_{\R^d}}}
+\newcommand{\lint}[1]{\underline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\uint}[1]{\overline{\int_{\R^d}} #1 (x)dx}
+\newcommand{\sint}[1]{\simp{\int_{\R^d} #1 (x)dx}}
+\newcommand{\lesint}[1]{\int_{\R^d} #1 (x)dx}
+
+% note taking
+\newcommand{\fancyem}[1]{\underline{\textsc{#1}}}
+
+% theorem style
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{conjecture}{Conjecture}[section]
+\newtheorem{proposition}{Proposition}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% pseudocode and algorithms
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{algorithmicx}
+\counterwithin{algorithm}{section}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+% for clearer reference
+\usepackage{hyperref}
+\newcommand{\corollaryautorefname}{Corollary}
+\newcommand{\lemmaautorefname}{Lemma}
+\newcommand{\definitionautorefname}{Definition}
+\newcommand{\exampleautorefname}{Example}
+\newcommand{\conjectureautorefname}{Conjecture}
+\renewcommand{\subsectionautorefname}{Section}
+\newcommand{\algorithmautorefname}{Algorithm}
+
+% other styling
+\usepackage{fancyvrb, fancyhdr}
+\usepackage{tikz-cd}
+\usepackage{tikz}
+\PassOptionsToPackage{usenames, x11names}{xcolor}
+\usepackage{tcolorbox}
+\selectcolormodel{cmy}
+
+\newcommand{\edge}{
+    \begin{tikzcd}[cramped, sep=small, labels={font=\everymath\expandafter{\the\everymath\textstyle}}]
+        u \arrow[r, "e", no head] & v
+    \end{tikzcd}
+}
+
+
+\pagestyle{fancy}
+\fancyhead[LO,L]{\leftmark}
+\fancyhead[RO,R]{Yiwei Fu}
+% \fancyhead[C]{MATH 566}
+\fancyfoot[CO,C]{\thepage}
+\renewcommand{\sectionmark}[1]{\markboth{#1}{#1}}
+
+\numberwithin{equation}{section}
+
+\newcommand{\fnl}{\parbox[t]{0\linewidth}{}}
+\newcommand*\ttlmath[2]{\texorpdfstring{$\boldsymbol{#1}$}{#2}}
+
+\usepackage{epigraph}
+
+% \epigraphsize{\small}% Default
+\setlength\epigraphwidth{8cm}
+\setlength\epigraphrule{0pt}
+
+\usepackage{etoolbox}
+
+\makeatletter
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+\makeatother
+
+% combinatorics special
+\usepackage{pgfopts}
+\usepackage{ytableau}
+
+\begin{document}
+\title{Notes for Math 571 -- Numerical Linear Algebra}
+\author{Yiwei Fu, Instructor: Divakar Viswanath}
+\date{FA 2022}
+\maketitle
+
+
+\tableofcontents
+
+
+\clearpage
+\pagenumbering{arabic}
+
+\chapter{}
+
+\section{Rank of Matrices}
+
+\section{Cauchy-Schwarz}
+
+\section{Projection Matrices, Gram-Schmidt Process}
+Suppose we have a plane of dimension $n-1$ and a direction orthogonal to it. A unit vector $q$ with $q^Tq = 1$.
+
+Through a $q$ a dim is specified as well as the $n-1$ dimensional plane orthogonal to it.
+
+Given $x$ we want to decompose it as $y + z$ with \begin{enumerate}
+    \item $y$ parallel to $q$
+    \item $z$ orthogonal to $q$
+\end{enumerate}
+
+We note $q^Tz = 0$. So \begin{align*}
+    x & = \alpha a + z \\
+    q^Tz & = \alpha q^T q = \alpha \\
+    x & = q (q^Tx) + z
+\end{align*}
+If $x = y+z$ is the decomposition of $x$ then \begin{align*}
+    y & = q(q^Tx) = (qq^T)x \\
+    z & = x - (qq^T)x
+\end{align*}
+The matrix $qq^T$ is a projection matrix. Applied to $x$ it gives the component along $q$. If $p = qq^T$ then $P_x = $ component of $x$ along $q$. $(I-P)x = $ component of $x$ along the plane orthogonal to $q$.
+
+(All projection are orthogonal throughout the class.)
+
+Let us try to understand $P$. \begin{enumerate}
+    \item What is the rank of $P$? $\rank P = 1$. (all columns multiples of $q$)
+    \item Eigenvalues and eigenvectors of $P$?
+    
+    $Pq = q$. Suppose $x \perp q$ then $Px = 0$. And eigenvalue $ = 1$, eigenvalue $ = 0$ with multiplicity $n-1$.
+    \item $P^2 = P$. $(qq^T)(qq^T) = q(q^Tq)q^T = qq^T$. $P^2 = Px$ for all $x \implies P^2 = P$.
+    \item $(I-P)^2 = I-P$.
+    \item $P(I-P) = 0$.
+\end{enumerate}
+
+Given $x$ and unit vector $q$, how many operations to compute $(I - P)x = x - q(q^Tx)$?
+\begin{enumerate}
+    \item $q^Tx$ takes $n$ multiplications and $n-1$ additions
+    \item $q(q^Tx)$ takes $n$ multiplications
+    \item $x - q(q^Tx)$ takes $n$ subtractions
+\end{enumerate}
+In total it takes $4n - 1$ or $4n$ arithmetic operations.
+
+Suppose $q_1$ and $q_2$ are unit vectors with $q_1 \perp q_2$. Then which matrix projects to $\inner{q_1}{q_2}$, the plane spanned by $q_1$ and $q_2$?
+
+$P = P_1 + P_2$ with $P_1 = q_1q^T, P_2 = q_2q_2^T$. 
+
+\begin{definition}
+    $q_1, \ldots, q_k$ is called an orthonormal set of vectors if \begin{enumerate}
+        \item $q_iq_i^T = 1$ for all $i$,
+        \item $q_i^Tq_j = 0$ for all $i \neq q$.
+    \end{enumerate}
+    $Q = \begin{pmatrix}
+        \vline & & \vline \\
+        q_1 & \cdots & q_k \\
+        \vline & & \vline
+    \end{pmatrix} \in \R^{n, k}$ is a matrix with orthonormal columns.
+\end{definition}
+
+If $q_1, \ldots, q_k$ are orthonormal then \[
+    P = q_1q_1^T + q_2q_2^T + \ldots + q_xq_x^T    
+\] projects to $\gen{q_1, \ldots, q_k}$.
+
+$P$ can be expressed as $P = QQ^T$ where $Q \in \R^{n, k}$ with $q_j$ as its columns.
+
+What is the interpretation of $Q^Tx$?
+$Q^Tx$ gives the coefficients when the projection of $x$ to $\gen{q_1, \ldots, q_k}$ is written as a linear combination of $q_j$.
+
+What is $Q^TQ$? Identity matrix.
+Columns of $Q$ forms as orthogonal set iff $Q^TQ = I$.
+
+\begin{enumerate}
+    \item What is $I - QQ^T$? Projection to $\gen{q_1, \ldots, q_k}^\perp = (n - k)$ dim plane orthogonal to $\gen{q_1, \ldots, q_k}$.
+    \item $\rank(QQ^T) = k$.
+    \item $\rank(I - QQ^T) = n - k$.
+\end{enumerate}
+\begin{definition}
+    A matrix $Q \in \R^{n, n}$ with orthonormal columns is called an orthogonal matrix. The columns of an orthogonal matrix $Q$ form an orthogonal basis.
+\end{definition}
+\begin{enumerate}
+    \item $QQ^T = \id$ since $QQ^Tx = x$ for all $x$ (projection to the whole space.)
+    \item What is the interpretation of $Q^Tx$? The coefficients for $x$ as linear combinations of columns of $Q$.
+    \item $Q^TQ$ still equal to identity.
+    \item The rows of $Q$ also form an orthonormal basis.
+    \item $Q^{-1} = Q^T$.
+\end{enumerate}
+
+\fancyem{Classical Gram-Schmidt Process}
+
+Suppose $A \in \R^{n, k}$ with $n \geq k$ and $\rank A = k$. Let $a_1, \ldots, a_k$ be the columns of $A$. The Gram-Schmidt process generates an orthonormal set $q_1$ through $q_k$ such that \begin{enumerate}
+    \item $\gen{q_1} = \gen{a_1}$,
+    \item $\gen{q_1, q_2} = \gen{a_1, a_2}$,
+    \item[\vdots]
+    \item[k.] $\gen{q_1, q_2, \ldots, q_k} = \gen{a_1, a_2, \ldots, a_k}$.
+\end{enumerate}
+
+An algorithm for computing $q_1, \ldots, q_k$:
+\begin{align*}
+    q_1 & = \frac{a_1}{\norm{a_1}} = \frac{a_1}{(a_1^Ta_1)} \\
+    \tilde{q_2} & = a_2 - P_1a_2 = a_2 - q_1(q_1^Ta_2), q_2 = \frac{\tilde{q_2}}{\norm{q_2}} \\
+    & \vdots \\
+    \tilde{q_k} & = a_k - \sum_{i=1}^{k-1} P_ia_k = a_k - \sum_{i=1}^{k-1} q_iq_i^Ta_k, q_k = \frac{\tilde{q_k}}{\norm{q_k}}. 
+\end{align*}
+
+Expression of Gram-Schmidt as $A = QR$ with $R$ upper triangles. Suppose $q_1, \ldots, q_k$ are computed by applying Gram-Schmidt to the columns of $A$.
+
+Let $Q$ be the matrix whose columns are $q_1, \ldots, q_k$. Both $A$ and $Q$ are $n \times k$.
+\begin{align*}
+    A & = Q (k \times k \text{ matrix}) \\
+    & = QR.
+\end{align*}
+Every column of $A$ is expressed as a linear combination of $q_1, \ldots, q_k$. 
+
+What are the entries of $R$?
+
+Note that $a_j = q_1(q_1^Ta_j) + \ldots + a_j(a_j^Ta_j)$ because $a_j \in \gen{q_1, \ldots, q_j}$. Write $a_j = q_1r_{1j} + \ldots + a_jr_{ij}$. Thus \[
+    r_{ij}  = \begin{cases}
+        q_i^Ta_j & i \leq j, \\
+        0 & i > j.
+    \end{cases}    
+\]
+During Gram=Schmidt process these coefficients are computed \begin{align*}
+    r_{ij} & = q_i^Ta_j, \quad i < j \\
+    r_{jj} & = \norm{\tilde{q_j}}
+\end{align*}
+
+\fancyem{Application of classical Gram-Schmidt}
+
+Think of $a_1, \ldots, a_k$ as defining a $k-$dim parallelepiped in $\R^n$. What is the volume of the parallelepiped defined by $a_1, \ldots, a_k$? 
+
+$\prod r_{ii}$. 
+
+\fancyem{Note} Classical Gram-Schmidt (CGS) is not numerically stable. More precisely, when $A$ has near rank efficiency, then CGS does not behave well.
+
+We can use modified Gram-Schmidt (MGS):
+\begin{lemma}
+    If $q_1, \ldots, q_j$ are an orthonormal set and $P_1, \ldots, P_j$ are corresponding projections, then \[
+        I - P_1 - \ldots - P_j = (I - P_j) \ldots (I - P_2) (I - P_1)    
+    \]
+\end{lemma}
+(Projection one at a time (RHS) vs. project at once (LHS))
+\begin{proof}
+    $P_iP_j = 0$ if $i \neq j$. Expand RHS and we are done.
+\end{proof}
+
+MGS has step $j$ given by $\tilde{q}_j = (I - P_{j-1})\ldots(I - P_1)a_j, q_j = \frac{\tilde{q_j}}{\norm{q_j}}$.
+
+In CGS, $A = QR$ with $a_j = q_ir_{ij} + \ldots + q_jr_{jj}$. $r_{ij} = q_i^T a_j i\neq j, \norm{\tilde{q_j}}$.
+
+$q_i^Ta_j$ are not available as intermediate quantities in MGS.
+\begin{align*}
+    \tilde{q_j} & = (I - P_{j-1})\ldots(I - P_{1})a_j \\
+    a_{j, 1} & = (I - P_1)a_j \quad (= a_j - P_1a_j) \\
+    a_{j, 2} & = (I - P_2)a_{j, 1} \quad (= a_j - P_2a_j - P_1a_j \text{ mathematically}) \\
+    a_{j, 3} & = (I - P_3)a_{j, 2} \quad (= a_j - P_3a_j - P_2a_j - P_1a_j \text{ mathematically}) \\
+    & \vdots
+\end{align*}
+In practice the rounding error will accumulate differently, which makes MGS stable.
+
+So \begin{align*}
+    r_{i,j} & = q_i^Ta_{j, i-1} \\
+    & = q_i^T (I - P_1 - \ldots - P_{i-1}) a_i \\
+    & = q_i^Ta_j
+\end{align*}
+
+Operations count for MGS (or CGS):
+In step $j$ we have the following:
+\begin{align*}
+    a_{j, 1} & = (I - P_1) a_j \\
+    a_{j, 2} & = (I - P_2) a_{j, 1} \\
+    & \vdots \\
+    a_{j, j - 1} & = (I - P_{j - 1}) a_{j, j-2} \\
+    q_j & = \frac{a_{j, j-1}}{\norm{a_{j, j-1}}}
+\end{align*}
+To count operations, recall that $(I-P)x$ requires $4n$ operations.
+\[
+(I - P)x = x - q(q^Tx)    
+\] $2n - 1$ for $q^Tx$, $n$ for $q(q^Tx)$, $n$ for $x - q(q^Tx)$. Operation count for step $i$ is $(4n)(j-1) + 3n$.
+
+The total count is \[
+    \sum_{j=1}^k (4n-1)(j-1) + 3n = (4n-1)\frac{k(k-1)}{2} 3nk = 2nk^2 \text{ leading terms}    
+\]
+Also:
+\[
+    \sum_{j=1}^k 4nj = 4n \sum_{i=1}^k j = 4n \int_0^k x \df x = 4nk^2.
+\]
+
+\section{Applications of MGS and QR Factorization}
+\subsection{Solution of $Ax = b$ for $A \in \R^{m, n}, \rank(A) = n$}
+\[QRx = b \implies Rx = Q^Tb\]
+
+Now $Rx = \tilde{b}$ can be solved by back substitution.
+
+Operation count for solving $Ax = b$ using QR.
+\begin{enumerate}
+    \item calculating $QR: 2n^3$
+    \item $\tilde{b} = Q^Tb, 2n^2 - n$
+    \item solving $Rx = \tilde{b}$ using back substitution: $n^2$.
+\end{enumerate}
+Linear system solved using Gaussian elimination with partial pivoting is $n^3$.
+
+\subsection{Connection with Volumes and QR}
+Let $a_1$ and $a_2$ be vectors in $\R^m$. They will define a parallelogram as follows.
+
+\subsection{Determinants}
+
+\end{document}
