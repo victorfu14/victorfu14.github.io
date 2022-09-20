@@ -60,6 +60,9 @@
 \newcommand{\dr}[2]{\dfrac{\df #1}{\df #2}}
 \newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
 \newcommand{\qbin}[2]{\begin{bmatrix}{#1}\\ {#2}\end{bmatrix}_q}
+\newcommand{\into}{\hookrightarrow}
+\newcommand{\onto}{\twoheadrightarrow}
+\newcommand{\from}{\leftarrow}
 
 
 % arrows and :=, =:
@@ -417,4 +420,132 @@ The Hall inner product
 
 This is a positive definite symmetric bilinear pairing
 
+
+Computation of last class \[
+    h_\lambda = \sum_{\mu}A_{\lambda \mu} m_\mu   
+\] work out the matirx to expand h and m s
+
+\begin{theorem}
+    \[
+        A_{\lambda m} = \# \{\Z_{\geq 0} matrox B with row sum \lambda and column sum \mu\}    
+    \]
+\end{theorem}
+\begin{corollary}
+    $A_{\lambda m} = A_{\mu \lambda}$ 
+\end{corollary}
+\begin{corollary}
+    $\inner{}{}$ is symmetric.
+\end{corollary}
+
+THe definition of $h_\lambda$ is all product of x's \[
+    h_\lambda(x) = h_{\lambda_1}(x)h_{\lambda_2}(x)\ldots  = \prod_{i=1}h_{\lambda_i}(x) 
+\]
+$h_{\lambda_i}$ is the sum of all monomial of degree $\lambda_i$
+\[
+    = \prod_{i=1}\left(\sum_{B_{i1} + B_{i2} + ldots = \lambda_i} (x_1)^{B_{i1}}(x_2)^{B_{i2}}\ldots\right) = \sum_{B_{ij} \geq 0, B_{i1} + B_{i2} + \ldots = \lambda_i} \prod_i(x_1^{B_{i1}}x_2^{B_{i2}}\ldots) (distributive)
+\]
+
+\[
+    = \sum_{B_{ij} \geq 0, B_{i1} + B_{i2} + \ldots = \lambda_i} \left(x_1^{\sum_i B_{i1}}\ldots\right) = \sum_{B, rowsum(B) = \lambda} x^{colsum(B)}
+\]
+So coefficient of $x^\mu$ is number of $B$ with row sum $=\lambda$ and column sum $=\mu$.
+
+Let's redo this computation using generating function, since we will do a lot of things from gen function perspective.
+
+Start with generating function for $h_k$ \[
+    \sum_{k=0}^\infty t^k h_k(y) = \prod_j \frac{1}{1-ty_j}    
+\] Multiply copies of it ($t$ renamed to $x_i$):
+\[
+    \prod_i \prod_j \frac{1}{1-x_iy_j} = \prod_i \sum_{k_i}^\infty x_i^{k_i} h_{k_i}(y)
+\] use distributive law we have \[
+    = \sum_{k_1, k_2, \ldots = 0}^\infty \prod_{i=1}^\infty x_i^{k_i} h_{k_i}(y_i) = \sum_{k_1, k_2, \ldots = 0}^\infty (x_1^{k_1}\ldots) h_{k_1}(y_1) h_{k_2}(y_2)\ldots =\sum_{\lambda_1 \geq \lambda_2}m_\lambda (x) h_\lambda(y) 
+\]
+THe conclusion is that \[
+    \prod_{i,j = 1}^\infty \frac{1}{1 - x_ix_j} = \sum_{\lambda}m_\lambda(x)h_\lambda(y)   
+\]
+plugin the def we have \[
+    \sum_{\lambda, \mu} A_{\lambda \mu} m_\lambda(x) m_\mu(y)    
+\]
+to check $A_{\lambda \mu}$ is symmetric
+
+The product $\prod_{i,j = 1}^\infty \frac{1}{1 - x_ix_j}$ the product of sum of geometric series ... if I expand I just choose the exponents to raise
+
+As computation gets messier and messier gen function methods will be more useful
+
+we will see $\prod_{i,j = 1}^\infty \frac{1}{1 - x_ix_j}$ coming up and up again (we'll call it Cauchy's product since it does not seem to have a name)
+
+We expand a symmetric thing asymmetrically. In general, if we have some identity that can be expanded in this way want can be deduced?
+
+Suppose $p_K(X)$ and $q_L(y)$ are two families of homogeneous symmetric polynomials indexed by some index sets.
+
+Suppose we have an expansion formula \[
+    \prod_{i,j = 1}^\infty \frac{1}{1 - x_ix_j} = \sum_{K, L}B_{KL}p_K(x)q_L(y), B_{KL} \in \Z 
+\]
+
+\begin{proposition}
+    From the above condition we can deduce that the $p_K \Z$-span $\Lambda$, as do the $q_L$'s.
+
+    If $p_k, q_L \in \Q\Lambda$, and $B_{KL} \in \Q$, then $p_k$ must $\Q$-span $\Lambda$, as do the $q_L$'s.
+\end{proposition}
+
+behind the scene (using ... to express Lambda tensor Lambda)
+
+$\inner{f}{}: \Lambda \to \Z$, it also induces a map $\inner{f}{} \otimes \id: \Lambda \otimes_\Z \lambda \to \Lambda$. (thinking about coefficients)
+\begin{lemma}
+    \[
+        \inner{f(x)}{\prod_{i, j} \frac{1}{1-x_ix_j}}_{in\ variable\ x} = f(y)    
+    \]
+\end{lemma}
+\begin{proof}
+    it is enough to check this for $f$ in a $\Z$-basis of $\Lambda$. \[
+        \inner{h_\lambda(x)}{\prod \frac{1}{1 - x_ix_j}} = \inner{h_\lambda(x)}{\sum_\lambda m_\lambda(x) h_\lambda(y)} = h_\lambda(y)
+    \]
+\end{proof}
+
+Let's go back to the proposition.
+\begin{proof}
+    For any $f \in \Lambda$, \[
+        f(y) = \inner{f(x)}{\prod \frac{1}{1 - x_ix_j}}     
+    \]
+    \[
+        = \sum_{K, L}B_{KL}p_K(x)q_L(y) = \sum_{K, L} B_{KL}\inner{f(x)}{p_k(\lambda)}q_L(y)    \qedhere
+    \]
+\end{proof}
+\begin{corollary}
+    Suppose $p_\lambda$ and $q_\lambda$ are the families of homogeneous symmetric polynomials indexes by partitins with $\deg p_\lambda = \deg q_\lambda = |\lambda|$ and \[
+        \prod \frac{1}{1 - x_ix_j} = \sum B_{\lambda\mu}p_\lambda(x)q_\mu(y), B_{\lambda\mu} \in \Z
+    \] Then \[
+        \Lambda = \bigoplus_\lambda \Z p_\lambda = \bigoplus \Z q_\lambda   
+    \]
+\end{corollary}
+
+Solve this and get tenure:
+\[
+\prod \frac{1}{1 - x_iy_jz_k} = \sum_{\lambda, \mu, \nu}g_{\lambda\mu\nu}s_\lambda(x)s_\mu(y)s_\nu(z)    
+\]
+
+Suppose now $p_\lambda(X)$ and $q_\mu(y)$ are two families of homogeneous symmetric polynomials in $\Lambda$ indexed by partition with $\deg p_\lambda = \deg q_\lambda = |\lambda|$ and let
+\[
+    \prod_{i,j = 1}^\infty \frac{1}{1 - x_ix_j} = \sum_{\lambda\mu}B_{\lambda\mu}p_\lambda(x)q_\mu(y), B_{\lambda\mu} \in \Z 
+\] Let $C_{\lambda\mu} = \inner{p_\lambda(x)}{q_\mu(x)}$. Then $B$ and $C$ are inverses.
+
+\begin{proof}
+    $\inner{p_\nu(y)}{\prod \frac{1}{1 - x_ix_j}} = p_\nu(x)$
+    So \[
+        \sum_{\lambda, \mu} B_{\lambda\mu}p_\lambda(x)\inner{p_\nu(y)}{q_\mu(y)}
+        =  \sum_{\lambda, \mu} B_{\lambda\mu} C_{\nu\mu} p_\lambda(x)
+    \]
+    LHS have linear combination of p RHS we have
+    matching up coefficients of two sides \[
+        \sum_\mu B_{\lambda\mu}C_{\nu\mu} = \begin{cases}
+            1 & \lambda = \mu \\
+            0 & \lambda \neq \mu
+        \end{cases}  \implies BC^T = \id
+    \]
+\end{proof}
+
+In particular, if $\prod \frac{1}{1 - x_ix_j} = \sum_{\lambda} c_\lambda p_\lambda(x)p_\lambda(y)$ the $p_\lambda$ are orthogonal for $\inner{}{}$.
+
+If we have no coefficients then this results in an orthornormal basis.
+$\prod \frac{1}{1 - x_ix_j} = \sum_{\lambda}s_\lambda(x)s_\lambda(y)$ (properties of schur polynomials we will discuss next week.)
 \end{document}

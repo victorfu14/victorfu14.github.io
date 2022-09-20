@@ -5,7 +5,7 @@ categories: Maths
 excerpt: cool stuff
 published: true 
 ---
-This course is taught by [Sergey Fomin](http://www.math.lsa.umich.edu/~fomin/). He is really cool guy and this course is just fantastic.
+This course is taught by [Sergey Fomin](http://www.math.lsa.umich.edu/~fomin/). He is a really great professor/lecturer and this course is just fantastic.
 
 As per instructor's requirement, the notes will not be posted after the course is finished. Here are the contents of the course:
 
