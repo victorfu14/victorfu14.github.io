@@ -12,7 +12,7 @@ Jokes aside, I just feel there is a lot to say about information. Like how we di
 
 So we should start.
 
-- [fixed length to fixed length block codes](../../../../parts/comb/information.pdf#section.1.2)
-- [Shannon-McMillian Theorem](../../../../parts/comb/information.pdf#section.1.4)
-- [fixed length to variable length block code](../../../../parts/comb/comb.pdf#section.1.4)
-
+- [fixed length to fixed length block (FFB) codes](../../../../parts/information/information.pdf#section.1.1)
+- [Shannon-McMillian Theorem](../../../../parts/information/information.pdf#section.1.2)
+- [fixed length to variable length block (FVB) codes](../../../../parts/information/information.pdf#section.1.3)
+- [coding theorem for FVB prefix codes, Huffman code](../../../../parts/information/information.pdf#section.1.4)

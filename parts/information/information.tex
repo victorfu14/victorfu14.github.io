@@ -1,5 +1,5 @@
 \documentclass{report}
-\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb,nccmath}
+\usepackage{amsmath,amssymb,amsthm,textcomp,gensymb,nccmath,mathrsfs}
 \usepackage{mathtools}
 \renewcommand{\qedsymbol}{$\blacksquare$}
 
@@ -106,6 +106,7 @@
 \newtheorem{example}{Example}[section]
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
+\newtheorem*{question}{Question}
 
 % pseudocode and algorithms
 \usepackage{algorithm}
@@ -181,8 +182,7 @@ Office hours:
 \clearpage
 \pagenumbering{arabic}
 
-\chapter{Introduction}
-\section{What is Information Theory}
+\chapter{}
 
 \section{Lossless Coding}
 It is a type of data compression.
@@ -420,7 +420,7 @@ If $\underline{x} \in \tilde{T}$, \begin{align*}
 \begin{proof}
 \end{proof}
 
-\section{}
+\section{Shannon-McMillian Theorem}
 
 Is $\tilde{T}$ essentially a smallest set with probability $\approx 1$?
 
@@ -488,24 +488,21 @@ In the first case, frequency typical approach doesn't work. Probabilistic typica
 
 Let $S_{\delta, N} = $ size of the smallest set of $N$ sequences form $A_x$ with probability at least $1-\delta$. Then for any $0 < \delta < 1$ and any $h$, $\frac{S_{\delta, N}}{2^Nh} \to \infty$ as $N \to \infty$.
 
-\section{Perfectly Loss fixed length to variable length (FVB) lossless source codes}
+\section{Fixed Length to Variable L ength (FVB) Lossless Source codes}
 
-RECALL: FFB perfectly lossless $R^*_{PL} = \log_2|A_x|$
-
-FFB almost lossless $R^*_{AL} = H$
+Recall that FFB perfectly lossless has $R^*_{PL} = \log_2|A_x|$, and FFB almost lossless has $R^*_{AL} = H$.
 
 FVB perfectly lossless $R^*_{VL} \leq \log_2|A_x|$.
 
 Suppose we have a source with $A_x = \set{a,b,c,d}$ with probability $\set{\frac{1}{2},\frac{1}{4},\frac{1}{8},\frac{1}{8}}$.
-
-\begin{tabular}{cc|cccccc}
+\[\begin{tabular}{cc|cccccc}
   $p(u)$ & $u$ & code1 & code2 & code3 & code4 & code5 & code6\\ \hline
   $\frac{1}{2}$ & $a$ & 00 & 0 & 0 & 0 & 0 & 0 \\ 
   $\frac{1}{4}$ & $b$ & 01 & 10 & 10 & 10 & 1 & 01 \\ 
   $\frac{1}{8}$ & $c$ & 10 & 110 & 10 & 11 & 01 & 011\\
   $\frac{1}{8}$ & $d$ & 11 & 111& 11 & 111 & 10 & 0111\\ \hline
   & Rate & 2 & 1.75 & 1.5 & 1.625 & 1.25 & 1.875
-\end{tabular}
+\end{tabular}\]
 We can see that code 3-5 are all bad.
 
 Suppose 101110101110
@@ -553,19 +550,24 @@ Focus first $k = 1$. Shannon's idea: $L_q \approx -\log_2 p_q$.
 
 $\sum_{q=1}^Q p_q L_q \approx -\sum_{q=1}^Q p_q \log p_q = H$.
 
-Q: Is there a prefix code with $L_q \approx -\log p_q$ for $q = 1, 2, \ldots, Q$.
+\begin{question}
+  Is there a prefix code with $L_q \approx -\log p_q$ for $q = 1, 2, \ldots, Q$? Could there be prefix codes with even smaller rate?
+\end{question}
 
-Could there be prefix codes with even smaller rate?
-
-Kraft inequality theorem 
-\begin{theorem}
+\begin{theorem}[Kraft inequality theorem]
   There is a binary prefix code with length $L_1, L_2, \ldots, L_Q$ iff the Kraft sum \[\sum_{q=1}^Q 2^{-L_q} \leq 1.\]
 \end{theorem}
+\begin{proof}
+  Suppose $\underline{v}_1, \ldots, \underline{v}_Q$ is a prefix code with length $L_1, \ldots, L_Q$. Let $L_{\max} = \max_q L_q$.
 
+  From the tree, the number of sequences of length $L_{\max}$ prefixed by any codeword, is $\sum_{q=1}^Q 2^{L_{\max} - L_q} \leq 2^{L_{\max}} \implies \sum_{q=1}^Q 2^{-L_q} \leq 1$. So the Kraft inequality holds.
+\end{proof}
+
+Now suppose
 \begin{equation}\label{eq:shannon-fano}
   L_q = \ceil{-\log_2 p_q}, q = 1, \ldots, Q.  
 \end{equation}
-Is there a code with these length? Check Kraft.
+Is there a code with these lengths? Check Kraft.
 
 \begin{align*}
   \sum_{q=1}^Q 2^{-L_q} & = \sum_{q=1}^Q 2^{-\ceil{-\log p_q}} \\
@@ -585,9 +587,10 @@ We have the following bounds:
   H = \sum_{q=1}^Q p_q(-\log p_q) \leq \overline{L}_{SF} < \sum_{q=1}^Q p_q(-\log p_q + 1) = H+1.
 \]
 
-Can we do better now?
-
-Will show $\overline{L} \geq H$ for any prefix code.
+\begin{question}
+  Can we do better now?
+\end{question}
+We will show that $\overline{L} \geq H$ for any prefix code.
 
 Let $C$ be a prefix code with length $L_1, \ldots, L_Q$. Take the difference $\overline{L}- H = \sum_{q=1}^Q p_qL_q + \sum_{q=1}^Q p_q \log p_q$.
 \begin{align*}
@@ -597,5 +600,98 @@ Let $C$ be a prefix code with length $L_1, \ldots, L_Q$. Take the difference $\o
   & \geq -\sum_q p_q \left(\frac{2^{-L_q}}{p_q} - 1\right)\frac{1}{\ln(2)}  \\
   & \geq -\frac{1}{\ln(2)}\sum_q 2^{-L_q} + \sum_q p_q \frac{1}{\ln(2)} = \frac{1}{\ln 2}(1 - 1) = 0.
 \end{align*}
- 
+
+In homework we will that that $\overline{L}$ can get very close to $H + 1$.
+
+Now allow $k \geq 1$. WE have a $C=\set{\underline{v}_1, \ldots, \underline{v}_{Q^k}}$ of length $L_1, \ldots, L_{Q^k}$. We want small \[
+  \overline{r}(c) = \frac{\overline{L}}{K} = \frac{\sum_u p(\underline{u})L(\underline{u})}{k}.  
+\]
+Shannon-Fano code achieve that \[
+  H^k \leq \overline{L}_{SF} < H^k + 1 \implies \frac{H^k}{k} \leq \overline{r}_{SF} = \frac{\overline{L}_{SF}}{k} < \frac{H^k}{k} + \frac{1}{k}.  
+\]
+Since $H^k = kH$ we have \[
+  H \leq \overline{r}_{SF} < H^k + \frac{1}{k}.
+\]
+Similarly we have for any prefix code, we have \[
+  \overline{r} = \frac{\overline{L}}{K} \geq \frac{H^k}{k} = H.
+\]
+
+This leads to a new coding theorem.
+\begin{theorem}
+  Given i.i.d. source $U$ with alpha $A_U$ and entropy $H$. We have \begin{enumerate}
+    \item For every $k$, $R_{VL}^* \leq R_{VL}^*(k) < H + \frac{1}{k}$.
+    \item For every $k$, $R_{VL}^*(k) \geq R_{VL}^* \geq H$.
+  \end{enumerate}
+  Combined we have \[
+    \forall k \in \Z_{>0}, H \leq R_{VL}^*(k) < H + \frac{1}{k}
+  \] and \[
+    R_{VL}^* = H.  
+  \]
+\end{theorem}
+
+\section{Huffman's Code Design}
+Given $p_1, \ldots, p_Q$, it finds a prefix code with smallest $\overline{L}$.
+\begin{algorithm}[h]
+  \setstretch{1.15}
+  \caption{Huffman Code}
+  \label{algo:huffman}
+  \begin{algorithmic}[1] 
+    \Require Alphabet probability $\set{p_i | i = 1, \ldots, Q}$, WLOG assume $p_1 \geq p_2 \geq \ldots \geq p_Q$.
+    \Ensure FVB Codebook for alphabet $\set{a_i | i = 1, \ldots, Q}$.
+    \Function{Huffman}{$P_Q = \set{p_i | i = 1, \ldots, Q}$}
+      \If{$Q = 2$}
+        \Return $\set{0, 1}$
+      \EndIf
+      \State $p'_{Q-1} \gets p_{Q-1} + p_Q$
+      \State $P_{Q-1} \gets \left(P_Q \setminus \set{p_{Q-1} + p_Q}\right) \cup \set{p'_{Q-1}}$
+      \State $c_{Q-1} \gets \textsc{Huffman}(P_{Q-1}) \eqdef \set{\underline{v}_1, \ldots, \underline{v}_{Q-1}}$
+      \State $c_Q \gets \set{\underline{v}_1, \ldots, \underline{v}_{Q-2}, \underline{v}_{Q-1}0, \underline{v}_{Q-1}1}$
+    \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{proposition}
+  If $c_{Q-1}$ is optimal for $P_{Q-1}$ then $c_Q$ is optimal for $P_Q$.
+\end{proposition}
+
+\begin{example}
+  
+\end{example}
+
+We found that \[\]
+
+But there is a tighter upper bound \[
+  \overline{L}^* \leq \begin{cases}
+    H + p_{\max} & p_{\max} < \dfrac{1}{2} \\[0.8em]
+    H + p_{\max} + 0.086 & p_{\max} \geq \dfrac{1}{2}.
+  \end{cases}  
+\]
+Hence
+\[
+  \mathscr{R}_{VL}^*(k) \leq \begin{cases}
+    H + \dfrac{p_{\max}^k}{k} & (p_{\max})^k < \dfrac{1}{2} \\[0.8em]
+    H + \dfrac{p_{\max}^k}{k} + \dfrac{0.086}{k} & (p_{\max})^k \geq \dfrac{1}{2}.
+  \end{cases}
+\]
+
+Up till now we've only focused on i.i.d RV's. Now suppose RV's are dependent, then \[\frac{H^k}{k} < \frac{kH}{k}.\]
+For a stationary random process, \[
+  \frac{H^k}{k} \searrow H_\infty.  
+\] For example, English has \[
+  H^1 \approx 4.08, H_\infty \approx 1.  
+\]
+
+The bits produced by a good lossless source code ($\overline{r} \approx H$) are approximately i.i.d. equiprobable.
+
+Synchronization and transmission entropy
+
+Suppose $\set{01, 001, 101, 110}$ for $\set{a, b, c, d}$. 
+
+$\underline{u} = ddddddddd\ldots$, $\underline{z}= 110110110110110110\ldots$.
+
+$\underline{z'}=101101101101\ldots$, $\hat{u} = ccccccc\ldots$.
+
+Now if $\set{1, 01, 001, 000}$ for $\set{a, b, c, d}$. Then the same problem will not happen.
+
+
 \end{document}
