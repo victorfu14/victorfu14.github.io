@@ -738,7 +738,7 @@ The star of this chapter is \[
   \ln x \leq x - 1  
 \]
 
-\section{}
+\section{Entropy}
 
 Entropy \[
   H \defeq -\sum_{x} p(x)\log p(x)
@@ -909,6 +909,23 @@ $p_i = \frac{\alpha}{i(\ln i)^2}, i = 2, 3, \ldots$, then \begin{align*}
 \end{align*}
 
 \section{Conditional Entropy}
+
+\[H(X \mid Y) = \sum_{x, y} p(x, y) \log p(x|y) \geq 0\] with equality iff $X$ is a function of $Y$.
+
+\[H(X \mid Y) \leq H(X)\] with equality iff $X, Y$ are independent. 
+
+chain rule: \[
+  H(X, Y) = H(X) + H(Y \mid X) \implies H(X, Y) \geq H(X) 
+\]
+
+Conditional lossless source coding
+
+\section{Convexity}
+Goal: entropy is a concave (convex $\cap$).
+
+
+
+
 
 
 

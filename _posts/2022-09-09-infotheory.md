@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  EECS 550, Infomation Theory
-categories: Maths
+categories: CS
 excerpt: So many noise, but I only want to hear you
 published: true 
 ---
@@ -16,3 +16,5 @@ So we should start.
 - [Shannon-McMillian Theorem](../../../../parts/information/information.pdf#section.1.2)
 - [fixed length to variable length block (FVB) codes](../../../../parts/information/information.pdf#section.1.3)
 - [coding theorem for FVB prefix codes, Huffman code](../../../../parts/information/information.pdf#section.1.4)
+- [entropy](../../../../parts/information/information.pdf#section.2.1)
+- [conditional entropy](../../../../parts/information/information.pdf#section.2.3)

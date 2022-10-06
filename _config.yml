@@ -22,7 +22,7 @@ title: Victor's (Pseudo)random Blog
 author:
   name: Victor Fu 洑亦唯
   email: yiwei_fuscz@outlook.com
-  site: victorfu.com
+  # site: victorfu.com
 description: >-
   error[E0382]: use of moved value
 descriptions:
