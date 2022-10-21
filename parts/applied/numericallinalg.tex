@@ -390,4 +390,33 @@ Let $a_1$ and $a_2$ be vectors in $\R^m$. They will define a parallelogram as fo
 
 \subsection{Determinants}
 
+
+\chapter{}
+
+\section{Norm}
+\begin{definition}
+    Suppose $x \in \R^n$, then \begin{align*}
+        \norm{x}_1 & = |x_1| + \ldots + |x_n| \\
+        \norm{x}_2 & = \sqrt{|x_1|^2 + \ldots + |x_n|^2} \\
+        \norm{x}_p & = \left(\sum_{i=1}^n |x_i|^p\right)^{\frac{1}{p}} \\
+        \norm{x}_\infty & = \max_j |x_j|.
+    \end{align*}
+\end{definition}
+Some properties \begin{enumerate}
+    \item $\norm{x} \geq 0$ with equality iff $x = 0$,
+    \item $\norm{x + y} \leq \norm{x} + \norm{y}$,
+    \item $\norm{\alpha x} = |\alpha| \norm{x}$ for $\alpha \in \R$.
+\end{enumerate}
+
+\begin{lemma}
+    If $\norm{\cdot}$ is a norm and $A$ is then \[
+        \norm{x}_A = \norm{Ax}    
+    \] is also a norm over vectors.
+\end{lemma}
+\begin{proof}
+    $A$
+
+    The unit ball of a norm $\{x \mid \norm{x} \leq 1\}$.
+\end{proof}
+
 \end{document}

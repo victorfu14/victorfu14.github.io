@@ -923,7 +923,152 @@ Conditional lossless source coding
 \section{Convexity}
 Goal: entropy is a concave (convex $\cap$).
 
+Extended definition of entropy 
+\begin{definition}
+  \[\overline{H}(x) = \sup_{\text{finite quantizers $Q$}} H(Q(x)) \] where finite quantizer is a function $Q: A \to B, |\set{Q(x): x \in A}| < \infty$.
+\end{definition}
+This gives normal definition for discrete random variables and $\infty$ for continuous and mixed random variables
 
+\chapter{Information}
+
+\section{Information}
+Not a good question: How much information is there in $X$?
+Better questions: The information in $X$ about random variable $Y$?
+
+\begin{definition}
+  The (mutual) information given by $X$ about $Y$ is defined as
+  \[I(X; Y) \defeq H(Y) - H(Y \mid X)\]
+\end{definition}
+\begin{definition}
+  $Y =$ outcome of a fair $6$-sided die. $X = $ oddity of the outcome. We have \[
+  H(Y) = \log_2 6, H(Y \mid X) = \log_2 3 \implies I(X; Y) = \log_2 6 - \log_2 3 = \log_2 2 = 1.  
+  \]
+\end{definition}
+
+\begin{lemma}
+  Suppose $X, Y$ are discrete random variables. Then
+  \begin{enumerate}
+    \item $I(X; Y) \geq 0$, $= 0$ iff $X, Y$ independent.
+    \item We have alternate formulas \begin{align*}
+      I(X; Y) & = - \sum_{y} p(y) \log p(y) + \sum_{x, y} p(x, y) \log p(y|x) \\
+      & = - \sum_{x, y} p(x, y) \log p(y) + \sum_{x, y} p(x, y) \log p(y|x) \\
+      & = \sum_{x, y} p(x, y) \log \frac{p(y | x)}{p(y)} \\
+      & = \sum_{x, y} p(x, y) \log \frac{p(x, y)}{p(x)p(y)} 
+    \end{align*}
+    This shows that $I$ is symmetric: $I(X; Y) = I(Y; X)$.
+  
+    \item From above, \begin{align*}
+      I(X; Y) & = -\sum p(x, y)\log p(x) - \sum p(x, y)\log p(y) + \sum p(x, y)\log p(x, y) \\
+      & = H(X) + H(Y) - H(X, Y).
+    \end{align*}
+  
+    \item We can view information as an expectation: \[I(X; Y) = \mathbb{E}\left[\log \frac{p(Y \mid X)}{p(Y)}\right] = \mathbb{E}\left[\log \frac{p(X \mid Y)}{p(X)}\right] = \mathbb{E}\left[\log \frac{p(X, Y)}{p(X)p(Y)}\right].\]
+    \item We can view information with respect to divergence: \[I(X, Y) = D(p_{XY} \| p_Xp_Y).\]
+  \end{enumerate}
+\end{lemma}
+
+\begin{remark}
+  Alternate notation \(
+    I_\phi(X, Y), I_{X; Y}(p), I(p).  
+  \)
+\end{remark}
+
+What happens if $p(x, y) = 0$, or $p(x) = 0$, or $p(y) = 0$? $p(x) = 0$ or $p(y) = 0 \implies p(x, y) = 0$.
+
+\begin{remark}
+  $I(X;Y)$ is possible. Suppose $H(Y) = \infty$ and $Y$ is a function of $X$. Then $I(X; Y) = H(Y) - H(Y \mid X) = \infty - 0 = \infty$.
+\end{remark}
+
+Information for more variables \[
+  I(X, Y ; V, W, Z) = H(X,Y) - H(X,Y \mid V, W, Z)  
+\]
+
+Relations between information entropy
+\begin{enumerate}
+  \item $I(X; Y) = H(X) - H(X \mid Y) = H(Y) - H(Y \mid X)$.
+  \item $I(X; Y) \leq H(X)$, $=$ iff $X$ is a function of $Y$.
+  \item $I(X; X) = H(X)$.
+  \item $I(X; g(X)) = H(g(X))$.
+\end{enumerate}
+
+\section{Conditional Information}
+Recall that we have two concepts of conditional entropy.
+\[
+  H(X \mid Y = y) , H(X \mid Y) = \sum_y p(y) H(X \mid Y = y) 
+\]
+We are going to use the same approach for conditional information.
+\begin{definition}
+  Suppose $X, Y, Z$ are two discrete random variables, \[
+    I(X; Y | Z = z) = \sum_{x, y} p(x, y) \log \frac{p(xy \mid Z = z)}{p(x| Z = z)p(y| Z = z)}.
+  \] \[I(X; Y \mid Z) = \sum_z p(z) I(X; Y \mid Z = z).\]
+\end{definition}
+
+\begin{lemma}
+  \begin{enumerate}
+    \item \(I(X ; Y \mid Z = z) \geq 0\)
+    \item \(I(X; Y \mid Z) \geq 0\), \(= 0\) iff $X, Y$ are conditionally independent given $Z$.
+    \item \(I(X; Y \mid Z) = H(X \mid Z) - H(X \mid Y,Z).\)
+    \item \(I(X; Y, Z) = I(X; Z) + I(X; Y \mid Z)\)
+  \end{enumerate}
+\end{lemma}
+
+chain rule of conditional information
+\[I(X; YZ \mid U) = I(X; Z \mid U) + I(X; Y \mid Z, U).\]
+
+\section{Cryptography From Information Perspective}
+
+$A_X = A_K$ and $|A_X| = |A_K| = 2^N$. $p_K(k) = 2^{-N}, k \in A_K$.
+
+If $|K| < |A_X|$ then the crypto system is not perfect.
+
+Fix $x \in |A_X|$. For each $y$ we have
+$P(Y = y|X = x) = P(Y = y) > 0$. Therefore for each $y$, there
+must be some key $k \in K$ such that $y = e_K(x)$. It follows that
+$|K| \geq |Y|$. The encryption is injective giving $|Y| \geq |A_X|$.
+
+\chapter{Continuous Random Variables}
+
+\section{}
+
+\begin{definition}
+  
+\end{definition}
+We assume alphabet is $\R$, $X$ is absolutely continuous
+
+\begin{example}
+  \begin{enumerate}
+    \item Uniform \[p(x) = \begin{cases}
+      \frac{1}{b-a} & a \leq x \leq b \\
+      0 & \text{otherwise}
+    \end{cases}\]
+    \item Gaussian \[p(x) = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-m)^2}{2\sigma^2}}\]
+    \item Laplacian \[p(x) = \frac{1}{\sqrt{2}\sigma}e^{-\frac{\sqrt{2}}{\sigma}|x|}\]
+    \item Exponential \[p(x) = \begin{cases}
+      \frac{\sqrt{2}}{\sigma}e^{-\frac{\sqrt{2}}{\sigma}|x|} & x \geq 0 \\
+      0 & x < 0
+    \end{cases}\]
+  \end{enumerate}
+\end{example}
+
+\begin{definition}
+  The \emph{support} of a random variable $X$ or of its probablity distribution is defined by \[S \defeq \set{x: \Pr(X \doteq x \pm \varepsilon) > 0, \forall \varepsilon>0}.\]
+\end{definition}
+
+\begin{definition}
+  Conditional probability \[\Pr(F \mid X = x) = \frac{\Pr(F, X = x)}{\Pr(X = x)}.\]
+  When $X$ is continuous, \[\Pr(F \mid X = x) = \lim_{\delta \to 0} \Pr(F \mid X \doteq x \pm \delta)\]
+\end{definition}
+
+Suppose $Y = 3X$ \[
+  1 = \Pr(Y = 3 \mid X = 1) = \lim_{\delta = 0} \frac{\Pr(Y = 3 \mid X \doteq 1 \pm \delta)}{\Pr(X \doteq 1 \pm \delta)} = 0, \text{ contradition}
+\]
+So we use \[
+  \Pr(Y \in F \mid X = x) = \lim_{\varepsilon \to 0} \lim_{\delta \to 0} \Pr(Y \in F_\delta \mid X \doteq x \pm \varepsilon) 
+\] where \[
+  F_\delta = \set{y \mid \norm{y - y'} \text{ for some } y' \in F}.
+\]
+
+Generalized sum 
 
 
 

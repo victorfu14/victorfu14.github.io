@@ -18,3 +18,5 @@ So we should start.
 - [coding theorem for FVB prefix codes, Huffman code](../../../../parts/information/information.pdf#section.1.4)
 - [entropy](../../../../parts/information/information.pdf#section.2.1)
 - [conditional entropy](../../../../parts/information/information.pdf#section.2.3)
+- [convexity]()
+- [information, conditional information](../../../../parts/information/information.pdf#section.3.1)
