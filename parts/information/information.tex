@@ -56,6 +56,7 @@
 \newcommand{\qbin}[2]{\begin{bmatrix}{#1}\\ {#2}\end{bmatrix}_q}
 \newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
 \newcommand{\df}{\mathrm{d}}
+\newcommand{\idf}{\ \mathrm{d}}
 \newcommand{\dr}[2]{\dfrac{\df #1}{\df #2}}
 \newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
 \newcommand{\gen}[1]{\left\langle #1 \right\rangle}
@@ -63,6 +64,7 @@
 \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
 \newcommand{\set}[1]{\left\lbrace #1 \right\rbrace}
 \newcommand{\norm}[1]{\left\| #1 \right\|}
+\newcommand{\ddoteq}{\ \ddot{=}\ }
 
 % arrows and :=, =:
 \makeatletter
@@ -1026,12 +1028,9 @@ $P(Y = y|X = x) = P(Y = y) > 0$. Therefore for each $y$, there
 must be some key $k \in K$ such that $y = e_K(x)$. It follows that
 $|K| \geq |Y|$. The encryption is injective giving $|Y| \geq |A_X|$.
 
-\chapter{Continuous Random Variables}
-
-\section{}
-
+\section{Continuous Random Variables and Information}
 \begin{definition}
-  
+  A random variable $X$ is continuous if $\Pr(X = x) = 0$ for all $x$.
 \end{definition}
 We assume alphabet is $\R$, $X$ is absolutely continuous
 
@@ -1070,8 +1069,62 @@ So we use \[
 
 Generalized sum 
 
+\section{Differential Entropy}
+Recall that for continuous random variable, the entropy is $\infty$, which is not very interesting. We recall the definition of information \[I(X;Y) = \int\int p(x, y)\frac{\log p(x|y)}{\log p(x)} \idf x \idf y.\]
+We can rewrite it as \begin{align*}
+  I(X;Y) & = -\int\int p(x, y){\log p(x)} \idf x \idf y + \int\int p(x, y)\log p(x|y) \idf x \idf y \\
+  & = -\int p(x){\log p(x)} \idf x + \int\int p(x, y)\log p(x|y) \idf x \idf y
+\end{align*}
+  
+The first term is defined as differential entropy, denoted by $H_d(X)$, and the second term is conditional differential entropy, denoted by $H_d(X|Y)$.
 
+We have \[I(X; Y) = H_d(X) - H_d(X|Y).\]
 
+\begin{example}
+  Suppose $p_X(x) = \begin{cases}
+    \frac{1}{\Delta} & 0 \leq x \leq \Delta \\
+    0 & \text{otherwise}  
+  \end{cases}$, then $H_d(X) = \log \Delta$.
+\end{example}
+
+\begin{example}
+  Suppose $X$ is Gaussian with variance $\sigma^2$, then \[H_d(X) = \frac{1}{2}\log 2\pi e^{\sigma^2}.\]
+\end{example}
+
+But $H_d(X)$ can be negative and even $-\infty$.
+
+$H_d(X) \geq H_d(X|Y), = 0$ iff $X, Y$ independent.
+
+When $Y = \alpha X$, $\alpha > 0$, then $H_d(Y) = H_d(X) + \log \alpha$.
+
+Differential entropy is not a measure of true randomness and uncertainty. We'll see it is a relative measure.
+
+Back to typical sequences.
+
+Suppose $X_1, X_2, \ldots$ IID continuous rv's with pdf $p$, then \[
+T_{s,\varepsilon}^N = \set{\underline{x}: \frac{1}{N}\sum_{i=1}^N s(x_i) \doteq \mathbb E [s(X)] = H_d(X)}  
+\]
+
+And by LLN, \[
+\Pr(\underline{X} \in T_{s,\varepsilon}^N) \to 1 \text{ as } N \to \infty,\ p(\underline{x}) \doteq 2^{-NH_d(X)\pm N\varepsilon}, \text{ for } x \in T_{s, \varepsilon}^N.
+\]
+\begin{align*}
+  \Pr\left(\underline{X} \in T_{s,\varepsilon}^N\right) & = \int_{T_{s, \varepsilon}^N}p(\underline{x}) \idf x \\
+  & \doteq 2^{-NH_d(X)\pm N\varepsilon} \int_{T_{s, \varepsilon}^N} 1 \idf x \\
+  & \doteq 2^{-NH_d(X)\pm N\varepsilon} \operatorname{vol}(T_{s, \varepsilon}^N)
+\end{align*}
+We also have \[|T_{s,\varepsilon}^N| \ddoteq \Pr(\underline{X} \in T_{s, \varepsilon}^N)2^{NH_d(X)\pm2N\varepsilon}\ddoteq 2^{NH_d(X)\pm2N\varepsilon}\]
+So \(|T_{s,\varepsilon}^N| \cong 2^{NH_d(X)}\) is the size(vol) of a smallest set with probability $\approx 1$.
+
+\section{Properties of Differential Entropy}
+
+Differential entropy decreases as probabilities aggregate
+
+Suppose $X$ is supported on $S$, then $H_d(X) \leq \log |S|$.
+$H_{d}(aX+b) = H_d(X) + \log a$.
+$H_{d, X}(p)$ is convex $\cap$.
+
+\chapter{Estimation, Decision}
 
 
 
