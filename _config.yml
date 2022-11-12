@@ -27,7 +27,7 @@ description: >-
   error[E0382]: use of moved value
 descriptions:
   left: |
-    Math & CS student who occasionally writes things
+    A clueless but hopeful person
   right: |
     error[E0382]: use of moved value
 baseurl: "" # the subpath of your site, e.g. /blog

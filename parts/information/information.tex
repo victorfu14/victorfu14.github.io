@@ -65,6 +65,10 @@
 \newcommand{\set}[1]{\left\lbrace #1 \right\rbrace}
 \newcommand{\norm}[1]{\left\| #1 \right\|}
 \newcommand{\ddoteq}{\ \ddot{=}\ }
+\DeclareMathOperator*{\argmax}{\arg \max}
+\DeclareMathOperator*{\argmin}{\arg \min}
+\def \ssumsym {\mathrlap{\ \ --}\sum}
+\DeclareMathOperator*{\ssum}{\ssumsym}
 
 % arrows and :=, =:
 \makeatletter
@@ -1125,6 +1129,182 @@ $H_{d}(aX+b) = H_d(X) + \log a$.
 $H_{d, X}(p)$ is convex $\cap$.
 
 \chapter{Estimation, Decision}
+
+\section{Estimation Theory}
+
+
+
+\section{Decision Theory}
+
+
+Bayes rule \[\argmax_x \frac{p_X(x)p_{Y|X}(y|x)}{p_Y(y)}\]
+
+\begin{example}
+  $Y = X + N$ with $X, N$ independent Gaussian variables with mean $0$.
+  \[r^*(y) = \frac{\sigma_X^2}{\sigma_X^2+\sigma_N^2}y\]
+  \[\overline{d} = \sigma_X^2(1 - \rho^2), \rho \defeq \frac{\matE[XY]}{\sigma_x\sigma_y}.\]
+\end{example}
+The MMSE estimate is linear.
+
+In many situations, the MMSE estimation $r^*(y) = \matE[X|Y=y]$ is too complicated or unknown.
+In such cases, we often seek the best linear (technically, affine) estimate \[
+  r^*_L(y) = ay + b  
+\] choose $a, b$ to minimize $\matE[(X - r_L(Y))]^2$.
+
+The best linear estimate \[r^*_L(y) = \rho\frac{\sigma_X}{\sigma_Y}(y - \matE[Y] + \matE{X}), \quad d^*_L = \sigma^2_X(1 - \rho^2)\] We don't need to know $p(x|y), p(y|x), p(x)$.
+
+Bayes Estimation: assume $p_{XY}, d(x, \hat{x})$.
+
+Much of statistics considers estimation when only $p_{Y|X}$ is known.
+
+Maximum Likelyhood Rule \[r_{ML}(y) = \argmin_x p_{Y|X}(y|x)\] We do not have an average distortion.
+
+\begin{lemma}[Fano's Lemma, decision theory]
+  $|A_X| < \infty$ finite alphabet. For any decision rule $r$ for deciding from $Y$ we have \[H(X|Y) \leq \mathscr{H}(p_E) + p_E\log(Q - 1) \eqdef \mathscr{F}(p_E).\]
+\end{lemma}
+$\mathscr{F}(p_E)$ (called Fano's function) peaks at $p_E = \frac{Q-1}{Q}$ with maximum $\log_2Q$.
+
+Consider its inverse $\mathscr{F}^{-1}_Q(p_E)$ on $\left[0, \frac{Q-1}{Q}\right]$. Since $H(X|Y) = H(X) - I(X; Y)$, then as $I(X; Y)$ affects the lower bound of error probability.
+
+Make an observation $Y$, want to know $X$, $\hat{X} = r(Y)$ estimate decision.
+
+\begin{align*}
+  H(X|Y = y) & \leq \mathscr{H}(p_{X|Y}(a|y)) + (1 - p_{X|Y}(a|y))\log(Q - 1) \\
+  H(X|Y = y) & \leq \mathscr{H}(1 - p_{X|Y}(r(y)|y)) + (1 - p_{X|Y}(r(y)|y))\log(Q - 1) \\
+  & = \mathscr{H}(\Pr(X \neq r(Y)|Y = y)) + \Pr(X \neq r(Y)|Y = y)\log(Q - 1) \\
+  & = \mathscr{F}_Q(\Pr(X \neq r(Y)|Y = y))
+\end{align*}
+Meanwhile, 
+\begin{align*}
+  H(X | Y) & = \sum_y p(y)H(X|Y = y) \\
+  & \leq \sum_y \mathscr{F}_Q(\Pr(X \neq r(Y)|Y = y)) \\
+  & \leq \mathscr{F}_Q\left(\sum_y \Pr(X \neq r(Y)|Y = y)\right) \\
+  & = \mathscr{F}_Q(\Pr(X \neq r(Y))) = \mathscr{F}_Q(p_E).
+\end{align*}
+
+Fano lower bound to MSE
+
+If $X$ is real-valued and $r(Y)$ is an estimate of $X$ then \[
+  H_d(X|Y) \leq \frac{1}{2}\log(2\pi e \overline{d}),  \quad \overline{d} = \matE[(X - r(Y))^2]  
+  \]\[\overline{d} \geq \frac{1}{2\pi e}2^{2H_d(X|Y)} = \frac{1}{2\pi e}2^{2(H_d(X) - I(X;Y))}.\]
+
+\begin{proof}
+  Recall that \[H_d(X) \leq \frac{1}{2}\log (2\pi e \sigma_X^2).\]
+  Fix a value $Y = y$, then
+  \begin{align*}
+    H_d(X|Y = y) & \leq \frac{1}{2} \log 2\pi e \matE[\left(X - \matE[X| Y = y]\right)^2 | Y = y] \\
+    & \leq \frac{1}{2} \log 2\pi e \matE[\left(X - r(Y)\right)^2 | Y = y]
+  \end{align*}
+  Averaging over $y$ we have \begin{align*}
+    H_d(X|Y) & = \ssum_y p_Y(y)H_d(X|Y = y) \\
+    & \leq \ssum_y p_Y(y)\frac{1}{2}\log\left(2\pi e \matE[\left(X - r(Y)\right)^2 | Y = y]\right) \\
+    & \leq \frac{1}{2}\log\left(2\pi e \ssum_y p_Y(y)\matE[\left(X - r(Y)\right)^2 | Y = y]\right) = \frac{1}{2}\log\left(2\pi e \overline{d}\right) \qedhere
+  \end{align*}
+\end{proof}
+
+Lower bound to per-letter error probability
+
+Suppose we have a rule for deciding $X^N = (X_1, \ldots, X_N)$ from $Y$ with $|A_X| = Q$. 
+Distortion = per letter probability \[\overline{d}_L = \frac{1}{N}\sum_{i=1}^N \Pr(X_i \neq r_i(Y))\]
+
+Fano lower bound for $p_{LE}$ \[
+\frac{1}{N}H(X^N|Y) \leq \frac{1}{N}\sum_{i=1}^N H(X_i|Y) \leq \mathscr{F}_Q(p_{LE}),\quad p_{LE} \geq \mathscr{F}_Q^{-1}\left(\frac{1}{N}\sum_{i=1}^N H(X_i|Y)\right).
+\]
+
+Fano lower bound to per-letter MMSE
+If $R$ is a rule for estimating $X_1, \ldots, X_N$ (real-valued) from $Y$, then \[
+\overline{d}_L = \frac{1}{N}\sum_{i=1}^N \matE(X_i - r_i(Y))^2 \geq \frac{1}{2\pi e}2^{2\frac{1}{N}\sum_{i=1}^N H_d(X_i|Y)}  
+\]
+
+Block converse
+
+When an FFB block source code with source length $K$ and code length $L$ rate $\overline{r} = \frac{L}{K} \leq H$, then \[p_{BE} \geq \mathscr{F}_{Q^K}^{-1}(K(H\overline{r}))\]
+
+$U_1, \ldots, U_K$, encoder, $Z_1 \ldots, Z_L$, decoder, $\hat{U}_1 \ldots, \hat{U}_K$.
+
+\[
+H(U^K|Z^L) = H(U^K) - I(U^K;Z^L) \geq KH - K\overline{r},  
+\] By Fano'e lemma, \[p_{BE} \geq \mathscr{F}_{Q^K}^{-1}\left(H(U^K|Z^L)\right) \geq \mathscr{F}_{Q^K}^{-1}(K(H - \overline{r}))\]
+
+per-letter converse
+
+When an FFB block source code with source length $K$, code length $L$, rate $\overline{r}=\frac{L}{K} < H$, then \[p_{LE} \geq \mathscr{F}_Q^{-1}(H - \overline{r})\]
+
+Subsection 9.9.2: If a lossless source code has rate close to $H$ then the bits it produces are approximately IID equiprobable $D(p_{Z_1, \ldots, Z_n}\| p_{IID}) \approx 0$.
+
+
+upper bound to error probablity of an optimal decision rule
+
+\[H(X) \geq - \log p_{\max}\]
+
+\begin{align*}
+  H(X|Y=y) \geq - \log \max_{x} p_{X|Y}(x|y) = -\log p_{X|Y}(r^*(y)|Y = y)
+\end{align*}
+Average over $y$, \begin{align*}
+  H(X|Y) & = \ssum_y p_Y(y) H(X|Y = y) \\
+  & \geq - \ssum_y p_Y(y) \log p_{X|Y}(r(y)|Y = y) \\
+  & \geq - \log \left(\ssum_y p_Y(y)p_{X|Y}(r(y)|y)\right) \\
+  & \geq - \log \Pr(r(Y) = X) = - \log (1 - p_E).
+\end{align*}
+
+\[H(X|Y) \geq - \log(1 - p_E) \implies p_E \leq 1 - 2^{-H(X|Y)}\]
+
+Upper bound to MMSE for estimating $X$ from $Y$.
+
+Special case: $Y = X + V$, $X, V$ independent.
+
+We have \[I(X; Y) = H_d(Y) - H_d(Y|X).\]
+
+\[H_d(Y) \leq \frac{1}{2}\log2\pi e\sigma_Y^2=\frac{1}{2}\log2\pi e(\sigma_X^2 + \sigma_V^2)\]
+
+\[
+  H_d(Y|X) = H_d(X + V|X) = H_d(V|X) = H_d(V) = \frac{1}{2}\log 2\pi e \sigma_V^2\gamma_V
+\]
+
+
+channel code scenario
+
+data -> encoder -> noisy channel -> decoder -> data reproductions
+
+Data: bits from binary symmetric source (BSS)
+$Z_1, Z_2, \ldots, Z_i$'s are independent, identical, binary $\{0, 1\}$, equiprobable. 
+
+Channel: Discrete time system, with input alphabet $A_X$, output alphabet $A_Y$, and a stochastic input/output characterized by transition distribution $q$.
+
+Example:  (BSC).
+
+\begin{example}[Binary symmetric channel (BSC)]
+  \[A_X = A_Y = \{0, 1\},\quad  q(y|x) = \begin{cases}
+    1 - \varepsilon & y = x,\ 0 < \epsilon < 0.5 \\
+    \varepsilon & y \neq x.
+  \end{cases}\]
+  Transition diagram:
+  \[\]
+  Additive model: $Y = X \oplus V$, $X, V$ independent, and $p_V(1) = \varepsilon, p_V(0) = 1 - \varepsilon$.
+\end{example}
+
+\begin{example}[Additive Gaussian channel]
+  \[A_X = A_Y = \R, \ q(y|x) = \frac{1}{\sqrt{2\pi}\sigma_V}e^{-\frac{(y-x)^2}{\sigma_V^2}} \iff  Y = X + V, V \sim \eta(0, \sigma_V^2).\]
+\end{example}
+
+Stationary memoryless,
+
+\begin{definition}[Memoryless]
+  Given $X_i$, a memoryless channel $Y_i$ is independent of $X_j$'s and $Y_j$'s.
+\end{definition}
+
+If the input $X_1, \ldots, X_n$, the probability distribution of output is \[
+  p(y^N | x^N) = q(y_1|x_1)q(y_2|x_2)\ldots q(y_N|x_N).
+\]
+
+From now on we always assume this condition.
+
+Performance: 
+rate: \# $z$ bits per channel symbol. large is desired.
+accuracy: \[p_{LE} = \lim_{k \to \infty}\frac{1}{K}\sum_{i=1}^K \Pr(\hat{Z}_k \neq Z_n)\]
+
+Question: what is an achievable value for the (rate, accuracy) pair?
+
 
 
 
