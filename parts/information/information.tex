@@ -868,13 +868,28 @@ This is a generalization of divergence inequality.
   \begin{align*}
     H(X^N) \leq H_L(p, q)
   \end{align*}
-  where $p$ is probability mass function of $X_1, \ldots, X_N$. Choose \[q(x_1, \ldots, x_n) = p(x_1)p(x_2)\ldots p(x_n).\]
+  where $p$ is probability mass function of $X_1, \ldots, X_N$. Choose \[q(x_1, \ldots, x_n) = p(x_1)p(x_2)\ldots p(x_n). \qedhere\]
 \end{proof}
 
 Since we are dealing with discrete random variables, it is useful to think about probability mass function as a set of probabilities $\set{p_1, p_2, \ldots}$. Write \[H(p_1, p_2, \ldots) = -\sum_i p_i \log p_i\]
 Let $p'_i = p_i + p_j$, replace $p_i, p_j$ with $p'_i$ and leave all others the same. We have \[
--p_i \log p-i - p_j \log p_j \geq -(p_i + p_j)\log (p_i + p_j) 
+-p_i \log p_i - p_j \log p_j \geq -(p_i + p_j)\log (p_i + p_j) 
 \] i.e. entropy decreases when two probabilities are merged.
+
+WLOG, assume $p_i < p_j$. Def $0\log0 = 0$.
+
+Def \[
+  g(p_i) = -(p'_i - p_i)\log(p'_i - p_i) - p_i \log p_i = -p_i \log p_i - p_j \log p_j
+\]
+So \[
+  -(p_i + p_j)\log (p_i + p_j) = g(0).
+\]
+Differentiate $g$:
+\[
+  g' = \log(p'_i - p_i) - \log(p_i)  .
+\]
+Since $p_i < \frac{1}{2} p'_i$, $g' > 0$, $g$ is increasing. So any $p_i > 0$ have $g(p_i) > g(0)$.
+
 
 \begin{proposition}
   If $X$ is $Q$-ary with $Q < \infty$ then \[H(X) \leq \log_2 Q\]
@@ -883,7 +898,7 @@ Let $p'_i = p_i + p_j$, replace $p_i, p_j$ with $p'_i$ and leave all others the 
   Let $q(x) = \frac{1}{Q}$.
   \begin{align*}
     H(X) \leq H_c(p, q) & = -\sum_x p(x) \log p(x) \\
-    & = \sum_x p(x) \log_2 Q = \log_2 Q.
+    & = \sum_x p(x) \log_2 Q = \log_2 Q. \qedhere
   \end{align*}
 \end{proof}
 
@@ -906,7 +921,7 @@ $p_i = q^i(1 - q), i = 0, 1, 2, \ldots$, then \begin{align*}
   & = -\log q \cdot q(1 - q) \dr{}{q} \sum_{i=0}^\infty q^i - \log(1-q) \\
   & = - \log q \cdot q(1 - q) \frac{1}{(1-q)^2} - \log(1-q) \\
   & =  - \log q \cdot \frac{q}{1-q} - \log(1-q) = \frac{-q\log(q) - (1 - q)\log(1-q)}{1- q} \\
-  & = H(Q)\frac{1}{1 - q} < \infty.
+  & = \mathscr{H}(Q)\frac{1}{1 - q} < \infty.
 \end{align*}
 
 $p_i = \frac{\alpha}{i(\ln i)^2}, i = 2, 3, \ldots$, then \begin{align*}
@@ -982,7 +997,7 @@ Better questions: The information in $X$ about random variable $Y$?
 What happens if $p(x, y) = 0$, or $p(x) = 0$, or $p(y) = 0$? $p(x) = 0$ or $p(y) = 0 \implies p(x, y) = 0$.
 
 \begin{remark}
-  $I(X;Y)$ is possible. Suppose $H(Y) = \infty$ and $Y$ is a function of $X$. Then $I(X; Y) = H(Y) - H(Y \mid X) = \infty - 0 = \infty$.
+  $I(X;Y) = \infty$ is possible. Suppose $H(Y) = \infty$ and $Y$ is a function of $X$. Then $I(X; Y) = H(Y) - H(Y \mid X) = \infty - 0 = \infty$.
 \end{remark}
 
 Information for more variables \[

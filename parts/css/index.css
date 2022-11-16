@@ -8,21 +8,16 @@
 
 .outputarea {
     max-width: 500px;
-    width: 100%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 1em;
     text-align: center;
+    overflow-x: scroll;
 }
 
 #chart {
     margin-left: auto;
     margin-right: auto;
-}
-
-.display-wrapper {
-    display: flex;
-    justify-content: space-evenly;
 }
 
 #genusOut {
@@ -32,7 +27,22 @@
 .content {
     width: 80%;
     max-width: 800px;
-    margin-top: 2em;
     margin-left: auto;
     margin-right: auto;
+} 
+
+.display-wrapper {
+    width: 80%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-text {
+    font-size: smaller;
+    color: gray;
+} 
+
+input {
+    width: 100%
 }
