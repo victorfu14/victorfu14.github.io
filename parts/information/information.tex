@@ -1153,11 +1153,18 @@ $H_{d, X}(p)$ is convex $\cap$.
 \chapter{Estimation, Decision}
 
 \section{Estimation Theory}
+\begin{definition}
+  Suppose two random variables $X, Y$ with alphabet $A_X, X_Y$. An \emph{estimation rule} $r: A_Y \to A_X$ such that when the observed value of $Y$ is $y$, the estimate of $X$ is $r(y)$. When viewed as a function applied to the random variable $Y$, the estimate is a random variable $r(Y)$ that we will often denote $\widehat{X}$.
+\end{definition}
+\begin{definition}
+  Average distortion of an estimation rule $r$ with respect to a distortion functions $d$ is \[\overline{d}\defeq \ssum_{y} \matE[d(X, r(y))| Y = y]p_Y(y).\]
+\end{definition}
+Usually, \emph{Hamming distortion} is used (not to be confused with Hamming distance):
+\[
+d(\underline{x}, \widehat{\underline{x}}) = \mathbf{1}_{x \neq \widehat{\underline{x}}}  
+\]
 
-
-
-\section{Decision Theory}
-
+Suppose $X$ is discrete. 
 
 Bayes rule \[\argmax_x \frac{p_X(x)p_{Y|X}(y|x)}{p_Y(y)}\]
 
@@ -1179,7 +1186,11 @@ Bayes Estimation: assume $p_{XY}, d(x, \hat{x})$.
 
 Much of statistics considers estimation when only $p_{Y|X}$ is known.
 
-Maximum Likelyhood Rule \[r_{ML}(y) = \argmin_x p_{Y|X}(y|x)\] We do not have an average distortion.
+Maximum Likelihood Rule: 
+\[r_{ML}(y) = \argmax_x p_{Y|X}(y|x)\] 
+It is usually used when there is no a prior probablity distribution for $X$. We do not have an average distortion for this rule.
+
+\section{Decision}
 
 \begin{lemma}[Fano's Lemma, decision theory]
   $|A_X| < \infty$ finite alphabet. For any decision rule $r$ for deciding from $Y$ we have \[H(X|Y) \leq \mathscr{H}(p_E) + p_E\log(Q - 1) \eqdef \mathscr{F}(p_E).\]
