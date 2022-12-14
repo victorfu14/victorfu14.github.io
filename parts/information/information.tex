@@ -926,8 +926,15 @@ $p_i = q^i(1 - q), i = 0, 1, 2, \ldots$, then \begin{align*}
 
 $p_i = \frac{\alpha}{i(\ln i)^2}, i = 2, 3, \ldots$, then \begin{align*}
   H(X) & = -\sum_{i=2}^\infty \frac{\alpha}{i(\ln i)^2} \log \left(\frac{\alpha}{i(\ln i)^2}\right) \\
-  & = 
+  & = - \log \alpha + \sum_{i=2}^\infty \frac{\alpha}{i(\ln i)^2} \frac{\ln i}{\ln 2} + \sum_{i=2}^\infty \frac{2\alpha}{i(\ln i)^2} \frac{\ln \ln i}{\ln 2} \\
+  & = - \log \alpha + \infty + \text{something positive} \\
+  & = \infty.
 \end{align*}
+
+Fact: \[\sum_{i=2}^\infty \frac{1}{i(\ln i)^r} = \begin{cases}
+   < \infty & r > 1 \\
+   = \infty & r \leq 1
+\end{cases}\]
 
 \section{Conditional Entropy}
 
@@ -1086,7 +1093,7 @@ So we use \[
   F_\delta = \set{y \mid \norm{y - y'} \text{ for some } y' \in F}.
 \]
 
-Generalized sum 
+Generalized sum $\ssum$ to represent, sum, integral, and a mixture thereof.
 
 \section{Differential Entropy}
 Recall that for continuous random variable, the entropy is $\infty$, which is not very interesting. We recall the definition of information \[I(X;Y) = \int\int p(x, y)\frac{\log p(x|y)}{\log p(x)} \idf x \idf y.\]
@@ -1107,7 +1114,7 @@ We have \[I(X; Y) = H_d(X) - H_d(X|Y).\]
 \end{example}
 
 \begin{example}
-  Suppose $X$ is Gaussian with variance $\sigma^2$, then \[H_d(X) = \frac{1}{2}\log 2\pi e^{\sigma^2}.\]
+  Suppose $X$ is Gaussian with variance $\sigma^2$, then \[H_d(X) = \frac{1}{2}\log 2\pi e\sigma^2.\]
 \end{example}
 
 But $H_d(X)$ can be negative and even $-\infty$.

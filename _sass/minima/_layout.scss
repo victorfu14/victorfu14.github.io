@@ -36,6 +36,7 @@
   border: 1px solid $brand-color-light;
   border-radius: 5px;
   text-align: right;
+  z-index: 10;
 
   .nav-trigger {
       display: none;
