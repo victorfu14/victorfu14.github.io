@@ -67,7 +67,7 @@
 \newcommand{\norm}[1]{\left\| #1 \right\|}
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\set}[1]{\left\{ #1 \right\}}
-
+\newcommand{\rank}{\operatorname{rank}}
 
 % arrows and :=, =:
 \makeatletter
@@ -188,12 +188,14 @@ Office hours:
 \pagenumbering{arabic}
 
 
-\chapter{}
-
-\section{Lattice and Its Basis}
+\chapter{Introduction to Lattices}
+\section{Definition}
 \begin{definition}
     A lattice $\Lambda \subset V$ is a discrete additive group.
 \end{definition}
+
+\section{Lattice and Its Basis}
+
 
 Last time: $L \in V$ is a subspace if $L = \operatorname{span} (L \cap \Lambda)$
 
@@ -248,10 +250,10 @@ This is called A.N.Korkin(e)-Zolotarev(öff) basis.
     \[\Pi=\set{\sum_{i=1}^n \alpha_i u_i: 0 \leq \alpha_i < 1, i = 1, \ldots, n}\] is the \emph{fundamental parallelepiped} of a fundamental parallelepiped of $\Lambda$.
 \end{definition}
 \begin{theorem}
-    The volume of a fundamental parallelepiped $\Pi$ doesn't depend on $\Pi$. The volume is called the determinant of $\Lambda$. Furthermore, if $B_{\tau} = \set{x: \norm{x} \leq \tau}$, then \[\lim_{\tau \to \infty} = \frac{|B_\tau \cap \Lambda|}{\operatorname{vol}B_\tau} = \frac{1}{\det \Lambda}.\]
+    The volume of a fundamental parallelepiped $\Pi$ doesn't depend on $\Pi$. The volume is called the determinant of $\Lambda$. Furthermore, if $B_{r} = \set{x: \norm{x} \leq r}$, then \[\lim_{r \to \infty} = \frac{|B_r \cap \Lambda|}{\operatorname{vol}B_r} = \frac{1}{\det \Lambda}.\]
 \end{theorem}
 We start with a lemma:
-\begin{lemma}
+\begin{lemma}\label{le:1.1.1}
     Let $\Pi$ be a fundamental parallelepiped of $\Lambda \subset V$. Then every vector $x \in V$ is uniquely written as $x = u + y$ where $u \in \Lambda, y \in \Pi$.
 \end{lemma}
 \begin{proof}
@@ -260,6 +262,122 @@ We start with a lemma:
     Uniqueness: suppose $x = u_1 + y_1 = u_2 + y_2$ then $u_1 - u_2 = y_2 - y_1$. Since $u_1 - u_2 \in \Lambda$ we have $y_2 - y_1 = \sum_{i=1}^n (\alpha_i - \beta_i)\mathbf{u}_i$. We have $(\alpha_i - \beta_i) \in \Z$. Since $-1 < \alpha_i - \beta_i < 1$, it has to be $0$.
 \end{proof}
 A geometry interpretation is that we can cover the whole space with fundamental parallelepipeds without overlaps.
+
+\newcommand{\vol}{\operatorname{vol}}
+
+\begin{proof}[Proof of theorem]
+    Let \[X_{r} = \bigcup_{u \in B_r \cap \Lambda} (\Pi + u)\]
+    Then $\operatorname{vol} X_r = |B_r \cap \Lambda| \operatorname{vol}\Pi$.
+
+    Say, $\Pi \subset B_a$ for some $a > 0$. Then $X_r \subset B_{r + a}$.
+    Look at $B_{r - a}$. It is covered by $\Pi + u: u \in \Lambda$. We should have $\norm{u} \leq r$. Hence $B_{r - a} \subset X_r$.
+
+    So we have \[\left(\frac{r-a}{a}\right)^n = \frac{\vol B_{r-a}}{\vol B_r} \leq \frac{\vol X_r}{\vol B_r} \leq \frac{\vol B_{r+a}}{B_r} = \left(\frac{r+a}{a}\right)^n\]
+
+    This goes to 1 when $r \to \infty$.
+\end{proof}
+
+\fancyem{Remark/Exercise} The same holds for balls not centered in the origin: \[B_{r}(x_0) = \set{x: \norm{x - x_0} \leq r}.\]
+
+\fancyem{Exercise} Suppose a lattice $\Lambda \subset V$ and $u \in \Lambda$. The Voronoi (G.F. Voronoi, 1868-1908) region is defined by \[
+\Phi_{u} = \set{x \in V: \norm{x - u} \leq \norm{x-v}, \forall v \in \Lambda}.  
+\]
+Show that $\Phi$ is convex (bounded by at most $2^n$ affine hyperplanes) and $\vol \Phi = \det \Lambda$.
+
+\fancyem{Exercise} $(\det \Lambda)(\det \Lambda^*) = 1$
+
+\section{Sublattice}
+\begin{definition}
+    Suppose $\Lambda \subset V$ is a lattice, and $\Lambda_0 \subset \Lambda, \Lambda_0 \subset V$ is also a lattice. $\Lambda_0$ is then called a sublattice of $\Lambda$.
+\end{definition}
+\begin{remark}
+    We have $\rank \Lambda_0 = \rank \Lambda$.
+\end{remark}
+\begin{example}
+    $D_n \subset \Z^n$.
+\end{example}
+$\Lambda$ is an Abelian group and $\Lambda_0 \subset \Lambda$ is a subgroup. Look at the quotient $\Lambda/\Lambda_0$ and cosets $\set{u + \Lambda_0}$. The index of $\Lambda_0$ in $\Lambda |\Lambda / \Lambda_0| = $ the number of cosets.
+
+\begin{theorem}
+    \begin{enumerate}
+        \item Let $\Pi$ be a fundamental parallelepiped of $\Lambda_0$ Then $|\Lambda / \Lambda_0| = |\Pi \cap \Lambda|$.
+        \item $|\Lambda /\Lambda_0| = \dfrac{\det \Lambda_0}{\det \Lambda}$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    \begin{enumerate}
+        \item By \autoref{le:1.1.1}, every coset has a unique representation in $\Pi$.
+        \item Let $B_r = \set{x: \norm{x} \leq r}$. Then \[\lim_{r \to \infty} = \frac{|B_r \cap \Lambda|}{\vol B_r} = \frac{1}{\det \Lambda}.\]
+        Let $S \subset \Lambda$ be the set of coset representatives. Then $|S| = |\Lambda/\Lambda_0|.$ Then $\Lambda = \bigcup_{u \in S} (u + \Lambda_0)$. Hence \[\lim_{r \to \infty} \frac{|B_r \cap (u + \Lambda_0)|}{\vol B_r} = \frac{1}{\det \Lambda_0}. \implies \frac{1}{\det \Lambda} = |S|\frac{1}{\Lambda_0}\qedhere\]
+    \end{enumerate}
+\end{proof}
+
+\fancyem{Exercise} \begin{enumerate}
+    \item $\det \Z^n = 1$
+    \item $\det D_n = 2$.
+    \item $\det D^+_n = 1$. ($n$ even)
+    \item $\det A_n = \sqrt{n+1}$. $\det E_8 = 1, \det E_7 = \sqrt{2}, \det E_6 = \sqrt{3}$.
+    \item If $a_1, \ldots, a_n$ are coprime integers not all $0$. \[\Lambda = \set{(x_1, \ldots, x_n) \in \Z^n: a_1x_1 + \ldots + a_nx_n = 0} \text{ has } \det \Lambda = \sqrt{a_1^2 + \ldots + a_n^2}.\] 
+\end{enumerate}
+
+\begin{corollary}
+    If $u_1, \ldots, u_n \in \Lambda$ are linearly independent and \[\vol \set{\sum_{i+1}^n \alpha_iu_i: 0 \leq \alpha_i < 1} = \det \Lambda\] then $u-1, \ldots, u_n$ is a basis.
+\end{corollary}
+\begin{proof}
+    Look at \[\Lambda_0 = \set{\sum_{i=1}^n m_iu_i: m_i \in \Z}, |\Lambda/\Lambda_0| = 1 \implies \Lambda = \Lambda_0 \qedhere\]
+\end{proof}
+
+Counting integer points. Suppose $\Lambda = \Z^n$.
+
+Pick $n$ linearly independent vectors $u_1, \ldots, u_n \in \Lambda$. Consider \[\Pi = \set{\sum_{i=1}^n \alpha_iu_i: 0 \leq \alpha_i < 1}.\] Then \[
+    |\Pi \cap \Z^n| =\ ?    
+\]
+Suppose $\Lambda_0 = \set{\sum_{i=1}^n m_iu_i: m_i \in \Z}$. Then $\det \Lambda_0 = \vol \Pi$.
+
+Suppose $n = 2$, $u_1 = (3, 1), u_2 = (1, 2)$. Then $\vol \Pi = 5$. We can see that the  parallelogram contains 5 integer points.
+
+\[
+\begin{tikzpicture}
+    \draw[thick, -stealth](-1,0) -> (xyz cs:x=5);
+    \draw[thick, -stealth](0,-1) -> (xyz cs:y=4);
+    \draw[step=1cm,gray,very thin] (0,0) grid (4, 3);
+    \draw[red, thick] (0, 0) -- (1, 2);
+    \draw[red, thick] (0, 0) -- (3, 1);
+    \draw[red, thick, dashed] (1, 2) -- (4, 3);
+    \draw[red, thick, dashed] (3, 1) -- (4, 3);
+    \node[shape=circle, fill=black, scale = 0.5] () at (0, 0) {};
+    \node[shape=circle, fill=black, scale = 0.5] () at (1, 1) {};
+    \node[shape=circle, fill=black, scale = 0.5] () at (2, 1) {};
+    \node[shape=circle, fill=black, scale = 0.5] () at (2, 2) {};
+    \node[shape=circle, fill=black, scale = 0.5] () at (3, 2) {};
+\end{tikzpicture}    
+\]
+
+The case for $n = 2$ is special. 
+\begin{theorem}[Pick Formula (G.A. Pick, 1859-1942)]
+    If $P \subset \R^2$ is a convex polygon with integer vertices and non-empty interior. Then \[
+    |P \cap \Z^2| = \text{ area of } P + \frac{1}{2}|\partial P \cap \Z^2| + 1
+    \]
+\end{theorem}
+\begin{proof}
+    Left as exercise. Hint: do it for parallelograms (in any dimension) first, then do it for triangles (special case for $n = 2$), and then all polygons with integer vertices.
+\end{proof}
+
+\fancyem{Exercise} For $n = 2$, linearly independent vectors of $u, v \in \Z^2$ form a basis $\iff$ the triangle with vertices $0, u, v$ has no other integer points.
+
+\fancyem{Exercise} For $n = 3$, construct an example of linearly independent $u, v, w \in \Z^3$ such that the tetrahedron  with vertices $0, u, v, w$ has no other integer points but $\set{u, v, w}$ is not a basis of $\Z^3$. In fact, you can have $|\Z^n/\Lambda|$ arbitrarily large.
+
+\fancyem{Exercise} Suppose $u_1, \ldots, u_k \in \Z^n$ are linearly independent vectors and $\Lambda = \Z^n \cap \operatorname{span}(u_1, \ldots, u_k)$. The $\set{u_1, \ldots, u_k}$ is a basis of $\Lambda$ if and only if the great common divisor of all $k \times k$ minors of $\begin{bmatrix}
+    u_1^T \\
+    u_2^T \\
+    \ldots \\
+    u_k^T
+\end{bmatrix}$ is $1$.
+
+Linear algebra (Smith normal form, will not use)
+
+If $\Lambda_0 \subset \Lambda$ is a sublattice, then there is a basis $u_1, \ldots, u_n$ of $\Lambda$ and a basis $v_1, \ldots, v_n$ of $\Lambda_0$ such that $v_i = m_iu_i$ for positive integer $m_i$ and such that $m_1$ divides $m_2$ which divides $m_3, \ldots$.
+
 
 
 \end{document}
