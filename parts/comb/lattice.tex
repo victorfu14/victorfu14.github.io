@@ -58,6 +58,7 @@
 \def \dist {\operatorname{dist}}
 \newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
 \newcommand{\df}{\mathrm{d}}
+\newcommand{\idf}{\ \mathrm{d}}
 \newcommand{\dr}[2]{\dfrac{\df #1}{\df #2}}
 \newcommand{\inner}[2]{\left\langle #1, #2\right\rangle}
 \newcommand{\qbin}[2]{\begin{bmatrix}{#1}\\ {#2}\end{bmatrix}_q}
@@ -376,6 +377,89 @@ Linear algebra (Smith normal form, will not use)
 
 If $\Lambda_0 \subset \Lambda$ is a sublattice, then there is a basis $u_1, \ldots, u_n$ of $\Lambda$ and a basis $v_1, \ldots, v_n$ of $\Lambda_0$ such that $v_i = m_iu_i$ for positive integer $m_i$ and such that $m_1$ divides $m_2$ which divides $m_3, \ldots$.
 
+\section{Minkowski Theorem}
+The goal today is to prove Minkowski Theorem (H. Minkowski, 1864-1909) for convex body.
+
+\begin{definition}
+    Suppose $V$ a Euclidean space, then a set $A \subset V$ is convex if $\forall x, y \in A, [x, y] \in A$ where $\set{[x, y] = \alpha x + (1-\alpha)y: 0 \leq \alpha \leq 1}$.
+\end{definition}
+\begin{definition}
+    A set $A$ is symmetric if $A = -A = \{-x: x \in A\}$.
+\end{definition}
+
+\begin{theorem}
+    Suppose $\Lambda \subset V$ a lattice and $A \subset V$ a convex symmetric set with $\vol A > 2^{\dim V} \det \Lambda$. Then there is $u \subset \Lambda \setminus \set{0}$ such that $u \in A$.s
+\end{theorem}
+
+\fancyem{$2^{\dim V}$ is sharp}: Pick $\Z^n \subset \R^n, \det \Z^n = 1$. Let $A = \set{-1 < x_i < 1,  i = 1, \ldots, n}$ convex and symmetric. Then $\vol A = 2^n$ and $A \cap Z^n = \set{0}$. And from geometric intuition we see that convex and symmetric is needed.
+
+It is a result from Blichfeldt's theorem.
+\begin{theorem}[H. F. Blichfeldt, 1873 - 1945]
+    Let measurable $X \subset V$, $\vol X > \det \Lambda$, then there are $x, y \in X$ such that $x - y \in \Lambda \setminus \set{0}$.
+\end{theorem}
+
+\fancyem{Intuition} $\det \Lambda$ describes the volume per lattice point. Consider $\set{X + u}$ the translations of $X$ by lattice points. Some of them must overlap i.e. $(X + u_1) \cap (X + u_2) \neq \emptyset$. Then $x + u_1 = y + u_2 \implies x - y = u_2 - u_1 \in \Lambda \setminus \set{0}$.
+
+\begin{proof}
+    Choose a fundamental parallelepiped $\Pi$ of lattice $\Lambda$. Then $\det \Lambda = \vol \Pi$. Then $\{\Pi + u, u \in \Lambda\}$ cover $V$ without overlap. In particular, they cover $X$.
+
+    Let $X_u \defeq ((\Pi + u) \cap X) - u$. $\sum_{u \in \Lambda} \vol X_u = \vol X > \vol \Pi$. And $X_u \subset \Pi$. Then $\exists u_1 \neq u_2 \st X_{u_1} \cap X_{u_2}\neq \emptyset$. Then $\exists x, y \in X \st x - u_1 = y - u_2 \implies x - y = u_1 - u_2 \in \Lambda \setminus \set{0}$.
+\end{proof}
+
+\begin{proof}[Proof of Minkowski's Theorem]
+    Let $X = \frac{1}{2}A = \set{\frac{1}{2}x, x \in A}$.
+    Then $\vol X = 2^{-\dim v}\vol A > \det \Lambda$. By Blichfeldt, there are $x, y \in X$ such that $x - y \in \Lambda \setminus \set{0}$. Write \[u = x - y = \frac{1}{2}(2x) + \frac{1}{2}(-2y)\]
+    Since $A$ is convex and symmetric, $2x, -2y \in A$ and $x - y \in A \implies u \in A$.
+\end{proof}
+
+\fancyem{Exercise} Suppose $\Lambda \subset V$ a lattice. Let $X = \set{x \in V: \norm{x} < \norm{x - u}, \forall u \in \Lambda \setminus \set{0}}$. Let $A = 2X$. Show that $A$ is convex, symmetric, $A = 2^{\dim V} \det \Lambda$ and $ A \cap \Lambda = \{0\}$.
+
+\begin{corollary}
+    If, in addition, $A$ is compact, then it is enough to have $\vol A \geq 2^{\dim V} \det \Lambda$.
+\end{corollary}
+We can apply the proof for $(1 + \varepsilon)A$ and let $\varepsilon \to 0$.
+
+\begin{corollary}
+    Let $V = \R^n$, and $\norm{x}_\infty = \max_{i=1, \ldots, n} |x_i|$. Then there is a $u \in \Lambda \setminus \set{0}$ with $\norm{u}_\infty \leq (\det \Lambda)^{\frac{1}{n}}$.
+\end{corollary}
+Consider $A = \set{x, |x_i| \leq (\det \Lambda)^{\frac{1}{n}}}$.
+\begin{corollary}
+    Suppose $\Lambda \subset V$. Then there is $u \subset \Lambda \setminus \set{0}$ with $\norm{u} \leq \sqrt{\dim V}(\det \Lambda)^{\frac{1}{n}}$.
+\end{corollary}
+
+\fancyem{Exercise} If $X \subset V$ is measurable and $\vol X > m\det \Lambda$ with $m \in \Z^+$. Then there are $x_1, \ldots, x_{m+1} \in X$ such that $x_i - x_j \in \Lambda$ for all pairs $i, j$.
+
+If $A$ is convex, symmetric, and $\vol A > m \cdot 2^{\dim V} \det \Lambda$. Then $A$ contains $m$ distinct pairs $\pm u_1, \ldots, \pm u_m$ of nonzero lattice points.
+
+\fancyem{Exercise (Important)} If $X \subset \Lambda$ is a set such that $|X| > 2^{\dim V}$ then there are distinct $x, y \in X$ such that $\frac{x+y}{2} \in \Lambda$.
+
+\fancyem{Exercise} Suppose $f: V \to \R_+$ is integrable and $\Lambda \subset V$ a lattice. Then there are $z_1, z_2 \in V$ such that \[\sum_{u \in \Lambda} f(u+z_1) \geq \frac{1}{\det\Lambda}\int_V f(x)\ \df x \geq \sum_{u \in \Lambda}f(u+z_2).\]
+
+
+We need the column of the unit ball in $\R^n$.
+\[\Gamma(x) = \int_0^\infty t^{x-1}e^{-t}\idf t\]
+\[\Gamma(x+1) = x\Gamma(x)\]
+
+\[B = \set{x: \norm{x} = 1}, B \subset \R^n, \vol B = \frac{\pi^{n/2}}{\Gamma\left(\frac{n}{2}+1\right)}\]
+We start with integral:
+\[\int_{-\infty}^\infty e^{-x^2}\idf x = \sqrt{\pi}, \int_{\R^n} e^{-\norm{x}^2}\idf x = \left(\sqrt{\pi}\right)^n\]
+Let $S(r) = \set{x \in \R^n: \norm{x} = r}$ and $\kappa$ be the surface area of $S(1)$.
+\begin{align*}
+    \left(\sqrt{\pi}\right)^n & = \int_{0}^\infty \left(\int_{S(r)} e^{-\norm{x}^2} \idf x\right) \idf r \\
+    & = \int_0^\infty r^n\kappa e^{-r^2}\idf r \\
+    & = \frac{1}{2}\int_0^\infty t^{\frac{n-2}{2}}\kappa e^{-t}\idf t \\
+    & = \kappa \frac{1}{2} \int_0^\infty t^{\frac{n-2}{2}}\kappa e^{-t}\idf t = \frac{1}{2}\kappa \gamma\left(\frac{n}{2}\right)
+\end{align*}
+So we have $\kappa = \frac{2\left(\sqrt{\pi}\right)^n}{\Gamma\left(\frac{n}{2}\right)}$.
+
+Then \[
+    \vol B = \int_0^1 \kappa t^{n-1} \idf r = \frac{\kappa}{n} = \frac{\pi^{n/2}}{\Gamma\left(\frac{n}{2}+1\right)}.
+\]
+
+First Application:
+\begin{theorem}[Lagrange's four squares theorem (J-L Lagrange, 1736-1813)]
+    If $n \geq 0$ is a non-negative integer, then $n = x_1^2 + x_2^2 + x_3^2 + x_4^2$ for some integer $x_1, x_2, x_3, x_4$.
+\end{theorem}
 
 
 \end{document}
