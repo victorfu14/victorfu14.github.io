@@ -135,6 +135,7 @@
 \usepackage{fancyvrb, fancyhdr}
 \usepackage{tikz-cd}
 \usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing,calligraphy}
 \PassOptionsToPackage{usenames, x11names}{xcolor}
 \usepackage{tcolorbox}
 \selectcolormodel{cmy}
@@ -192,7 +193,12 @@ Office hours:
 \chapter{Introduction to Lattices}
 \section{Definition}
 \begin{definition}
-    A lattice $\Lambda \subset V$ is a discrete additive group.
+    A lattice $\Lambda \subset V$ has the following properties:
+    \begin{enumerate}
+        \item $\operatorname{span}(\Lambda) = V$.
+        \item $\Lambda$ is an additive subgroup.
+        \item $\Lambda$ is discrete: for any $r > 0$, let $B_r = \set{x \in \R^n, \norm{x} \leq r}$, $\Lambda \cap B_r$ is finite.
+    \end{enumerate}
 \end{definition}
 
 \section{Lattice and Its Basis}
@@ -456,10 +462,103 @@ Then \[
     \vol B = \int_0^1 \kappa t^{n-1} \idf r = \frac{\kappa}{n} = \frac{\pi^{n/2}}{\Gamma\left(\frac{n}{2}+1\right)}.
 \]
 
-First Application:
+\section{Applications of Minkowski's Theorem}
+First application:
 \begin{theorem}[Lagrange's four squares theorem (J-L Lagrange, 1736-1813)]
     If $n \geq 0$ is a non-negative integer, then $n = x_1^2 + x_2^2 + x_3^2 + x_4^2$ for some integer $x_1, x_2, x_3, x_4$.
 \end{theorem}
+\begin{proof}
+    Start as Lagrange did: first, prove assuming that $n$ is prime, then there are $a, b \in \Z$ such that $a^2 + b^2 + 1 \equiv 0 \pmod{n}$.
 
+    $n = 2$ is clear. Consider values of $a^2 \pmod{n}$ for $n > 2$ and $a = 0, 1, \ldots, \frac{n-1}{2}$. They are all distinct. Otherwise $a_1^2 \equiv a_2^2 \equiv \pmod{n} \implies (a_1 - a_2)(a_1 + a_2) \pmod{n}$.
+
+    Consider values $-1-b^2 \pmod{n}$ for $b = 0, 1, \ldots, \frac{n-1}{2}$. They are all different values.
+
+    There are a total of $n+1$ values, so there exists $a^2 \equiv -1 - b^2 \pmod{n}$ by pigeonhole principle.
+
+    We introduce one generally useful lemma:
+    \begin{lemma}
+        Suppose $a_1, \ldots, a_k \in \Z^n$ and $m_1, \ldots, m_k$ positive integers and
+        \[\Lambda = \set{x \in \Z^n: \inner{x}{a_i} \equiv 0 \pmod{m_i}}.\]
+        Then $\Lambda$ is a lattice and $\det \Lambda \leq m_1\cdots m_k$.
+    \end{lemma}
+    Consider their cosets: pick $0 \leq b_i \leq m_i$, and the coset is \[\set{x \in \Z^n: \inner{x}{a_i} \equiv b_i \pmod{m_i}}\] if the set is non-empty. Then $|\Z^n / \Lambda| = \frac{\det\Lambda}{\det \Z^n}$.
+
+    The rest is from Davenport:
+    Suppose a lattice \[\Lambda = \set{x \in \Z^4: \begin{array}{c} x_1 \equiv ax_3 + bx_4 \\ x_2 \equiv ax_4 - bx_3\end{array} \pmod{n}}.\]
+    If $(x_1, x_2, x_3, x_4) \in \Lambda$ then \begin{align*}
+        x_1^2 + x_2^2 + x_3^2 + x_4^2 \equiv (ax_3 + bx_4)^2 + (ax_4 - bx_3)^2 + x_3^2 + x_4^2 \pmod{n} \\
+        a^2x_3^2 + b^2x_4^2 + 2abx_3x_4 + \\
+        a^2x_4^2 + b^2x_3^2 - 2abx_3x_4 + x_3^2 + x_4^2 \equiv (a^2 + b^2 + 1)x_3^2 + (b^2 + a^2 + 1) x_4^2 \equiv 0 \pmod{n}
+    \end{align*}
+
+    So we have $x_1^2 + x_2^2 + x_3^2 + x_4^2 \equiv 0 \pmod{n}$ for all $(x_1, x_2, x_3, x_4) \in \Lambda$. So $\det \Lambda \leq n^2$. Consider the ball $B$ with radius $\sqrt{2n}$. The volume of the ball $\vol B = 2n^2\pi^2 \geq 2^4 n^2 \geq 2^4 \det \Pi$. So there exists $(x_1, x_2, x_3, x_4) \in \Lambda \setminus \set{0}$ such that $x_1^2 + x_2^2 + x_3^2 + x_4^2 < 2n$ and $x_1^2 + x_2^2 + x_3^2 + x_4^2 \equiv 0 \pmod{n}$.
+
+    So we conclude that such $x_1^2 + x_2^2 + x_3^2 + x_4^2 = n$.
+
+    Now suppose $n$ is not prime, write $n = \prod p_i$ where $p_i$'s are prime numbers. \[(x_1^2 + x_2^2 + x_3^2 + x_4^2)(y_1^2 + y_2^2 + y_3^2 + y_4^2) = z_1^2 + z_2^2 + z_3^2 + z_4^2\] where \[\begin{cases}
+        z_1 = x_1y_1 - x_2y_2 - x_3y_3 - x_4y_4 \\
+        z_2 = x_1y_2 + x_2y_1 + x_3y_4 - x_4y_3 \\
+        z_3 = x_1y_3 + x_2y_4 + x_3y_1 + x_4y_2 \\
+        z_4 = x_1y_4 - x_2y_3 - x_3y_3 + x_4y_1 \\
+    \end{cases}\]
+
+    Remember through quaternions. $x_1 + ix_2 + jx_3 + kx_4$.
+\end{proof}
+
+Jacobi's Formula (C.G.J Jacobi, 1804-1851)
+The number of integer solutions (not necessarily positive) of the equation \[x_1^2 + x_2^2 + x_3^2 + x_4^2 = n\] is $8 \cdot \sum_{d | n, 4 \not| d} d$.
+
+\fancyem{Exercise} Deduce the Jacobi's Formula from the identity \[
+  \left(\sum_{k=-\infty}^\infty q^k\right)^4 = 1 + 8\sum_{k=1}^\infty \frac{q^k}{\left(1 + (-q)^k\right)^2}, \text{ for } |q| < 1.
+\]
+
+Gauss Circle Problem (C.-F Gauss, 1777, 1855)
+$B_r = \set{x \in \R^2: \norm{x} \leq r}$. As $r \to \infty$, $|B(r) \cap \Z^2| \approx \pi r^2 + O(r^{1/2 + \varepsilon})$ for any $\varepsilon > 0$? Best known is $O(r^{0.63})$ for $\varepsilon = 0.13$.
+
+\fancyem{Exercise} If $n$ is prime, $n \equiv 1 \pmod{4}$. Then $n = x_1^2 + x_2^2$ for some $x_1, x_2 \in \Z$.
+
+How well can we approximate a real number for rational numbers?
+
+If $\alpha \in \R$ and $q \geq 1$ is an integer, then for some integer $p$ we have $\left|\alpha - \frac{p}{q}\right| \leq \frac{1}{2q}$.
+
+\begin{theorem}
+    For any $\alpha \in \R$ and $M > 0$, there exists $q \geq M$ and an integer $p$ such that $\left|\alpha - \frac{p}{q}\right| \leq \frac{1}{q^2}$.
+\end{theorem}
+It shows that this holds for infinitely many $q$.
+
+\begin{proof}
+    Assume WLOG that $\alpha$ is irrational. Pick $Q \geq 1$ an integer. Consider the parallelogram in $\R^2: \set{|x|\leq Q, |\alpha x - y| \leq \frac{1}{Q}}$.
+    \[
+    \begin{tikzpicture}
+        \draw[thick, -stealth](-5,0) -> (xyz cs:x=5);
+        \draw[thick, -stealth](0,-3) -> (xyz cs:y=3);
+        \draw[red, dashed] (-4, -2) -- (4, 2);
+        \draw[red] (-4, -1) -- (4, 3);
+        \draw[red] (-4, -3) -- (4, 1);
+        \draw[red] (-4, -3) -- (-4, -1);
+        \draw[red] (4, 3) -- (4, 1);
+        \draw[red, dashed] (4, 0) -- (4, 1);
+        \draw[red, dashed] (-4, 0) -- (-4, -1);
+        \node[shape=rectangle, fill=black, scale = 0.5] (A) at (4, 0) {};
+        \node[below] at (A.south) {$Q$};
+        \node[shape=rectangle, fill=black, scale = 0.5] (B) at (-4, 0) {};
+        \node[below] at (B.south) {$-Q$};
+        \draw[decorate, thick, decoration = {brace, raise=3pt}] (4,3) -- (4,2)
+        node[pos=0.5,right=3pt,black]{$\frac{1}{Q}$};
+    \end{tikzpicture}
+    \]
+
+    $\Pi$ is convex, symmetric, compact, with area $\Pi = 4 = 2^2$.
+
+    By Minkowski, there exists $(q, p) \in \Z^2 \setminus \set{0}, (q, p) \in \Pi$ such that $\left|\alpha q - p\right| \leq \frac{1}{Q}, |p| \leq \frac{1}{Q} \implies p = 0$. Assume that $q > 0$. 
+
+    We have $q \leq Q$, and \[
+    \left|\alpha q - p\right| \leq \frac{1}{Q} \implies \left|\alpha - \frac{p}{q}\right| \leq \frac{1}{Qq} \leq \frac{1}{q^2}
+    \]
+    It remains to show that for any $M$ we can choose $q \geq M$.
+
+    Why? $\alpha$ is irrational. Choose $Q$ so large that we cannot have $\left|\alpha - \frac{p}{q}\right| \leq \frac{1}{Q}$ for $q \leq M$.
+\end{proof}
 
 \end{document}
