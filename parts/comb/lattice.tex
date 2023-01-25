@@ -69,6 +69,7 @@
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\set}[1]{\left\{ #1 \right\}}
 \newcommand{\rank}{\operatorname{rank}}
+\newcommand{\abs}[1]{\left| #1 \right|}
 
 % arrows and :=, =:
 \makeatletter
@@ -525,6 +526,8 @@ If $\alpha \in \R$ and $q \geq 1$ is an integer, then for some integer $p$ we ha
 \begin{theorem}
     For any $\alpha \in \R$ and $M > 0$, there exists $q \geq M$ and an integer $p$ such that $\left|\alpha - \frac{p}{q}\right| \leq \frac{1}{q^2}$.
 \end{theorem}
+In fact, we can have $\left|\alpha - \frac{p}{q}\right| \leq \frac{1}{q^2\sqrt{5}}$, which is optimal.
+
 It shows that this holds for infinitely many $q$.
 
 \begin{proof}
@@ -560,5 +563,103 @@ It shows that this holds for infinitely many $q$.
 
     Why? $\alpha$ is irrational. Choose $Q$ so large that we cannot have $\left|\alpha - \frac{p}{q}\right| \leq \frac{1}{Q}$ for $q \leq M$.
 \end{proof}
+
+\fancyem{Exercise} For any $\alpha_1, \ldots, \alpha_n \in \R$ and any $M$, there are integers $p_1, \ldots, p_n$ and $q \geq M $ such that $\left|\alpha_k - \frac{p_k}{q}\right| \leq \frac{1}{q^{\frac{n+1}{n}}}$ for $k = 1, \ldots, n$.
+
+Continued fractions: given $\alpha$, we produce a possibly infinite expression: \[
+    \alpha = a_0 + \frac{1}{a_1 + \frac{1}{a_2 + \frac{1}{\vdots}}}\]
+and denote $\alpha = [a_0; a_1, a_2, \ldots]$
+How: introduce variables $\beta_0, \beta_1 \ldots$ where $\beta_0 = \alpha$. Write $\beta_0 = \floor{\beta_0} + \set{\beta_0}$.
+
+Let $a_0 = \floor{\beta_0}$, if $\set{\beta_0} = 0$ then stop. Otherwise let $\beta_1 = \frac{1}{\set{\beta_0}}$. Let $\alpha_1 = \floor{\beta_1}$, continue.
+
+\begin{example}
+    Let $\alpha = \sqrt{2}$. $\beta_0 = \sqrt{2}$ and $a_0 = 1$.
+    \[\sqrt{2} = 1 + (\sqrt{2} - 1) = 1 + \frac{1}{\frac{1}{\sqrt{2}-1}} = 1 + \frac{1}{\sqrt{2} + 1}\]
+    \[ = 1 + \frac{1}{2 + (\sqrt{2} - 1)} = 1 + \frac{1}{2 + \frac{1}{\frac{1}{\sqrt{2} - 1}}}\]
+\end{example}
+
+Convergents:
+k-th convergent: \[[a_0;a_1, \ldots, a_k] = a_0 + \frac{1}{a_1 + \frac{1}{a_2 + \frac{1}{\ldots + \frac{1}{a_k}}}} = \frac{p_k}{q_k}\]
+
+\fancyem{Exercises} Suppose $p_k, q_k$ are coprime. Prove that $p_k = a_kp_{k-1} + p_{k-2}, q_k = a_kq_{k-1}+q_{k-2}$ for $k \geq 2$.
+Hint: Induction $[a_0; a_1, \ldots, a_k] \to [a_1; a_2, \ldots, a_k]$.
+
+Prove that $p_{k-1}q_k - p_kq_{k-1} = (-1)^k$ for $k \geq 1$.
+
+Prove that $q_kq_{k-2} - p_kq_{k-2} = (-1)^{k-1} a_k$ for $k \geq 2$.
+
+\[\begin{tikzpicture}
+    \draw[thick, -stealth](-3,0) -> (xyz cs:x=3);
+    \node[shape=rectangle, fill=black, scale = 0.3] (A1) at (0, 0) {};
+        \node[below] at (A1.south) {$\alpha$};
+    \node[shape=rectangle, fill=black, scale = 0.3] (A2) at (-2, 0) {};
+        \node[below] at (A2.south) {$\dfrac{p_k}{q_k}, k$ even};
+    \node[shape=rectangle, fill=black, scale = 0.3] (A3) at (2, 0) {};
+        \node[below] at (A3.south) {$\dfrac{p_k}{q_k}, k$ odd};
+    \draw[-stealth, thick] (A3) to [out=135,in=45,looseness=1.1] (A1) node[midway, above, sloped] {};
+    \draw[-stealth, thick] (A2) to [out=45,in=135,looseness=1.1] (A1) node[midway, above, sloped] {};
+\end{tikzpicture}\]
+
+Prove that $\left|\alpha - \frac{p_k}{q_k}\right| \leq \frac{1}{q_kq_{k+1}}, k \geq 0$.
+
+(Hard, easy if replace 5 by 2) Prove that at least one of the three holds:
+\[\left|\alpha - \frac{p_k}{q_k}\right| \leq \frac{1}{q_k^2 \sqrt{5}}, \left|\alpha - \frac{p_{k-1}}{q_{k-1}}\right| \leq \frac{1}{q_{k-1}^2 \sqrt{5}}, \text{ or } \left|\alpha - \frac{p_{k-2}}{q_{k-2}}\right| \leq \frac{1}{q_{k-2}^2 \sqrt{5}}.\]
+
+Convergents are the best rational approximation in the following sense:
+
+Given $\alpha$ and integer $Q > 1$, we want to find $\frac{a}{b}$ such that $|b| \leq Q$ and $|\alpha b - a|$ is the smallest possible.
+
+\fancyem{Claim} Must have $\frac{a}{b} = \frac{p_k}{q_k}$. (With possible exception of $k = 0, 1$.)
+
+\fancyem{Why/Exercises} Suppose not: pick the largest $k$ such that $\frac{a}{b}$ is between $\frac{p_{k-1}}{q_{k-1}}$ and $\frac{p_k}{q_k}$.
+\[\begin{tikzpicture}
+    \draw[thick, -stealth](-3,0) -> (xyz cs:x=3);
+    \node[shape=rectangle, fill=black, scale = 0.3] (A) at (0, 0) {};
+        \node[below] at (A.south) {$\alpha$};
+    \node[shape=rectangle, fill=black, scale = 0.3] (A2) at (-2, 0) {};
+        \node[below] at (A2.south) {$\frac{p_k}{q_k}$};
+    \node[shape=rectangle, fill=black, scale = 0.3] (A3) at (2.5, 0) {};
+        \node[below] at (A3.south) {$\frac{p_{k-1}}{q_{k-1}}$};
+    \node[shape=rectangle, fill=black, scale = 0.3] (A4) at (1.5, 0) {};
+        \node[below] at (A4.south) {$\frac{p_{k+1}}{q_{k+1}}$};
+\end{tikzpicture}\]
+Then $\left|\frac{a}{b}-\frac{p_{k-1}}{q_{k-1}}\right| \geq \frac{1}{bq_{k-1}}$, easy.
+Then $\abs{\frac{a}{b} - \frac{p_{k-1}}{q_{k-1}}} \leq \abs{\frac{p_k}{q_k}-\frac{p_{k-1}}{q_{k-1}}} = \frac{1}{q_kq_{k-1}}$ from last exercise. 
+
+On the other hand $\abs{\alpha - \frac{a}{b}}\geq\abs{\frac{p_{k+1}}{q_{k+1}}-\frac{a}{b}} \geq \frac{1}{bq_{k+1}}$. So $\abs{\alpha b - a} \geq \frac{1}{q_{k+1}}$ but $\abs{\alpha q_k - p_k}\leq\frac{1}{q_{k+1}}$. 
+
+So $b > q_k$.
+
+\begin{theorem}[Liouville's theorem (Joseph Liouville, 1809-1882)]
+    If $\alpha$ is an algebraic irrational of degree $n \geq 2$. Then $\abs{\alpha - \frac{p}{q}} \geq \frac{c(\alpha)}{q^n}$ with $c(\alpha) > 0$.
+\end{theorem}
+Corollary: $\alpha = \sum_{n=1}^\infty \frac{1}{10^{n!}}$ is transcendental. (the rough idea is that if an irrational number is approximated too well then it is transcendental)
+
+
+\section{Sphere Packing}
+Denote balls: $B_r(x_0) \defeq \set{x: \norm{x - x_0} \leq r}$.
+
+\begin{definition}
+    \emph{A sphere packing} is a (usually infinite) collection of balls $B_r(x_i)$ with the same radius with pairwise non-intersecting interiors.
+    
+    The \emph{density} of a sphere packing $\sigma$ is defined as \[
+        \sigma = \limsup_{R\to\infty} \frac{\vol\left(B_R(0) \cap \bigcup_i B_r(x_i)\right)}{\vol B_R(0)}\]
+\end{definition}
+
+Generally we want to find the largest density of a sphere packing in $\R^n$. We know $n=1, 2, 3, 8, 24$.
+
+If centers $x_i$ forms a lattice, then it is called a lattice (sphere) packing. For densest lattice packings, we know $n = 1, 2, 3, 4, 5, 6, 7, 8, $ and $24$.
+
+\fancyem{Remark/Easy Exercise} If $\set{x_i}$ forms a lattice $\Lambda \subset \R^n$, $\sigma(\Lambda) = \frac{\pi^{n/2}}{\Gamma\left(\frac{n}{2}+1\right)}\frac{\rho^n}{\det \Lambda}$ where $\rho$ is called the packing radius, which is defined by $\rho(\Lambda) = \frac{1}{2}\min_{x \in \Lambda \setminus \set{0}} \norm{x}$. If $\Lambda_1 \sim \Lambda_2$ then $\sigma(\Lambda_1) = \sigma(\Lambda_2)$.
+
+For $n=1, \sigma(\Lambda) = 1$.
+
+For $n=2, \rho(\Z^2) = \frac{1}{2}, \det \Z^2 = 1, \sigma(\Z^2) = \frac{\pi}{4}$.
+$\rho(A_2) = \frac{\sqrt{2}}{2}, \det A_2 = \sqrt{3}, \sigma(A_3) = \pi \frac{1}{2\sqrt{3}}$. (locally denest) (Best lattice packing by Gauss, best packing overall by Laselo Fejes Toth (1915-2005))
+
+For $n = 3, \Lambda = A_3 = D_3, \rho(\Lambda) = \frac{\sqrt{2}}{2}, \det \Lambda = 2, \sigma(\Lambda) = \frac{4\pi}{3}\frac{1}{4\sqrt{2}} = \frac{\pi}{3\sqrt{2}}$. (not locally denest) (Best lattice packing by Gauss, best packing overall by T.Hales (1958- ))
+
+There is a continuum of non-equivalent non-lattice densest packings.
 
 \end{document}
