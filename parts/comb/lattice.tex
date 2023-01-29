@@ -662,4 +662,96 @@ For $n = 3, \Lambda = A_3 = D_3, \rho(\Lambda) = \frac{\sqrt{2}}{2}, \det \Lambd
 
 There is a continuum of non-equivalent non-lattice densest packings.
 
+12 balls touching the ball of the same radius.
+
+For $n = 4$ compare $A_4, D_4$.
+
+$\rho(A_4) = \rho(D_4) = \frac{\sqrt{2}}{2}$. $\det A_4 = \sqrt{5}$. And $\det D_4 = 2 < \sqrt{5}$.
+
+$\sigma(D_4) = \frac{\pi^2}{2}\frac{1}{8} = \frac{\pi^2}{16} \approx 0.617$.
+
+Densest lattice packing (Korkin Zolotaren)
+24 vectors of length $\sqrt{2} = (\pm1,0,\pm1, 0)$, 24 balls touching central ball (cannot have more by musin, 2008)
+
+For $n = 5$, consider $D_5$
+
+$\rho(D_5) = \frac{\sqrt{2}}{2}, \det D_5 = 2$. $\sigma(D_5) = \frac{\pi^2}{15\sqrt{2}} \approx 0.465$. 
+
+Densest lattice packing (Korkin Zolotaren), 40 balls touching central ball.
+
+For $n = 8$, consider $E_8$.
+
+$\rho(E_8) = \frac{\sqrt{2}}{2}, \det E_8 = 1, \sigma(E_8) = \frac{\pi^4}{24}\frac{1}{16}=\frac{\pi^4}{384}\approx0.254$.
+Densest lattice packing(Blichfeldt), densest overall(M. Vyazovska, 1984-)
+
+240 vectors of length $\sqrt{2}$: $(\pm1, 0, \pm1, 0, \ldots) \left(-\frac{1}{2}, -\frac{1}{2}, \ldots\right)$ with an even number of $-\frac{1}{2}$ turned into positive ones.
+
+240 balls touching the central ball, cannot fir more (Odlyzko and sloane, 1979) (it is rigid)
+
+For $n = 7$, $\rho(D_7) = \frac{\sqrt{2}}{2}, \det D_7 = 2$. $\rho(E_7) = \frac{\sqrt{2}}{2}, \det E_7 = \sqrt{2}$.
+
+$\sigma(E_7) = \frac{\pi^3}{105}\approx0.292$. Densest lattice (Blichfeldt), not rigid.
+
+For $n = 6$, $\rho(D_7) = \frac{\sqrt{2}}{2}, \det D_7 = 2$. $\rho(E_7) = \frac{\sqrt{2}}{2}, \det E_7 = \sqrt{3}$.
+
+$\sigma(E_7) = \frac{\pi^3}{48\sqrt{3}}\approx0.373$. Densest lattice (Blichfeldt)
+
+\section{Leech Lattice}
+John Leech, 1926-1992
+
+Consider $\R^{26}$, number coordinates,
+$D_{26} \subset \Z^{26}: \sum_{k=0}^25 \equiv 0 \pmod{2}$
+
+$u = \left(\frac{1}{2}, \ldots, \frac{1}{2}\right)$.
+
+$D_{26}^+ = D_{26} \cup (D_{26} + u)$
+
+\[\sum_{k=0}^{24} = k^2 = 4900 = 70^2.\]
+(No other integer satisfies this afterwards)
+
+$w_+ = (0, 1, \ldots, 24, 70), w_- = (0, 1, \ldots, 24, -70), W_+, W_- \in D_{26}$. $\sum_{k=0}^{24} \pm 70 = \frac{25 \cdot 24}{2}\pm 60 \equiv 0 \pmod{2}$.
+
+Look at the hyperplane $H \subset \R^{26} = \set{x: \inner{x}{w_-} = 0}$.
+
+$\Lambda_{25} = D^+_{25} \cap H$ is a lattice of rank 25. We see that $w_+$ lies in the lattice. Take $L = w_+^{\perp} \subset H, \dim L = 24.$ Define $\Lambda_{24}$ to be the orthogonal projection of $\Lambda_{25}$ onto $L$.
+
+$\Lambda_{24}$ is discrete because $\operatorname{span}(w_+) \subset H$ is a lattice subspace.
+
+$\Lambda_{24}$ is the Leech lattice.
+
+Useful formula for the length.
+
+Pick $(x_0, x_1, \ldots, x_25)$ in $\Lambda_{25}$, what is the length of projection in $\Lambda_{24}$?
+
+Let $\widehat{x} \in \Lambda_{24}$ be the projection: $\widehat{X} = x - \alpha w_+$ so that $\inner{\widehat{x}}{w_+} = 0$. So $\inner{x}{w_+} - \alpha\inner{w_+}{w_+} = 0 \implies \frac{\inner{x}{w_+}}{\inner{w_+}{w_+}}$.
+
+$\norm{\widehat{x}}^2 = \norm{x}^2 - \norm{\alpha w_+}^2 = \norm{x}^2 - \frac{\inner{x}{w_+}^2}{\inner{w_+}{w_+}}$
+
+$x \in \Lambda_{25} \subset H \implies \inner{x}{w_-} = 0$. $w_+ = w_- + 140 \implies \inner{x}{w_+} = \inner{x}{w_-} + 140 x_{25} = 140 x_{25}$.
+
+$\norm{\widehat{x}}^2 = \sum_{k=0}^{25} x_k^2 - \frac{140^2x^2_{25}}{\sum_{k=0}^{24} k^2 + 70^2} = \sum_{k=0}^{25} x_k^2 - 2 \cdot x^2_{25} = \sum_{k=0}^{24}x_k^2  - x_{25}^2$.
+
+
+Some shortest non-zero vectors in $\Lambda_{24}$.
+$x = (0, 1, -1, -1, 1, 0, \ldots, 0) \in D_{25} \subset D_{26}^+$.
+$\inner{x}{w_-} = 0 + 1 - 2 - 3 + 4  = 0 \implies x \in \Lambda_{25}$, also 
+$\inner{x}{w_+} = 0 + 1 - 2 - 3 + 4  = 0 \implies x \in \Lambda_{24}, \norm{x} = 2$.
+
+Pick $y = \left(frac{1}{2}, \underbrace{-\frac{1}{2}, \ldots, -\frac{1}{2}}_{9 \text{ times}}, \underbrace{\frac{1}{2}, \ldots, \frac{1}{2}}_{15 \text{ times}}, \frac{3}{2}\right)$. $y - u \in D_{26} \implies y \in D_{26}^+$.
+
+$\inner{y}{w_-} = 0, \norm{\widehat{y}}^2 = \sum_{k=0}^{24} \frac{1}{4} - \frac{9}{4} = \frac{25 - 9}{4} = 4$.
+
+There are 196560 vectors of length $2$. (<- many balls touching the central ball)
+cannot put more (Odlyzko \& Sloane, 1979) and this configuration is rigid.
+
+Rigid phenomenon in dim 2, 8, and 24.
+
+\fancyem{Exercises}
+\begin{enumerate}
+    \item $\det D_{26} = 2, \det D_{26}^+ = 1, \det \Lambda_{25} = 70\sqrt{2}, \det \Lambda_{24} = 1$.
+    \item For any $x \in \Lambda_{24}$, $\norm{x}^2$ is an even integer.
+    \item $\min_{x \in \Lambda_{24} \setminus 0} \norm{x} = 2$.
+    \item $\Lambda^*_{24} \cong \Lambda 24$.
+\end{enumerate}
+
 \end{document}

@@ -27,11 +27,11 @@ printf("What you see is %lf, but computer's struggling with %lx", val.decimal, v
 
 Well, that is how the representation will change when you change from base 10 to base 2. So is life.
 
-If you change a perspective, you'll probably get a entirely different experience. Sometimes you would struggle, sometimes you would be grateful.
+If you change a perspective, you'll probably get an entirely different experience. Sometimes you would struggle, sometimes you would be grateful.
 
 Here's to my first personal website.
 
-And some \\( \LaTeX \\) testing:
+Some \\( \LaTeX \\) testing:
 
 \\[ e^{i\pi} + 1 = 0 \\]
 
