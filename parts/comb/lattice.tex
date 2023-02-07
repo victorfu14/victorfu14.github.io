@@ -754,4 +754,226 @@ Rigid phenomenon in dim 2, 8, and 24.
     \item $\Lambda^*_{24} \cong \Lambda 24$.
 \end{enumerate}
 
+% \section{Asymptotic Behavior}
+What happens if $n = \dim V$ is large?
+
+Gilbert-Varshamov Bound (E.N. Gilbert, 1923-2013, R.R Varshamov, 1927-1999)
+\begin{theorem}
+    THere is a sphere packing in $\R^n$ of density $\geq 2^{-n}$.
+\end{theorem}
+\begin{proof}
+    Consider a saturated packing (young cannot add another ball to the poacking) of balls of radius $1$.
+
+    Claim: its density $\geq 2^{-n}$.
+
+    Why? If $\bigcup_{i \in I} B(x, 1)$ is saturated then $\bigcup_{i \in I} B(x_i, 2) = \R^n$.
+
+    If it does not cover, say point $y \in \R^n$. We can add a ball $B(y)$ to the packing. If $x_i \in  B_{R-1}(0)$ then $B_1(x_i) \subset B_R(0)$. If $B_2(x_i) \cap B_{R-3}(0) \neq \emptyset$ then $x_i \in B_{R-1}$.
+
+    \[\sum_{x_i \in B_{R-1}(0)}\vol B_2(x_i) \geq \vol B_{R-3}(0) \implies \sum_{x_i \in B_{R-1}}2^n\vol B_1(x_i) \geq \vol B_{R-3}(0).\]
+    Hence \[\vol \left(B_R(0) \cap \bigcup_{i} B_1(x_i)\right) \geq \sum_{x_i \in B_{R-1} \vol B_1(x_i) \geq 2^{-n}\vol B_{R-3}}(0)\]
+    Take $R \to \infty$.
+\end{proof}
+
+\section{Lattice Packings}
+We will prove "today" for any $0 < \alpha < 2^{-n}$ there is a lattice $\Lambda \subset  \R^n$ with $\sigma(\Lambda) \geq a$. Later in this course $\sigma (\Lambda) \geq 2^{-n}$.
+
+Real Minkowski-Hlawka theorem is $\sigma(\Lambda) \geq 2 \cdot \zeta(n)2^{-n}$ (assuming $n > 1$) where $\zeta(n) = \sum_{k=1}^\infty \frac{1}{k^n}$.
+
+What's known:
+There is a lattice $\Lambda \subset \R^n \sigma(\Lambda) \geq 1.68n2^{-n}$ (Davenport-Rogers, 1947)
+
+$\sigma(\Lambda) \geq 2(n-1)\zeta(n)2^{-n}$ (K. Ball, 1992)
+
+$\sigma(\Lambda) \geq \frac{1}{2}(n \ln \ln n) 2^{-n}$ for infinitely many $n$. (Venkatesh, 2013)
+
+What's going on with packing radius? Say we scale to $\det \Lambda = 1$.
+
+\[\sigma(\Lambda) = \frac{\pi^{n/2}}{\Gamma\left(\frac{n}{2}+1\right)\frac{\rho^n(\Lambda)}{\det \Lambda}} \geq 2^{-n}\]\[\implies \rho(\Lambda) \geq \frac{1}{2}\frac{\left(\Gamma\left(\frac{n}{2}+1\right)\right)^{1/n}}{\sqrt{\pi}} \approx \frac{\sqrt{\pi}}{2\sqrt{2\pi e}}\]
+
+$\min_{x \in \Lambda\setminus \set{0}} \norm{x} \geq \sqrt{\frac{n}{2\pi e}}$. Try to construct explicitly a lattice in $\R^n$ of $\det \Lambda = 1$ with $\min_{x \in \Lambda \setminus \set{0}} \norm{x} \geq 10^{-9}\sqrt{n}$.
+
+So the lower bound is not that trivial.
+
+Now we go back to our theorems.
+\begin{theorem}
+    For any $0 < \alpha < 2^{-n}$ there is a lattice $\Lambda \subset  \R^n$ with $\sigma(\Lambda) \geq a$. Later in this course $\sigma (\Lambda) \geq a$.
+\end{theorem}
+This theorem can be deduced from the following theorem:
+\begin{theorem}
+    If $M \subset \R^n$ is a bounded Jordan-measurable set of $\vol M < 1$. Then there is a lattice $\Lambda \subset \R^n$ such that $\det \Lambda = 1$ and $M \cap (\Lambda \setminus \set{0}) = \emptyset$.
+\end{theorem}
+\begin{proof}
+    Pick $\alpha > 0$ so small that \begin{enumerate}
+        \item $M \cap \set{x_n = 0}$ It is entirely contained in the cube $|x_i| < \alpha^{-\frac{1}{\alpha-1}}, i = 1, \ldots, n-1$.
+        \item Let $H_k = \set{x_n = k\alpha, k \in \Z}$. \[\alpha \sum_{k=-\infty}^\infty \vol_{n-1}(M \cap H_k) < 1.\]
+    \end{enumerate}
+    Define the lattice $\Lambda$ as follows: pick the first $n - 1$ basis vectors $u_i = \alpha^{-\frac{1}{n-1}}e_i$ for $i = 1, \ldots, i-1$.
+    Let $\Pi$ be the fundamental parallelepiped of $u_1, \ldots, u_{n-1}$ for $x \in \Pi$, let $u_n(x) = \alpha e_n + x$ and let $\Lambda_x$ be the lattice with basis $u_1, \ldots, u_{n-1}, u_n(x)$. 
+    \[\det \Lambda(x) = \vol \Pi \cdot \alpha = \left(\alpha^{-\frac{1}{n-1}}\right)^{n-1}\alpha = 1.\]
+    Claim: for some $x, |(\Lambda \setminus \set{0}) \cap M| = \emptyset$.
+    \[|(\Lambda \setminus \set{0}) \cap M| = \sum_{k \in \Z \setminus \set{0}} |M \cap (\Lambda_0 + kx)|\]
+    \begin{multline*}\frac{1}{\vol\Pi}\int_{x \in \Pi} \abs{M \cap (\Lambda(x) \setminus \set{0})} \idf x= \alpha \sum_{k \in \Z \setminus \set{0}} \int_\Pi |M\cap(\Lambda_0 + kx)| \idf x \\ = \alpha \sum_{k=-\infty}^\infty \vol_{n-1}(M \cap H_k) < 1.\end{multline*}
+    So for some $x$ we have $(\Lambda(x) \setminus \set{0}) \cap M = \emptyset$.
+\end{proof}
+Choose $M = B_r(0)$ such that  $\vol B_r(0) = 2^n \cdot a < 1$. Construct a lattice $\Lambda \cap B_r(0) = 0$ and $\det \Lambda = 1$. The $\min_{x \in \Lambda \setminus \set{0}} \norm{x} \geq r \implies \rho(\Lambda) \geq \frac{r}{2}$. Then \[
+    \sigma(\Lambda) \geq \left(\frac{\pi^{n/2}}{\Gamma(\frac{n}{2}+1)}r^n\right)2^{-n} = a\]
+\begin{lemma}
+    Let $M \subset V$ be a Lebesgue measurable. Let $\Lambda \subset V$ be a lattice. Let $\Pi$ be a fundamental parallelepiped of $\Lambda$. Define $f: V \to \R$ by $f(x) = |M \cap (x + \Lambda)|$. Then \[\int_\Pi f(x) \idf x = \vol M\]
+\end{lemma}
+\begin{proof}
+    For $u \in \Lambda$. Let $f_a(x) = \mathbf{1}_{M}(x+u), f(x) = \sum_{u\in \Lambda} f_u(x)$. So \[
+    \int_\Pi f(x) \idf x = \sum_{u \in \Lambda} \int_\Pi f_u(x) \idf x = \sum_{u \in \lambda} \vol ((\Pi + u) \cap M)    
+    \]
+    $\Pi + u$ covers $V$ without holes $\implies \sum_{u \in \lambda} \vol ((\Pi + u) \cap M) = \vol M$.
+\end{proof}
+\begin{lemma}
+    \[\int_\Pi |M \cap (x + \Lambda)| \idf x = \vol M\]
+\end{lemma}
+\begin{corollary}
+    For $k \in \Z \setminus \set{0}$, $\int_\Pi |M \cap (kx + \Lambda)| \idf x = \vol M$
+
+    If $k > 0$, let $y = kx, x = k^{-1}y$. \[\int_\Pi |M \cap (x + \Lambda)| \idf x = \vol M = k^{-n}\int_{k\Pi} |M \cap (y + \Lambda)| \idf y\]
+
+    ($k\Pi$ is the disjoint union of $k^n$ lattice shifts of $\Pi$.)
+
+    For $k < 0$, make $y = -x$ and reduce to $k > 0$.
+\end{corollary}
+
+Some sharpening: \begin{enumerate}
+    \item There exists $\Lambda \subset \R^n, \sigma (\Lambda) \geq 2^{-n}$ through compactness in the space of lattices
+    \item If $M$ is symmetric, we can require instead that $\vol M < 2$. (non-zero vectors come in pairs) $\implies \exists \Lambda, \sigma (\Lambda) \geq 2^{-n+1}$.
+    \item (Hlawka) If $M$ is star shaped (for all $x \in M, [0, x] \subset M$) about $0$ and $M = -M$. We can require $\vol M < 2 \zeta(n)$.
+\end{enumerate}
+A lattice vector $u \in \Lambda \setminus \set{0}$ is primitive if you cannot write $u = mv$ for $v \in \Lambda, |m| \geq 2$.
+\begin{enumerate}
+    \item If $M$ is star shaped and contains a non-zero lattice point, then it contains a primitive lattice point.
+    \item The density of primitive points is $\frac{1}{\zeta(n)}$.
+\end{enumerate}
+
+\section{Fourier Transform}
+(J. Fourier, 1786-1830)
+Given $f: \R^n \to \C$ such that $\int_{\R^n} |f(x)| \idf x, \int_{\R^n} |f(x)|^2 \idf x < \infty$. We define \[\widehat{f}(y)=\int_{\R^n} e^{-2\pi i \inner{x}{y}}f(x) \idf x \iff f(x) = \int_{\R^n}e^{2\pi i \inner{x}{y}} \widehat{f}(y) \idf y.\]
+
+$\widehat{f}: \R^n \to \C$.
+
+$f(x) = e^{-\pi\norm{x}^2} \iff \widehat{f}(y) = e^{-\pi\norm{y}^2}$.
+
+Poisson summation formula; if $|f(x)| + \abs{\widehat{f}(x)} \leq \frac{C}{(1 + \norm{\cdot} + \norm{\cdot})^{n + \delta}}$ with $c, \delta > 0$ (admissible). Then $\sum_{u \in \Z^n} f(u) = \sum_{u \in \Z^n}\widehat{f}(u)$.
+
+\begin{lemma}
+    If $f, \widehat{f}: \R^n \to \C$ are admissible and $\Lambda \subset \R^n$ is a lattice. Then \[\sum_{u\in \Lambda}^{}f(u) = \det \Lambda \sum_{\ell \in \lambda^*}^{}\]
+\end{lemma}
+\begin{proof}
+    Let $u_1, \ldots, u_n$ be a basis of $\Lambda$ and let $T: \R^n \to \R^n$ be linear such that $T(e_j) = u_j for j = 1, \ldots, n$
+
+    SO $\Lambda = T(\Z^n)$. So $\sum i \in \Lambda f(u) = \sum_{u \in \Lambda} f(u) = f(u) = \sum_{u \in \Lambda} f(Tu)$.
+    
+    Define \[g(x) = f(Tx), \implies \sum_{u \in \Lambda} \sum_{u \in \Lambda} f(u) = \sum_{u \in \Lambda} = g(u) = \sum_{u \in \Z^n} \widehat{g}(u).\]
+
+    \[\widehat{g}(y) = \int_{R^n} e^{-2\pi i \inner{y}{x}} g(x) \idf x = \int_{\R^n} e^{-2\pi i \inner{y}{x}}f(Tx)\idf x.\]
+
+    Let $z = Tx$, then $\df x = \det T^{-1}$.
+
+
+\end{proof}
+
+\begin{theorem}[Cohn, Elkies, 2003]
+    Suppose that there is an admissible function $f: \R^n \to \R$ such that $\widehat{f}: \R^n \to \R$ is also admissible and \begin{enumerate}
+        \item $f(x) \leq 0$ for every $x \in \R^n$ such that $\norm{x} > 1$.
+        \item $\widehat{f}(y) \geq 9$ for all $y \in \R^n$
+    \end{enumerate}
+    Then the density of a sphere packing in $\R^n \leq \frac{\pi^{11/2}}{\Gamma\left(\frac{n}{n+2}\right)}\frac{f(0)}{2^n} \widehat{f}{0}$
+\end{theorem}
+
+\begin{proof}
+    Let m = .
+\end{proof}
+
+\begin{proof}
+    Sketch, for any, not necessarily lattice, packing
+
+    First, prove for periodic packings. (the centers written as $v_i + \Lambda$, $v_i, i = 1, \ldots, N$ are distinct cosets $\R^n /\Lambda$ representatives) Scale the radius to $\frac{1}{2}$.
+
+    Consider the sum \[S = \sum_{i, j = 1}^N\sum_{u \in \Lambda} f(v_i - v_j + u).\]
+
+    If $i \neq j$ $v_i + u$ and $v_j$ are different centers.
+
+    If $i = j$, $u \neq 0$, then $v_i + u$ and $v_j = v_i$ are different centers.
+
+    We have \[\norm{v_i - v_j + u} \geq 1 \text{ if } i \neq j \text{ or } i = j, u \neq 0\]
+
+    So $f(v_i - v_j + u) \geq 0$.
+
+    By Poisson, $\sum_{u \in \Lambda} f(v_i - v_j + u) = \frac{1}{\det \Lambda} \sum_{\ell \in \Lambda^*} e^{2\pi i \inner{v_i - v_j}{\ell}}\widehat{f}(\ell)$.
+
+    \begin{align*}
+        S & = \frac{1}{\det \Lambda} \sum_{i, j = 1}^N\sum_{\ell \in \Lambda^*}e^{2\pi i \inner{v_i - v_j}{\ell}}\widehat{f}(\ell) \\
+        & = \frac{1}{\det \Lambda} \sum_{\ell \in \Lambda^*}\widehat{f}(\ell)\sum_{i, j = 1}^Ne^{2\pi i \inner{v_i - v_j}{\ell}} \\
+        & = \frac{1}{\det \Lambda}\sum_{\ell \in \Lambda^*}\widehat{f}(\ell)\sum_{i = 1}^N \left|e^{2\pi i \inner{v_i - v_j}{\ell}}\right|^2 \\
+        & \geq \frac{1}{\det \Lambda} \widehat{f}(0) \cdot N^2.
+    \end{align*}
+     
+    Hence we have \begin{align*}
+        \frac{1}{\det \Lambda} N^2 \widehat{f}(0) \leq S \leq N f(0) \\
+        \implies N f(0) \geq \frac{1}{\det\Lambda} \implies \frac{N}{\det \Lambda} \leq \frac{f(0)}{\widehat{f}(0)}
+    \end{align*}
+
+    Take a large ball of volumn $V$, each coset $v_i + \Lambda$ contains roughly $\frac{V}{\det \Lambda}$. number of centers inside $\frac{NV}{\det \Lambda}$, each contributes volume $\frac{\pi^{n/2}}{\Gamma\left(\frac{n}{2}+1\right)}\frac{1}{2^n}$.
+
+    So the density \[\frac{NV}{\det\Lambda}\frac{\pi^{n/2}}{\Gamma\left(\frac{n}{2}+1\right)}\frac{1}{2^n}\frac{1}{V} = \frac{N}{\det\Lambda}\frac{\pi^{n/2}}{\Gamma\left(\frac{n}{2}+1\right)}\frac{1}{2^n}\leq\frac{f(0)}{\widehat{f}(0)}\frac{\pi^{n/2}}{\Gamma\left(\frac{n}{2}+1\right)}\frac{1}{2^n}\]
+
+    For arbitrary packing:
+    Claim: then density of an ``arbitrary'' packing can be approximated arbitrarily close by a periodic packing.
+
+    Why? Pick any dense packing with density $d > 0$. Consider a really large cube such that all balls inside that cube approximate the volume of the cube with density $\geq \sigma - \varepsilon$.
+
+    Now, tile $\R^n$ with lattice translates of the cube and balls inside. You get a periodic packing with density $\geq \sigma - \varepsilon$.
+\end{proof}
+
+A bunch of useful results and methods by W Banaszczyk (1993).
+
+Goal: 
+\begin{theorem}
+    Pick any $\gamma > \frac{1}{2\pi}$, then for all sufficiently large $n \geq n_0(\gamma)$, for any lattice $\Lambda \subset \R^n$ such that $\det \Lambda = 1$ there is $u \in \Lambda \setminus \set{0}$ such that $\norm{u} \leq \sqrt{\gamma n}$.
+\end{theorem}
+\begin{proof}
+    Poisson:
+    \[\sum_{u \in \Lambda} f(u) =\frac{1}{\det \Lambda} \sum_{\ell \in \Lambda^*} \widehat{f}(\ell), \sum_{u \in \Lambda} e^{-\pi\norm{u}^2} = \frac{1}{\det\Lambda}\sum_{\ell \in \Lambda^*} e^{-\pi\norm{\ell}^2}\]
+
+    \begin{lemma}
+        For $0 < \tau < 1$, \[\sum_{u \in \Lambda} e^{-\pi \tau \norm{u}^2} \leq \tau^{-n/2}\sum_{u \in \Lambda} e^{-\pi\norm{u}^2}\]
+    \end{lemma}
+    \begin{proof}
+        \begin{align*}
+            \sum_{u \in \Lambda}e^{-\pi\tau\norm{u}^2} & = \sum_{u \in \sqrt{\tau}\Lambda} e^{-\pi\norm{u}^2} \\
+            & = \frac{1}{\det (\sqrt{n}\Lambda)}\sum_{\ell \in (\sqrt{\tau}\lambda)^*} e^{-\pi \norm{\ell}^2} = \tau^{-n/2}\frac{1}{\det\Lambda}\sum_{\ell \in (\sqrt{\tau}\Lambda)^*} e^{-\pi \norm{\ell}^2} \\
+            & = \tau^{-n/2}\frac{1}{\det\Lambda}\sum_{\ell \in \Lambda^*} e^{-\pi \norm{\ell}^2/\tau} \\
+            & \leq \tau^{-n/2}\frac{1}{\det\Lambda}\sum_{\ell \in \Lambda^*} e^{-\pi \norm{\ell}^2} = \tau^{-n/2}\frac{1}{\det\Lambda}\sum_{u \in \Lambda} e^{-\pi \norm{u}^2}
+        \end{align*}
+    \end{proof}
+
+    \begin{lemma}
+        For any $\gamma > \frac{1}{2\pi}$, \[\sum_{u \in \Lambda, \norm{u}\geq \sqrt{\gamma n}} e^{-\pi\norm{u}^2} \leq \left(e^{-\pi\gamma + \frac{1}{2}}\sqrt{2\pi\gamma}\right)^n \sum_{u \in \Lambda} e^{-\pi\norm{u}^2}\]
+    \end{lemma}
+    \begin{proof}
+        Choose $0 < \tau < 1$. (to be adjusted later)
+        \begin{align*}
+            \sum_{u \in \Lambda, \norm{u}\geq\sqrt{\gamma n}} e^{-\pi\norm{u}^2} & 
+            \leq e^{-\pi\tau\gamma n}\sum_{u \in \Lambda, \norm{u} \geq \sqrt{\gamma n}} \sqrt{\gamma n} e^{-\pi\norm{u}^2} e^{\pi\tau\norm{u}^2} \\
+            & \leq e^{-\pi\tau\gamma n}\sum_{u \in \Lambda} \sqrt{\gamma n} e^{-\pi\norm{u}^2} e^{-\pi(1-\tau)\norm{u}^2} \\
+            & \leq e^{-\pi\tau\gamma n}(1-\tau)^{\frac{n}{2}} \sum_{u \in \Lambda} \sqrt{\gamma n} e^{-\pi\norm{u}^2} e^{-\pi\norm{u}^2}
+        \end{align*}
+        Choose $\tau = 1 - \frac{1}{2\pi \gamma}$. Then RHS $= \left(e^{-\pi\gamma + \frac{1}{2}}\sqrt{2\pi\gamma}\right)^n \sum_{u \in \Lambda} \sqrt{\gamma n} e^{-\pi\norm{u}^2} e^{-\pi\norm{u}^2}$
+    \end{proof}
+\end{proof}
+
+Density of lattice packing: \[
+    \rho(\Lambda) \leq \frac{1}{2}\sqrt{\gamma n} \approx \frac{1}{2}\sqrt{\frac{n}{2\pi}}\]
+    
+    \begin{align*}
+        \sigma(\Lambda) & = \frac{\pi^{n/2}}{\Gamma\left(\frac{n}{2}+1\right)}\frac{\rho(\Lambda)}{\det\Lambda} \approx \frac{\pi^{n/2}}{\Gamma\left(\frac{n}{2}+1\right)}\frac{1}{2^n}\left(\frac{n}{2\pi}\right)^{\frac{n}{2}} \\
+        & \approx\frac{\pi^{n/2}}{\left(\frac{n}{2}\right)^{n/2}e^{-n/2}2^n}\left(\frac{n}{2\pi}\right)^{\frac{n}{2}} = \frac{e^{n/2}}{2^n} \approx (0.82)^n \to 0.
+    \end{align*}
+
 \end{document}

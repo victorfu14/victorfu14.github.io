@@ -20,3 +20,5 @@ Here are my complete [notes for the course](../../../../parts/comb/lattice.pdf).
 - [Jan 19, applications of Minkowski's theorem](../../../../parts/comb/lattice.pdf#section.1.5)
 - [Jan 24, applications of Minkowski's theorem, sphere packing](../../../../parts/comb/lattice.pdf#section.1.6)
 - [Jan 26, sphere packing](../../../../parts/comb/lattice.pdf#section.1.6)
+- [Jan 31, lattice packing](../../../../parts/comb/lattice.pdf#section.1.7)
+- [Feb 2, ](../../../../parts/comb/lattice.pdf#section.1.7)
