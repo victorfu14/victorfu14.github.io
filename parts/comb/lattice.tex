@@ -56,6 +56,7 @@
 \def \Gal {\operatorname{Gal}}
 \def \Sym {\operatorname{Sym}}
 \def \dist {\operatorname{dist}}
+\newcommand{\vol}{\operatorname{vol}}
 \newcommand{\pdr}[2]{\dfrac{\partial #1}{\partial #2}}
 \newcommand{\df}{\mathrm{d}}
 \newcommand{\idf}{\ \mathrm{d}}
@@ -269,7 +270,7 @@ We start with a lemma:
 \end{proof}
 A geometry interpretation is that we can cover the whole space with fundamental parallelepipeds without overlaps.
 
-\newcommand{\vol}{\operatorname{vol}}
+
 
 \begin{proof}[Proof of theorem]
     Let \[X_{r} = \bigcup_{u \in B_r \cap \Lambda} (\Pi + u)\]
@@ -327,7 +328,7 @@ $\Lambda$ is an Abelian group and $\Lambda_0 \subset \Lambda$ is a subgroup. Loo
 \end{enumerate}
 
 \begin{corollary}
-    If $u_1, \ldots, u_n \in \Lambda$ are linearly independent and \[\vol \set{\sum_{i+1}^n \alpha_iu_i: 0 \leq \alpha_i < 1} = \det \Lambda\] then $u-1, \ldots, u_n$ is a basis.
+    If $u_1, \ldots, u_n \in \Lambda$ are linearly independent and \[\vol \set{\sum_{i+1}^n \alpha_iu_i: 0 \leq \alpha_i < 1} = \det \Lambda\] then $u_1, \ldots, u_n$ is a basis.
 \end{corollary}
 \begin{proof}
     Look at \[\Lambda_0 = \set{\sum_{i=1}^n m_iu_i: m_i \in \Z}, |\Lambda/\Lambda_0| = 1 \implies \Lambda = \Lambda_0 \qedhere\]
@@ -379,10 +380,18 @@ The case for $n = 2$ is special.
     \ldots \\
     u_k^T
 \end{bmatrix}$ is $1$.
+\begin{proof}
+    $\implies$: suppose $u_1, \ldots, u_k$ is a basis. Then we can extend $\set{u_1, \ldots, u_k}$ to get a basis $\set{u_1, \ldots, u_k, \ldots, u_n}$ of $\Z^n$. So $\det[u_1|u_2|\ldots|u_n] = 1$. Use Laplace expansion for the first $k$ columns we have \[
+        \sum_{I \subset \set{1, \ldots, n}, |I| = k} \det A_I \cdot \det A_{\overline{I}} = \pm 1 \implies \gcd (\det A_I) = 1.
+    \]
 
-Linear algebra (Smith normal form, will not use)
+    $\impliedby$: suppose $\gcd = 1$. Pick any $x \in \Lambda$, then $x = \alpha_1u_1+\ldots+\alpha_ku_k$ for some $\alpha_i \in \R$. Pick any $k$ rows of $U = \left[
+        \begin{array}{c|c|c|c}
+        u_1 & u_2 & \ldots & u_k
+    \end{array}\right]$ where $\det A_I \neq 0$. By Kramer's dule, $\alpha_i = \frac{\det [\text{replace $u_i$ by $x$ in $U$}]}{\det A_I}$. $\det A_I$ are coprime $\implies \sum m_I \det A_I = 1$ for some $m_I \in \Z$. $\alpha_i\det A_I \in \Z \implies  \sum_{I} \alpha_i m_I \det A_I \in \Z$.
+\end{proof}
 
-If $\Lambda_0 \subset \Lambda$ is a sublattice, then there is a basis $u_1, \ldots, u_n$ of $\Lambda$ and a basis $v_1, \ldots, v_n$ of $\Lambda_0$ such that $v_i = m_iu_i$ for positive integer $m_i$ and such that $m_1$ divides $m_2$ which divides $m_3, \ldots$.
+Some linear algebra: (Smith Normal Form) If $\Lambda_0 \subset \Lambda$ is a sublattice, then there is a basis $u_1, \ldots, u_n$ of $\Lambda$ and a basis $v_1, \ldots, v_n$ of $\Lambda_0$ such that $v_i = m_iu_i$ for positive integer $m_i$ and such that $m_1$ divides $m_2$ which divides $m_3, \ldots$.
 
 \section{Minkowski Theorem}
 The goal today is to prove Minkowski Theorem (H. Minkowski, 1864-1909) for convex body.
@@ -859,7 +868,7 @@ $\widehat{f}: \R^n \to \C$.
 
 $f(x) = e^{-\pi\norm{x}^2} \iff \widehat{f}(y) = e^{-\pi\norm{y}^2}$.
 
-Poisson summation formula; if $|f(x)| + \abs{\widehat{f}(x)} \leq \frac{C}{(1 + \norm{\cdot} + \norm{\cdot})^{n + \delta}}$ with $c, \delta > 0$ (admissible). Then $\sum_{u \in \Z^n} f(u) = \sum_{u \in \Z^n}\widehat{f}(u)$.
+Poisson summation formula: if $|f(x)| + \abs{\widehat{f}(x)} \leq \frac{C}{(1 + \norm{\cdot} + \norm{\cdot})^{n + \delta}}$ with $c, \delta > 0$ (admissible). Then $\sum_{u \in \Z^n} f(u) = \sum_{u \in \Z^n}\widehat{f}(u)$.
 
 \begin{lemma}
     If $f, \widehat{f}: \R^n \to \C$ are admissible and $\Lambda \subset \R^n$ is a lattice. Then \[\sum_{u\in \Lambda}^{}f(u) = \det \Lambda \sum_{\ell \in \lambda^*}^{}\]
@@ -966,14 +975,219 @@ Goal:
         \end{align*}
         Choose $\tau = 1 - \frac{1}{2\pi \gamma}$. Then RHS $= \left(e^{-\pi\gamma + \frac{1}{2}}\sqrt{2\pi\gamma}\right)^n \sum_{u \in \Lambda} \sqrt{\gamma n} e^{-\pi\norm{u}^2} e^{-\pi\norm{u}^2}$
     \end{proof}
+    
+    Now, pick some $\frac{1}{2\pi} < \gamma' < \gamma$. Let $\alpha = \sqrt{\frac{\gamma'}{\gamma}} < 1$.
+
+    Consider lattice $\alpha\Lambda$. Apply lemma:
+    \begin{align*}
+        \sum_{\substack{u \in \alpha\Lambda \\ \norm{u} = \sqrt{\gamma n}}} e^{-\pi\norm{u}^2} \leq \left(e^{-\pi\gamma'+\frac{1}{2}\sqrt{2\pi\gamma'}}\right)\sum_{u \in \alpha\Lambda}e^{-\pi\norm{u}^2} \\
+        \sum_{\substack{u \in \alpha\Lambda \\ \norm{u} = \sqrt{\gamma n}}} e^{-\pi\norm{u}^2} \geq \left(1 - e^{-\pi\gamma'+\frac{1}{2}\sqrt{2\pi\gamma'}}\right)\sum_{u \in \alpha\Lambda}e^{-\pi\norm{u}^2}
+    \end{align*}
+    From Poisson, \begin{align*}
+        \sum_{u \in \alpha\Lambda} & = \frac{1}{\det (\alpha\Lambda)}\sum_{\ell \in (\alpha\Lambda)^*} e^{-\pi\norm{\ell}^2} > \frac{1}{\det(\alpha\Lambda)}\\
+        & = \frac{1}{\alpha^n\det\Lambda} = \frac{1}{\alpha^n} > 1
+    \end{align*}
+    If $n$ is large, there is $u \in \alpha\Lambda \setminus \set{0}$ with $\norm{u} < \sqrt{\gamma' n} \implies$ there is $u \in \Lambda \setminus \set{0}$ with $\norm{u} < \frac{\sqrt{\gamma'n}}{\alpha} = \sqrt{\gamma n}$.
 \end{proof}
 
-Density of lattice packing: \[
-    \rho(\Lambda) \leq \frac{1}{2}\sqrt{\gamma n} \approx \frac{1}{2}\sqrt{\frac{n}{2\pi}}\]
+Density of lattice packing: 
+\[
+    \rho(\Lambda) \leq \frac{1}{2}\sqrt{\gamma n} \approx \frac{1}{2}\sqrt{\frac{n}{2\pi}}
+\]
     
-    \begin{align*}
-        \sigma(\Lambda) & = \frac{\pi^{n/2}}{\Gamma\left(\frac{n}{2}+1\right)}\frac{\rho(\Lambda)}{\det\Lambda} \approx \frac{\pi^{n/2}}{\Gamma\left(\frac{n}{2}+1\right)}\frac{1}{2^n}\left(\frac{n}{2\pi}\right)^{\frac{n}{2}} \\
-        & \approx\frac{\pi^{n/2}}{\left(\frac{n}{2}\right)^{n/2}e^{-n/2}2^n}\left(\frac{n}{2\pi}\right)^{\frac{n}{2}} = \frac{e^{n/2}}{2^n} \approx (0.82)^n \to 0.
+\begin{align*}
+    \sigma(\Lambda) & = \frac{\pi^{n/2}}{\Gamma\left(\frac{n}{2}+1\right)}\frac{\rho(\Lambda)}{\det\Lambda} \approx \frac{\pi^{n/2}}{\Gamma\left(\frac{n}{2}+1\right)}\frac{1}{2^n}\left(\frac{n}{2\pi}\right)^{\frac{n}{2}} \\
+    & \approx\frac{\pi^{n/2}}{\left(\frac{n}{2}\right)^{n/2}e^{-n/2}2^n}\left(\frac{n}{2\pi}\right)^{\frac{n}{2}} = \frac{e^{n/2}}{2^n} \approx (0.82)^n \to 0.
+\end{align*}
+
+\fancyem{Exercise} We proved that $\sigma(\Lambda) \leq (0.82)^n \approx \left(\frac{\sqrt{e}}{2}\right)^n$. Prove the same bound for any packing.
+
+Prove for periodic packings first, then consider the sum $\sum_{i, j=1}^N e^{-\pi \norm{v_i - v_j + u}}$.
+
+\section{Covering Radius}
+\begin{definition}
+    Suppose $\Lambda \subset V$ a lattice. \[\mu(\Lambda) = \max_{x \in V} \dist(x, \Lambda) = \max_{x \in \Pi} \dist(x, \Lambda).\] This is the smallest radius such that the Balls $B_r(u), u \in \Lambda$ cover $V$.
+\end{definition}
+
+Thickness:
+\[
+    \liminf_{\vol \text{ of space } \to \infty} = \frac{\text{total volume of balls}}{\text{total volume of space}} \geq 1    
+\]
+We are generally interested in the thinnest lattices.
+
+\fancyem{Exercises}
+Find the covering radius of $Z^n \left(\frac{\sqrt{n}}{2}\right)$, $A_n^* \left(\frac{1}{2}\sqrt{\frac{n(n+2)}{3(n+1)}}\right)$, $D_n \left(\frac{\sqrt{n}}{2}\right)$ for $n \geq 4$, $1$ for $D_3$, $E_8 (1)$, Leech lattice (hard) $\sqrt{2}$.
+
+If $u_1, \ldots, u_n$ are linearly independent then $\mu(\Lambda) \leq \frac{1}{3}\sum_{i=1}^n\norm{u_i}$.
+
+\begin{definition}
+    The global maximum of $x \to \dist(x, \Lambda)$ is called a deep hold of $\Lambda$, the local maximum is called a shallow hole.
+\end{definition}
+
+\fancyem{Exercise} Show that $(1, 0, 0)$ "octahedral hole" is a deep hole for $D_3$ and $\left(\frac{1}{2},\frac{1}{2},\frac{1}{2}\right)$ "tetrahedral hole" is a shallow hole.
+
+Main Goal: ("transference" theorem)
+\begin{theorem}
+    If $\Lambda \subset \R^n$ is a lattice then \[\frac{1}{4} \leq \mu(\Lambda)\rho(\Lambda^*)\leq \operatorname{const}(n)\]
+\end{theorem}
+We will eventually show that $\operatorname{const}(n) = \frac{n}{2}$.
+Elementary: $\operatorname{const}(n) = \frac{n^{3/2}}{4}$. (Lagarias)
+
+First result: $\operatorname{const}(n) \approx (n!)^2$ (Khinchin)
+
+Lower Bound:
+
+Construct $u_1, \ldots, u_n \in \Lambda$ as follows: ("successive minima")
+\begin{align*}
+    \norm{u_1} & = \min_{u \in \Lambda \setminus \set{0}}\norm{u} \\
+    \norm{u_2} & = \min_{\substack{u \in \Lambda \\ u, u_1 \text{ linearly independent}}} \norm{u} \\
+    & \vdots
+\end{align*}
+So $\norm{u_1} \leq \norm{u_2}, \ldots$.
+
+Pick $x = \frac{1}{2}u_n$.
+
+\fancyem{Claim} $\dist(x, \Lambda) = \frac{1}{2}\norm{u_n}$.
+
+Suppose not. There is a $u \in \Lambda$ such that \[\norm{\frac{1}{2}u_n - u} < \frac{1}{2}\norm{u_n}\implies\norm{u}<\norm{u_n} \implies u \in \operatorname{span}\set{u_1, \ldots, u_{n-1}}.\]
+Then for $v = 2u - u_n$ we have \[v \notin \operatorname{span}\set{u_1, \ldots, u_{n-1}}, \norm{v} = 2\norm{u - \frac{1}{2}u_n} < \norm{u_n},\] contradiction.
+
+Now, pick $w \in \Lambda^*$ such that $\norm{w} = 2\rho(\Lambda^+)$. We have for some $k=1, \ldots, n$, $\inner{w_1}{U_K} \in \Z$ and $\neq 0 \implies |\inner{w_1}{U_K}| = 1$.
+
+$\implies \norm{w}\norm{u_k} \geq 1 \implies \norm{w}\norm{u_n}\geq 1$. So \[2\rho(\Lambda^*) \cdot 2\mu(\Lambda) \geq 1 \implies \rho(\Lambda^*) \cdot \mu(\Lambda) \geq \frac{1}{4}\]
+
+Upper bound (elementary) J.C. Lagarias, H.W. Lenstra Jr, C.-P. Schnorr (1990)
+\[\sigma(\Lambda)\rho(\Lambda^*) \leq \frac{n^{3/2}}{4}.\]
+
+\begin{lemma}
+    Suppose $\Lambda \subset \R^n$ is a lattice then $\rho(\Lambda)\rho(\Lambda^*) \leq \frac{n}{4}$.
+\end{lemma}
+\begin{proof}
+    Minkowski convex body (long time ago)\[\rho(\Lambda) \leq \frac{1}{2}\sqrt{n} (\det \Lambda)^\frac{1}{n},\ \rho(\Lambda^*) \leq \frac{1}{2}\sqrt{n} (\det \Lambda^*)^\frac{1}{n}\]
+
+    $(\det\Lambda)(\det\Lambda^*) = 1$. Suppose $u_1, \ldots, u_n$ is a basis of $\Lambda$, $u^*_1, \ldots, u_n^*$ a basis of $\Lambda^*$. $\inner{u_i^*}{u_j} = \begin{cases}
+        1 & i = j \\
+        0 & i \neq j
+    \end{cases}$.
+\end{proof}
+
+\begin{proof}
+    By induction on $n$.
+
+    \textbf{Base case}: $n = 1$, $\Lambda = \alpha\Z, \Lambda^* = \alpha^{-1} \Z$.
+    $\mu(\Lambda) = \frac{1}{2}\alpha$ and $\rho(\Lambda^*) = \frac{1}{2\alpha}$. $\mu(\lambda)\rho(\Lambda^*) = \frac{1}{4}$.
+
+    \textbf{Induction hypothesis}
+
+    \textbf{Induction step}
+    Pick $u \in \Lambda \setminus \set{0}$ so that $\norm{u} = 2\rho(\Lambda)$. Let $\operatorname{pr}: \R^n \to H$ be the orthogonal projection. Let $\Lambda_1 = \operatorname{pr}(\Lambda)$.
+
+    \fancyem{Claim} $\Lambda_1^* \subset \Lambda \implies \rho(\Lambda^*) \geq \rho(A^*)$ must check if $x \in H$ is such that $\inner{x}{\operatorname{pr}(v)} \in \Z$ for all $v \in \Lambda$. Then $\inner{x}{v} \in \Z$ for all $v \leq \Lambda$.
+
+    Pick any $x \in V$, need to bound $\dist(x,\Lambda)$. Let $y = \operatorname{pr}(x)$ choose $y_1 \in \Lambda_1$ closest to $y$ so that $\norm{y_1 - y} = \mu(\Lambda_1)$.
+
+    Look at the line through $y_1$ parallel to $y$. It contains points from $\Lambda$ distance $\norm{u} = 2\rho(\Lambda)$ apart.
+
+    Pick $w \in \Lambda$ so that $\norm{w - (x + y_1 -y)} \leq \rho(\Lambda)$.
+
+    Use Pythagoras theorem, $\norm{w - x}^2 \leq \rho^2(\Lambda) + \mu^2(\Lambda_1) \implies \mu^2(\Lambda) \leq \rho^2(\Lambda) + \mu^2(\Lambda_1)$.
+
+    So \begin{align*}
+        \rho^2(\Lambda^*)\mu^2(\Lambda) 
+        & \leq \rho^2(\Lambda^*)\rho^2(\Lambda)+\mu^2(\Lambda_1)\rho^2(\Lambda^*) \\
+        & \leq \left(\frac{n}{4}\right)^2 + \mu^2(\Lambda_1)\rho^2(\Lambda_1^*)
     \end{align*}
+\end{proof}
+
+We can use Fourier to prove an optimal bound $\operatorname{const}(n) = \frac{n}{2}$.
+
+Let's start with a lemma.
+\begin{lemma}
+    Suppose $\Lambda \subset V$ a lattice and $x \in V$. Then \[\sum_{u \in \Lambda} e^{-\pi\norm{x - u}^2} \leq \sum_{u \in \Lambda} e^{-\pi\norm{u}^2}.\]
+\end{lemma}
+\begin{proof}
+    Using Poisson summation, \[
+        \sum_{u \in \Lambda} f(u) = \frac{1}{\det \Lambda} \sum_{\ell \in \Lambda^*}\widehat{f}(\ell).
+    \]
+    Choose $f(x) = e^{-\pi\norm{x}^2}$ then $\widehat{f}(y) = e^{-\pi\norm{y}^2}$.
+    Choose $f(x) = e^{-\pi\norm{x - a}^2}$ then $\widehat{f}(y) = e^{-2\pi i \inner{y}{a}\norm{y}^2}$.
+    So \begin{align*}
+        \sum_{u \in \Lambda} e^{-\pi\norm{x - u}^2} & = \frac{1}{\det \Lambda} \sum_{\ell \in \Lambda^*}e^{-2\pi i \inner{x}{\ell}\norm{\ell}^2} \\
+        & \leq \frac{1}{\det\Lambda} \sum_{\ell \in \Lambda^*} e^{-\pi\norm{\ell}^2} = \sum_{u \in \Lambda}e^{-\pi\norm{u}^2}
+    \end{align*}
+\end{proof}
+
+\fancyem{Exercise} \begin{enumerate}
+    \item See if you can find an elementary proof
+    \item $\displaystyle\sum_{u \in \Lambda} e^{-\pi\norm{x - u}^2} \geq e^{-\norm{x}^2}\sum_{u \in \Lambda} e^{-\pi\norm{u}^2}$.
+\end{enumerate}
+
+\begin{lemma}
+    For $0 < \tau < 1, x \in V$. \[\sum_{u \in \Lambda} e^{-\pi\tau\norm{x - u}^2} \leq \tau^{-n/2}\sum_{u\in\Lambda} e^{-\pi\norm{u}^2}.\]
+    We had it with $x = 0$, with \[
+        \sum_{u \in \Lambda} e^{-\pi\tau\norm{x - u}^2} \leq \sum_{u\in\Lambda} e^{-\pi\tau\norm{u}^2}.
+    \]
+    Rescale $\Lambda = \sqrt{\tau}\Lambda$ to get \[
+        \sum_{u \in \Lambda e^{-\pi}\norm{x - u}^2} \leq \sum_{u \in \Lambda} e^{-\pi\norm{u}^2}    
+    \]
+\end{lemma}
+\begin{lemma}
+    If $\Lambda \subset \R^n$ is a lattice, $x \in \R^n$ is a point. For any $\gamma > \frac{1}{2\pi}$, \[\sum_{\substack{u \in \Lambda\\ \norm{u - x} \geq \sqrt{\gamma n}}} e^{-\pi\norm{x - u}^2} \leq \left(e^{-\pi\gamma+\frac{1}{2}}\sqrt{2\pi\gamma}\right)^n \sum_{u \in \Lambda}e^{-\pi\norm{u}^2}.\]
+\end{lemma}
+\begin{proof}
+    Choose $0 < \tau < 1$ to be specified.
+    \begin{align*}
+        \sum_{\substack{u \in \Lambda\\ \norm{u - x} \geq \sqrt{\gamma n}}} e^{-\pi\norm{x - u}^2} & \leq e^{-\pi\gamma n \tau} \sum_{\substack{u \in \Lambda\\ \norm{u - x} \geq \sqrt{\gamma n}}} e^{-\pi\norm{x-u}^2} e^{\pi\tau\norm{x - u}^2} \\
+        & \leq e^{-\pi\gamma n \tau} \sum_{\substack{u \in \Lambda\\ \norm{u - x} \geq \sqrt{\gamma n}}} e^{-\pi(1-\tau)\norm{x-u}^2} \\
+        & \leq e^{-\pi\gamma n \tau} (1-\tau)^{-\frac{n}{2}} \sum_{u\in\Lambda} e^{-\pi\norm{u}^2}.
+    \end{align*}
+    Take $\tau = 1 - \frac{1}{2\pi\gamma}$.
+\end{proof}
+\begin{corollary}
+    Take $\gamma = 1$, \[
+        \sum_{\substack{u \in \Lambda\\ \norm{u - x} \geq \sqrt{\gamma n}}} e^{-\pi\norm{x - u}^2} \leq 5^{-n} \sum_{u \in \Lambda} e^{-\pi\norm{u}^2}.
+    \]
+\end{corollary}
+Now we have \begin{theorem}
+    \[\mu(\Lambda)\rho(\Lambda^*) \leq \frac{n}{2}\]
+\end{theorem}
+\begin{proof}
+    Suppose not. Then $\mu(\Lambda)\rho(\Lambda^*) > \frac{n}{2}$. If we scale $\Lambda \defeq \alpha \Lambda, \alpha > 0$, $\mu(\alpha\Lambda) = \alpha \mu(\Lambda), (\alpha\Lambda)^* = \frac{1}{\alpha}\Lambda^*, \rho((\alpha\Lambda)^*) = \frac{1}{\alpha}\rho(\Lambda^*)$.
+
+    Let's scale so that $\mu(\Lambda) > \sqrt{n}, \rho(\Lambda^*) > \frac{\sqrt{n}}{2} \implies$ there is $x \in V$ such that $\dist(x, \Lambda) > \sqrt{n}$.
+
+    Let $L = \sum_{u\in\Lambda} e^{-\pi\norm{u}^2}, L^* = \sum_{\ell \in \Lambda^*}e^{-\pi\norm{\ell}^2}$.
+
+    \[ 
+        \sum_{u \in \Lambda}e^{-\pi\norm{x - u}^2} = \sum_{\substack{u \in \Lambda \\ \norm{u - x} \geq \sqrt{n}}} e^{-\pi\norm{x - u}^2} \leq 5^{-n}L.
+    \]
+
+    \[L^* = 1 + \sum_{\ell \in \Lambda^* \setminus \set{0}} e^{-\pi\norm{\ell}^2} = 1 + \sum_{\substack{\ell \in \Lambda^*}\\ \norm{\ell} \geq \sqrt{n}} e^{-\pi\norm{ell}^2} \leq 1 + 5^{-n}L^*\]
+    This $\implies (1 - 5^{-n})L^* \leq 1 \implies L^* \leq \frac{1}{1 - 5^{-n}} = \frac{5^n}{5^n - 1}$.
+
+    We also have \[\sum_{\ell \in \Lambda^* \setminus \set{0}} e^{-\pi\norm{\ell}^2} = L^* - 1 \leq \frac{1}{5^n-1}.\]
+
+    By Poisson, $L = \frac{1}{\det \Lambda}L^*$.
+
+    Finally, getting a contradiction \[
+        \sum_{u \in \Lambda}e^{-\pi\norm{x - u}^2} \leq 5^{-n}L = \frac{L^*}{5^n\det\Lambda}\leq \frac{1}{\det\Lambda}\frac{1}{5^n-1}.    
+    \]
+    On the other hand, by Poisson summation: \begin{align*}
+        \sum_{u \in \Lambda}e^{-\pi\norm{x - u}^2} & = \frac{1}{\det\Lambda}\sum_{\ell \in \Lambda^*} e^{2\pi i \inner{\ell}{x}}e^{-\pi\norm{\ell}^2} \\
+        \sum_{\ell \in \Lambda^*} e^{2\pi i\inner{\ell}{x}} e^{-\pi\norm{\ell}^2} & = 1 + \sum_{\ell \in \Lambda^* \setminus \set{0}} e^{2\pi i\inner{\ell}{x}} e^{-\pi\norm{\ell}^2} \geq 1 - \sum_{\ell \in \Lambda^* \setminus \set{0}} e^{-\pi\norm{ell}^2} \geq 1 - \frac{1}{5^n-1}
+    \end{align*}
+    So we have \begin{align*}
+        \frac{1}{\det\Lambda}\frac{1}{5^n-1} & \geq \frac{1}{\det\Lambda}\frac{5^n-2}{5^n-1} \\
+        \iff \frac{1}{5^n-1} & \leq \frac{5^n-2}{5^n-1} \\
+        \iff 5^N & \leq 3 
+        % \Rightarrow\!\Leftarrow \qedhere
+    \end{align*}
+    a contradiction. So we have proved the argument.
+\end{proof}
+
+Later:
+\begin{corollary}[Flatness theorem]
+    If $A \subset \R^n$ is convex, $A \cap Z^n = \emptyset$. Then there is $a \in \Z^n \setminus \set{0}$ such that $\max_{x\in A} \inner{a}{x} - \min_{x\in A} \inner{a}{x} \leq c(n)$.
+\end{corollary}
 
 \end{document}
