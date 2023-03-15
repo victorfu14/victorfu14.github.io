@@ -730,7 +730,7 @@ $\Lambda_{24}$ is the Leech lattice.
 
 Useful formula for the length.
 
-Pick $(x_0, x_1, \ldots, x_25)$ in $\Lambda_{25}$, what is the length of projection in $\Lambda_{24}$?
+Pick $(x_0, x_1, \ldots, x_{25})$ in $\Lambda_{25}$, what is the length of projection in $\Lambda_{24}$?
 
 Let $\widehat{x} \in \Lambda_{24}$ be the projection: $\widehat{X} = x - \alpha w_+$ so that $\inner{\widehat{x}}{w_+} = 0$. So $\inner{x}{w_+} - \alpha\inner{w_+}{w_+} = 0 \implies \frac{\inner{x}{w_+}}{\inner{w_+}{w_+}}$.
 
@@ -746,7 +746,7 @@ $x = (0, 1, -1, -1, 1, 0, \ldots, 0) \in D_{25} \subset D_{26}^+$.
 $\inner{x}{w_-} = 0 + 1 - 2 - 3 + 4  = 0 \implies x \in \Lambda_{25}$, also 
 $\inner{x}{w_+} = 0 + 1 - 2 - 3 + 4  = 0 \implies x \in \Lambda_{24}, \norm{x} = 2$.
 
-Pick $y = \left(frac{1}{2}, \underbrace{-\frac{1}{2}, \ldots, -\frac{1}{2}}_{9 \text{ times}}, \underbrace{\frac{1}{2}, \ldots, \frac{1}{2}}_{15 \text{ times}}, \frac{3}{2}\right)$. $y - u \in D_{26} \implies y \in D_{26}^+$.
+Pick $y = \left(\frac{1}{2}, \underbrace{-\frac{1}{2}, \ldots, -\frac{1}{2}}_{9 \text{ times}}, \underbrace{\frac{1}{2}, \ldots, \frac{1}{2}}_{15 \text{ times}}, \frac{3}{2}\right)$. $y - u \in D_{26} \implies y \in D_{26}^+$.
 
 $\inner{y}{w_-} = 0, \norm{\widehat{y}}^2 = \sum_{k=0}^{24} \frac{1}{4} - \frac{9}{4} = \frac{25 - 9}{4} = 4$.
 
@@ -760,7 +760,7 @@ Rigid phenomenon in dim 2, 8, and 24.
     \item $\det D_{26} = 2, \det D_{26}^+ = 1, \det \Lambda_{25} = 70\sqrt{2}, \det \Lambda_{24} = 1$.
     \item For any $x \in \Lambda_{24}$, $\norm{x}^2$ is an even integer.
     \item $\min_{x \in \Lambda_{24} \setminus 0} \norm{x} = 2$.
-    \item $\Lambda^*_{24} \cong \Lambda 24$.
+    \item $\Lambda^*_{24} \cong \Lambda_{24}$.
 \end{enumerate}
 
 % \section{Asymptotic Behavior}
@@ -1189,5 +1189,92 @@ Later:
 \begin{corollary}[Flatness theorem]
     If $A \subset \R^n$ is convex, $A \cap Z^n = \emptyset$. Then there is $a \in \Z^n \setminus \set{0}$ such that $\max_{x\in A} \inner{a}{x} - \min_{x\in A} \inner{a}{x} \leq c(n)$.
 \end{corollary}
+
+General case exercises:
+\begin{enumerate}
+    \item Fill in gaps on ellipsoidal approximations
+    \item if $K = -K$, $E \subset K$ the maximum volumn ellipsoid then $E \subset K \subset \sqrt{n}E$.
+    \item (Easy) If $P \subset \R^2$ is a convex polygon with interger vertices and no other integer points other than vertices. Then there is a $u \in \Z^2$ such that $\max_{x \in P} \inner{u}{x} - \min_{x \in P} \inner{u}{x} = 1$.
+    \item (Hard) If $P \subset \R^3$ is a convex polytope with integer vertices and no other integer points then there is $u \in \Z^3$ such that $\max_{x \in P}\inner{x}{u} - \min_{x \in P}\inner{x}{u} \leq 1$.
+\end{enumerate}
+
+\section{Existence of a Good Basis}
+Existence of a good (``nearly orthogonal'') basis
+
+$u_1, u_2, \ldots, u_n$ is a basis of $\Lambda$ then $\norm{u_1}\cdot\ldots\cdot\norm{u_n} \leq \operatorname{const}(n)\det\Lambda$. For $n = 2, c(2) = \frac{2}{\sqrt{3}} \approx 1.15$. We will prove roughly $c(n) \approx n^n$.
+
+Constuct such a basis efficiently (LLL) $c(n) \approx 2^{n^2}$.
+
+\begin{theorem}[2nd Minkowski convex body theorem]
+    Let $K$ be a convex body, $K \subset \R^n$ convex compact with non empty interior. Suppose that $K = -K$. Let $\Lambda \subset \R^n$ be a lattice. Define successive minima: for $i = 1, \ldots, n, \Lambda_i = \lambda_i(K) = \min \set{
+        \lambda > 0: \dim \operatorname{span}(\lambda K \cap \Lambda) \geq i
+    }$ min $\lambda > 0$ such that $\lambda K$ contains (at least) $i$ linearly independent lattice vectors.
+    \[\lambda_1(K) \leq \lambda_2(K) \leq \ldots \leq \lambda_n(K)\]
+    Then \[\left(\vol K\right)\prod_{i=1}^n \lambda_i (K) \leq 2^n \det \Lambda\]
+\end{theorem}
+
+Plan:
+
+We reduce it to the case $\Lambda = \Z^n$
+
+Pick the fundamental parallelepiped $\Pi = \set{x = (x_1, \ldots, x_n): 0 \leq x_i < 1}$ and stare ar the projection $\R^n/\Z^n \to \Pi$.
+
+$P: (x_1, \ldots, x_n) \mapsto (\set{x_1}, \ldots, \set{x_n})$
+and prove various things about it.
+
+some notes missing
+
+Last time:
+If $\Lambda \subset \R^n$ is a lattice then there is a basis $u_1, \ldots, u_n$ such that $\norm{u_1} \ldots \norm{u_n} \leq c(n) \det \Lambda$, \[c(n) = \frac{(n+1)!\Gamma\left(\frac{n}{2}+1\right)}{\pi^{n/2}}\]
+
+Convergence:
+If $\set{\Lambda_k \subset \R^n}, k = 1, \ldots$ are lattices and $\Lambda \subset \R^n$ is a lattice. We say that $\lim_{k \to \infty} \Lambda_k = \Lambda$ is we can find a basis $u_{k_1}, \ldots, u_{kn}$ of $\Lambda_k$ and a basis $u_1, \ldots, u_n$ of $\Lambda$ so that $\lim_{k \to \infty} u_{ki} = u_i$ for $i = 1, \ldots, n$.
+
+Mahler Compactness Criterion: (K. Mahler, 1903 - 1988)
+If $\Lambda_i \subset \R^n, i \in I$ is an infinite family of lattices, and for some $c > 0, C > 0$ we have $\det \Lambda_i \leq C$ abd $\rho(\Lambda_i) \geq c$ for all $i \in I$. Then there is a sequence $\Lambda_{i_k}$ such that $\lim_{k \to \infty} \Lambda_k = \Lambda$.
+
+\fancyem{Exercise}: If $\lim_{n \to \infty} \Lambda_n = \Lambda$ then $\lim_{n \to \infty} \rho(\Lambda_n) = \rho(\Lambda)$.
+
+In Minkowski-Hlawka, we showed that for every $0 < \alpha < 2^{-n}$ there is $\Lambda_a \subset \R^n$ such that $\sigma(\Lambda_a) \geq a$. We can choose $\det \Lambda_a = 1$ and Mahler compactness so there is a limit lattice $\Lambda$ as $a \to 2^{-n}$ with $\sigma(\Lambda) \geq 2^{-n}$.
+
+(Weakly) reduced basis
+
+Say, $u_1, \ldots, u_n$ is a basis of $\Lambda$. Let $L_0 = \setminus{0}$. $L_k = \operatorname{span}\set{u_1, \ldots, u_k}, k = 1, \ldots, n$. Let $w_k$ be the orthogonal projection of $u_k$ onto $L^{\perp}_{k-1}$. $w_1, \ldots, w_k, w_n$ is the Gram-Schmidt orthogonalization (without normalization) of $u_1, \ldots, u_n$. Then $u_k = w_k + \sum_{i=1}^{k-1} \alpha_{ki}w_i, k = 1, \ldots, n$. 
+
+We say that $u_1, \ldots, u_n$ is (weakly) reduced, provided $|\alpha_{ki}| \leq \frac{1}{2}$ for all $k$ and $i$.
+
+How to reduce a basis quickly. If all $|\alpha_{ki}| \leq \frac{1}{2}$ already reduced. If not, choose the largest $I$ such that $|\alpha_{ki}| > \frac{1}{2}$. Let $m_i$ be the integer closet to $\alpha_{ki}$ then $|\alpha_{ki} - m_i| \leq \frac{1}{2}$. Update $u_k \defeq u_k - m_iu_i$. What happens? $L_0, \ldots, L_n$ do not change. $\alpha_{ki} \mapsto \alpha_{ki} - m_i$. Now $|\alpha_{ki}| \leq \frac{1}{2}$ may messup $\alpha_{ki}$ with $j < i$.
+
+Repeat. In at most $\binom{n}{2}$ steps, we'll have it reduced.
+
+\begin{theorem}[Lagarias, Lenstra, Schnorr, 1990]
+    If $\Lambda \subset \R^n$, and $u_1, \ldots, u_n$ is a (weakly) reduced Korkin-Zolotarev basis. Then $\norm{u_k} \leq \frac{\sqrt{k+3}}{2} \lambda_k, k = 1, \ldots, n$, where $\lambda_k$ is the $k$-th successive minimum w.r.t unit ball.
+\end{theorem}
+
+\begin{remark}
+    \begin{enumerate}
+        \item Korkin-Zorotarev basis. Choose $u_1$ to be the shortest non-zero, $u_2$ to be closest to $L_1 = \operatorname{span}\set{u_1}$ and not in $L_1$ \ldots Choose $u_k$ closest to $L_{k-1}$ but not in $L_{k-1}$.
+        \item The reduction procedure does not change $w_1, \ldots, w_k, \ldots, w_n$ and does not change $\dist(u_k, L_{k-1}) = \norm{w_k}$. Starting with K-Z basis we still get K-Z basis.
+        \item $\lambda = \min\set{\lambda > 0, \dim \operatorname{span} \set{\lambda \cap \set{x, \norm{x} \leq \lambda}} \geq K}$.
+    \end{enumerate}
+\end{remark}
+
+Compared to the basis we constructed last time
+\begin{enumerate}
+    \item last time we had $\norm{u_k} \leq \frac{k+1}{2}\lambda_k$ for $k = 1, \ldots, n$. which gave $c(n) = \frac{(n+1)!\Gamma\left(\frac{n}{2}+1\right)}{\pi^{n/2}}$. Now we have $c(n) = \frac{\sqrt{(n+3)!}\Gamma\left(\frac{n}{2}+1\right)}{\sqrt{6}\pi^{n/2}}$, which is better.
+\end{enumerate}
+
+\begin{proof}
+    \fancyem{Claim} $\norm{w_k} \leq \lambda_k$ for $k = 1, \ldots, n$. Why? $\norm{w_k} \leftarrow$ smallest distance from a point in $\Lambda$ which is not in $L_{k-1}$ to $L_{k-1}$. (Krokin-Zolotarev) Let $\Lambda'_k$ be the orthogonal projection of $\Lambda$ onto $L_{k-1}^\perp$, then $\norm{w_k} = \min_{v \in \Lambda'_k \setminus \set{0}} \norm{v}$. Pick linearly independent $v_1, \ldots, v_k$ such that $\norm{v_i} \leq \lambda_k$ for $i = 1, \ldots, k$, so $\norm{w_k} \leq \norm{v} \leq \lambda_k$. The projection $v$ of at least one of them onto $L^{\perp}_{k-1}$ will be non-zero.
+
+    \fancyem{Reduced} $\norm{u_k}^2 = \norm{w_k}^2 + \sum_{i=1}^{k-1}|\alpha_{ki}|^2\norm{w_i}^2 \leq \lambda_k^2 + \sum_{i=1}^{k-1} \frac{1}{4}\lambda_i^2 \leq \lambda_k^2\left(1 + \frac{k-1}{4}\right) = \lambda_k^2\frac{k+3}{4} \implies \norm{u_k} \leq \frac{\sqrt{k+3}}{4}.$
+\end{proof}
+
+Certifying packing radius
+Given a $\Lambda$ and $u_1, \ldots, u_n$ a basis. Then $2 \rho(\Lambda) \geq \min_{k=1, \ldots, n} \dist_{u_k, L_{k-1}}$.
+
+We will construct a basis such that $2 \rho(\Lambda) \leq n \min_{k=1, \ldots, n}\dist(n_k, L_{k-1})$.
+
+
 
 \end{document}
