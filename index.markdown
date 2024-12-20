@@ -14,7 +14,8 @@ I am currently working at W. W. Grainger as an applied machine learning scientis
 
 Email: yiwei_fuscz AT outlook.com / fyw AT umich.edu 
 
-[[CV]](/assets/images/about/Yiwei_Fu_cv.pdf) [[Bluesky]](https://bsky.app/profile/yiweif.bsky.social) [[LinkedIn]](https://www.linkedin.com/in/{{ social.linkedin }})
+{% assign social = site.social_links %}
+[[CV]](/assets/images/about/Yiwei_Fu_cv.pdf) [[Bluesky]](https://bsky.app/profile/{{ social.bluesky}}) [[LinkedIn]](https://www.linkedin.com/in/{{ social.linkedin }})
 
 <!--more-->
 
