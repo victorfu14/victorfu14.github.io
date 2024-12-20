@@ -3,9 +3,13 @@ layout: page
 title: About
 permalink: /about/
 ---
-I'm Yiwei (YEE-WAY), an undergraduate student majoring in Mathematics and Computer Science at University of Michigan. This is very likely to be a random place where I keep records of my writing, academic things, and pastime. 
+> This is a more detailed introduction, I guess?
 
-I love exploring a lot of fields. I did Chemistry Olympiad during high school (although without any remarkable achievements), and am interested in science disciplines in general besides math and CS (which I major in). Pure theoretical stuff are absolutely cool, but I like applied things just as much.
+I'm Yiwei (yee-way) Fu (foo), a masters student in machine learning at Carnegie Mellon University. Previously I was an undergraduate student at University of Michigan majoring in Honors Mathematics and Computer Science.
+
+My research interest is in the privacy, safety, and security of machine learning, especially their connections with each other. I'm broadly interested in differential privacy, safety and alignment of generative models, and efficient and secure machine learning systems.
+
+However, I do love exploring a lot of fields. I am also interested in ML's applications in science/social science research. I did Chemistry Olympiad during high school (although without any remarkable achievements), and am interested in science disciplines in general besides math and CS (which I major in). Pure theoretical stuff are absolutely cool, but I like applied things just as much.
 
 ![someFunnyComic](../assets/images/about/fieldPurity.png)
 

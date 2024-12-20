@@ -7,13 +7,16 @@ layout: default
     <h1 class="page-heading">{{ page.title }}</h1>
   {%- endif -%}
 
-  <div style="display: flex;">
-    <div style="width: 20%; max-width: 7em; margin-left: auto; margin-right:auto"><img src="/assets/images/about/myFace.jpg" style="border-radius: 50%; margin-bottom: 15px;"></div>
-    <div style="width: 70%; max-width: 600px; margin: auto">{{ content }}</div>
+  {% assign contentArray = content | markdownify | split: page.excerpt_separator %}
+  <div style="display: flex; flex-wrap: wrap; margin-bottom: auto;">
+    <div class="headshot"><img src="/assets/images/about/DSC04740-2.jpg" style="border-radius: 50%; margin-bottom: 15px"></div>
+    <div class="intro">{{ contentArray[0] }}</div>
   </div>
   
+  <h1>Research</h1>
+  {{ contentArray[-1] }}
 
-
+  <h1>Notes and Blogs</h1>
   {% if site.paginate %}
     {% assign posts = paginator.posts %}
   {% else %}

@@ -18,24 +18,25 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: A (Pseudo)random Blog
+title: Yiwei Fu (洑亦唯)
 author:
-  name: Victor Fu 洑亦唯
-  email: yiwei_fuscz@outlook.com
+  name: Yiwei Fu 洑亦唯
+  email: yiwei_fuscz at outlook.com
   # site: victorfu.com
 description: >-
-  error[E0382]: use of moved value
+  
 descriptions:
   left: |
     A clueless but hopeful person
   right: |
-    error[E0382]: use of moved value
+    “They didn't bring us here at all. We brought ourselves.”
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://victorfu14.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 social_links:
-  twitter: victorfu14
+  twitter: 14fyw
   github:  victorfu14
   linkedin: yiwei-victor-fu-729027193
+  bluesky: yiweif.bsky.social
 disqus:
   shortname: victorfu14-github-io
 show_excerpts: true

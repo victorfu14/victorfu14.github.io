@@ -1,8 +1,8 @@
 @charset "utf-8";
 
 // Define defaults for each variable.
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap');
-$base-font-family: "Lora", "Merriweather", "Noto Serif SC", serif !default;
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Noto+Serif+SC:wght@300;400;500;600;700&family=Noto+Sans+SC&display=swap');
+$base-font-family: "Lora", "Merriweather", "Noto Sans Simplified Chinese", "Noto Serif SC", serif !default;
 $code-font-family: "Menlo", "Inconsolata", "Consolas", "Roboto Mono", "Ubuntu Mono", "Liberation Mono", "Courier New", monospace;
 $base-font-size:   16px !default;
 $base-font-weight: 400 !default;
@@ -14,9 +14,9 @@ $spacing-unit:     25px !default;
 $table-text-align: left !default;
 
 // Width of the content area
-$content-width:    800px !default;
+$content-width:    1000px !default;
 
-$on-palm:          600px !default;
+$on-palm:          400px !default;
 $on-laptop:        800px !default;
 
 $on-medium:        $on-palm !default;
