@@ -19,7 +19,7 @@ Email: yiwei_fuscz AT outlook.com / fyw AT umich.edu
 
 <!--more-->
 
-[Jogging the Memory of Unlearned Model Through Targeted Relearning Attack](https://arxiv.org/abs/2406.13356)\
+[Unlearning or Obfuscating? Jogging the Memory of Unlearned LLMs via Benign Relearning](https://openreview.net/pdf?id=fMNRYBvcQN)\
 Shengyuan Hu, **Yiwei Fu**, Zhiwei Steven Wu, Virginia Smith\
-Preprint\
+The Thirteenth International Conference on Learning Representations, 2025\
 [\[PDF\]](https://arxiv.org/pdf/2406.13356.pdf)
