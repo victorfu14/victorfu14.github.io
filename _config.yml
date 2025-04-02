@@ -33,7 +33,6 @@ descriptions:
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://victorfu14.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 social_links:
-  twitter: 14fyw
   github:  victorfu14
   linkedin: yiwei-victor-fu-729027193
   bluesky: yiweif.bsky.social

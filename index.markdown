@@ -8,7 +8,7 @@ excerpt_separator: "<!--more-->"
 
 I'm Yiwei (yee-way) Fu (foo), a masters student in machine learning at Carnegie Mellon University. Previously I was an undergraduate student at University of Michigan majoring in Honors Mathematics and Computer Science.
 
-My research interest is in the privacy, safety, and security of machine learning, especially their connections with each other. I'm broadly interested in differential privacy, safety and alignment of generative models, and efficient and secure machine learning systems.
+My research interest is in the privacy, safety, and security of machine learning, especially their connections with each other. I'm broadly interested in differential privacy, safety, and alignment of generative models with their information theoretic implications, and efficient and secure machine learning systems.
 
 I am currently working at W. W. Grainger as an applied machine learning scientist.
 
