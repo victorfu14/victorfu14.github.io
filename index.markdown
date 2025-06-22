@@ -6,11 +6,9 @@ layout: home
 excerpt_separator: "<!--more-->"
 ---
 
-I'm Yiwei (yee-way) Fu (foo), an incoming CS PhD student at University of Illinois Urbana-Champaign (UIUC). Previously, I had a master's degree in machine learning at Carnegie Mellon University. Before that, I graduated from University of Michigan majoring in Honors Mathematics and Computer Science.
+I'm Yiwei (yee-way) Fu (foo), an incoming CS PhD student at University of Illinois Urbana-Champaign (UIUC). Previously, I had a master's degree in machine learning at Carnegie Mellon University. Before that, I graduated from University of Michigan majoring in Honors Mathematics and Computer Science. I also worked at W. W. Grainger as an applied machine learning scientist.
 
 My research interest is in the privacy, safety, and security of machine learning, especially their connections with each other. I'm broadly interested in differential privacy, safety, and alignment of generative models with their information theoretic implications, and efficient and secure machine learning systems.
-
-I am currently working at W. W. Grainger as an applied machine learning scientist.
 
 Email: yiwei_fuscz AT outlook.com / fyw AT umich.edu 
 
