@@ -10,6 +10,8 @@ I'm Yiwei (yee-way) Fu (foo), a first year CS PhD student at University of Illin
 
 My research interest is in the privacy, safety, and security of machine learning, especially their connections with each other. I'm broadly interested in differential privacy, safety, and alignment of generative models with their information theoretic implications, and efficient and secure machine learning systems.
 
+[More of me here.](/about) [Non-academic stuff here.](/fun)
+
 Email: yiwei_fuscz AT outlook.com / fyw AT umich.edu 
 
 {% assign social = site.social_links %}

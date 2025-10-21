@@ -48,6 +48,12 @@ defaults:
       excerpt: ""
       published: false
 
+header_pages:
+  - header/about.markdown
+  - header/cs.markdown
+  - header/math.markdown
+  - header/fun.markdown
+  - header/misc.markdown
 
 # Build settings
 # theme: minima

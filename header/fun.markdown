@@ -1,6 +1,7 @@
 ---
 layout: categories
-title: Random
+title: Personal
+permalink: /fun/
 ---
 
 <!-- <p>I'll try to come up with an elegant way to present some stuff.</p> -->

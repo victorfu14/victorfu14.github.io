@@ -2,24 +2,110 @@
 permalink: /404.html
 layout: default
 ---
-
-<style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
+<style>
+  .not-found-container {
     text-align: center;
+    padding: 40px 20px;
+    max-width: 700px;
+    margin: 0 auto;
   }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
+  
+  /* This is the message "The page got lost at..." */
+  #lost-message {
+    font-size: 1.25em;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  /* Style for the link to Google Earth */
+  #lost-message a {
+    font-weight: 600;
+    color: #0056b3; /* A nice blue */
+    text-decoration: none;
+    border-bottom: 2px solid #0056b3;
+    transition: all 0.2s ease;
+  }
+  #lost-message a:hover {
+    background-color: #0056b3;
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 2px 4px;
+  }
+
+  /* Container for the map embed */
+  #map-container {
+    width: 100%;
+    max-width: 650px;
+    height: 450px;
+    margin: 30px auto;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  
+  /* The iframe for the map */
+  #map-iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
   }
 </style>
 
-<div class="container">
-  <h1>404</h1>
-
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
+<div class="not-found-container">
+  <h1>404 - Page Not Found</h1>
+  <!-- <p>Oops! That page doesn't exist or has been moved.</p> -->
+  
+  <p id="lost-message">Just a moment, figuring out where it went...</p>
+  
+  <div id="map-container">
+    <p>Loading map...</p>
+  </div>
 </div>
+
+
+<script>
+  // This runs after the page has loaded
+  document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Generate Random Coordinates ---
+    // Latitude: -90 to +90
+    // Longitude: -180 to +180
+    let lat = (Math.random() * 180 - 90).toFixed(6);
+    let lon = (Math.random() * 360 - 180).toFixed(6);
+
+    // --- Format Coordinates for Display ---
+    let latDir = lat >= 0 ? 'N' : 'S';
+    let lonDir = lon >= 0 ? 'E' : 'W';
+    let formattedCoords = `${Math.abs(lat)}° ${latDir}, ${Math.abs(lon)}° ${lonDir}`;
+
+    // --- Find our HTML elements ---
+    const messageEl = document.getElementById('lost-message');
+    const mapContainer = document.getElementById('map-container');
+
+    // --- 1. Create the Google Earth Link ---
+    // This links to the full Google Earth website
+    const earthLink = `https://earth.google.com/web/search/${lat},${lon}`;
+    
+    // --- 2. Update the "lost" message ---
+    messageEl.innerHTML = `
+      <p>Oh no, the requested page got lost at 
+      <a href="${earthLink}" target="_blank" rel="noopener noreferrer">${formattedCoords}</a>.</p>
+      
+      <p>Can you reach there?</p>`;
+
+    // --- 3. Create and embed the "widget" ---
+    // For a simple embed, we use Google Maps satellite view.
+    // 't=k' requests the satellite tiles.
+    const mapEmbedUrl = `https://maps.google.com/maps?q=${lat},${lon}&t=k&z=4&ie=UTF8&iwloc=&output=embed`;
+    
+    const iframe = document.createElement('iframe');
+    iframe.id = 'map-iframe';
+    iframe.src = mapEmbedUrl;
+    iframe.setAttribute('loading', 'lazy');
+    
+    // Clear the "Loading map..." text and add the iframe
+    mapContainer.innerHTML = '';
+    mapContainer.appendChild(iframe);
+  });
+</script>
