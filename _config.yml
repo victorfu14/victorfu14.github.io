@@ -39,6 +39,11 @@ social_links:
 disqus:
   shortname: victorfu14-github-io
 show_excerpts: true
+# pagination:
+#   enabled: true
+#   per_page: 5
+#   permalink: '/page/:num/'
+#   legacy: false
 defaults:
   -
     scope:
@@ -60,6 +65,7 @@ header_pages:
 plugins:
   - jekyll-feed
   - jekyll-sitemap
+  # - jekyll-paginate-v2
 
 # Exclude from processing.
 # The following items will not be processed, by default.

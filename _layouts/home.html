@@ -2,6 +2,50 @@
 layout: default
 ---
 
+<style>
+  /* This hides all posts with the "hidden-post" class */
+  .hidden-post {
+    display: none;
+  }
+
+  /* Container for the buttons */
+  .pagination-controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px; /* Puts space between the buttons */
+  }
+
+  /* This styles BOTH buttons to look like text links */
+  #load-more-btn,
+  #fold-up-btn {
+    /* Reset button defaults */
+    background: transparent;
+    font-family: inherit; /* Use the site's font */
+    font-size: 1rem;
+    
+    /* Desired style */
+    display: inline-block;
+    color: #444; /* A standard text color */
+    border: 1px solid #ccc; /* Simple border */
+    padding: 8px 16px;
+    border-radius: 4px; 
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  /* Simple hover effect for both */
+  #load-more-btn:hover,
+  #fold-up-btn:hover {
+    background-color: #f0f0f0; 
+    border-color: #aaa;
+  }
+
+  /* This hides the "Fold Up" button by default */
+  #fold-up-btn {
+    display: none;
+  }
+</style>
+
 <div class="home">
   {%- if page.title -%}
     <h1 class="page-heading">{{ page.title }}</h1>
@@ -26,7 +70,7 @@ layout: default
 
   <br>
 
-  <h1>Notes and Blogs</h1>
+  <!-- <h1>Notes and Blogs</h1>
   {% if site.paginate %}
     {% assign posts = paginator.posts %}
   {% else %}
@@ -75,6 +119,106 @@ layout: default
       </div>
     {%- endif %}
 
+  {%- endif -%} -->
+
+  <h1>Notes and Blogs</h1>
+
+  {% assign posts = site.posts %}
+
+  {%- if posts.size > 0 -%}
+    {%- if page.list_title -%}
+      <h2 class="post-list-heading">{{ page.list_title }}</h2>
+    {%- endif -%}
+    <ul class="post-list">
+      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+      {%- for post in posts -%}
+      
+      {%- comment -%}
+        If the post is after the 5th, we give it TWO classes:
+        1. 'paginated-post' (to identify it for folding up)
+        2. 'hidden-post' (to hide it)
+      {%- endcomment -%}
+      <li class="{% if forloop.index > 5 %}paginated-post hidden-post{% endif %}">
+        <span class="post-meta">{{ post.date | date: date_format }}</span>
+        <h3>
+          <a class="post-link" href="{{ post.url | relative_url }}">
+            {{ post.title | escape | markdownify }}
+          </a>
+        </h3>
+        {%- if site.show_excerpts -%}
+          {%- if post.excerpt != "" -%}
+            <div class="post-excerpt">{{ "--- " | append: post.excerpt | escape | markdownify }}</div>
+          {%- endif -%}
+        {%- endif -%}
+      </li>
+      {%- endfor -%}
+    </ul>
+
+    {%- comment -%}
+      If we have more than 5 posts, show the button container
+    {%- endcomment -%}
+    {% if posts.size > 5 %}
+      <div class="pagination-controls">
+        <button type="button" id="load-more-btn">More posts...</button>
+        <button type="button" id="fold-up-btn">Show less...</button>
+      </div>
+    {% endif %}
+
   {%- endif -%}
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const loadMoreBtn = document.getElementById('load-more-btn');
+      const foldUpBtn = document.getElementById('fold-up-btn');
+      const postList = document.querySelector('.post-list');
+
+      // --- 1. Load More Button Click ---
+      if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', () => {
+          // Find all the posts that are still hidden
+          const hiddenPosts = document.querySelectorAll('.hidden-post');
+          const showCount = 5; // How many to show at a time
+
+          // Loop and show the next 5 (or fewer)
+          for (let i = 0; i < showCount && i < hiddenPosts.length; i++) {
+            hiddenPosts[i].classList.remove('hidden-post');
+          }
+
+          // Show the "Fold Up" button now that we've shown some posts
+          if (foldUpBtn) foldUpBtn.style.display = 'inline-block';
+
+          // If there are no more hidden posts, hide the "Load More" button
+          if (document.querySelectorAll('.hidden-post').length === 0) {
+            loadMoreBtn.style.display = 'none';
+          }
+        });
+      }
+
+      // --- 2. Fold Up Button Click ---
+      if (foldUpBtn) {
+        foldUpBtn.addEventListener('click', () => {
+          // Find ALL the posts we've ever unhidden
+          const paginatedPosts = document.querySelectorAll('.paginated-post');
+          
+          // Re-hide all of them
+          paginatedPosts.forEach(post => {
+            post.classList.add('hidden-post');
+          });
+
+          // Show the "Load More" button again
+          if (loadMoreBtn) loadMoreBtn.style.display = 'inline-block';
+          
+          // Hide the "Fold Up" button
+          foldUpBtn.style.display = 'none';
+
+          // Optional: Scroll the user back to the top of the post list
+          if (postList) {
+            postList.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      }
+    });
+  </script>
 
 </div>
