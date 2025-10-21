@@ -1,0 +1,46 @@
+name: Update Strava Stats
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    
+    # ADD THIS LINE:
+    working-directory: ./parts/activity
+    
+    permissions:
+      contents: write
+      
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      # This will now run 'npm install' inside ./parts/activity
+      - name: Install dependencies
+        run: npm install
+
+      # This will now run 'node fetch-stats.js' inside ./parts/activity
+      - name: Fetch Strava Stats
+        run: node fetch-stats.js
+        env:
+          STRAVA_CLIENT_ID: ${{ secrets.STRAVA_CLIENT_ID }}
+          STRAVA_CLIENT_SECRET: ${{ secrets.STRAVA_CLIENT_SECRET }}
+          STRAVA_REFRESH_TOKEN: ${{ secrets.STRAVA_REFRESH_TOKEN }}
+          STRAVA_ATHLETE_ID: ${{ secrets.STRAVA_ATHLETE_ID }}
+
+      # This step still runs from the root, so we update the path
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Automated: Updated Strava stats"
+          # CHANGE THIS LINE:
+          file_pattern: parts/activity/stats.json

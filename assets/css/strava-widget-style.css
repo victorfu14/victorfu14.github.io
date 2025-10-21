@@ -1,0 +1,116 @@
+/* All styles are now "scoped" to the .widget class */
+.widget { 
+    /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;  */
+    background: #ffffff; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+    padding: 24px; 
+    width: 90%;
+    max-width: 800px;
+    text-align: center; 
+    /* This ensures other styles on your site don't mess up the box model */
+    box-sizing: border-box; 
+
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;    
+    margin-bottom: 2rem;
+}
+.widget h2 { 
+    margin: 0 0 20px 0; 
+    color: #333; 
+    text-align: left;
+}
+.widget .loading { 
+    font-size: 1.2em; 
+    color: #888; 
+}
+.widget .stat-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 4px;
+}
+
+/* --- FLEXBOX STYLES --- */
+
+.widget #stats-container {
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-around; 
+    align-items: flex-start;
+    flex-wrap: wrap; 
+}
+
+.widget .stat-group {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    min-width: 160px; 
+    margin: 10px;
+}
+
+.widget .stat { 
+    margin: 10px 0;
+}
+.widget .stat-label { 
+    font-size: 0.9em; 
+    color: #666; 
+    text-transform: uppercase; 
+    letter-spacing: 0.5px; 
+}
+.widget .stat-value { 
+    font-size: 2.2em; 
+    font-weight: 700; 
+    color: #fc5200; 
+    margin-top: 4px; 
+}
+.widget .stat-unit { 
+    font-size: 1em; 
+    color: #fc5200; 
+    margin-left: 2px; 
+}
+
+/* --- MEDIA QUERY FOR PHONES --- */
+
+@media (max-width: 600px) {
+    .widget #stats-container {
+        flex-direction: column; 
+        align-items: center;
+    }
+
+    /* We can remove the .widget prefix here, as it's already inside a .widget rule */
+    .widget {
+        width: 85%; 
+    }
+    
+    .widget .stat-group {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+    
+    .widget .stat-group:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+}
+
+/* --- PROFILE LINK --- */
+
+.widget .profile-link {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 24px;
+    background-color: #fc5200; 
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.widget .profile-link:hover {
+    background-color: #e04a00; 
+}

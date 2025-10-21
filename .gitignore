@@ -22,3 +22,7 @@ public/
 *.fdb_latexmk
 *.bbl
 *.blg
+
+parts/activity/.env
+node_modules/
+package-lock.json
