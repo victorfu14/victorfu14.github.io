@@ -9,8 +9,9 @@ jobs:
   update-stats:
     runs-on: ubuntu-latest
     
-    # ADD THIS LINE:
-    working-directory: ./parts/activity
+    defaults:
+      run:
+        working-directory: ./parts/activity
     
     permissions:
       contents: write
