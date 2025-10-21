@@ -26,7 +26,7 @@ I like data, and these are the things over which I don't worry about privacy too
     </div>
 </div>
 <script src="../parts/activity/script.js"></script>
-<p style="text-align: center; font-size: 0.8em; color: #828282">(This widget is coded with the help from Gemini)</p>
+<p class="caption-text">(This widget is coded with the help from Gemini. I am working on the Dark mode.)</p>
 
 Photography? Yeah, I do have a standalone Instagram photography account as any photography-influencer-wannabe. What's wrong with that though? 
 

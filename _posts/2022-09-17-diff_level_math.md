@@ -17,10 +17,10 @@ published: true
 大概是这个意思：一个partition lambda是一个非严格递减的正整数sequence, like (6, 5, 5, 4, ...). 然后这道题等式的右边sum over partition，左边sum over所有自然数。
 
 ![step1](/assets/images/2022-09-17/step1.png)
-<p style="text-align: center; font-size: 0.8em; color: #828282">(左边， sum over 无穷和的从1到无穷次方)</p>
+<p class="caption-text">(左边， sum over 无穷和的从1到无穷次方)</p>
 
 ![rhs](/assets/images/2022-09-17/rhs.png)
-<p style="text-align: center; font-size: 0.8em; color: #828282">(右边，sum over 所有partition)</p>
+<p class="caption-text">(右边，sum over 所有partition)</p>
 
 所以左边k次方占开的时候，$p_n$的积并不一定ordered by n. 因此，要考虑有多少种这样的乱序。这时候我的脑子里突然蹦出来了高中数学老师兼班主任杨春松的经典话语：“分堆送人问题！”然后我丢入了multinomial formula，于是系数成功消掉了。So yeah, 一点calculus的无穷级数加上一个高中老师的灵魂话语让我解完了一道grad数学课的作业题。That&#39;s how math works sometimes.
 

@@ -21,6 +21,6 @@ On a calm night after a weekend's storm, May 18.
 
 [![Huge Love and Thanks to My Quarantine Squad Buddies](/assets/images/5-18/mymosaic-0.5.png "Huge Love and Thanks to My Quarantine Squad Buddies, Daniel Zhang and Kary Wang")](https://www.instagram.com/p/B_GP3c0p1cF/?utm_source=ig_web_copy_link)
 
-<p style="text-align: center; font-size: 0.8em; color: #828282">(made for CS 225 Date Structrues machine problems with quarantine pics)</p>
+<p class="caption-text">(made for CS 225 Date Structrues machine problems with quarantine pics)</p>
 
 Huge Love and Thanks to My Quarantine Squad Buddies, [Daniel Zhang](https://www.danielz.ch/) and Kary Wang

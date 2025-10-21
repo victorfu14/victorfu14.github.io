@@ -38,3 +38,300 @@ mjx-container {
   overflow-x: auto;
   overflow-y: hidden;
 }
+
+// DARK MODE STUFF
+// _sass/minima/custom-styles.scss
+
+// --- 1. DEFINE THE DARK MODE OVERRIDE ---
+// This block is now *only* active when the JS adds .dark-mode to the body.
+
+body.dark-mode {
+  // --- Dark Palette (New) ---
+  --text-color:           #e0e0e0;
+  --caption-color:        #9e9e9e;
+  --background-color:     #1e1e1e;
+  --code-background-color: #2b2b2b;
+  --link-color:           #64b5f6;
+  --link-visited-color:   #90caf9;
+  --header-text-color:    #c0c0c0;
+  --header-bg-color:      #1a1a1a;
+  --footer-bg-color:      #1a1a1a;
+  --border-color:         #333333;
+  --table-border-color:   #444444;
+  --table-header-bg:      #333333;
+  --table-zebra-bg:       #2a2a2a;
+
+  // --- Syntax Highlighting (Dark) ---
+  --syntax-comment: #75715e;
+  --syntax-error: #f92672;
+  --syntax-error-bg: #490000;
+  --syntax-keyword: #f92672;
+  --syntax-operator: #f92672;
+  --syntax-comment-preproc: #8f908a;
+  --syntax-generic-deleted: #f92672;
+  --syntax-generic-deleted-bg: #490000;
+  --syntax-generic-error: #f92672;
+  --syntax-generic-heading: #e6db74;
+  --syntax-generic-inserted: #a6e22e;
+  --syntax-generic-inserted-bg: #0c3b00;
+  --syntax-generic-output: #888;
+  --syntax-generic-prompt: #888;
+  --syntax-generic-subheading: #e6db74;
+  --syntax-generic-traceback: #f92672;
+  --syntax-keyword-type: #66d9ef;
+  --syntax-literal-number: #ae81ff;
+  --syntax-literal-string: #e6db74;
+  --syntax-name-attribute: #a6e22e;
+  --syntax-name-builtin: #a6e22e;
+  --syntax-name-class: #a6e22e;
+  --syntax-name-constant: #66d9ef;
+  --syntax-name-entity: #ae81ff;
+  --syntax-name-exception: #a6e22e;
+  --syntax-name-function: #a6e22e;
+  --syntax-name-namespace: #f8f8f2;
+  --syntax-name-tag: #f92672;
+  --syntax-name-variable: #f8f8f2;
+  --syntax-text-whitespace: #444;
+  --syntax-string-regex: #e6db74;
+  --syntax-string-symbol: #ae81ff;
+  --syntax-name-builtin-pseudo: #66d9ef;
+}
+
+
+// --- 2. OVERRIDE MINIMA'S STYLES TO USE CSS VARS ---
+// (This part is unchanged and correct)
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.site-header {
+  background-color: var(--header-bg-color);
+  border-bottom-color: var(--border-color);
+}
+
+.site-title, .site-title:visited {
+  color: var(--header-text-color);
+}
+
+.site-nav .page-link {
+  color: var(--header-text-color);
+}
+
+.site-footer {
+  background-color: var(--footer-bg-color);
+  border-top-color: var(--border-color);
+}
+
+a, .post-link {
+  color: var(--link-color);
+  &:visited {
+    color: var(--link-visited-color);
+  }
+}
+
+pre, code {
+  background-color: var(--code-background-color);
+}
+
+table {
+  color: var(--text-color);
+
+  th {
+    background-color: var(--table-header-bg);
+    border-color: var(--table-border-color);
+  }
+  td {
+    border-color: var(--table-border-color);
+  }
+  tr:nth-child(even) {
+    background-color: var(--table-zebra-bg);
+  }
+}
+
+.caption-text {
+  text-align: center;
+  font-size: 0.8em;
+  color: var(--caption-color);
+}
+
+// --- 3. OVERRIDE SYNTAX HIGHLIGHTING ---
+
+.highlight {
+  .c     { color: var(--syntax-comment) !important; font-style: italic }
+  .err   { color: var(--syntax-error) !important; background-color: var(--syntax-error-bg) !important; }
+  .k     { color: var(--syntax-keyword) !important; font-weight: bold }
+  .o     { color: var(--syntax-operator) !important; font-weight: bold }
+  .cm    { color: var(--syntax-comment) !important; font-style: italic }
+  .cp    { color: var(--syntax-comment-preproc) !important; font-weight: bold }
+  .c1    { color: var(--syntax-comment) !important; font-style: italic }
+  .cs    { color: var(--syntax-comment) !important; font-weight: bold; font-style: italic }
+  .gd    { color: var(--syntax-generic-deleted) !important; background-color: var(--syntax-generic-deleted-bg) !important; }
+  .gd .x { color: var(--syntax-generic-deleted) !important; background-color: var(--syntax-generic-deleted-bg) !important; }
+  .ge    { font-style: italic }
+  .gr    { color: var(--syntax-generic-error) !important; }
+  .gh    { color: var(--syntax-generic-heading) !important; }
+  .gi    { color: var(--syntax-generic-inserted) !important; background-color: var(--syntax-generic-inserted-bg) !important; }
+  .gi .x { color: var(--syntax-generic-inserted) !important; background-color: var(--syntax-generic-inserted-bg) !important; }
+  .go    { color: var(--syntax-generic-output) !important; }
+  .gp    { color: var(--syntax-generic-prompt) !important; }
+  .gs    { font-weight: bold }
+  .gu    { color: var(--syntax-generic-subheading) !important; }
+  .gt    { color: var(--syntax-generic-traceback) !important; }
+  .kc    { color: var(--syntax-keyword) !important; font-weight: bold }
+  .kd    { color: var(--syntax-keyword) !important; font-weight: bold }
+  .kp    { color: var(--syntax-keyword) !important; font-weight: bold }
+  .kr    { color: var(--syntax-keyword) !important; font-weight: bold }
+  .kt    { color: var(--syntax-keyword-type) !important; font-weight: bold }
+  .m     { color: var(--syntax-literal-number) !important; }
+  .s     { color: var(--syntax-literal-string) !important; }
+  .na    { color: var(--syntax-name-attribute) !important; }
+  .nb    { color: var(--syntax-name-builtin) !important; }
+  .nc    { color: var(--syntax-name-class) !important; font-weight: bold }
+  .no    { color: var(--syntax-name-constant) !important; }
+  .ni    { color: var(--syntax-name-entity) !important; }
+  .ne    { color: var(--syntax-name-exception) !important; font-weight: bold }
+  .nf    { color: var(--syntax-name-function) !important; font-weight: bold }
+  .nn    { color: var(--syntax-name-namespace) !important; }
+  .nt    { color: var(--syntax-name-tag) !important; }
+  .nv    { color: var(--syntax-name-variable) !important; }
+  .ow    { color: var(--syntax-operator) !important; font-weight: bold }
+  .w     { color: var(--syntax-text-whitespace) !important; }
+  .mf    { color: var(--syntax-literal-number) !important; }
+  .mh    { color: var(--syntax-literal-number) !important; }
+  .mi    { color: var(--syntax-literal-number) !important; }
+  .mo    { color: var(--syntax-literal-number) !important; }
+  .sb    { color: var(--syntax-literal-string) !important; }
+  .sc    { color: var(--syntax-literal-string) !important; }
+  .sd    { color: var(--syntax-literal-string) !important; }
+  .s2    { color: var(--syntax-literal-string) !important; }
+  .se    { color: var(--syntax-literal-string) !important; }
+  .sh    { color: var(--syntax-literal-string) !important; }
+  .si    { color: var(--syntax-literal-string) !important; }
+  .sx    { color: var(--syntax-literal-string) !important; }
+  .sr    { color: var(--syntax-string-regex) !important; }
+  .s1    { color: var(--syntax-literal-string) !important; }
+  .ss    { color: var(--syntax-string-symbol) !important; }
+  .bp    { color: var(--syntax-name-builtin-pseudo) !important; }
+  .vc    { color: var(--syntax-name-variable) !important; }
+  .vg    { color: var(--syntax-name-variable) !important; }
+  .vi    { color: var(--syntax-name-variable) !important; }
+  .il    { color: var(--syntax-literal-number) !important; }
+}
+
+// _sass/minima/custom-styles.scss
+
+// --- STYLING FOR THE THEME TOGGLE BUTTON ---
+
+#theme-toggle {
+  // Reset default button styles
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  
+  // Align with other header text
+  position: relative;
+  top: 4px; 
+
+  // Use the header's text color for the icon
+  color: var(--header-text-color);
+}
+
+#theme-toggle:hover {
+  // Use the link color on hover
+  color: var(--link-color);
+}
+
+// --- ICON SHOW/HIDE LOGIC ---
+
+// 1. By default (light mode), hide the moon
+#theme-toggle .icon-moon {
+  display: none;
+}
+#theme-toggle .icon-sun {
+  display: block; // Show the sun
+}
+
+// 2. When in dark mode, hide the sun
+body.dark-mode #theme-toggle .icon-sun {
+  display: none;
+}
+body.dark-mode #theme-toggle .icon-moon {
+  display: block; // Show the moon
+}
+
+#theme-toggle {
+  // --- DESKTOP STYLES ---
+  // On desktop, float it right, just like the nav
+  @media screen and (min-width: $on-medium) {
+    float: right;
+    position: relative;
+    top: 17px; 
+    margin-left: 20px;
+  }
+
+  // --- MOBILE STYLES ---
+  // On mobile, pin it to the top right, to the *left* of the hamburger
+  @include media-query($on-palm) {
+    position: absolute;
+    z-index: 11; // Place it on top of the nav menu's z-index (10)
+    top: 17px;
+    right: 61px;
+  }
+}
+
+// Style the placeholder blockquote before the script loads
+.instagram-media {
+  background: var(--background-color) !important; // Use theme background
+  border-color: var(--border-color) !important;  // Use theme border
+  box-shadow: none !important; // Remove default shadow if desired
+  color: var(--text-color) !important; // Make placeholder text match theme
+
+  // You might need to hide some placeholder elements that stay white
+  // Add more specific selectors here if needed after inspecting
+}
+
+// Style the iframe itself after it loads
+iframe.instagram-media {
+  border-radius: 3px; // Keep the rounded corners maybe?
+  border: 1px solid var(--border-color) !important; // Match theme border
+
+  // TRY THIS: Make the iframe slightly transparent in dark mode?
+  // It won't make the content dark, but might soften the white box.
+  body.dark-mode & {
+    opacity: 0.9; 
+  }
+}
+
+// --- STICKY & AUTO-HIDE HEADER ---
+
+.site-header {
+  // 1. Make the header stick to the top
+  position: sticky; // Or use 'fixed' if you prefer
+  top: 0;
+  left: 0; // Necessary if using fixed
+  right: 0; // Necessary if using fixed
+  width: 100%; // Necessary if using fixed
+  z-index: 100; // Make sure it stays on top
+
+  // 2. Add a smooth transition for hiding/showing
+  transition: transform 0.3s ease-in-out;
+  transform: translateY(0); // Default state: visible
+}
+
+.site-header.header-hidden {
+  // 3. When hidden, slide it up off-screen
+  transform: translateY(-100%); 
+}
+
+// Optional: Add some padding to the top of the main content
+// to prevent it from jumping *under* the sticky header initially.
+// Adjust the '60px' based on your header's actual height.
+.site-content {
+  padding-top: 60px; 
+}
+
+// --- END STICKY & AUTO-HIDE HEADER ---

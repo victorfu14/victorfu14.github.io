@@ -11,7 +11,7 @@ I do love to know a bit of everything, like ML's applications in science/social 
 
 ![someFunnyComic](../assets/images/about/fieldPurity.png)
 
-<p style="text-align: center; font-size: 0.8em; color: #828282">(credit to xkcd, I did some small modification)</p>
+<p class="caption-text">(credit to xkcd, I did some small modification)</p>
 
 [I have a bunch of hobbies.](../fun) I like travel, road trips, outdoors, and photography. I mainly take photos when I travel but am actively trying to use photography as a way to express my take on everyday life as well.
 

@@ -1,0 +1,297 @@
+@charset "utf-8";
+
+// --- 1. DEFINE YOUR COLOR PALETTES ---
+
+// --- Light Mode (Your custom colors) ---
+$light-brand-color:     #828282;
+$light-brand-light:     lighten($light-brand-color, 40%);
+$light-brand-dark:      darken($light-brand-color, 25%);
+$light-text-color:      #111;
+$light-background-color: #fdfdfd;
+$light-code-bg:         #eef;
+$light-link-base:       #2a7ae2;
+$light-link-visited:    darken($light-link-base, 15%);
+$light-table-text:      lighten($light-text-color, 18%);
+$light-table-zebra:     lighten($light-brand-color, 46%);
+$light-table-header-bg: lighten($light-brand-color, 43%);
+$light-table-header-border: lighten($light-brand-color, 36%);
+$light-table-border:    $light-brand-light;
+
+// --- Dark Mode (New complementary palette) ---
+$dark-brand-color:     #9e9e9e;
+$dark-brand-light:     lighten($dark-brand-color, 20%);
+$dark-brand-dark:      darken($dark-brand-color, 25%);
+$dark-text-color:      #e0e0e0;
+$dark-background-color: #1e1e1e;
+$dark-code-bg:         #2b2b2b;
+$dark-link-base:       #64b5f6;
+$dark-link-visited:    lighten($dark-link-base, 15%);
+$dark-table-text:      lighten($dark-text-color, 18%);
+$dark-table-zebra:     #2a2a2a;
+$dark-table-header-bg: #333333;
+$dark-table-header-border: #444444;
+$dark-table-border:    #444444;
+
+
+// --- 2. CREATE DYNAMIC CSS VARIABLES ---
+
+:root {
+  // Base colors
+  --brand-color:          #{$light-brand-color};
+  --brand-color-light:    #{$light-brand-light};
+  --brand-color-dark:     #{$light-brand-dark};
+  --text-color:           #{$light-text-color};
+  --background-color:     #{$light-background-color};
+  --code-background-color: #{$light-code-bg};
+  --link-base-color:      #{$light-link-base};
+  --link-visited-color:   #{$light-link-visited};
+  --table-text-color:     #{$light-table-text};
+  --table-zebra-color:    #{$light-table-zebra};
+  --table-header-bg-color: #{$light-table-header-bg};
+  --table-header-border:  #{$light-table-header-border};
+  --table-border-color:   #{$light-table-border};
+
+  // Syntax Highlighting (from your light theme)
+  --syntax-comment: #998;
+  --syntax-error: #a61717;
+  --syntax-error-bg: #e3d2d2;
+  --syntax-keyword: #000; // You just had "font-weight: bold"
+  --syntax-operator: #000; // You just had "font-weight: bold"
+  --syntax-comment-preproc: #999;
+  --syntax-generic-deleted: #000;
+  --syntax-generic-deleted-bg: #fdd;
+  --syntax-generic-error: #a00;
+  --syntax-generic-heading: #999;
+  --syntax-generic-inserted: #000;
+  --syntax-generic-inserted-bg: #dfd;
+  --syntax-generic-output: #888;
+  --syntax-generic-prompt: #555;
+  --syntax-generic-subheading: #aaa;
+  --syntax-generic-traceback: #a00;
+  --syntax-keyword-type: #458;
+  --syntax-literal-number: #099;
+  --syntax-literal-string: #d14;
+  --syntax-name-attribute: #008080;
+  --syntax-name-builtin: #0086B3;
+  --syntax-name-class: #458;
+  --syntax-name-constant: #008080;
+  --syntax-name-entity: #800080;
+  --syntax-name-exception: #900;
+  --syntax-name-function: #900;
+  --syntax-name-namespace: #555;
+  --syntax-name-tag: #000080;
+  --syntax-name-variable: #008080;
+  --syntax-text-whitespace: #bbb;
+  --syntax-string-regex: #009926;
+  --syntax-string-symbol: #990073;
+  --syntax-name-builtin-pseudo: #999;
+}
+
+// --- 3. AUTO & MANUAL DARK MODE ---
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-mode) {
+    // Base colors
+    --brand-color:          #{$dark-brand-color};
+    --brand-color-light:    #{$dark-brand-light};
+    --brand-color-dark:     #{$dark-brand-dark};
+    --text-color:           #{$dark-text-color};
+    --background-color:     #{$dark-background-color};
+    --code-background-color: #{$dark-code-bg};
+    --link-base-color:      #{$dark-link-base};
+    --link-visited-color:   #{$dark-link-visited};
+    --table-text-color:     #{$dark-table-text};
+    --table-zebra-color:    #{$dark-table-zebra};
+    --table-header-bg-color: #{$dark-table-header-bg};
+    --table-header-border:  #{$dark-table-header-border};
+    --table-border-color:   #{$dark-table-border};
+
+    // Syntax Highlighting (new dark theme)
+    --syntax-comment: #75715e;
+    --syntax-error: #f92672;
+    --syntax-error-bg: #490000;
+    --syntax-keyword: #f92672;
+    --syntax-operator: #f92672;
+    --syntax-comment-preproc: #8f908a;
+    --syntax-generic-deleted: #f92672;
+    --syntax-generic-deleted-bg: #490000;
+    --syntax-generic-error: #f92672;
+    --syntax-generic-heading: #e6db74;
+    --syntax-generic-inserted: #a6e22e;
+    --syntax-generic-inserted-bg: #0c3b00;
+    --syntax-generic-output: #888;
+    --syntax-generic-prompt: #888;
+    --syntax-generic-subheading: #e6db74;
+    --syntax-generic-traceback: #f92672;
+    --syntax-keyword-type: #66d9ef;
+    --syntax-literal-number: #ae81ff;
+    --syntax-literal-string: #e6db74;
+    --syntax-name-attribute: #a6e22e;
+    --syntax-name-builtin: #a6e22e;
+    --syntax-name-class: #a6e22e;
+    --syntax-name-constant: #66d9ef;
+    --syntax-name-entity: #ae81ff;
+    --syntax-name-exception: #a6e22e;
+    --syntax-name-function: #a6e22e;
+    --syntax-name-namespace: #f8f8f2;
+    --syntax-name-tag: #f92672;
+    --syntax-name-variable: #f8f8f2;
+    --syntax-text-whitespace: #444;
+    --syntax-string-regex: #e6db74;
+    --syntax-string-symbol: #ae81ff;
+    --syntax-name-builtin-pseudo: #66d9ef;
+  }
+}
+
+// Class added by JavaScript toggle
+body.dark-mode {
+  // Base colors
+  --brand-color:          #{$dark-brand-color};
+  --brand-color-light:    #{$dark-brand-light};
+  --brand-color-dark:     #{$dark-brand-dark};
+  --text-color:           #{$dark-text-color};
+  --background-color:     #{$dark-background-color};
+  --code-background-color: #{$dark-code-bg};
+  --link-base-color:      #{$dark-link-base};
+  --link-visited-color:   #{$dark-link-visited};
+  --table-text-color:     #{$dark-table-text};
+  --table-zebra-color:    #{$dark-table-zebra};
+  --table-header-bg-color: #{$dark-table-header-bg};
+  --table-header-border:  #{$dark-table-header-border};
+  --table-border-color:   #{$dark-table-border};
+
+  // Syntax Highlighting (new dark theme)
+  --syntax-comment: #75715e;
+  --syntax-error: #f92672;
+  --syntax-error-bg: #490000;
+  --syntax-keyword: #f92672;
+  --syntax-operator: #f92672;
+  --syntax-comment-preproc: #8f908a;
+  --syntax-generic-deleted: #f92672;
+  --syntax-generic-deleted-bg: #490000;
+  --syntax-generic-error: #f92672;
+  --syntax-generic-heading: #e6db74;
+  --syntax-generic-inserted: #a6e22e;
+  --syntax-generic-inserted-bg: #0c3b00;
+  --syntax-generic-output: #888;
+  --syntax-generic-prompt: #888;
+  --syntax-generic-subheading: #e6db74;
+  --syntax-generic-traceback: #f92672;
+  --syntax-keyword-type: #66d9ef;
+  --syntax-literal-number: #ae81ff;
+  --syntax-literal-string: #e6db74;
+  --syntax-name-attribute: #a6e22e;
+  --syntax-name-builtin: #a6e22e;
+  --syntax-name-class: #a6e22e;
+  --syntax-name-constant: #66d9ef;
+  --syntax-name-entity: #ae81ff;
+  --syntax-name-exception: #a6e22e;
+  --syntax-name-function: #a6e22e;
+  --syntax-name-namespace: #f8f8f2;
+  --syntax-name-tag: #f92672;
+  --syntax-name-variable: #f8f8f2;
+  --syntax-text-whitespace: #444;
+  --syntax-string-regex: #e6db74;
+  --syntax-string-symbol: #ae81ff;
+  --syntax-name-builtin-pseudo: #66d9ef;
+}
+
+
+// --- 4. MAP SASS VARS TO CSS VARS ---
+// (Minima's other SASS files will now use our dynamic CSS vars)
+
+$brand-color:           var(--brand-color);
+$brand-color-light:     var(--brand-color-light);
+$brand-color-dark:      var(--brand-color-dark);
+
+$text-color:            var(--text-color);
+$background-color:      var(--background-color);
+$code-background-color: var(--code-background-color);
+
+// Minima 3+ uses $link-base-color
+$link-base-color:       var(--link-base-color);
+$link-visited-color:    var(--link-visited-color);
+
+// Also set older Minima $brand-color for links, just in case
+$brand-color:           var(--link-base-color);
+
+$table-text-color:      var(--table-text-color);
+$table-zebra-color:     var(--table-zebra-color);
+$table-header-bg-color: var(--table-header-bg-color);
+$table-header-border:   var(--table-header-border);
+$table-border-color:    var(--table-border-color);
+
+
+// --- 5. YOUR SYNTAX STYLES (NOW DYNAMIC) ---
+// (These now use the CSS variables defined above)
+
+.highlight {
+  .c     { color: var(--syntax-comment); font-style: italic } // Comment
+  .err   { color: var(--syntax-error); background-color: var(--syntax-error-bg) } // Error
+  .k     { color: var(--syntax-keyword); font-weight: bold } // Keyword
+  .o     { color: var(--syntax-operator); font-weight: bold } // Operator
+  .cm    { color: var(--syntax-comment); font-style: italic } // Comment.Multiline
+  .cp    { color: var(--syntax-comment-preproc); font-weight: bold } // Comment.Preproc
+  .c1    { color: var(--syntax-comment); font-style: italic } // Comment.Single
+  .cs    { color: var(--syntax-comment); font-weight: bold; font-style: italic } // Comment.Special
+  .gd    { color: var(--syntax-generic-deleted); background-color: var(--syntax-generic-deleted-bg) } // Generic.Deleted
+  .gd .x { color: var(--syntax-generic-deleted); background-color: var(--syntax-generic-deleted-bg) } // Generic.Deleted.Specific
+  .ge    { font-style: italic } // Generic.Emph
+  .gr    { color: var(--syntax-generic-error) } // Generic.Error
+  .gh    { color: var(--syntax-generic-heading) } // Generic.Heading
+  .gi    { color: var(--syntax-generic-inserted); background-color: var(--syntax-generic-inserted-bg) } // Generic.Inserted
+  .gi .x { color: var(--syntax-generic-inserted); background-color: var(--syntax-generic-inserted-bg) } // Generic.Inserted.Specific
+  .go    { color: var(--syntax-generic-output) } // Generic.Output
+  .gp    { color: var(--syntax-generic-prompt) } // Generic.Prompt
+  .gs    { font-weight: bold } // Generic.Strong
+  .gu    { color: var(--syntax-generic-subheading) } // Generic.Subheading
+  .gt    { color: var(--syntax-generic-traceback) } // Generic.Traceback
+  .kc    { color: var(--syntax-keyword); font-weight: bold } // Keyword.Constant
+  .kd    { color: var(--syntax-keyword); font-weight: bold } // Keyword.Declaration
+  .kp    { color: var(--syntax-keyword); font-weight: bold } // Keyword.Pseudo
+  .kr    { color: var(--syntax-keyword); font-weight: bold } // Keyword.Reserved
+  .kt    { color: var(--syntax-keyword-type); font-weight: bold } // Keyword.Type
+  .m     { color: var(--syntax-literal-number) } // Literal.Number
+  .s     { color: var(--syntax-literal-string) } // Literal.String
+  .na    { color: var(--syntax-name-attribute) } // Name.Attribute
+  .nb    { color: var(--syntax-name-builtin) } // Name.Builtin
+  .nc    { color: var(--syntax-name-class); font-weight: bold } // Name.Class
+  .no    { color: var(--syntax-name-constant) } // Name.Constant
+  .ni    { color: var(--syntax-name-entity) } // Name.Entity
+  .ne    { color: var(--syntax-name-exception); font-weight: bold } // Name.Exception
+  .nf    { color: var(--syntax-name-function); font-weight: bold } // Name.Function
+  .nn    { color: var(--syntax-name-namespace) } // Name.Namespace
+  .nt    { color: var(--syntax-name-tag) } // Name.Tag
+  .nv    { color: var(--syntax-name-variable) } // Name.Variable
+  .ow    { color: var(--syntax-operator); font-weight: bold } // Operator.Word
+  .w     { color: var(--syntax-text-whitespace) } // Text.Whitespace
+  .mf    { color: var(--syntax-literal-number) } // Literal.Number.Float
+  .mh    { color: var(--syntax-literal-number) } // Literal.Number.Hex
+  .mi    { color: var(--syntax-literal-number) } // Literal.Number.Integer
+  .mo    { color: var(--syntax-literal-number) } // Literal.Number.Oct
+  .sb    { color: var(--syntax-literal-string) } // Literal.String.Backtick
+  .sc    { color: var(--syntax-literal-string) } // Literal.String.Char
+  .sd    { color: var(--syntax-literal-string) } // Literal.String.Doc
+  .s2    { color: var(--syntax-literal-string) } // Literal.String.Double
+  .se    { color: var(--syntax-literal-string) } // Literal.String.Escape
+  .sh    { color: var(--syntax-literal-string) } // Literal.String.Heredoc
+  .si    { color: var(--syntax-literal-string) } // Literal.String.Interpol
+  .sx    { color: var(--syntax-literal-string) } // Literal.String.Other
+  .sr    { color: var(--syntax-string-regex) } // Literal.String.Regex
+  .s1    { color: var(--syntax-literal-string) } // Literal.String.Single
+  .ss    { color: var(--syntax-string-symbol) } // Literal.String.Symbol
+  .bp    { color: var(--syntax-name-builtin-pseudo) } // Name.Builtin.Pseudo
+  .vc    { color: var(--syntax-name-variable) } // Name.Variable.Class
+  .vg    { color: var(--syntax-name-variable) } // Name.Variable.Global
+  .vi    { color: var(--syntax-name-variable) } // Name.Variable.Instance
+  .il    { color: var(--syntax-literal-number) } // Literal.Number.Integer.Long
+}
+
+// Re-map link colors on the <a> tag directly
+// This is needed because Minima doesn't use SASS vars for all link states
+a {
+  color: var(--link-base-color);
+  &:visited {
+    color: var(--link-visited-color);
+  }
+}

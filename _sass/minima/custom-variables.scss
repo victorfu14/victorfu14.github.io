@@ -1,1 +1,59 @@
 // Placeholder to allow overriding predefined variables smoothly.
+
+// _sass/minima/custom-variables.scss
+
+// --- 1. DEFINE ALL DYNAMIC CSS VARIABLES ---
+// These are the "default" (light theme) values,
+// based on your classic.scss file.
+
+:root {
+  // --- Light Palette (From your classic.scss) ---
+  --text-color:           #111;
+  --caption-color:        #828282;
+  --background-color:     #fdfdfd;
+  --code-background-color: #eef;
+  --link-color:           #2a7ae2;
+  --link-visited-color:   #1b5da8; // darken(#2a7ae2, 15%)
+  --header-text-color:    #585858; // Minima default
+  --header-bg-color:      #fdfdfd; // Minima default
+  --footer-bg-color:      #fdfdfd; // Minima default
+  --border-color:         #eaeaea; // Minima default
+  --table-border-color:   #e1e1e1; // Your $brand-color-light
+  --table-header-bg:      #f3f3f3; // Your $table-header-bg-color
+  --table-zebra-bg:       #fafafa; // Your $table-zebra-color
+
+  // --- Syntax Highlighting (Light) ---
+  --syntax-comment: #998;
+  --syntax-error: #a61717;
+  --syntax-error-bg: #e3d2d2;
+  --syntax-keyword: #000;
+  --syntax-operator: #000;
+  --syntax-comment-preproc: #999;
+  --syntax-generic-deleted: #000;
+  --syntax-generic-deleted-bg: #fdd;
+  --syntax-generic-error: #a00;
+  --syntax-generic-heading: #999;
+  --syntax-generic-inserted: #000;
+  --syntax-generic-inserted-bg: #dfd;
+  --syntax-generic-output: #888;
+  --syntax-generic-prompt: #555;
+  --syntax-generic-subheading: #aaa;
+  --syntax-generic-traceback: #a00;
+  --syntax-keyword-type: #458;
+  --syntax-literal-number: #099;
+  --syntax-literal-string: #d14;
+  --syntax-name-attribute: #008080;
+  --syntax-name-builtin: #0086B3;
+  --syntax-name-class: #458;
+  --syntax-name-constant: #008080;
+  --syntax-name-entity: #800080;
+  --syntax-name-exception: #900;
+  --syntax-name-function: #900;
+  --syntax-name-namespace: #555;
+  --syntax-name-tag: #000080;
+  --syntax-name-variable: #008080;
+  --syntax-text-whitespace: #bbb;
+  --syntax-string-regex: #009926;
+  --syntax-string-symbol: #990073;
+  --syntax-name-builtin-pseudo: #999;
+}
