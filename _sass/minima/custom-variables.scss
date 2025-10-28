@@ -14,6 +14,7 @@
   --code-background-color: #eef;
   --link-color:           #2a7ae2;
   --link-visited-color:   #1b5da8; // darken(#2a7ae2, 15%)
+  --link-hover-color:     #164a85;
   --header-text-color:    #585858; // Minima default
   --header-bg-color:      #fdfdfd; // Minima default
   --footer-bg-color:      #fdfdfd; // Minima default
@@ -21,6 +22,7 @@
   --table-border-color:   #e1e1e1; // Your $brand-color-light
   --table-header-bg:      #f3f3f3; // Your $table-header-bg-color
   --table-zebra-bg:       #fafafa; // Your $table-zebra-color
+  
 
   // --- Syntax Highlighting (Light) ---
   --syntax-comment: #998;

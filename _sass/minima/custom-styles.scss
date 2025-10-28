@@ -53,6 +53,7 @@ body.dark-mode {
   --code-background-color: #2b2b2b;
   --link-color:           #64b5f6;
   --link-visited-color:   #90caf9;
+  --link-hover-color:     #a6d4fa;
   --header-text-color:    #c0c0c0;
   --header-bg-color:      #1a1a1a;
   --footer-bg-color:      #1a1a1a;
@@ -95,8 +96,19 @@ body.dark-mode {
   --syntax-string-regex: #e6db74;
   --syntax-string-symbol: #ae81ff;
   --syntax-name-builtin-pseudo: #66d9ef;
+
+  // font-weight: 300;
 }
 
+// body.dark-mode strong,
+// body.dark-mode b {
+//   font-weight: 700;
+// }
+
+// body strong,
+// body b {
+//   font-weight: 600;
+// }
 
 // --- 2. OVERRIDE MINIMA'S STYLES TO USE CSS VARS ---
 // (This part is unchanged and correct)
@@ -125,12 +137,28 @@ body {
   border-top-color: var(--border-color);
 }
 
+// a, .post-link {
+//   color: var(--link-color);
+//   &:visited {
+//     color: var(--link-visited-color);
+//   }
+// }
+
 a, .post-link {
   color: var(--link-color);
+  text-decoration: none; // Optional: remove underline by default
+  transition: color 0.2s ease; // Optional: add smooth color transition
+
   &:visited {
     color: var(--link-visited-color);
   }
+
+  &:hover {
+     color: var(--link-hover-color); // Use our new hover variable
+     text-decoration: underline;    // Optional: add underline on hover
+  }
 }
+
 
 pre, code {
   background-color: var(--code-background-color);
@@ -335,3 +363,45 @@ iframe.instagram-media {
 }
 
 // --- END STICKY & AUTO-HIDE HEADER ---
+
+.hidden-post {
+  display: none;
+}
+
+/* Container for the buttons */
+.pagination-controls {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px; /* Puts space between the buttons */
+}
+
+/* This styles BOTH buttons to look like text links */
+#load-more-btn,
+#fold-up-btn {
+  /* Reset button defaults */
+  background: transparent;
+  font-family: inherit; /* Use the site's font */
+  font-size: 1rem;
+  
+  /* Desired style using dynamic variables */
+  display: inline-block;
+  color: var(--text-color);           // Use theme text color
+  border: 1px solid var(--border-color); // Use theme border color
+  padding: 8px 16px;
+  border-radius: 4px; 
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Simple hover effect using dynamic variables */
+#load-more-btn:hover,
+#fold-up-btn:hover {
+  background-color: var(--header-bg-color); // Use header background for subtle hover
+  border-color: var(--link-color);      // Use link color for border on hover
+  color: var(--link-color);           // Use link color for text on hover
+}
+
+/* This hides the "Fold Up" button by default */
+#fold-up-btn {
+  display: none;
+}

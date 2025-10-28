@@ -1,6 +1,5 @@
 /* All styles are now "scoped" to the .widget class */
 .widget { 
-    /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;  */
     background: #ffffff; 
     border-radius: 12px; 
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
@@ -113,4 +112,44 @@
 
 .widget .profile-link:hover {
     background-color: #e04a00; 
+}
+
+/*
+ * --------------------------------
+ * Dark Mode Widget Styles
+ * --------------------------------
+*/
+
+/* This is the main widget background */
+body.dark-mode .widget {
+    background: #2a2a2a; /* A dark grey, not pure black */
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+/* This makes the "My 2025 Stats" title light */
+body.dark-mode .widget h2 {
+    color: #e0e0e0;
+}
+
+/* This makes the stat labels ("Ride Distance", etc.) light */
+body.dark-mode .widget .stat-label {
+    color: #aaa;
+}
+
+/* This makes the profile link dark */
+/* body.dark-mode .widget .profile-link {
+    background-color: #333;
+    color: #e0e0e0;
+}
+body.dark-mode .widget .profile-link:hover {
+    background-color: #444;
+} */
+
+/*
+ * This is the fix for your GIFs:
+ * It flips their colors (black becomes white).
+*/
+body.dark-mode .widget .stat-icon {
+    filter: invert(1);
+    mix-blend-mode: screen;
 }
