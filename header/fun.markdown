@@ -2,6 +2,7 @@
 layout: categories
 title: Personal
 permalink: /fun/
+published: False
 ---
 
 <!-- <p>I'll try to come up with an elegant way to present some stuff.</p> -->

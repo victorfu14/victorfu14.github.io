@@ -1,0 +1,81 @@
+<style>
+  /* Adding a class with a unique-ish name (.gallery-include-wrapper)
+    prevents this CSS from conflicting with other styles.
+  */
+  .gallery-include-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 15px;      /* Space between images */
+    margin-top: 1.2em;
+    margin-bottom: 1.2em; /* Space around the gallery */
+  }
+
+  .gallery-include-wrapper figure {
+    flex: 1 1 50%;  /* Each figure takes 50% of the width */
+    margin: 0;
+  }
+
+  .gallery-include-wrapper img {
+    width: 100%;      /* Makes the image fill its container */
+    height: auto;
+    display: block;
+    border-radius: 5px; /* Optional: rounded corners */
+
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative; 
+    z-index: 1;         
+  }
+
+  .gallery-include-wrapper figure a:hover img {
+    transform: scale(1.15);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+  }
+
+  .gallery-include-wrapper figcaption {
+    text-align: center;
+    font-size: 0.9em;
+    margin-top: 8px;
+    color: #666;
+  }
+
+  /* -- Mobile Responsive -- */
+  @media (max-width: 600px) {
+    .gallery-include-wrapper {
+      flex-direction: column; /* Stack vertically on mobile */
+    }
+    
+    .gallery-include-wrapper figure {
+      flex-basis: 100%; /* Each takes 100% width on mobile */
+    }
+  }
+</style>
+
+<div class="gallery-include-wrapper">
+
+  <figure>
+    <a href="{{ include.img1_src }}" 
+       data-lightbox="{{ include.gallery_name | default: 'gallery' }}" 
+       data-title="{{ include.img1_caption }}">
+      <img src="{{ include.img1_src }}" alt="{{ include.img1_alt | default: 'Image 1' }}">
+    </a>
+    <figcaption>
+      <em>{{ include.img1_caption }}</em>
+    </figcaption>
+  </figure>
+
+  <figure>
+    <a href="{{ include.img2_src }}" 
+       data-lightbox="{{ include.gallery_name | default: 'gallery' }}" 
+       data-title="{{ include.img2_caption }}">
+      <img src="{{ include.img2_src }}" alt="{{ include.img2_alt | default: 'Image 2' }}">
+    </a>
+    <figcaption>
+      <em>{{ include.img2_caption }}</em>
+    </figcaption>
+  </figure>
+
+</div>

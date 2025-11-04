@@ -124,6 +124,7 @@ layout: default
   <h1>Notes and Blogs</h1>
 
   {% assign posts = site.posts %}
+  {%- assign rendered_post_count = 0 -%}
 
   {%- if posts.size > 0 -%}
     {%- if page.list_title -%}
@@ -134,11 +135,13 @@ layout: default
       {%- for post in posts -%}
       
       {%- comment -%}
+        I choose to not display post in Misc category to give a totally professional first page
         If the post is after the 5th, we give it TWO classes:
         1. 'paginated-post' (to identify it for folding up)
         2. 'hidden-post' (to hide it)
       {%- endcomment -%}
-      <li class="{% if forloop.index > 5 %}paginated-post hidden-post{% endif %}">
+      {%- unless post.categories contains 'Misc' -%}
+      <li class="{% if rendered_post_count >= 5 %}paginated-post hidden-post{% endif %}">
         <span class="post-meta">{{ post.date | date: date_format }}</span>
         <h3>
           <a class="post-link" href="{{ post.url | relative_url }}">
@@ -151,6 +154,10 @@ layout: default
           {%- endif -%}
         {%- endif -%}
       </li>
+
+      {%- assign rendered_post_count = rendered_post_count | plus: 1 -%}
+
+      {%- endunless -%}
       {%- endfor -%}
     </ul>
 

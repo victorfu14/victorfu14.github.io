@@ -13,7 +13,7 @@ I do love to know a bit of everything, like ML's applications in science/social 
 
 <p class="caption-text">(credit to xkcd, I did some small modification)</p>
 
-[I have a bunch of hobbies.](../fun) I like travel, road trips, outdoors, and photography. I mainly take photos when I travel but am actively trying to use photography as a way to express my take on everyday life as well.
+[I have a bunch of hobbies.](../misc) I like travel, road trips, outdoors, and photography. I mainly take photos when I travel but am actively trying to use photography as a way to express my take on everyday life as well.
 
 Apart from going outside, I also love to cook, which is a habit I picked up during covid days. Food is the universal love language and I find a lot of commonalities among various cultures through food.
 
