@@ -21,7 +21,7 @@ I like data, and these are the things over which I don't worry about privacy too
     </div>
 </div>
 <script src="../parts/activity/script.js"></script>
-<p class="caption-text">(This widget is coded with the help from Gemini.)</p>
+<p class="caption-text">(This widget is coded with help from Gemini. <a href="https://www.flaticon.com/animated-icons/" title="animated icons">Animated icons created by Freepik - Flaticon</a>)</p>
 
 Photography? Yeah, I do have a standalone Instagram photography account as any photography-influencer-wannabe. What's wrong with that though? 
 

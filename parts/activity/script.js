@@ -97,8 +97,7 @@ function displayStats(stats) {
         </div> 
         <a href="https://www.strava.com/athletes/${stats.athlete_id}" class="profile-link" target="_blank" rel="noopener noreferrer">
             View Profile on Strava :)
-        </a> <br>
-        <a href="https://www.flaticon.com/animated-icons/" title="animated icons" style="font-size: 70%;">Animated icons created by Freepik - Flaticon</a>
+        </a>
     `;
 }
 
