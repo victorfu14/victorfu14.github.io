@@ -1,15 +1,15 @@
 {
   "athlete_id": "5458381",
-  "ride_dist": "823",
-  "ride_time": "61.5",
-  "ride_elev": "21982",
-  "run_dist": "3",
-  "run_time": "0.5",
-  "run_elev": "66",
+  "ride_dist": "1013",
+  "ride_time": "74.6",
+  "ride_elev": "29892",
+  "run_dist": "6",
+  "run_time": "0.9",
+  "run_elev": "121",
   "swim_dist": "0.0",
   "swim_time": "0.0",
   "hike_dist": "47",
   "hike_time": "23.8",
   "hike_elev": "11490",
-  "other_time": "1.7"
+  "other_time": "4.1"
 }
