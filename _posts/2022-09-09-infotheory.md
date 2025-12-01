@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  EECS 550, Infomation Theory
-categories: CS
+categories: [CS, Notes]
 excerpt: So many noise, but I only want to hear you
 published: true 
 ---

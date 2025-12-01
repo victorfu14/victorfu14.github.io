@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Math 668, Combinatorics of $\operatorname{GL}_n \mathbb{C}$ Representation
-categories: Math
+categories: [Math, Notes]
 excerpt: Let's do this
 published: true 
 ---

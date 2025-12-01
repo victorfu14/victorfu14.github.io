@@ -2,6 +2,7 @@
 layout: categories
 title: Math
 permalink: /math/
+published: false
 ---
 
 > We have concluded that the trivial mathematics is, on the whole, useful, and that the real mathematics, on the whole, is not. ⸺ G. H. Hardy

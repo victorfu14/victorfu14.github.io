@@ -3,25 +3,105 @@ layout: default
 ---
 
 <div class="home">
+  
   {%- if page.title -%}
     <h1 class="page-heading">{{ page.title }}</h1>
   {%- endif -%}
 
   {{ content }}
 
-  {% if site.paginate %}
-    {% assign posts = paginator.posts %}
-  {% else %}
-    {% assign posts = site.posts %}
-  {% endif %}
+
+  {%- if page.title == 'Research' -%}
+
+    {% assign all_research = site.categories['Research'] %}
+    
+    {% assign preprints = all_research | where_exp: "item", "item.venue == 'Preprint'" %}
+    
+    {% assign publications = all_research | where_exp: "item", "item.venue != 'Preprint'" %}
+
+    {% if publications.size > 0 %}
+      <h2 class="post-list-heading">Publications</h2>
+      <ul class="post-list">
+        {% for post in publications %}
+          <li style="margin-bottom: 25px;">
+             <div class="research-entry">
+                <div class="research-title">
+                  <a href="{{ post.paper_url | default: post.url }}">{{ post.title }}</a>
+                </div>
+                
+                <div class="research-authors">
+                  {%- if site.author.name_paper -%}
+                    {%- capture bold_name -%}<strong>{{ site.author.name_paper }}</strong>{%- endcapture -%}
+                    {{ post.authors | replace: site.author.name_paper, bold_name }}
+                  {%- else -%}
+                    {{ post.authors }}
+                  {%- endif -%}
+                </div>
+                
+                <div class="research-venue">
+                  <i>{{ post.venue }}</i>, {{ post.year }}
+                </div>
+                
+                <div class="research-links">
+                  {% if post.pdf_url %}<a href="{{ post.pdf_url }}">[PDF]</a>{% endif %}
+                  {% if post.project_url %}<a href="{{ post.project_url }}">[Project Page]</a>{% endif %}
+                  {% if post.blog_url %}
+                    <a href="{{ post.blog_url }}">[Blog Post]</a>
+                  {% elsif post.internal_blog %}
+                    <a href="{{ post.url | relative_url }}">[Blog Post]</a>
+                  {% endif %}
+                </div>
+             </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if preprints.size > 0 %}
+      <h2 class="post-list-heading">Preprints</h2>
+      <ul class="post-list">
+        {% for post in preprints %}
+          <li style="margin-bottom: 25px;">
+             <div class="research-entry">
+                <div class="research-title">
+                  <a href="{{ post.paper_url | default: post.url }}">{{ post.title }}</a>
+                </div>
+                <div class="research-authors">
+                  {%- if site.author.name_paper -%}
+                    {%- capture bold_name -%}<strong>{{ site.author.name_paper }}</strong>{%- endcapture -%}
+                    {{ post.authors | replace: site.author.name_paper, bold_name }}
+                  {%- else -%}
+                    {{ post.authors }}
+                  {%- endif -%}
+                </div>
+                <div class="research-venue">
+                  <i>{{ post.venue }}</i>, {{ post.year }}
+                </div>
+                <div class="research-links">
+                  {% if post.pdf_url %}<a href="{{ post.pdf_url }}">[PDF]</a>{% endif %}
+                  {% if post.project_url %}<a href="{{ post.project_url }}">[Project Page]</a>{% endif %}
+                </div>
+             </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
 
 
-  {%- if posts.size > 0 -%}
+  {%- else -%}
+    {% if site.paginate %}
+      {% assign posts = paginator.posts %}
+    {% else %}
+      {% assign posts = site.posts %}
+    {% endif %}
+
     {%- if page.list_title -%}
       <h2 class="post-list-heading">{{ page.list_title }}</h2>
     {%- endif -%}
+
     <ul class="post-list">
       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+      
       {%- for post in site.categories[page.title] -%}
         <li>
           <span class="post-meta">{{ post.date | date: date_format }}</span>

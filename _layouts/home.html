@@ -64,11 +64,51 @@ layout: default
   </div>
   
   <br>
+  
+  <h1>Recent Publications</h1>
+  <ul class="post-list">
+    {% assign all_research = site.categories['Research'] %}
+    {% assign publications = all_research | where_exp: "item", "item.venue != 'Preprint'" %}
 
-  <h1>Research</h1>
-  {{ contentArray[-1] }}
+    {% for post in publications limit:5 %}
+      <li style="margin-bottom: 25px;">
+        <div class="research-entry">
+          
+          <div class="research-title">
+            <a href="{{ post.paper_url | default: post.url }}">{{ post.title }}</a>
+          </div>
 
-  <br>
+          <div class="research-authors">
+            {%- if site.author.name_paper -%}
+              {%- capture bold_name -%}<strong>{{ site.author.name_paper }}</strong>{%- endcapture -%}
+              {{ post.authors | replace: site.author.name_paper, bold_name }}
+            {%- else -%}
+              {{ post.authors }}
+            {%- endif -%}
+          </div>
+
+          <div class="research-venue">
+            <i>{{ post.venue }}</i>, {{ post.year }}
+          </div>
+
+          <div class="research-links">
+            {% if post.pdf_url %}<a href="{{ post.pdf_url }}">[PDF]</a>{% endif %}
+            {% if post.project_url %}<a href="{{ post.project_url }}">[Project Page]</a>{% endif %}
+            {% if post.blog_url %}
+              <a href="{{ post.blog_url }}">[Blog Post]</a>
+            {% elsif post.internal_blog %}
+              <a href="{{ post.url | relative_url }}">[Blog Post]</a>
+            {% endif %}
+          </div>
+          
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <p class="rss-subscribe">
+    <a href="/research/">View all papers &rarr;</a>
+  </p>
 
   <!-- <h1>Notes and Blogs</h1>
   {% if site.paginate %}
@@ -140,7 +180,7 @@ layout: default
         1. 'paginated-post' (to identify it for folding up)
         2. 'hidden-post' (to hide it)
       {%- endcomment -%}
-      {%- unless post.categories contains 'Misc' -%}
+      {%- unless post.categories contains 'Misc' or post.categories contains 'Research' -%}
       <li class="{% if rendered_post_count >= 5 %}paginated-post hidden-post{% endif %}">
         <span class="post-meta">{{ post.date | date: date_format }}</span>
         <h3>

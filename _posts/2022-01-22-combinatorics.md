@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Math 566, Algebraic Combinatorics
-categories: Math
+categories: [Math, Notes]
 excerpt: cool stuff
 published: true 
 ---

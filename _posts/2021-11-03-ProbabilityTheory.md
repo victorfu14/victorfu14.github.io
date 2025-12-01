@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Math 525, Probability Theory
-categories: Math
+categories: [Math, Notes]
 excerpt: No measure theory here
 published: true 
 ---

@@ -21,6 +21,7 @@
 title: Yiwei Fu (洑亦唯)
 author:
   name: Yiwei Fu 洑亦唯
+  name_paper: Yiwei Fu
   email: yiwei_fuscz at outlook.com
   # site: victorfu.com
 description: >-
@@ -45,16 +46,22 @@ show_excerpts: true
 #   permalink: '/page/:num/'
 #   legacy: false
 defaults:
-  -
-    scope:
+  - scope:
       path: "_posts"
-      type: "posts"
+      # type: "posts"
     values:
       excerpt: ""
       published: false
 
+  - scope:
+      path: "_posts/research"
+    values:
+      category: "Research"
+
 header_pages:
   - header/about.markdown
+  - header/research.markdown
+  - header/notes.markdown
   - header/cs.markdown
   - header/math.markdown
   - header/fun.markdown
