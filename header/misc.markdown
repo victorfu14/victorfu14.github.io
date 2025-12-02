@@ -5,7 +5,7 @@ permalink: /misc/
 ---
 I like taking pictures, cooking stuff, and getting active.
 
-I like being a bike mechanic ([look at this funny urban hardtail I put together](../parts/activity/hardtail)) as well as [an "cyclist."](https://youtu.be/5EE8m8mmq1k) Now I mainly ride my gravel bike (which converts to a road bike upon a wheel swap) around.
+I like being a bike mechanic ([look at this funny urban hardtail I put together](../parts/activity/hardtail)) as well as [a "cyclist."](https://youtu.be/5EE8m8mmq1k) Now I mainly ride my gravel bike (which converts to a road bike upon a wheel swap) around.
 
 Outdoors are great. I like hiking. I am a beginner in backpacking, but I am really excited to do more backpacking trips in the future. My current goal is to explore more of the Sierra Nevada. Some of my favorite hikes are [Savage Alpine Trail](https://www.alltrails.com/trail/us/alaska/savage-alpine-trail--2) in late summer/early fall at Denali National Park, [Harding Icefield Trail](https://www.alltrails.com/trail/us/alaska/harding-ice-field-trail) at Kenai Fjords National Park, [Sol Duc/High Divide Trail](https://www.alltrails.com/trail/us/washington/high-divide-seven-lakes-basin-loop) at Olympic National Park, and [Skyline Trail](https://www.alltrails.com/trail/us/washington/skyline-trail?u=i&sh=gby30m) at Mount Rainier National Park.
 

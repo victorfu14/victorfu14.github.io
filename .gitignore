@@ -26,3 +26,5 @@ public/
 parts/activity/.env
 node_modules/
 package-lock.json
+
+parts/activity/stats.json
